@@ -31,7 +31,7 @@ class UsersController extends Controller {
 	 */
 	public function getUser()
 	{
-		return view('users.getuser');
+		return view('users.user');
 	}
 
 	

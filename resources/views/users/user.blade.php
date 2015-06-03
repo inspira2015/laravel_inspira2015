@@ -22,6 +22,9 @@
   -o-background-size: cover;
   background-size: cover; height:100%;">
  <?php 
+
+//echo $url();
+
 if(isset($user_data["language"])){
 if($user_data["language"]=="ES"){
 include "php/header.php";
