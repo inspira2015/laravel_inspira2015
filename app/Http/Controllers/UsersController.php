@@ -28,9 +28,9 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function adduser()
 	{
-		return view('welcome');
+		return view('users.adduser');
 	}
 
 }
