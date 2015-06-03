@@ -365,9 +365,9 @@
             </div>
            <div class="col-lg-12 col-md-12" style="padding:20px;">
           <div class="divider"></div></div>
-    <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">  <a ><img style="width:50%; height:auto;"src="images/regresartransparente.png"/></a></div>
+    <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">  <a ><img style="width:50%; height:auto;"src="<?php echo url();?>/images/regresartransparente.png"/></a></div>
           <div class="col-lg-4 col-md-4 col-sm-4"></div>
-          <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">   <a href="#" onClick="verificar()"><img style="width:50%; height:auto;"src="images/continuar.png"/></a></div>
+          <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">   <a href="#" onClick="verificar()"><img style="width:50%; height:auto;"src="<?php echo url();?>/images/continuar.png"/></a></div>
         </div>
           
         
@@ -383,15 +383,17 @@
   
 </div>
   <?php 
-if(isset($user_data["language"])){
-if($user_data["language"]=="ES"){
-include "php/footer.php";
-}else{
-include "php/footerENG.php";
-}
-}else{
-include "php/footer.php";
-}
+//if(isset($user_data["language"])){
+//if($user_data["language"]=="ES"){
+    $path_footer = base_path()."/resources/views/chunks/footer.php";
+    include_once $path_footer;
+//include "php/footer.php";
+//}else{
+//include "php/footerENG.php";
+//}
+//}else{
+//include "php/footer.php";
+//}
 ?>
 
   <script type="text/javascript" src="<?php echo url();?>/js/validations_profile.js"></script>
