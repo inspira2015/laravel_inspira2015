@@ -1,6 +1,7 @@
-<?php namespace App\Http\Controllers;
+<?php 
+namespace App\Http\Controllers;
 
-class CodesController extends Controller {
+class AffiliationsController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -28,11 +29,10 @@ class CodesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getCode()
+	public function getAffiliation()
 	{
-		return view('codes.code');
+		return view('affiliations.affiliation');
 	}
-	
 
 	
 
