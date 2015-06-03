@@ -14,8 +14,13 @@
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
-Route::get('users', 'UsersController@adduser');
+
+
 Route::get('codes', 'CodesController@addcode');
+
+
+Route::controller('users', 'UsersController');
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

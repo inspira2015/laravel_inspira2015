@@ -1,4 +1,5 @@
-<?php namespace App\Http\Controllers;
+<?php 
+namespace App\Http\Controllers;
 
 class UsersController extends Controller {
 
@@ -28,9 +29,9 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function adduser()
+	public function getUser()
 	{
-		return view('users.adduser');
+		return view('users.getuser');
 	}
 
 	
