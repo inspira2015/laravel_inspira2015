@@ -1,0 +1,1 @@
+[18-May-2015 21:54:40 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in /home/geeknesstj/public_html/usuarios/php/datos.php on line 19
