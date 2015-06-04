@@ -34,6 +34,19 @@ class UsersController extends Controller {
 		return view('users.user');
 	}
 
+	public function getForgotpassword()
+	{
+		return view('users.forgotpassword');
+	}
+
+	public function getUserdata()
+	{
+		return view('users.userdata');
+	}
+public function getLeisure()
+	{
+		return view('users.leisure');
+	}
 	
 
 }
