@@ -34,6 +34,11 @@ class CreditcardsController extends Controller {
 		return view('creditcards.creditcard');
 	}
 
+	public function getSubtotal()
+	{
+		return view('creditcards.subtotal');
+	}
+
 	
 
 }
