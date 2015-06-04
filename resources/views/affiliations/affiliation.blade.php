@@ -3,11 +3,11 @@
 <head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <title>Afiliacion</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/style.css" />
-  <link rel="icon" href="images/inspira.ico" type="image/ico" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/menu.css" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/style.css" />
+  <link rel="icon" href="<?php echo url();?>/images/inspira.ico" type="image/ico" />
+    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/menu.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/font-awesome/css/font-awesome.min.css" />
     <style type="text/css">
     .container li{
       margin-bottom: 8px;
@@ -16,28 +16,33 @@
 
     </style>
 
-    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo url();?>/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<?php echo url();?>/bootstrap/js/bootstrap.min.js"></script>
   
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/slide.css" />
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/slidestyle.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slide.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slidestyle.css" />
   <link rel="stylesheet" href="jquery.h5-lightbox.css">
 </head>
-<body id="page" style="background-image:url('images/3.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
+<body id="page" style="background-image:url('<?php echo url();?>/images/3.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;">
 <?php 
-if(isset($user_data["language"])){
-if($user_data["language"]=="ES"){
-include "php/header.php";
-}else{
-include "php/headerENG.php";
-}
-}else{
-include "php/header.php";
-}
+  $path_header = base_path()."/resources/views/chunks/header.php";
+  $path_header_en = base_path()."/resources/views/chunks/headerENG.php";
+
+  switch(@$user_data["language"]){
+    case "EN" :
+      include_once $path_header_en;
+      break;
+
+    default:
+    case "ES" :
+      include_once $path_header;
+      break;
+  }
+
 ?>
 <div class="container">
 
