@@ -47,6 +47,11 @@ public function getLeisure()
 	{
 		return view('users.leisure');
 	}
+
+	public function getLogin()
+	{
+		return view('users.login');
+	}
 	
 
 }
