@@ -4,32 +4,37 @@
     <meta charset="utf-8" />
     <title>Ingresa tu codigo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/menu.css" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
-<link rel="icon" href="images/inspira.ico" type="image/ico" />
-    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/menu.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/font-awesome/css/font-awesome.min.css" />
+    <link rel="icon" href="<?php echo url();?>/images/inspira.ico" type="image/ico" />
+    <script type="text/javascript" src="<?php echo url();?>/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<?php echo url();?>/css/bootstrap/js/bootstrap.min.js"></script>
   
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/slide.css" />
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/slidestyle.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slide.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slidestyle.css" />
 </head>
-<body id="page" style="background-image:url('images/codigo-background.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
+<body id="page" style="background-image:url('<?php echo url();?>/images/codigo-background.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;">
 <?php 
-if(isset($user_data["language"])){
-if($user_data["language"]=="ES"){
-include "php/header.php";
-}else{
-include "php/headerENG.php";
-}
-}else{
-include "php/header.php";
-}
+    $path_header = base_path()."/resources/views/chunks/header.php";
+    $path_header_en = base_path()."/resources/views/chunks/headerENG.php";
+
+  switch(@$user_data["language"]){
+    case "EN" :
+      include_once $path_header_en;
+      break;
+
+    default:
+    case "ES" :
+      include_once $path_header;
+      break;
+  }
+
 ?>
 <div class="container">
 
@@ -67,27 +72,37 @@ include "php/header.php";
   </div>
   <div class="row"  style="margin-bottom:350px; background-color:rgba(229,231,233,0.4); margin-top:10px; padding:0px;">
   <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:30px; margin-top:70px;"></div>
-          <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:30px; margin-top:70px;">   <a href="#" onClick="formulario.submit()"><img style="width:100%; height:auto;"src="images/continuargrande.png"/></a></div>
+          <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:30px; margin-top:70px;">  
+           <a href="#" onClick="formulario.submit()"><img style="width:100%; height:auto;"src="<?php echo url();?>/images/continuargrande.png"/></a></div>
     <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:30px; margin-top:70px;"></div>
     <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom:0px;"> 
        <?PHP if(isset($error)){
 echo '<div class="col-lg-3"></div>';
-  echo '<div class="col-lg-6 col-sm-12" style="margin:0 auto;"><p style="color:#cc4b9b">El código que ha ingresado no es válido, favor de tratar nuevamente o de click a la liga de abajo si no cuenta con código promocional:</p> <a href="?route=users/profileexternal2"><img style="margin-top:30px;width:50%; height:auto;"src="images/sincodigo.png"/></a></div>';
+  echo '<div class="col-lg-6 col-sm-12" style="margin:0 auto;">
+  <p style="color:#cc4b9b">El código que ha ingresado no es válido, favor de tratar nuevamente o de click a la liga de abajo si no cuenta con código promocional:</p> 
+  <a href="?route=users/profileexternal2"><img style="margin-top:30px;width:50%; height:auto;"src="'.url() .'/images/sincodigo.png"/></a></div>';
 echo '<div class="col-lg-3"></div>';
 }?></div>
   </div>
 </div>
 </div>
   <?php 
-if(isset($user_data["language"])){
-if($user_data["language"]=="ES"){
-include "php/footer.php";
-}else{
-include "php/footerENG.php";
-}
-}else{
-include "php/footer.php";
-}
+
+
+  $path_footer = base_path()."/resources/views/chunks/footer.php";
+  $path_footer_en = base_path()."/resources/views/chunks/foterENG.php";
+
+  switch(@$user_data["language"]){
+    case "EN" :
+      include_once $path_footer_en;
+      break;
+
+    default:
+    case "ES" :
+      include_once $path_footer;
+      break;
+  }
+
 ?>
 </body>
 </html>
