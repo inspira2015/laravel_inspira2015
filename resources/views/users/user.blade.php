@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8" />
     <title>Registro</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,41 +11,37 @@
     <script type="text/javascript" src="<?php echo url();?>/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="<?php echo url();?>/css/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo url();?>/js/estados.js"></script>
-  <link rel="icon" href="<?php echo url();?>/images/inspira.ico" type="image/ico" />
-        <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slide.css" />
-        <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slidestyle.css" />
-  <link rel="stylesheet" href="<?php echo url();?>/css/jquery.h5-lightbox.css">
-</head>
-<body id="page" style="background-image:url('<?php echo url();?>/images/2.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; height:100%;">
+    <link rel="icon" href="<?php echo url();?>/images/inspira.ico" type="image/ico" />
+    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slide.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slidestyle.css" />
+    <link rel="stylesheet" href="<?php echo url();?>/css/jquery.h5-lightbox.css">
+  </head>
+  <body id="page" style="background-image:url('<?php echo url();?>/images/2.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
+                        -webkit-background-size: cover;
+                        -moz-background-size: cover;
+                        -o-background-size: cover;
+                        background-size: cover; height:100%;">
+    <?php 
+      $path_header = base_path()."/resources/views/chunks/header.php";
+      $path_header_en = base_path()."/resources/views/chunks/headerENG.php";
 
+      switch(@$user_data["language"]){
+        case "EN" :
+          include_once $path_header_en;
+          break;
 
- <?php 
-
-
-
-//if(isset($user_data["language"])){
- // if($user_data["language"]=="ES"){
-    $path_header = base_path()."/resources/views/chunks/header.php";
-    include_once $path_header;
- // }else{
- //   include "php/headerENG.php";
- // }
-//}else{
-//  include "php/header.php";
-//}
-?>
+        default:
+        case "ES" :
+          include_once $path_header;
+          break;
+      }
+    ?>
 <div class="container">
-
-<div class="container">
-  
+  <div class="container">
     <div class="row" id="arriba" style="margin-bottom:50px;">
-        <div id="error" style="color:red; text-align:left; margin:0 auto; width:300px;"></div>
-    <div class="col-lg-12 col-md-12 col-sm-12" >
-      
+      <div id="error" style="color:red; text-align:left; margin:0 auto; width:300px;"></div>
+      <div class="col-lg-12 col-md-12 col-sm-12" >
+        
         <form method="post" action="?route=users/complete_registration"  onsubmit="return verificar()" id="profile" name="formulario" data-toggle="validator">
             <div class="col-lg-1col-md-push-2 col-sm-10-col-sm-push-2 " id="formularios">
                 
