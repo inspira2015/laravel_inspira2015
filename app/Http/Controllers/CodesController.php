@@ -1,4 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php 
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Validator;
 
 class CodesController extends Controller {
 
@@ -35,9 +39,20 @@ class CodesController extends Controller {
 	
 
 
-	public function postCode()
+	public function postCode(Request $request)
 	{
-		
+		$post_data = $request->all();
+
+		print_r($post_data);
+
+		$validator = Validator::make($post_data,array('code' => 'required'));
+
+		if($validator->fails())
+		{
+			echo "fallo";
+			exit;
+		}
+
 	}
 
 	
