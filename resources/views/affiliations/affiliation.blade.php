@@ -1,94 +1,85 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <title>Afiliacion</title>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Afiliacion</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/style.css" />
-  <link rel="icon" href="<?php echo url();?>/images/inspira.ico" type="image/ico" />
+    <link rel="icon" href="<?php echo url();?>/images/inspira.ico" type="image/ico" />
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/menu.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/font-awesome/css/font-awesome.min.css" />
     <style type="text/css">
-    .container li{
-      margin-bottom: 8px;
-    }
-
-
+      .container li{
+        margin-bottom: 8px;
+      }
     </style>
-
     <script type="text/javascript" src="<?php echo url();?>/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="<?php echo url();?>/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slide.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slidestyle.css" />
+    <link rel="stylesheet" href="jquery.h5-lightbox.css">
+  </head>
   
-        <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slide.css" />
-        <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slidestyle.css" />
-  <link rel="stylesheet" href="jquery.h5-lightbox.css">
-</head>
-<body id="page" style="background-image:url('<?php echo url();?>/images/3.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;">
-<?php 
-  $path_header = base_path()."/resources/views/chunks/header.php";
-  $path_header_en = base_path()."/resources/views/chunks/headerENG.php";
+  <body id="page" style="background-image:url('<?php echo url();?>/images/3.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;">
+    <?php 
+        $path_header = base_path()."/resources/views/chunks/header.php";
+        $path_header_en = base_path()."/resources/views/chunks/headerENG.php";
+        switch(@$user_data["language"]){
+          case "EN" :
+            include_once $path_header_en;
+            break;
 
-  switch(@$user_data["language"]){
-    case "EN" :
-      include_once $path_header_en;
-      break;
-
-    default:
-    case "ES" :
-      include_once $path_header;
-      break;
-  }
-
-?>
-<div class="container">
-
-<div class="container">
-  <div class="row" style="background-color:#e5e7e9; margin-bottom:0px; padding-top:50px; padding-left:40px; padding-right:40px;">
-        <h2 style="float:left; text-transform:uppercase; margin-bottom:25px; text-align:left; 40px;display:inline;">Favor de seleccionar la afiliaci&oacute;n de su preferencia</h2>
-        
-     
-  </div>
-    <div class="row"  style="margin-bottom:50px; background-color:#e5e7e9; margin-bottom:50px; padding-top:50px;">
-     <form method="post" action="?route=users/afiliacion" id="profile" name="formulario"><input type="hidden" name="email" value="$user_data["email"]"/>
+          default:
+          case "ES" :
+            include_once $path_header;
+            break;
+        }
+    ?>
+  <div class="container">
+    <div class="container">
+      <div class="row" style="background-color:#e5e7e9; margin-bottom:0px; padding-top:50px; padding-left:40px; padding-right:40px;">
+        <h2 style="float:left; text-transform:uppercase; margin-bottom:25px; text-align:left; 40px;display:inline;">
+          Favor de seleccionar la afiliaci&oacute;n de su preferencia
+        </h2>
+      </div>
+      
+      <div class="row"  style="margin-bottom:50px; background-color:#e5e7e9; margin-bottom:50px; padding-top:50px;">
+        <form method="post" action="?route=users/afiliacion" id="profile" name="formulario"><input type="hidden" name="email" value="$user_data["email"]"/>
         <?PHP 
-if($user_codes["discover"]>=0){
-    echo '<div class="col-lg-'.(12/$cols).' col-md-'.(12/$cols).'" style="margin-bottom:100px;">
-          <h1 style="color:#ffffff; background-color:#529ad3; text-align:center;  margin:0px 10px; padding:10px; font-size:26px;">'.$user_affiliations[0]["name_es"].'</h1>
-          <div class="content" style="margin-top:0px; background-color:#eef0f0; margin-bottom:0px; padding-bottom:0px;">
-            
-            <div class="informacion">
+            if($user_codes["discover"]>=0){
+                  echo '<div class="col-lg-'.(12/$cols).' col-md-'.(12/$cols).'" style="margin-bottom:100px;">
+                        <h1 style="color:#ffffff; background-color:#529ad3; text-align:center;  margin:0px 10px; padding:10px; font-size:26px;">'.$user_affiliations[0]["name_es"].'</h1>
+                        <div class="content" style="margin-top:0px; background-color:#eef0f0; margin-bottom:0px; padding-bottom:0px;">
+                    
+                          <div class="informacion">
 
-            
-            
-          
-            <p style="text-align:center">'.$user_affiliations[0]["small_desc_es"].'</p>
-
-
-            
-          </div>
-            <div class="divider content" style="padding-top:0px; padding-bottom:0px; margin: 0px 0px; bottom:0px;" ></div>
-          </div>
+                          <p style="text-align:center">'.$user_affiliations[0]["small_desc_es"].'</p>
+                          
+                        </div>
+                          <div class="divider content" style="padding-top:0px; padding-bottom:0px; margin: 0px 0px; bottom:0px;" ></div>
+                        </div>
 
 
 
 
-            <div class="content" style="margin-top:0px; margin-bottom:0px;">
-            
-            <div class="informacion">
+                          <div class="content" style="margin-top:0px; margin-bottom:0px;">
+                          
+                          <div class="informacion">
 
-            
-            
-          
-            <ul style="list-style-type:disc;">';
+                          
+                          
+                        
+                          <ul style="list-style-type:disc;">';
 
-foreach($large_desc as $k => $v)
-if($v['affiliation_id']==$user_affiliations[0]["id"])echo '<li>'.$v['description'].'</li>';
+          foreach($large_desc as $k => $v)
+            if($v['affiliation_id']==$user_affiliations[0]["id"])echo '<li>'.$v['description'].'</li>';
 
-?>
+          ?>
 <?PHP echo'</ul>
             
           </div>
