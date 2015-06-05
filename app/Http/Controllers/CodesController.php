@@ -34,6 +34,12 @@ class CodesController extends Controller {
 	}
 	
 
+
+	public function postCode()
+	{
+		
+	}
+
 	
 
 }
