@@ -19,12 +19,12 @@ class CreateTableAuthentications extends Migration {
 			$table->bigInteger('inspirausers_id');
 			$table->string('provider',100);
 			$table->string('provider_uid',255);
-			$table->string('email',200);
+			$table->string('email',200)->nullable();
 			$table->string('display_name',150);
 			$table->string('first_name',100);
 			$table->string('last_name',100);
 			$table->string('profile_url',255);
-			$table->string('website_url',255);
+			$table->string('website_url',255)->nullable();
 			$table->timestamps();
 		});
 	}
