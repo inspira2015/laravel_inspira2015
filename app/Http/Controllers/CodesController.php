@@ -32,14 +32,17 @@ class CodesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getCode()
+	public function Index()
 	{
 		return view('codes.code');
 	}
 	
-
-
-	public function postCode(Request $request)
+	/**
+	 * Check if user input a code if its exist or not
+	 *
+	 * @return Response
+	 */
+	public function Check(Request $request)
 	{
 		$post_data = $request->all();
 

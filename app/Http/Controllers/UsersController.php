@@ -29,7 +29,7 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getUser()
+	public function Index()
 	{
 		return view('users.user');
 	}

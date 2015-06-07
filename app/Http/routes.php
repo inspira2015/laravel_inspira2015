@@ -11,16 +11,26 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
 
+
+
+//Codes
+Route::get('/codes', 'CodesController@index');
+Route::post('/codes/check', 'CodesController@check');
+
+
+//Users
+Route::get('/user', 'UsersController@index');
+
+
+
+Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 
 
 
 
 
-Route::controller('users', 'UsersController');
-Route::controller('codes', 'CodesController');
 Route::controller('affiliations', 'AffiliationsController');
 Route::controller('vacationfunds', 'VacationfundsController');
 Route::controller('creditcards', 'CreditcardsController');

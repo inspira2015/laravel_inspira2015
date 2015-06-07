@@ -41,7 +41,7 @@
           <div class="col-lg-12 col-md-12">
             <div class="codigo"></div>
             <div class="col-lg-12 col-md-12" style="padding:20px;">
-              <?php echo Form::open(array('url' => 'codes/code', 'id' => 'profile', 'name'=>'formulario')) ?>
+              <?php echo Form::open(array('url' => 'codes/check', 'id' => 'profile', 'name'=>'formulario')) ?>
                 <div class="content" style="background-color:transparent; ">
                   <h2 style="text-transform:none; font-size:24px; color:#465664; text-align:justify;">
                     Gracias por su preferencia. Si usted cuenta con uncódigo promocional favor de ingresarlo en la parte inferior y así hacer válido sus tarifas preferenciales.
