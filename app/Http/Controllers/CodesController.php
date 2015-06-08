@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Validator;
 
+use App\Model\Dao\CodeDao;
+
 class CodesController extends Controller {
+
+	private $codeDao;
 
 	/*
 	|--------------------------------------------------------------------------
@@ -22,9 +26,10 @@ class CodesController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(CodeDao $dao)
 	{
 		$this->middleware('guest');
+		$this->codeDao = $dao;
 	}
 
 	/**
@@ -47,6 +52,11 @@ class CodesController extends Controller {
 		$post_data = $request->all();
 
 		print_r($post_data);
+
+		$code_data = $this->codeDao->getById(1);
+
+
+		print_r($code_data );
 
 		$validator = Validator::make($post_data,array('code' => 'required'));
 
