@@ -29,7 +29,7 @@ class AffiliationsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getAffiliation()
+	public function Index()
 	{
 		return view('affiliations.affiliation');
 	}

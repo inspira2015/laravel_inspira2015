@@ -23,6 +23,20 @@ Route::post('/codes/check', 'CodesController@check');
 Route::get('/user', 'UsersController@index');
 
 
+//Affiliations
+Route::get('/affiliation', 'AffiliationsController@index');
+
+
+//VacationalFund
+Route::get('/affiliation', 'AffiliationsController@index');
+
+
+//CreditCardInfo
+Route::get('/payments', 'CreditcardsController@index');
+Route::put('/payments/subtotal', 'CreditcardsController@subtotal');
+
+
+
 
 Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');

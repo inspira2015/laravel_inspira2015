@@ -31,6 +31,13 @@ class CodeDao implements ICrudOperations {
 		} else {
 			$code = Code::create($data);
 		}
-			$code->save();	
+			$code->save();
 	}
+
+	public function getByCode($code = FALSE)
+	{
+		return Code::where('code' = $code)
+	}
+
+
 }

@@ -29,12 +29,12 @@ class CreditcardsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getCreditcard()
+	public function Index()
 	{
 		return view('creditcards.creditcard');
 	}
 
-	public function getSubtotal()
+	public function Subtotal()
 	{
 		return view('creditcards.subtotal');
 	}
