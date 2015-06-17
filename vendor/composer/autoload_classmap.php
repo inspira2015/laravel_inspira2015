@@ -6,17 +6,19 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'CreateCodesTable' => $baseDir . '/database/migrations/2015_06_07_163122_create_codes_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateTableAffiliations' => $baseDir . '/database/migrations/2015_06_05_190605_create_table_affiliations.php',
     'CreateTableAuthentications' => $baseDir . '/database/migrations/2015_06_07_135805_create_table_authentications.php',
     'CreateTableCodes' => $baseDir . '/database/migrations/2015_06_05_175245_create_table_codes.php',
-    'CreateTableInspirausers' => $baseDir . '/database/migrations/2015_06_05_184615_create_table_inspirausers.php',
-    'CreateTableUserAffiliations' => $baseDir . '/database/migrations/2015_06_07_151810_create_table_user_affiliations.php',
-    'CreateTableUserCcInfo' => $baseDir . '/database/migrations/2015_06_07_142609_create_table_user_cc_info.php',
-    'CreateTableUserPayments' => $baseDir . '/database/migrations/2015_06_07_144607_create_table_user_payments.php',
-    'CreateTableUserRedeemCodes' => $baseDir . '/database/migrations/2015_06_07_150241_create_table_user_redeem_codes.php',
-    'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
+    'CreateTableCodesUsed' => $baseDir . '/database/migrations/2015_06_16_204445_create_table_codes_used.php',
+    'CreateTableSystemLog' => $baseDir . '/database/migrations/2015_06_16_204506_create_table_system_log.php',
+    'CreateTableUserRedeemCodes' => $baseDir . '/database/migrations/2015_06_16_184453_create_table_user_redeem_codes.php',
+    'CreateTableUsersAddress' => $baseDir . '/database/migrations/2015_06_16_204314_create_table_users_address.php',
+    'CreateTableUsersAffiliations' => $baseDir . '/database/migrations/2015_06_16_204406_create_table_users_affiliations.php',
+    'CreateTableUsersPoints' => $baseDir . '/database/migrations/2015_06_16_204420_create_table_users_points.php',
+    'CreateTableUsersRegisteredPhones' => $baseDir . '/database/migrations/2015_06_16_204344_create_table_users_registered_phones.php',
+    'CreateTableUsersVacationsFunds' => $baseDir . '/database/migrations/2015_06_16_204433_create_table_users_vacations_funds.php',
+    'CreateTableVacationFundLog' => $baseDir . '/database/migrations/2015_06_16_204455_create_table_vacation_fund_log.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
@@ -435,5 +437,5 @@ return array(
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/Text/Template.php',
-    'UpdateTableInspirausers' => $baseDir . '/database/migrations/2015_06_07_134422_update_table_inspirausers.php',
+    'UpdateTableUsers' => $baseDir . '/database/migrations/2015_06_16_191324_update_table_users.php',
 );

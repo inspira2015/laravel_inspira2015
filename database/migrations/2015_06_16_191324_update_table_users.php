@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateTableInspirausers extends Migration {
+class UpdateTableUsers extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,9 +13,9 @@ class UpdateTableInspirausers extends Migration {
 	public function up()
 	{
 		//
-		Schema::table('inspirausers', function(Blueprint $table)
+		Schema::table('users', function(Blueprint $table)
 		{
-			$table->timestamps();
+			$table->string('confirmation_code',100)->nullable();
 
 		});
 	}
@@ -28,9 +28,9 @@ class UpdateTableInspirausers extends Migration {
 	public function down()
 	{
 		//
-		Schema::table('inspirausers', function($table)
+		Schema::table('users', function($table)
 		{
-    		$table->dropColumn('timestamps');
+    		$table->dropColumn('confirmation_code');
 		});
 	}
 
