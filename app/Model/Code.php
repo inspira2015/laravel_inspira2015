@@ -14,7 +14,9 @@ class Code extends Model {
 	protected $table = 'codes';
 	
 	protected $fillable = ['code', 'currency', 'end_date'];
-
-
+	
+	public function code_used(){
+		return $this->hasOne('App\Model\CodesUsed', 'codes_id', 'id');
+	}
 
 }

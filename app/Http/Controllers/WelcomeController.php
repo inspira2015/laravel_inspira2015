@@ -1,6 +1,19 @@
-<?php namespace App\Http\Controllers;
+<?php
+namespace App\Http\Controllers;
+use App\Model\User;
+use App\Model\Affiliations;
+use App\Model\UserAffiliations;
+use App\Model\Code;
+use App\Model\CodesUsed;
+use App\Model\SystemLog;
+use App\Model\PasswordResets;
+use App\Model\UserAddress;
+use App\Model\UserRegisteredPhones;
+use App\Model\UserVacationalFunds;
+use App\Model\VacationFundLog;
 
-class WelcomeController extends Controller {
+
+class WelcomeController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------
