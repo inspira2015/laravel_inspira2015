@@ -6,19 +6,19 @@
     <div class="row" id="arriba" style="margin-bottom:50px;">
       <div id="error" style="color:red; text-align:left; margin:0 auto; width:300px;"></div>
       <div class="col-lg-12 col-md-12 col-sm-12" >
-        
-        <form method="post" action="?route=users/complete_registration"  onsubmit="return verificar()" id="profile" name="formulario" data-toggle="validator">
+
+        <?php echo Form::open(array('url' => 'user/save', 'id' => 'profile','name' => 'formulario','onsubmit' => 'return verificar()','data-toggle' => 'validator' )) ?>
+         
             <div class="col-lg-1col-md-push-2 col-sm-10-col-sm-push-2 " id="formularios">
                 
                 <div class="form-group">
-                    <label for="nombre">* Nombre</label>
+                    <label for="nombre">* <?php echo  Lang::get('registry.name'); ?></label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="first_name" id="nombre" placeholder="Ingresa tu nombre" value="" required>
-                        
+                        <?php echo Form::text('name', null, array('required','class' => 'form-control','id' => 'nombre', 'placeholder' => Lang::get('registry.name_place'))); ?>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="apellido">* Apellido</label>
+                    <label for="apellido">* <?php echo  Lang::get('registry.last_name'); ?></label>
                     <div class="input-group">
                         <input type="text" class="form-control" name="last_name" id="apellido"  value="" required>
                     </div>
@@ -30,20 +30,20 @@
                     </div>
                 </div>
                  <div class="form-group">
-                    <label for="contrasena">* Contraseña</label>
+                    <label for="contrasena">* <?php echo  Lang::get('registry.password'); ?></label>
                     <div class="input-group">
                         <input type="password" class="form-control" name="password" id="password"  value="" required>
                     </div>
                 </div>
                  <div class="form-group">
-                    <label for="contrasena2">* Confirmar Contraseña</label>
+                    <label for="contrasena2">* <?php echo  Lang::get('registry.retype_pwd'); ?></label>
                     <div class="input-group">
                         <input type="password" class="form-control" name="password_check" id="password_check"  value=""required>
                     </div>
                 </div>  
 
                 <div class="form-group">
-                    <label for="celular">* Celular</label>
+                    <label for="celular">* <?php echo  Lang::get('registry.celphone'); ?></label>
                     <div class="input-group">
                         <input type="text" class="form-control" id="celular" name="cel_phn" value="" required>
                     </div>
@@ -51,7 +51,7 @@
 
                 <!--<div class="form-group medios" style="width:50%; display:inline;">-->
         <div class="form-group col-lg-6 col-md-6">
-                    <label for="pais">* Pais</label>
+                    <label for="pais">* <?php echo  Lang::get('registry.country'); ?></label>
                     <div class="input-group">
                      <select name="country" id="pais" required class="form-control">
              <option value="" selected>--Seleccionar--</option>
@@ -295,7 +295,7 @@
                 </div>
                 <!--<div class="form-group medios" style="width:50%; display:inline;">-->
         <div class="form-group col-lg-6 col-md-6">
-                    <label for="state">* Estado</label>
+                    <label for="state">* <?php echo  Lang::get('registry.state'); ?></label>
                     <div id="contenedor-estados" class="input-group">
             <input type="text" name="state" id="state" required class="form-control"/>
                     </div>
@@ -303,7 +303,7 @@
             </div>
         <!--<div class="form-group medios" style="width:50%; display:inline;">-->
       <div class="form-group col-lg-6 col-md-6">
-                    <label for="estado">* lenguaje</label>
+                    <label for="estado">* <?php echo  Lang::get('registry.lang'); ?></label>
                     <div class="input-group">
                <select name="language" id="language" required class="form-control">
                       <option value="ES" selected>Español</option>
@@ -313,7 +313,7 @@
                 </div>
         <!--<div class="form-group medios" style="width:50%; display:inline;">-->
       <div class="form-group col-lg-6 col-md-6">
-                    <label for="estado">* moneda</label>
+                    <label for="estado">* <?php echo  Lang::get('registry.currency'); ?></label>
                     <div class="input-group">
                          <select name="currency" id="currency" required class="form-control">
                
@@ -322,13 +322,15 @@
             </select>
                     </div>
                 </div>
-        </form>
+        <?php echo Form::close() ?>
             </div>
            <div class="col-lg-12 col-md-12" style="padding:20px;">
           <div class="divider"></div></div>
-    <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">  <a ><img style="width:50%; height:auto;"src="<?php echo url();?>/images/regresartransparente.png"/></a></div>
+    <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">  
+    <a ><img style="width:50%; height:auto;"src="<?php echo url();?>/images/regresartransparente.png"/></a></div>
           <div class="col-lg-4 col-md-4 col-sm-4"></div>
-          <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">   <a href="#" onClick="verificar()"><img style="width:50%; height:auto;"src="<?php echo url();?>/images/continuar.png"/></a></div>
+          <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">   
+          <a href="#" onClick="verificar()"><img style="width:50%; height:auto;"src="<?php echo url();?>/images/continuar.png"/></a></div>
         </div>
           
         

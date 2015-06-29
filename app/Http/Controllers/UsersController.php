@@ -34,6 +34,9 @@ class UsersController extends Controller {
 		return view('users.user');
 	}
 
+
+	
+
 	public function getForgotpassword()
 	{
 		return view('users.forgotpassword');

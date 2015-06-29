@@ -14,5 +14,16 @@ return [
 	*/
 
 	"title" => "User Registry",
+	"name" => "Name",
+	"last_name" => "Last Name",
+	"password" => "Password",
+	"retype_pwd" => "Retype Password",
+	"celphone" => "Mobile",
+	"country" => "Country",
+	"state" => "State",
+	"lang" => "Language",
+	"currency" => "Currency",
+	"name_place" => "Type your name",
+
 
 ];

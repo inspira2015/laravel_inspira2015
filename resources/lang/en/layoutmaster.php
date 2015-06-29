@@ -13,18 +13,8 @@ return [
 	|
 	*/
 
-	"title" => "Registro de Usuario",
-	"name" => "Nombre",
-	"last_name" => "Apellido",
-	"password" => "Contraseña",
-	"retype_pwd" => "Confirmar Contraseña",
-	"celphone" => "Celular",
-	"country" => "Pais",
-	"state" => "Estado",
-	"lang" => "Idioma",
-	"currency" => "Moneda",
-	"name_place" => "Ingresa tu nombre",
+	"copyright" => "Inspira México  rights reserved @ 2015",
+	"privacypolicy" => "Privacy policy and terms of service",
+	"followus" => "Follow us",
 
-
-	
 ];
