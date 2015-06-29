@@ -36,14 +36,8 @@
 </div>
 
 <div class="container">
-
-  
       @yield('content')
-    
-    
-    
-    
-  
+ 
 </div>
 
 <footer style="margin-top:100px;">
@@ -72,30 +66,9 @@
   </div>
 </footer>
 
-  <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-    var $_Tawk_API={},$_Tawk_LoadStart=new Date();
-  (function(){
-  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-  s1.async=true;
-  s1.src='https://embed.tawk.to/551aea4d4365744943a76741/default';
-  s1.charset='UTF-8';
-  s1.setAttribute('crossorigin','*');
-  s0.parentNode.insertBefore(s1,s0);
-  })();
-
-  </script>
-  <!--End of Tawk.to Script-->
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-61781914-3', 'auto');
-    ga('send', 'pageview');
-</script>
-
+	@include('layouts.__common.tawk')
+	@include('layouts.__common.analytics')
+  
   <script type="text/javascript" src="<?php echo url();?>/js/validations_profile.js"></script>
 </body>
 </html>
