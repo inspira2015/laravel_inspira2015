@@ -36,7 +36,7 @@ class CodeDao implements ICrudOperations {
 
 	public function getByCode($code = FALSE)
 	{
-		return Code::where('code' = $code)
+		return Code::where('code', $code);
 	}
 
 
