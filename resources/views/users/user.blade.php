@@ -1,43 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title><?php echo  Lang::get('registry.title'); ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/menu.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/font-awesome/css/font-awesome.min.css" />
-    <script type="text/javascript" src="<?php echo url();?>/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="<?php echo url();?>/css/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo url();?>/js/estados.js"></script>
-    <link rel="icon" href="<?php echo url();?>/images/inspira.ico" type="image/ico" />
-    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slide.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slidestyle.css" />
-    <link rel="stylesheet" href="<?php echo url();?>/css/jquery.h5-lightbox.css">
-  </head>
-  <body id="page" style="background-image:url('<?php echo url();?>/images/2.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
-                        -webkit-background-size: cover;
-                        -moz-background-size: cover;
-                        -o-background-size: cover;
-                        background-size: cover; height:100%;">
-    <?php 
-      $path_header = base_path()."/resources/views/chunks/header.php";
-      $path_header_en = base_path()."/resources/views/chunks/headerENG.php";
+@extends('layouts.master')
 
-      switch(@$user_data["language"]){
-        case "EN" :
-          include_once $path_header_en;
-          break;
 
-        default:
-        case "ES" :
-          include_once $path_header;
-          break;
-      }
-    ?>
-<div class="container">
-  <div class="container">
+@section('content')
+ 
     <div class="row" id="arriba" style="margin-bottom:50px;">
       <div id="error" style="color:red; text-align:left; margin:0 auto; width:300px;"></div>
       <div class="col-lg-12 col-md-12 col-sm-12" >
@@ -367,31 +332,5 @@
         </div>
           
         
-        
-    </div><!--arriba-->
+  @stop
   
-    
-    
-    
-    
-    
-  </div>
-  
-</div>
-  <?php 
-//if(isset($user_data["language"])){
-//if($user_data["language"]=="ES"){
-    $path_footer = base_path()."/resources/views/chunks/footer.php";
-    include_once $path_footer;
-//include "php/footer.php";
-//}else{
-//include "php/footerENG.php";
-//}
-//}else{
-//include "php/footer.php";
-//}
-?>
-
-  <script type="text/javascript" src="<?php echo url();?>/js/validations_profile.js"></script>
-</body>
-</html>
