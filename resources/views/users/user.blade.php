@@ -20,19 +20,19 @@
                 <div class="form-group">
                     <label for="apellido">* <?php echo  Lang::get('registry.last_name'); ?></label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="last_name" id="apellido"  value="" required>
+                        <?php echo Form::text('last_name', null, array('required','class' => 'form-control','id' => 'apellido')); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="InputEmail">* E-mail</label>
                     <div class="input-group">
-                        <input type="correo" class="form-control" id="correo" name="email" value=""required>
+                        <?php echo Form::email('email', null, array('required','class' => 'form-control','id' => 'correo')); ?>
                     </div>
                 </div>
                  <div class="form-group">
                     <label for="contrasena">* <?php echo  Lang::get('registry.password'); ?></label>
                     <div class="input-group">
-                        <input type="password" class="form-control" name="password" id="password"  value="" required>
+                        <?php echo Form::password('password', null, array('required','class' => 'form-control','id' => 'password')); ?>
                     </div>
                 </div>
                  <div class="form-group">
@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <label for="celular">* <?php echo  Lang::get('registry.celphone'); ?></label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="celular" name="cel_phn" value="" required>
+                        <?php echo Form::text('cellphone_number', null, array('required','class' => 'form-control','id' => 'celular')); ?>
                     </div>
                 </div>
 
