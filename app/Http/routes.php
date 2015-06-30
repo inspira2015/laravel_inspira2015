@@ -28,6 +28,7 @@ Route::post('/codes/check', 'CodesController@check');
 
 //Users
 Route::get('/user', 'UsersController@index');
+Route::post('/user/registration', 'UsersController@registration');
 
 
 //Affiliations
@@ -49,7 +50,13 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 
 
+Route::post('/language', array(
 
+'before' => 'csrf',
+'as'    =>  'language-choose',
+'uses'  =>  'LanguageController@choose'
+
+));
 
 Route::controller('codes', 'CodesController');
 Route::controller('affiliations', 'AffiliationsController');

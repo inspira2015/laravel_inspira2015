@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/font-awesome/css/font-awesome.min.css" />
     <script type="text/javascript" src="<?php echo url();?>/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<?php echo url();?>/js/jquery.validate.min.js"></script>
+
     <script type="text/javascript" src="<?php echo url();?>/css/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo url();?>/js/estados.js"></script>
     <link rel="icon" href="<?php echo url();?>/images/inspira.ico" type="image/ico" />
@@ -69,6 +71,5 @@
 	@include('layouts.__common.tawk')
 	@include('layouts.__common.analytics')
   
-  <script type="text/javascript" src="<?php echo url();?>/js/validations_profile.js"></script>
 </body>
 </html>
