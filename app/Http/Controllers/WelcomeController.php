@@ -13,7 +13,7 @@ use App\Model\UserVacationalFunds;
 use App\Model\VacationFundLog;
 
 
-class WelcomeController extends BaseController {
+class WelcomeController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
