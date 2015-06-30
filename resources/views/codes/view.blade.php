@@ -33,7 +33,7 @@
 	<div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:30px; margin-top:70px;"></div>
 	<div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom:0px;"> 
 		
-		<?php  if(isset($error)): ?>
+		@if(!empty($errors))
 			<div class="col-lg-3"></div>
 			<div class="col-lg-6 col-sm-12" style="margin:0 auto;">
 				<p style="color:#cc4b9b">
@@ -44,8 +44,7 @@
 				</a>
 			</div>
 			<div class="col-lg-3"></div>
-		<?php endif;?>
-
+		@endif
 	</div>
 </div>
 @endsection
