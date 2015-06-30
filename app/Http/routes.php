@@ -10,12 +10,19 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+//	Route::get('/code', 'CodesController@index');
 
 
+/*
+Route::any('/{module}/{action?}',function($module = '', $action = ''){
+	Route::get('/code', 'CodesController@index');
+});
+*/
 
 
 //Codes
 Route::get('/codes', 'CodesController@index');
+
 Route::post('/codes/check', 'CodesController@check');
 
 
@@ -44,7 +51,7 @@ Route::get('home', 'HomeController@index');
 
 
 
-
+Route::controller('codes', 'CodesController');
 Route::controller('affiliations', 'AffiliationsController');
 Route::controller('vacationfunds', 'VacationfundsController');
 Route::controller('creditcards', 'CreditcardsController');
