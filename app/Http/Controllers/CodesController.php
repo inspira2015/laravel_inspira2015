@@ -21,8 +21,6 @@ class CodesController extends Controller {
 
 	public function Check(Request $request, ServiceCode $service) {
 		$data = $request->all();
-		$code_data = $this->codeDao->find(1);
-
 		$validator = $service->validator($data);
 		
         if ($validator->passes()) {

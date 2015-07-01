@@ -8,9 +8,9 @@
     
         // Specify the validation rules
         rules: {
-            nombre: "required",
-            apellido: "required",
-            correo: {
+            name: "required",
+            last_name: "required",
+            email: {
                 required: true,
                 email: true
             },
@@ -22,7 +22,7 @@
                 minlength: 5,
                 equalTo: "#password"
             },
-            celular:{
+            cellphone_number:{
                 required: true,
                 minlength: 10,
             }
@@ -52,21 +52,21 @@ function verificar() {
             <div class="col-lg-1col-md-push-2 col-sm-10-col-sm-push-2 " id="formularios">
                 
                 <div class="form-group">
-                    <label for="nombre">* <?php echo  Lang::get('registry.name'); ?></label>
+                    <label for="name">* <?php echo  Lang::get('registry.name'); ?></label>
                     <div class="input-group">
-                        <?php echo Form::text('name', null, array('required','class' => 'form-control','id' => 'nombre', 'placeholder' => Lang::get('registry.name_place'))); ?>
+                        <?php echo Form::text('name',  Input::get('name'), array('required','class' => 'form-control','id' => 'name', 'placeholder' => Lang::get('registry.name_place'))); ?>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="apellido">* <?php echo  Lang::get('registry.last_name'); ?></label>
+                    <label for="last_name">* <?php echo  Lang::get('registry.last_name'); ?></label>
                     <div class="input-group">
-                        <?php echo Form::text('last_name', null, array('required','class' => 'form-control','id' => 'apellido')); ?>
+                        <?php echo Form::text('last_name', Input::get('last_name'), array('required','class' => 'form-control','id' => 'last_name')); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="InputEmail">* E-mail</label>
                     <div class="input-group">
-                        <?php echo Form::email('email', null, array('required','class' => 'form-control','id' => 'correo')); ?>
+                        <?php echo Form::email('email', Input::get('email'), array('required','class' => 'form-control','id' => 'email')); ?>
                     </div>
                 </div>
                 <div class="form-group">
@@ -85,7 +85,7 @@ function verificar() {
                 <div class="form-group">
                     <label for="celular">* <?php echo  Lang::get('registry.celphone'); ?></label>
                     <div class="input-group">
-                        <?php echo Form::text('cellphone_number', null, array('required','class' => 'form-control','id' => 'celular')); ?>
+                        <?php echo Form::text('cellphone_number', Input::get('cellphone_number'), array('required','class' => 'form-control','id' => 'cellphone_number')); ?>
                     </div>
                 </div>
 
@@ -93,14 +93,14 @@ function verificar() {
                 <div class="form-group col-lg-6 col-md-6">
                   <label for="pais">* <?php echo  Lang::get('registry.country'); ?></label>
                   <div class="input-group">
-                      <?php echo Form::select('country', $country_list,0, array('class' => 'form-control','id' => 'pais')); ?>
+                      <?php echo Form::select('country', $country_list,Input::get('country'), array('class' => 'form-control','id' => 'country')); ?>
                   </div>
                 </div>
                 <!--<div class="form-group medios" style="width:50%; display:inline;">-->
                 <div class="form-group col-lg-6 col-md-6">
                     <label for="state">* <?php echo  Lang::get('registry.state'); ?></label>
                     <div id="contenedor-estados" class="input-group">
-                      <?php echo Form::text('state', null, array('required','class' => 'form-control','id' => 'state')); ?>
+                      <?php echo Form::text('state', Input::get('state'), array('required','class' => 'form-control','id' => 'state')); ?>
                     </div>
                 </div>
             </div>
@@ -108,18 +108,15 @@ function verificar() {
             <div class="form-group col-lg-6 col-md-6">
               <label for="estado">* <?php echo  Lang::get('registry.lang'); ?></label>
               <div class="input-group">
-                <?php echo Form::select('language', $lan_list,null, array('class' => 'form-control','id' => 'language')); ?>
+                <?php echo Form::select('language', $lan_list,Input::get('language'), array('class' => 'form-control','id' => 'language')); ?>
               </div>
             </div>
               <!--<div class="form-group medios" style="width:50%; display:inline;">-->
             
             <div class="form-group col-lg-6 col-md-6">
-              <label for="estado">* <?php echo  Lang::get('registry.currency'); ?></label>
+              <label for="currency">* <?php echo  Lang::get('registry.currency'); ?></label>
               <div class="input-group">
-                <select name="currency" id="currency" required class="form-control">
-                  <option value="MXN" selected>MXN PESO</option>
-                  <option value="USD">USD DOLLAR</option>
-                </select>
+                <?php echo Form::select('currency', $currency_list,Input::get('currency'), array('class' => 'form-control','id' => 'currency')); ?>
               </div>
                 </div>
         <?php echo Form::close() ?>

@@ -4,7 +4,8 @@ namespace App\Model\Dao;
 
 use App\Model\Code;
 
-class CodeDao implements ICrudOperations {
+class CodeDao implements ICrudOperations 
+{
 	
 	public function getById($id) 
 	{
