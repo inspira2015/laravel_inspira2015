@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Validator;
 use App\Services\UserRegistration as UserRegistration;
 use App\Model\Dao\UserDao;
+use Mail;
+
 
 class UsersController extends Controller {
 
@@ -46,6 +48,13 @@ class UsersController extends Controller {
 		$data['currency_list'] = $this->getCurrency();
 		$data['locale'] = $locale;
 		$this->userDao->load(2);
+
+		$sent =Mail::send('emails.password', array('token' => 'adfafadfadsfadfasdfasf'), function($message)
+		{
+		    $message->to('danielgm78@msn.com', 'DANIEL GOMEZ')->subject('Welcome!');
+		});
+
+		if( ! $sent) dd("something wrong");
 		echo $this->userDao->email;
 		return view('users.user',$data);
 	}

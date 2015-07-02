@@ -15,8 +15,8 @@ return [
 	*/
 
 	'mailgun' => [
-		'domain' => '',
-		'secret' => '',
+		'domain' => 'inspiramexico.mx',
+		'secret' => 'key-d4975b05a7d015acc9295aa693c30835',
 	],
 
 	'mandrill' => [
