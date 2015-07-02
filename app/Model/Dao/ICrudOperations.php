@@ -14,7 +14,7 @@ interface ICrudOperations {
 
 	public function getById($id);
 	
-	public function save(array $data);
+	public function save();
 	
 	public function delete($id);
 

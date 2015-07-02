@@ -25,7 +25,7 @@ class UserEntity
 		$this->id                    = (isset($valid_data['id'])) ? trim($valid_data['id']) : 0;
         $this->leisure_id            = (isset($valid_data['leisure_id'])) ? trim($valid_data['leisure_id']) : null;
         $this->email                 = (isset($valid_data['email'])) ? trim($valid_data['email']) : null;
-        $this->password              = (isset($valid_data['password'])) ? trim($valid_data['password']) : null;
+        $this->password              = $this->encryptPassword($valid_data);
         $this->active                = (isset($valid_data['active'])) ? trim($valid_data['active']) : 1;
 		$this->remember_token        = (isset($valid_data['remember_token'])) ? trim($valid_data['remember_token']) : null;
         $this->name              	 = (isset($valid_data['name'])) ? trim($valid_data['name']) : null;
@@ -33,9 +33,20 @@ class UserEntity
         $this->confirmed             = (isset($valid_data['confirmed'])) ? trim($valid_data['confirmed']) : 0;
         $this->language              = (isset($valid_data['language'])) ? trim($valid_data['language']) : 'es';
 		$this->created_at            = (isset($valid_data['created_at'])) ? trim($valid_data['created_at']) : date('Y-m-d H:i:s');
-        $this->updated_at            = (isset($valid_data['created_at'])) ? trim($valid_data['created_at']) : date('Y-m-d H:i:s');
-        $this->confirmation_code     = (isset($valid_data['confirmation_code'])) ? trim($valid_data['confirmation_code']) : null;
+        $this->confirmation_code     = $this->getConfirmationCode();
+	}
 
+
+	private function encryptPassword(array $valid_data)
+	{
+		$temp_password = (isset($valid_data['password'])) ? trim($valid_data['password']) : null;
+		return bcrypt($temp_password);
+	}
+
+	private function getConfirmationCode()
+	{
+		$hash = md5( rand(0,1000) ); // Generate random 32 character hash and assign it to a local variable.
+		return $hash;
 	}
 
 }

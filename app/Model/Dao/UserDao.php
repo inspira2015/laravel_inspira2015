@@ -9,6 +9,7 @@ use App\Model\Entity\UserEntity;
 class UserDao extends UserEntity implements ICrudOperations 
 {
 
+
 	public function getById($id) 
 	{
 		return User::find($id);
@@ -25,7 +26,7 @@ class UserDao extends UserEntity implements ICrudOperations
 		}
 	}
 	
-	public function save(array $data) {
+	public function save() {
 		$id = isset($this->id) ? (int) $this->id : 0;
 
 		if ($id > 0) {
@@ -41,7 +42,10 @@ class UserDao extends UserEntity implements ICrudOperations
 			//$code = User::create($this);
 		}
 			$new_user->save();
+			return $new_user->id;
+
 	}
+
 
 	public function load($id)
 	{
@@ -57,11 +61,6 @@ class UserDao extends UserEntity implements ICrudOperations
  		}
  	}
 
-
-	public function getByCode($code = FALSE)
-	{
-		return User::where('code', $code);
-	}
 
 
 }

@@ -48,14 +48,6 @@ class UsersController extends Controller {
 		$data['currency_list'] = $this->getCurrency();
 		$data['locale'] = $locale;
 		$this->userDao->load(2);
-
-		$sent =Mail::send('emails.password', array('token' => 'adfafadfadsfadfasdfasf'), function($message)
-		{
-		    $message->to('danielgm78@msn.com', 'DANIEL GOMEZ')->subject('Welcome!');
-		});
-
-		if( ! $sent) dd("something wrong");
-		echo $this->userDao->email;
 		return view('users.user',$data);
 	}
 
@@ -66,9 +58,18 @@ class UsersController extends Controller {
 
 		if($validator->passes()) 
 		{
-			$user = $this->getUserCreateArray($post_data);
 			$this->userDao->exchangeArray($post_data);
-			$this->userDao->save($post_data);
+			$last_id =$this->userDao->save();
+			$this->userDao->load($last_id);
+			echo $this->userDao->confirmation_code;
+
+			$sent =Mail::send('emails.user_registration', array('user' => $this->userDao), function($message)
+			{
+				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
+		    	$message->to($this->userDao->email, $full_name)->subject('Welcome!');
+			});
+
+			
 			exit;
 		}
 		$locale = Lang::getLocale();

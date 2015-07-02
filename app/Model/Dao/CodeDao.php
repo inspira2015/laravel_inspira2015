@@ -23,7 +23,7 @@ class CodeDao implements ICrudOperations
 		}
 	}
 	
-	public function save(array $data) {
+	public function save() {
 		$id = isset($data['id']) ? (int) $data['id'] : 0;
 		
 		if ($id > 0) {
