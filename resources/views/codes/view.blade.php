@@ -12,7 +12,7 @@
 				</h2>
 				<br><br>
 				<div class="inputs" style="margin:0 auto; width:70%;">
-					<?php echo Form::text('code', '', array('style' => 'width:100%; border:12px solid #465664; background-color:#bec4c9; color:#465664;'));?>
+					<?php echo Form::text('code', '', array('style' => 'width:100%; border:12px solid #465664; background-color:#bec4c9; color:#465664;', 'required' => 'required'));?>
 				</div>
 				<?php echo Form::close()?>
 			</div>
@@ -33,7 +33,7 @@
 	<div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:30px; margin-top:70px;"></div>
 	<div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom:0px;"> 
 		
-		@if(!empty($errors))
+		@if($errors->has())
 			<div class="col-lg-3"></div>
 			<div class="col-lg-6 col-sm-12" style="margin:0 auto;">
 				<p style="color:#cc4b9b">

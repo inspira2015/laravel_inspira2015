@@ -4,7 +4,7 @@ use Validator;
 
 class ServiceCode {
 
-	public function validator(array $data) {
+	public static function validator(array $data) {
 		return Validator::make($data, [
 			'code' => 'required'
 		]);

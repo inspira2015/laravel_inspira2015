@@ -1,8 +1,8 @@
-<?php 
-namespace App\Http\Controllers;
-use Validator;
-use Illuminate\Http\Request;
+<?php  namespace App\Http\Controllers;
+use Request;
+use Redirect;
 use App\Model\Dao\CodeDao;
+use App\Model\Code;
 use App\Services\ServiceCode as ServiceCode;
 
 
@@ -15,19 +15,29 @@ class CodesController extends Controller {
 		$this->codeDao = $dao;
 	}
 
-	public function Index() {
+	public function Index() 
+	{
 		return view('codes.view')->with('title', 'Ingresa tu c&oacute;digo' );
 	}
 
-	public function Check(Request $request, ServiceCode $service) {
-		$data = $request->all();
-		$validator = $service->validator($data);
+	public function Check() 
+	{
+		$data = Request::all();
+		$validator = ServiceCode::validator($data);
 		
-        if ($validator->passes()) {
-		//What happens if it success.
-			return view('codes.success')->with('title', 'C&oacute;digo registrado');
+        if ( $validator->passes() ) 
+        {
+			$code = $this->codeDao->getByCode($data['code'])->first();
+
+			if($code)
+			{
+				//Register code.
+				return view('codes.success')->with('title', 'C&oacute;digo registrado');
+			}
+			return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->withErrors(array('message' => 'Code is not valid'));
         }
-        return view('codes.view')->with('title', 'Ingresa tu c&oacute;digo' )->withErrors($validator);
+        
+        return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->withErrors($validator);
 	}
 
 
