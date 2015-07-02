@@ -23,7 +23,9 @@ Route::any('/{module}/{action?}/', function( $module = '', $action = '' )
 	return App::make($complete_route)->logAction($module, $action)->$action();
 });
 
-
+//Users
+Route::get('/user', 'UsersController@index');
+Route::post('/user/registration', 'UsersController@registration');
 
 
 //Affiliations
