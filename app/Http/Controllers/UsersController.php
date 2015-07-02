@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Validator;
 use App\Services\UserRegistration as UserRegistration;
 use App\Model\Dao\UserDao;
+use Mail;
+
 
 class UsersController extends Controller {
 
@@ -46,7 +48,6 @@ class UsersController extends Controller {
 		$data['currency_list'] = $this->getCurrency();
 		$data['locale'] = $locale;
 		$this->userDao->load(2);
-		echo $this->userDao->email;
 		return view('users.user',$data);
 	}
 
@@ -57,9 +58,18 @@ class UsersController extends Controller {
 
 		if($validator->passes()) 
 		{
-			$user = $this->getUserCreateArray($post_data);
 			$this->userDao->exchangeArray($post_data);
-			$this->userDao->save($post_data);
+			$last_id =$this->userDao->save();
+			$this->userDao->load($last_id);
+			echo $this->userDao->confirmation_code;
+
+			$sent =Mail::send('emails.user_registration', array('user' => $this->userDao), function($message)
+			{
+				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
+		    	$message->to($this->userDao->email, $full_name)->subject('Welcome!');
+			});
+
+			
 			exit;
 		}
 		$locale = Lang::getLocale();
