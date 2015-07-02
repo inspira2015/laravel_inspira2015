@@ -1,5 +1,6 @@
 <?php
-
+use Illuminate\Support\Str;
+///use App\Http\Controllers\CodesController as CodeController;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,25 +11,19 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-//	Route::get('/code', 'CodesController@index');
 
-
-/*
-Route::any('/{module}/{action?}',function($module = '', $action = ''){
-	Route::get('/code', 'CodesController@index');
-});
-*/
-
+Route::get('/', 'WelcomeController@index');
 
 //Codes
-Route::get('/codes', 'CodesController@index');
+Route::any('/{module}/{action?}/', function( $module = '', $action = '' )
+{
+	$action = empty($action) ? 'Index' : $action;
+	$controller = Str::title($module).'Controller';
+	$complete_route = "\App\\Http\\Controllers\\{$controller}";
+	return App::make($complete_route)->logAction($module, $action)->$action();
+});
 
-Route::post('/codes/check', 'CodesController@check');
 
-
-//Users
-Route::get('/user', 'UsersController@index');
-Route::post('/user/registration', 'UsersController@registration');
 
 
 //Affiliations
@@ -43,10 +38,6 @@ Route::get('/affiliation', 'AffiliationsController@index');
 Route::get('/payments', 'CreditcardsController@index');
 Route::put('/payments/subtotal', 'CreditcardsController@subtotal');
 
-
-
-
-Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 
 
@@ -66,3 +57,5 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+
