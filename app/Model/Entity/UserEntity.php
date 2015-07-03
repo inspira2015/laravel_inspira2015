@@ -18,6 +18,9 @@ class UserEntity
 	public $created_at;
 	public $updated_at;
 	public $confirmation_code;
+	public $country;
+	public $state;
+
 
 
 	public function exchangeArray(array $valid_data)
@@ -34,6 +37,9 @@ class UserEntity
         $this->language              = (isset($valid_data['language'])) ? trim($valid_data['language']) : 'es';
 		$this->created_at            = (isset($valid_data['created_at'])) ? trim($valid_data['created_at']) : date('Y-m-d H:i:s');
         $this->confirmation_code     = $this->getConfirmationCode();
+	    $this->country             	 = (isset($valid_data['country'])) ? trim($valid_data['country']) : null;
+        $this->state             	 = (isset($valid_data['state'])) ? trim($valid_data['state']) : null;
+
 	}
 
 

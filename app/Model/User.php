@@ -7,8 +7,9 @@ class User extends Model
 
 	protected $table = 'users';
 	protected $primaryKey = 'id';
-	protected $fillable = ['email', 'password', 'active','name', 'last_name',];
-
+	//All filable cause its used on update to fill
+	protected $fillable = ['leisure_id','email', 'password', 'active','remember_token', 'name', 'last_name','confirmed','language',
+						    'confirmation_code','country','state'];
 
 	public function vacation_fund_log(){
 		return $this->hasMany('App\Model\VacationFundLog', 'users_id', 'id');

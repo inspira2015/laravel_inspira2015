@@ -17,12 +17,53 @@
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slide.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slidestyle.css" />
     <link rel="stylesheet" href="<?php echo url();?>/css/jquery.h5-lightbox.css">
+    
+    <style>
+      div.description{
+          padding-top: 25px;
+          padding-bottom: 25px;
+          margin-top:100px;
+          position:absolute; /* absolute position (so we can position it where we want)*/  
+          bottombottom:0px; /* position will be on bottom */  
+          left:0px;  
+          width:50%;  
+          /* styling bellow */  
+          background-color:#F8F8F8;  
+          font-family: 'tahoma';  
+          font-size:15px;  
+          color:#404040;  
+          opacity:0.4; /* transparency */  
+          filter:alpha(opacity=60); /* IE transparency */  
+      }  
+      .account_conf{
+        font-size: 32px;
+      }
+
+      div.continuar{
+          padding-top: 25px;
+          padding-bottom: 25px;
+          margin-top:100px;
+          position:absolute; /* absolute position (so we can position it where we want)*/  
+          
+          top:250px;
+          left:0px;  
+          width:50%;  
+          /* styling bellow */  
+          background-color:#F8F8F8;  
+          font-family: 'tahoma';  
+          font-size:15px;  
+          color:#404040;  
+          opacity:0.4; /* transparency */  
+          filter:alpha(opacity=60); /* IE transparency */  
+      }
+    </style>
+
   </head>
   <body id="page" style="background-image:url('<?php echo url();?>/images/2.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
                         -webkit-background-size: cover;
                         -moz-background-size: cover;
                         -o-background-size: cover;
-                        background-size: cover; height:100%;">
+                        background-size: cover; height:100%;position:relative;">
    <div class="header">
   <div class="container">
       <div class="logo">
@@ -42,7 +83,7 @@
  
 </div>
 
-<footer style="margin-top:100px;">
+<footer style="position:absolute;margin-top:100px;">
   <div class="container" style="color:#fff; font-size:11px; padding:0 !important;">
     <div class="section-1">
       <img src="<?php echo url();?>/images/copyright.png"/>

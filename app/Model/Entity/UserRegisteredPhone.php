@@ -2,8 +2,10 @@
 
 namespace App\Model\Entity;
 
+use App\Model\Dao\UserRegisteredPhoneDao;
 
-class UserRegisteredPhone
+
+class UserRegisteredPhone extends UserRegisteredPhoneDao
 {
 	public $id;
 	public $users_id;
@@ -13,26 +15,38 @@ class UserRegisteredPhone
 	public $updated_at;
 
 
-	public function exchangeArray(array $valid_data)
+	public function exchangeArray(array $data)
 	{
+		$valid_data =$this->checkNumberType($data);
 		$this->id                    = (isset($valid_data['id'])) ? trim($valid_data['id']) : 0;
         $this->users_id            	 = (isset($valid_data['users_id'])) ? trim($valid_data['users_id']) : null;
         $this->type                  = (isset($valid_data['type'])) ? trim($valid_data['type']) : null;
-        $this->number              	 = $this->encryptPassword($valid_data);
+        $this->number              	 = (isset($valid_data['number'])) ? trim($valid_data['number']) : null;
 		$this->created_at            = (isset($valid_data['created_at'])) ? trim($valid_data['created_at']) : date('Y-m-d H:i:s');
 	}
 
 
-	private function phoneFilter(array $valid_data)
+	private function checkNumberType(array $valid_data)
 	{
-		$temp_password = (isset($valid_data['password'])) ? trim($valid_data['password']) : null;
-		return bcrypt($temp_password);
+		if(array_key_exists('type',$valid_data)==TRUE && array_key_exists('number',$valid_data))
+		{
+			return $valid_data;
+		}
+
+		$var_array = array();
+		foreach ($valid_data AS $key => $value) 
+		{
+			$temp = stristr($key, 'number');
+			if ( $temp!== FALSE) 
+			{
+				$temp_key = $key;
+				list($type,$temp) = explode('_',$key);
+			} 
+		}
+		$valid_data['type'] = $type;
+		$valid_data['number'] = $valid_data[$temp_key];
+		return $valid_data;
 	}
 
-	private function getConfirmationCode()
-	{
-		$hash = md5( rand(0,1000) ); // Generate random 32 character hash and assign it to a local variable.
-		return $hash;
-	}
 
 }

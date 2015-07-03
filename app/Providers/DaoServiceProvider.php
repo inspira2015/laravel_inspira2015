@@ -26,6 +26,7 @@ class DaoServiceProvider extends ServiceProvider {
 		//
 		$this->app->bind('App\Model\Dao\CodeDao');
 		$this->app->bind('App\Model\Dao\UserDao');
+		$this->app->bind('App\Model\Entity\UserRegisteredPhone');
 
 	}
 

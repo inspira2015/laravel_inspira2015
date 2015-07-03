@@ -13,6 +13,7 @@
 
 Route::get('/', 'WelcomeController@index');
 
+Route::get('users/activation/{code}', 'UsersController@activation');
 
 Route::post('/language', array(
 
@@ -30,15 +31,21 @@ Route::controllers([
 
 Route::any('/{module}/{action?}/', function( $module = '', $action = '' )
 {
+
+
 	$controller = Str::title( $module ).'Controller';
 	
 	if( Request::method() == 'GET' )
 	{
 		if( $action )
 		{
-			return View::make('errors.404');
+			//return View::make('errors.404');
 		}
-		$action = 'Index';
+		else
+		{
+			$action = 'Index';
+
+		}
 	}
 
 	try 

@@ -5,6 +5,8 @@ use Request;
 use Redirect;
 use App\Services\UserRegistration as UserRegistration;
 use App\Model\Dao\UserDao;
+use App\Model\Entity\UserRegisteredPhone;
+use Input;
 use Mail;
 
 
@@ -21,6 +23,7 @@ class UsersController extends Controller {
 	|
 	*/
 	private $userDao;
+	private $userPhone;
 
 
 	/**
@@ -28,10 +31,11 @@ class UsersController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct(UserDao $userDao)
+	public function __construct(UserDao $userDao,UserRegisteredPhone $userphone)
 	{
 		$this->middleware('guest');
 		$this->userDao = $userDao;
+		$this->userPhone = $userphone;
 
 	}
 
@@ -47,9 +51,10 @@ class UsersController extends Controller {
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
 		$data['locale'] = $locale;
-		$this->userDao->load(2);
+		
 		return view('users.user',$data);
 	}
+
 
 	public function registration()
 	{
@@ -62,7 +67,10 @@ class UsersController extends Controller {
 			$this->userDao->exchangeArray($post_data);
 			$last_id =$this->userDao->save();
 			$this->userDao->load($last_id);
-			echo $this->userDao->confirmation_code;
+			$post_data['users_id'] = $last_id;
+			$this->userPhone->exchangeArray($post_data);
+			$last_phone_id =$this->userPhone->save();
+			$full_nam = $this->userDao->name . ' ' . $this->userDao->last_name;
 
 			$sent =Mail::send('emails.user_registration', array('user' => $this->userDao), function($message)
 			{
@@ -70,25 +78,38 @@ class UsersController extends Controller {
 		    	$message->to($this->userDao->email, $full_name)->subject('Welcome!');
 			});
 
-			
-			exit;
+			$data = array('full_name'=> $full_nam);
+			return view('users.emailconfirmation',$data);
 		}
 		$locale = Lang::getLocale();
 		$data['country_list'] = $this->getCountryArray($locale);
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
 
-		print_r($request->input());
-		//exit;
-
         return view('users.user')->with($data)->withErrors($validator)
         																	 ->withInput($request->input());
-
-		echo " aki";
-		exit;
-
 	}
 	
+
+	public function activation($code = FALSE)
+	{
+		if($code == FALSE)
+		{
+			//Error page
+
+		}
+		$userDao = new UserDao();
+		$user = $userDao->getUserByEmailCode($code);
+		$this->userDao->load($user->first()->id);
+		$this->userDao->confirmed =1;
+		$this->userDao->confirmation_code ='';
+		$this->userDao->save();
+
+		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
+		$data = array('full_name'=> $full_name);
+		return view('users.accountactivation',$data);
+	}
+
 
 	public function getForgotpassword()
 	{
