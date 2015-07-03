@@ -8,7 +8,7 @@ use App\Model\Dao\UserDao;
 use Mail;
 
 
-class UsersController extends Controller {
+class UserController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------

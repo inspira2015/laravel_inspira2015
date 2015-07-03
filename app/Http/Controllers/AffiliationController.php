@@ -1,7 +1,7 @@
 <?php 
 namespace App\Http\Controllers;
 
-class AffiliationsController extends Controller {
+class AffiliationController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------

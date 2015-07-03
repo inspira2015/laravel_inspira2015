@@ -1,6 +1,5 @@
 <?php
-use Illuminate\Support\Str;
-///use App\Http\Controllers\CodesController as CodeController;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -14,35 +13,6 @@ use Illuminate\Support\Str;
 
 Route::get('/', 'WelcomeController@index');
 
-//Codes
-Route::any('/{module}/{action?}/', function( $module = '', $action = '' )
-{
-	$action = empty($action) ? 'Index' : $action;
-	$controller = Str::title($module).'Controller';
-	$complete_route = "\App\\Http\\Controllers\\{$controller}";
-	return App::make($complete_route)->logAction($module, $action)->$action();
-});
-
-//Users
-Route::get('/user', 'UsersController@index');
-Route::post('/user/registration', 'UsersController@registration');
-
-
-//Affiliations
-Route::get('/affiliation', 'AffiliationsController@index');
-
-
-//VacationalFund
-Route::get('/affiliation', 'AffiliationsController@index');
-
-
-//CreditCardInfo
-Route::get('/payments', 'CreditcardsController@index');
-Route::put('/payments/subtotal', 'CreditcardsController@subtotal');
-
-Route::get('home', 'HomeController@index');
-
-
 Route::post('/language', array(
 
 'before' => 'csrf',
@@ -51,13 +21,31 @@ Route::post('/language', array(
 
 ));
 
-Route::controller('codes', 'CodesController');
-Route::controller('affiliations', 'AffiliationsController');
-Route::controller('vacationfunds', 'VacationfundsController');
-Route::controller('creditcards', 'CreditcardsController');
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+
+Route::any('/{module}/{action?}/', function( $module = '', $action = '' )
+{
+	$controller = Str::title( $module ).'Controller';
+	
+	if( Request::method() == 'GET' )
+	{
+		if( $action )
+		{
+			return View::make('errors.404');
+		}
+		$action = 'Index';
+	}
+
+	try 
+	{
+		return App::make("\App\\Http\\Controllers\\{$controller}")->logAction($module, $action)->$action();
+    } catch(ReflectionException $e) {
+		return View::make('errors.404');
+    }
+});
 
 
