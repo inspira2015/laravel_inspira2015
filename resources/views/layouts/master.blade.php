@@ -35,6 +35,10 @@
           opacity:0.4; /* transparency */  
           filter:alpha(opacity=60); /* IE transparency */  
       }  
+
+      .error{
+        width:70% !important;
+      }
       .account_conf{
         font-size: 32px;
       }

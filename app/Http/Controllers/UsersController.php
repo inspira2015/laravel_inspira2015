@@ -40,7 +40,7 @@ class UsersController extends Controller {
 	}
 
 	/**
-	 * Show the application welcome screen to the user.
+	 * Show the User Registration Form
 	 *
 	 * @return Response
 	 */
@@ -51,11 +51,14 @@ class UsersController extends Controller {
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
 		$data['locale'] = $locale;
-		
 		return view('users.user',$data);
 	}
 
-
+	/**
+	 * Validates user Form data, creates a new user, send email to the new user to validate their data.
+	 *
+	 * @return Response
+	 */
 	public function registration()
 	{
 		$post_data = Request::all();
@@ -90,26 +93,41 @@ class UsersController extends Controller {
         																	 ->withInput($request->input());
 	}
 	
-
+	/**
+	 * Activates the user account with the email Url
+	 *
+	 * @return Response
+	 */
 	public function activation($code = FALSE)
 	{
 		if($code == FALSE)
 		{
 			//Error page
-
+			return view('users.erroractivation');
 		}
 		$userDao = new UserDao();
 		$user = $userDao->getUserByEmailCode($code);
+		if(empty($user->all()))
+		{
+			//Error page
+			return view('users.erroractivation');
+		}
+
 		$this->userDao->load($user->first()->id);
 		$this->userDao->confirmed =1;
 		$this->userDao->confirmation_code ='';
 		$this->userDao->save();
-
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 		$data = array('full_name'=> $full_name);
 		return view('users.accountactivation',$data);
 	}
 
+
+	public function erroractivacion()
+	{
+
+		return view('users.erroractivation');
+	}
 
 	public function getForgotpassword()
 	{
