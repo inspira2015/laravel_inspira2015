@@ -47,7 +47,7 @@ function verificar() {
       <div id="error" style="color:red; text-align:left; margin:0 auto; width:300px;"></div>
       <div class="col-lg-12 col-md-12 col-sm-12" >
 
-        <?php echo Form::open(array('url' => 'user/registration', 'id' => 'user_data','name' => 'formulario','data-toggle' => 'validator' )) ?>
+        <?php echo Form::open(array('url' => 'users/registration', 'id' => 'user_data','name' => 'formulario','data-toggle' => 'validator' )) ?>
          
             <div class="col-lg-1col-md-push-2 col-sm-10-col-sm-push-2 " id="formularios">
                 

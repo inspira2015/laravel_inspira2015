@@ -13,6 +13,7 @@
 
 Route::get('/', 'WelcomeController@index');
 
+
 Route::post('/language', array(
 
 'before' => 'csrf',

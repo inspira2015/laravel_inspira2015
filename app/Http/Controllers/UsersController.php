@@ -1,14 +1,14 @@
 <?php 
 namespace App\Http\Controllers;
 use Lang;
-use Illuminate\Http\Request;
-use Illuminate\Support\Validator;
+use Request;
+use Redirect;
 use App\Services\UserRegistration as UserRegistration;
 use App\Model\Dao\UserDao;
 use Mail;
 
 
-class UserController extends Controller {
+class UsersController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -51,10 +51,11 @@ class UserController extends Controller {
 		return view('users.user',$data);
 	}
 
-	public function registration(Request $request,UserRegistration $userCheck)
+	public function registration()
 	{
-		$post_data = $request->all();
-		$validator = $userCheck->validator($post_data);
+		$post_data = Request::all();
+		$user_check = new UserRegistration();
+		$validator = $user_check->validator($post_data);
 
 		if($validator->passes()) 
 		{
