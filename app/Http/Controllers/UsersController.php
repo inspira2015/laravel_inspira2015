@@ -123,11 +123,7 @@ class UsersController extends Controller {
 	}
 
 
-	public function erroractivacion()
-	{
 
-		return view('users.erroractivation');
-	}
 
 	public function getForgotpassword()
 	{

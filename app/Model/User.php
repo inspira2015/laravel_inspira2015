@@ -1,10 +1,15 @@
 <?php namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model 
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract 
 {
 
+	use Authenticatable, CanResetPassword;
 	protected $table = 'users';
 	protected $primaryKey = 'id';
 	//All filable cause its used on update to fill
