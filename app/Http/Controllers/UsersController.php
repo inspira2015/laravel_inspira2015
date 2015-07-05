@@ -123,8 +123,6 @@ class UsersController extends Controller {
 	}
 
 
-
-
 	public function getForgotpassword()
 	{
 		return view('users.forgotpassword');
@@ -145,26 +143,7 @@ class UsersController extends Controller {
 		return view('users.login');
 	}
 	
-	/*protected function getUserCreateArray(array $valid_data)
-	{
-		return array(
-					 'id' => (isset($valid_data['id'])) ? trim($valid_data['id']) : 0,
-					 'leisure_id' => (isset($valid_data['leisure_id'])) ? trim($valid_data['leisure_id']) : null,
-					 'email' => (isset($valid_data['email'])) ? trim($valid_data['email']) : null,
-					 'password' => (isset($valid_data['password'])) ? trim($valid_data['password']) : null,
-					 'active' => (isset($valid_data['active'])) ? trim($valid_data['active']) : 1,
-					 'remember_token' => (isset($valid_data['remember_token'])) ? trim($valid_data['remember_token']) : null,
-					 'name' => (isset($valid_data['name'])) ? trim($valid_data['name']) : null,
-					 'last_name' => (isset($valid_data['last_name'])) ? trim($valid_data['last_name']) : null,
-					 'confirmed' => (isset($valid_data['confirmed'])) ? trim($valid_data['confirmed']) : 0,
-					 'language' => (isset($valid_data['language'])) ? trim($valid_data['language']) : 'es',
-					 'created_at' => (isset($valid_data['created_at'])) ? trim($valid_data['created_at']) : date('Y-m-d H:i:s'),
-					 'updated_at' => (isset($valid_data['created_at'])) ? trim($valid_data['created_at']) : date('Y-m-d H:i:s'),
-
-
-					 'confirmation_code' => (isset($valid_data['confirmation_code'])) ? trim($valid_data['confirmation_code']) : null,
-			);   
-	}*/
+	
 
 	protected function getCountryArray($language = FALSE)
 	{
