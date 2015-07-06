@@ -39,7 +39,7 @@
 				<p style="color:#cc4b9b">
 					{{ Lang::get('code.promo-invalid') }}
 				</p> 
-				<a href="?route=users/profileexternal2">
+				<a href="{{ url('/users') }}">
 					{!! HTML::image('/images/sincodigo.png', 'Inspira Mexico - Sin Codigo', array('style' => 'margin-top:30px;width:50%; height:auto;')) !!}
 				</a>
 			</div>
