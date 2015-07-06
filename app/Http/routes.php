@@ -18,51 +18,28 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
-
-
 Route::get('/', 'WelcomeController@index');
 
+Route::get('users', 'UsersController@index');		
+Route::post('users/registration', 'UsersController@registration');
 Route::get('users/activation/{code}', 'UsersController@activation');
 
+Route::get('affiliation', 'AffiliationController@index');
+
+Route::get('payment', 'PaymentController@index');
+Route::put('payment/subtotal', 'PaymentController@subtotal');
+
+Route::get('codes', 'CodesController@index');
+Route::post('codes/check', 'CodesController@check');
+
 Route::post('/language', array(
-
-'before' => 'csrf',
-'as'    =>  'language-choose',
-'uses'  =>  'LanguageController@choose'
-
+	'before' => 'csrf',
+	'as'    =>  'language-choose',
+	'uses'  =>  'LanguageController@choose'
 ));
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
-
-
-Route::any('/{module}/{action?}/', function( $module = '', $action = '' )
-{
-
-
-	$controller = Str::title( $module ).'Controller';
-	
-	if( Request::method() == 'GET' )
-	{
-		if( $action )
-		{
-			//return View::make('errors.404');
-		}
-		else
-		{
-			$action = 'Index';
-
-		}
-	}
-
-	try 
-	{
-		return App::make("\App\\Http\\Controllers\\{$controller}")->logAction($module, $action)->$action();
-    } catch(ReflectionException $e) {
-		return View::make('errors.404');
-    }
-});
-
 

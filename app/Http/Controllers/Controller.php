@@ -9,8 +9,9 @@ abstract class Controller extends BaseController {
 
 	use DispatchesCommands, ValidatesRequests;
 
-
-	public function logAction( $module = 'Home', $action = 'View'){
+	public function logAction( $module , $action )
+	{
+		$action = ($action == null ) ? 'Index' : $action;
 		$log = new Log();
 		$log->type_of_transaction = $action;
 		$log->table = $module;

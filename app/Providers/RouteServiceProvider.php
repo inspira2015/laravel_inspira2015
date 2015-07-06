@@ -2,6 +2,9 @@
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\App;
+use Request;
+use Str; 
 
 class RouteServiceProvider extends ServiceProvider {
 
@@ -22,8 +25,7 @@ class RouteServiceProvider extends ServiceProvider {
 	 */
 	public function boot(Router $router)
 	{
-		//
-		
+		$this->setRouteLog();
 		parent::boot($router);
 	}
 
@@ -39,6 +41,24 @@ class RouteServiceProvider extends ServiceProvider {
 		{
 			require app_path('Http/routes.php');
 		});
+	}
+	
+	private function setRouteLog(){
+		$module = Request::segment(1);
+		$action = Request::segment(2);
+		
+		if( $module ) 
+		{
+			$controller = Str::title( $module ).'Controller';
+			$route = "\App\\Http\\Controllers\\{$controller}";
+			if( $module == 'password' )
+			{
+				$route = "\App\\Http\\Controllers\\Auth\\{$controller}";	
+			}
+			
+			return App::make($route)->logAction($module, $action);
+		}
+			
 	}
 
 }
