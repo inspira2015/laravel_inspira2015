@@ -52,7 +52,7 @@ class RouteServiceProvider extends ServiceProvider {
 		{
 			$controller = Str::title( $module ).'Controller';
 			$route = "\App\\Http\\Controllers\\{$controller}";
-			if( $module == 'password' )
+			if( $module == 'password' || $module == 'auth' )
 			{
 				$route = "\App\\Http\\Controllers\\Auth\\{$controller}";	
 			}
