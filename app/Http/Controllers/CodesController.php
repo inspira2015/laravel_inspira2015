@@ -1,12 +1,14 @@
 <?php  namespace App\Http\Controllers;
 use Request;
 use Redirect;
+use Carbon; 
+use Session;
 use App\Model\Dao\CodeDao;
 use App\Model\Code;
 use App\Services\ServiceCode as ServiceCode;
+use App\Libraries\Validator as CodeValidator;
 
-
-class CodesController extends Controller {
+class CodesController extends Controller implements CodeValidator{
 
 	private $codeDao;
 
@@ -28,10 +30,13 @@ class CodesController extends Controller {
         if ( $validator->passes() ) 
         {
 			$code = $this->codeDao->getByCode($data['code'])->first();
-
-			if($code)
+			
+			if( $this->GetValid( $code ) )
 			{
 				//Register code.
+				Session::put('code', $code);
+				
+				//Change this view for the next step.
 				return view('codes.success')->with('title', 'C&oacute;digo registrado');
 			}
 			return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->withErrors(array('message' => 'Code is not valid'));
@@ -39,6 +44,18 @@ class CodesController extends Controller {
         
         return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->withErrors($validator);
 	}
-
+	
+	public function GetValid( $code ){
+		if( $code->end_date >= Carbon::today() )
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public function getError()
+	{
+		
+	}
 
 }
