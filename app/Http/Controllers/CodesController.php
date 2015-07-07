@@ -6,15 +6,20 @@ use Session;
 use App\Model\Dao\CodeDao;
 use App\Model\Code;
 use App\Services\ServiceCode as ServiceCode;
-use App\Libraries\Validator as CodeValidator;
+use App\Libraries\CodeValidator as CodeValidator;
 
-class CodesController extends Controller implements CodeValidator{
+
+
+class CodesController extends Controller {
 
 	private $codeDao;
+	private $objtest;
 
-	public function __construct(CodeDao $dao) {
+	public function __construct(CodeDao $dao) 
+	{
 		$this->middleware('guest');
 		$this->codeDao = $dao;
+		$this->check = new CodeValidator();
 	}
 
 	public function Index() 
@@ -30,6 +35,13 @@ class CodesController extends Controller implements CodeValidator{
         if ( $validator->passes() ) 
         {
 			$code = $this->codeDao->getByCode($data['code'])->first();
+
+			$this->check->setCode($code);
+			$term = $this->check->getTerm();
+
+			echo $term;
+			echo "test";
+			exit;
 			
 			if( $this->GetValid( $code ) )
 			{
