@@ -8,8 +8,6 @@ use App\Model\Code;
 use App\Services\ServiceCode as ServiceCode;
 use App\Libraries\CodeValidator as CodeValidator;
 
-
-
 class CodesController extends Controller {
 
 	private $codeDao;
@@ -35,22 +33,14 @@ class CodesController extends Controller {
         if ( $validator->passes() ) 
         {
 			$code = $this->codeDao->getByCode($data['code'])->first();
-
 			$this->check->setCode($code);
-			$term = $this->check->getTerm();
 
-			echo $term;
-			echo "test";
-			exit;
-			
-			if( $this->GetValid( $code ) )
+			if ( $this->check->checkValid() )
 			{
-				//Register code.
 				Session::put('code', $code);
-				
-				//Change this view for the next step.
-				return view('codes.success')->with('title', 'C&oacute;digo registrado');
+				return Redirect::to('users');
 			}
+
 			return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->withErrors(array('message' => 'Code is not valid'));
         }
         
