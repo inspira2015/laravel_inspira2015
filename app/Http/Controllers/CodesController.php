@@ -37,7 +37,7 @@ class CodesController extends Controller {
 
 			if ( $this->check->checkValid() )
 			{
-				Session::put('code', $code);
+				Session::put('code', $data['code']);
 				return Redirect::to('users');
 			}
 

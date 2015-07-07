@@ -6,8 +6,12 @@ use Redirect;
 use App\Services\UserRegistration as UserRegistration;
 use App\Model\Dao\UserDao;
 use App\Model\Entity\UserRegisteredPhone;
+use App\Model\Entity\CodesUsedEntity;
+use App\Model\Dao\CodeDao;
+use App\Libraries\CodeValidator as CodeValidator;
 use Input;
 use Mail;
+use Session;
 
 
 class UsersController extends Controller {
@@ -24,6 +28,8 @@ class UsersController extends Controller {
 	*/
 	private $userDao;
 	private $userPhone;
+	private $codesUsed;
+	private $codesDao;
 
 
 	/**
@@ -31,12 +37,17 @@ class UsersController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct(UserDao $userDao,UserRegisteredPhone $userphone)
+	public function __construct(UserDao $userDao, 
+								UserRegisteredPhone $userphone, 
+								CodesUsedEntity $codesUsed,
+								CodeDao $codeDao )
 	{
 		$this->middleware('guest');
 		$this->userDao = $userDao;
 		$this->userPhone = $userphone;
-
+		$this->codesUsed = $codesUsed;
+		$this->codeDao = $codeDao;
+		$this->check = new CodeValidator();
 	}
 
 	/**
@@ -68,12 +79,21 @@ class UsersController extends Controller {
 		if($validator->passes()) 
 		{
 			$this->userDao->exchangeArray($post_data);
-			$last_id =$this->userDao->save();
-			$this->userDao->load($last_id);
-			$post_data['users_id'] = $last_id;
+			$users_id =$this->userDao->save();
+			$this->userDao->load($users_id);
+			$post_data['users_id'] = $users_id;//last_id
 			$this->userPhone->exchangeArray($post_data);
 			$last_phone_id =$this->userPhone->save();
 			$full_nam = $this->userDao->name . ' ' . $this->userDao->last_name;
+			$code = Session::get('code', FALSE);
+			$ObjCode = $this->codeDao->getByCode($code);
+			
+			if(!empty($ObjCode->all()))
+			{
+				$this->codesUsed->exchangeArray(array('codes_id' => $ObjCode->first()->id, 'users_id' =>$users_id));
+				$this->codesUsed->save();
+			}
+
 
 			$sent =Mail::send('emails.user_registration', array('user' => $this->userDao), function($message)
 			{
@@ -90,7 +110,7 @@ class UsersController extends Controller {
 		$data['currency_list'] = $this->getCurrency();
 
         return view('users.user')->with($data)->withErrors($validator)
-        																	 ->withInput($request->input());
+        																	 ->withInput($post_data);
 	}
 	
 	/**

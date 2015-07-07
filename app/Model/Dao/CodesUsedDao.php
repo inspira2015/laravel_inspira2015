@@ -2,9 +2,9 @@
 
 namespace App\Model\Dao;
 
-use App\Model\Code;
+use App\Model\CodesUsed as Code;
 
-class CodeDao implements ICrudOperations 
+class CodesUsedDao implements ICrudOperations 
 {
 	
 	public function getById($id) 
@@ -28,17 +28,19 @@ class CodeDao implements ICrudOperations
 		
 		if ($id > 0) {
 			$code = Code::find($id);
-			$code->fill($data);
+			$array_data = (array)$this;
+			$code->fill($array_data);
 		} else {
-			$code = Code::create($data);
+			$code = new Code;
+			foreach($this as $key =>$value)
+			{
+				$code->$key = $value;
+			}
 		}
 			$code->save();
+			return $code->id;
 	}
 
-	public function getByCode($code = FALSE)
-	{
-		return Code::where('code', $code)->get();
-	}
-
+	
 
 }
