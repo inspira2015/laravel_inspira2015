@@ -10,9 +10,15 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
 // Password reset link request routes...
 Route::get('password/email', 'Auth\PasswordController@getEmail');
 Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+
+Route::get('api/test', 'Api\UsersController@test');
+Route::get('api/users/all', 'Api\UsersController@all');
+
 
 // Password reset routes...
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
@@ -30,6 +36,8 @@ Route::get('payment', 'PaymentController@index');
 Route::put('payment/subtotal', 'PaymentController@subtotal');
 
 Route::get('codes', 'CodesController@index');
+Route::get('useraccount', 'UseraccountController@index');
+
 Route::post('codes/check', 'CodesController@check');
 
 Route::post('/language', array(
@@ -42,4 +50,6 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+
 

@@ -44,6 +44,7 @@ class RouteServiceProvider extends ServiceProvider {
 	}
 	
 	private function setRouteLog(){
+/*
 		$module = Request::segment(1);
 		$action = Request::segment(2);
 		$method = Request::method();
@@ -55,10 +56,17 @@ class RouteServiceProvider extends ServiceProvider {
 			if( $module == 'password' || $module == 'auth' )
 			{
 				$route = "\App\\Http\\Controllers\\Auth\\{$controller}";	
+			}else{
+				
 			}
-			
+			else if( $module == 'api' ){
+				$controller = Str::title( $action ).'Controller';
+				$route = "\App\\Http\\Controllers\\Api\\{$controller}";	
+				exit;
+			}
 			return App::make($route)->logAction($module, $action, $method);
 		}
+*/
 			
 	}
 
