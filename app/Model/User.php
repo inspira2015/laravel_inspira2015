@@ -48,4 +48,29 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function password_resets(){
 		return $this->hasMany('App\Model\PasswordResets', 'email', 'email');
 	}
+	
+	public function phone( $type ){
+		return $this->phones()->where('type', $type )->first();
+	}
+	
+	public function getAffiliation(){
+		return 1;
+	}
+	
+	public function getPoints(){
+		return 0;
+	}
+	
+	public function getCode(){
+		return 20;
+	}
+	
+	public function getLanguage(){
+		return 'ES';
+	}
+	
+	public function getCurrency(){
+		return 'MXN';
+	}
+	
 }

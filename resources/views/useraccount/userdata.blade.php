@@ -35,7 +35,7 @@
           
   		<div class="col-lg-12 col-md-12 col-sm-12" style="background-color:#e5e7e9; z-index:1000; margin-bottom:70px;">
   			<div class="col-lg-4">
-      <h1 style="font-size:32px;  color:#818c95; "><i class="fa fa-user" style="border: 3px solid grey; border-radius:50%; width:35px; height:35px;"></i>&nbsp;<?php //echo $user_data["first_name"]; ?> <?php //echo $user_data["last_name"]; ?></h1>
+      <h1 style="font-size:32px;  color:#818c95; "><i class="fa fa-user" style="border: 3px solid grey; border-radius:50%; width:35px; height:35px;"></i>&nbsp;{{ Auth::user()->name }} {{ Auth::user()->last_name }}</h1>
   			</div>
   					<div class="col-lg-4">
       		</div>
@@ -54,20 +54,16 @@
               <div id = "campos">
   				<input type = "hidden" id = "leisure" value ="<?php //echo $user_data['leisure_id'] ?>">
   				<input type = "hidden" id = "afiliacion" name="afiliacion" value ="<?php //echo $afiliacion['tier_id'] ?>">
-  			
-  				<p id = "cel" class=""> </p>
+  				<p id = "cel" class="">Cel: {{ Auth::user()->phone('cellphone')->number  }}</p>
+  				<p id = "hmt" class="">Tel: {{ Auth::user()->phone('home')->number  }} </p>
+  				<p id = "wkt" class="">Of: {{ Auth::user()->phone('office')->number  }}</p>
+  				<p id = "address" class="">Dir: {{ Auth::user()->address->address }}</p>
   				
-  				<p id = "hmt" class=""> </p>
+  				<p id = "city" class="">Cd: {{ Auth::user()->address->city }}</p>
   				
-  				<p id = "wkt" class=""> </p>
+  				<p id = "country" class="">Pa&iacute;s: {{ Auth::user()->address->country }}</p>
   				
-  				<p id = "address" class=""> </p>
-  				
-  				<p id = "city" class=""> </p>
-  				
-  				<p id = "country" class=""> </p>
-  				
-  				<p id = "state" class=""> </p>
+  				<p id = "state" class="">Edo: {{ Auth::user()->address->state }} </p>
   			</div>
             </div>
               <a id ="cambiar" class="linkcambiar"> <img src="images/cambiar.png"/></a>
@@ -78,7 +74,7 @@
               <div class="informacion" style="padding-bottom:60px;">
               <h2 style="padding-bottom:20px;">Datos de cuenta</h2>
               			<div id = "campos2">
-  				<p id = "correo" class=""> Email: director@inspira.mx</p>
+  				<p id = "correo" class=""> Email: {{ Auth::user()->email }}</p>
   				<p id = "contrasena" class="">Contraseña: *********</p>
   				</div>
             </div>
@@ -88,32 +84,34 @@
           <div class="col-lg-12">
             <div class="content">
               <div class="informacion-2" style="padding-top:10px; padding-bottom:10px;">
-  				<?php 
-
-  // if($user_data["language"]=="ES"){
-  // echo ' <p > <p style="display:inline-block; width:40%;"> Idioma: &nbsp; '.$user_data["language"].' </p> <a onclick="changeEng()" style="color:#cc4b9b;"> <img src="images/cambiar.png" style="vertical-align:text-top;"/></a></p>';
-  // }else{
-  // echo ' <p > <p style="display:inline-block; width:40%;"> Language: '.$user_data["language"].' </p> <a onclick="changeEsp()" style="color:#cc4b9b;"><img src="images/cambiarENG.png" style="vertical-align:text-top;"/></a></p>';
-  // }
-
-  ?>
-  				<?php 
-
-  // if($user_data["currency"]=="MXN"){
-  // echo ' <p > <p style="display:inline-block; width:40%;"> Moneda: '.$user_data["currency"].' </p> <a onclick="confirmeUSD()" style="color:#cc4b9b;"><img src="images/cambiar.png" style="vertical-align:text-top;"/></a></p>';
-  // }else{
-  // echo '<p > <p style="display:inline-block; width:40%;"> Moneda: '.$user_data["currency"].'</p> <a onclick="confirmeMXN()" style="color:#cc4b9b;"><img src="images/cambiar.png" style="vertical-align:text-top;"/></a></p>';
-  // }
-
-  ?>
-  				
+	          
+	          @if( Auth::user()->language == 'es' )
+	          <p>
+		        <p style="display:inline-block; width:40%;"> Idioma: &nbsp; ES</p> <a onclick="changeEng()" style="color:#cc4b9b;"> <img src="images/cambiar.png" style="vertical-align:text-top;"/></a>
+	          </p>
+	          @else
+	          <p > <p style="display:inline-block; width:40%;"> Language: EN</p> <a onclick="changeEsp()" style="color:#cc4b9b;"><img src="images/cambiarENG.png" style="vertical-align:text-top;"/></a></p>	          
+	          @endif
+	          
+	          
+	          @if( Auth::user()->getCurrency() == 'MXN' )
+	          <p>
+		          <p style="display:inline-block; width:40%;"> Moneda:  {{ Auth::user()->getCurrency() }}</p>
+		          <a onclick="confirmeMXN()" style="color:#cc4b9b;"><img src="images/cambiar.png" style="vertical-align:text-top;"/></a>
+	          </p>
+	          @else
+	          <p>
+		          <p style="display:inline-block; width:40%;"> Currency:  {{ Auth::user()->getCurrency() }}</p>
+		          <a onclick="confirmeUSD()" style="color:#cc4b9b;"><img src="images/cambiarENG.png" style="vertical-align:text-top;"/></a>
+	          </p>	          
+	          @endif
             </div>
             </div>
           </div>
   			<div class="col-lg-12">
             <div class="content">
               <div class="informacion-2" style="padding-top:30px; padding-bottom:30px;">
-              <h1 style="text-align:center;">PUNTOS INSPIRA <?php //echo $user_data['inspira_points'];?> puntos</h1>
+              <h1 style="text-align:center;">PUNTOS INSPIRA {{ Auth::user()->getPoints() }} puntos</h1>
             </div>
             </div>
           </div>
@@ -123,24 +121,21 @@
             <div class="content">
               <div class="informacion">
               <h2>TIPO DE AFILIACIón</h2>
-              <?php //if($user_data["afiliacion"]==1){ echo "<h2>Descubre</h2>";
-  //}
-  //if($user_data["afiliacion"]==2){ echo "<h2>Platino</h2>";
-  // }
-  // if($user_data["afiliacion"]==3){echo "<h2>Diamante</h2>";
+              @if( Auth::user()->getAffiliation() == 1 )
+              	<h2>Descubre</h2>
+              @elseif (Auth::user()->getAffiliation() == 2 )
+              	<h2>Platino</h2>
+              @elseif (Auth::user()->getAffiliation() == 3 )
+              	<h2>Diamante</h2>
+              @endif
 
-  // }
-   
-  // if(($codes-$user_data["afiliacion"]) > 0){
-  // echo '</div>    <a style="text-align:center;" href="?route=users/gotoAfiliacion_single"><img src="images/categoria.png" style="width:80%;"/></a>';
-  // }else{
-  // echo '</div>';
-  // }
-   ?>
-
+			</div>
+			@if( (Auth::user()->getCode() - Auth::user()->getAffiliation()) > 0 )
+				<a style="text-align:center;" href="?route=users/gotoAfiliacion_single"><img src="images/categoria.png" style="width:80%;"/></a>
+			@endif
   				<div class="informacion-2">
               <p>Fecha de vencimiento:</p>
-              <p><?PHP //echo date('d-m-Y', strtotime($user_data['expirationDate']));?></p>
+              <p> 2000-10-10</p>
             </div>
             </div>
           </div>
@@ -234,109 +229,5 @@
 
   @include('layouts.__common.tawk')
   @include('layouts.__common.analytics')
-
-
-    
-  // <?PHP	
-  //echo '<script>
-  // function confirmeUSD() {
-  //     if (confirm("El cambio de moneda afectara las cantidades de su fondo vacacional,\nAHORRO MENSUAL:\n Ahora: $'.round($user_data['amount'],2).' '.$user_data['currency'].'\n Cambia a :  $'.round($user_data['amount']/$currency['rate'],2).' dlls mensuales \nAHORRO TOTAL:\n Ahora: '.$user_data['total_saved'].' '.$user_data['currency'].'\nCambia a: $'.round($user_data['total_saved']/$currency['rate'],2).' dlls") == true) {
-
-  // 				$.ajax({
-  // 		 type: "PUT",
-  //  data: JSON.stringify({
-  // "currencyCode": "USD",
-
-  //  }),
-  // url: "https://api.leisureloyalty.com/v3/members/'.$user_data["leisure_id"].'?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH",
-  //    success: function() {
-  //  window.location="?route=users/changetoUSD";
-  //   }
-  // });
-
-         
-  //     } 
-  // }
-  // 		function confirmeMXN() {
-  //     if (confirm("El cambio de moneda afectara las cantidades de su fondo vacacional,\nAHORRO MENSUAL:\n Ahora: $'.round($user_data['amount'],2).' '.$user_data['currency'].'\n Cambia a :  $'.round($user_data['amount']*$currency['rate'],2).' MXN mensuales \nAHORRO TOTAL:\n Ahora: '.$user_data['total_saved'].' '.$user_data['currency'].'\nCambia a: $'.round($user_data['total_saved']*$currency['rate'],2).' MXN") == true) {
-     
-
-
-  // 				$.ajax({
-  // 		 type: "PUT",
-  //  data: JSON.stringify({
-  // "currencyCode": "MXN",
-
-  //  }),
-  // url: "https://api.leisureloyalty.com/v3/members/'.$user_data["leisure_id"].'?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH",
-  //    success: function() {
-  //         window.location="?route=users/changetoMXN";
-  //   }
-  // });
-  //     } 
-  // }
-  // 		function confirmUSD() {
-  //     if (confirm("Dear affiliated Inspira notify you that making money exchange, according to the current bank exchange, your statement would be: Monthly Savings background holiday: Now: $'.round($user_data['amount'],2).' in '.$user_data['currency'].', MX monthly change to: $'.round($user_data['amount']/$currency['rate'],2).' dlls mensuales Ahorro total:") == true) {
-  // 				$.ajax({
-  // 		 type: "PUT",
-  //  data: JSON.stringify({
-  // "currencyCode": "USD",
-  //  }),
-  // url: "https://api.leisureloyalty.com/v3/members/'.$user_data["leisure_id"].'?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH",
-  //    success: function() {
-  //  window.location="?route=users/changetoUSD";
-  //   }
-  // });
-  //     } 
-  // }
-  // 		function confirmMXN() {
-  //     if (confirm("Dear affiliated Inspira notify you that making money exchange, according to the current bank exchange, your statement would be: Monthly Savings background holiday: Now: $'.round($user_data['amount'],2).' in '.$user_data['currency'].', dlls monthly change to: $'.round($user_data['amount']*$currency['rate'],2).' MXN mensuales Ahorro total:") == true) {
-
-
-  // 				$.ajax({
-  // 		 type: "PUT",
-  //  data: JSON.stringify({
-  // "currencyCode": "MXN",
-
-  //  }),
-  // url: "https://api.leisureloyalty.com/v3/members/'.$user_data["leisure_id"].'?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH",
-  //    success: function() {
-  //         window.location="?route=users/changetoMXN";
-  //   }
-  // });  } 
-  // }
-  // function changeEng(){
-  // 				$.ajax({
-  // 		 type: "PUT",
-  //  data: JSON.stringify({
-  // "languageCode": "EN",
-
-  //  }),
-  // url: "https://api.leisureloyalty.com/v3/members/'.$user_data["leisure_id"].'?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH",
-  //    success: function() {
-  // window.location="?route=users/changeENGLISH";
-  //   }
-  // });
-
-  // }
-  // </script>';
-  ?>
-  <?PHP 
-  // echo '<script>
-  // 	$(function() {
-  // $.ajax({
-  // 		 type: "PUT",
-  //  data: JSON.stringify({
-  // "mtierId": 111
-
-  //  }),
-  // url: "https://api.leisureloyalty.com/v3/members/changeTier/'.$user_data["leisure_id"].'?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH",
-  //    success: function() {
-  //     console.log("Tier Updated Successfully!");
-  //   }
-  // });
-  // });
-  // 	</script>';
-  ?>
   </body>
   </html>
