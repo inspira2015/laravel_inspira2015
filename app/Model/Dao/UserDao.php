@@ -62,14 +62,16 @@ class UserDao extends UserEntity implements ICrudOperations
  		}
  	}
 
- 	public function getUserByEmailCode($code = FALSE)
- 	{
- 		$users = User::where('confirmation_code', '=',$code)->get();
- 		if(empty($users)){
- 			return FALSE;
- 		}
- 		return $users;
+ 	public function getPhones($id){
+	 	return $this->getById($id)->phones;
  	}
-
+ 	
+ 	public function getPhoneType( $id, $type ){
+	 	return $this->getPhones($id)->where('type', $type)->first();
+ 	}
+ 	
+ 	public function getAddress( $id ){
+	 	return $this->getById($id)->address;
+ 	}
 
 }

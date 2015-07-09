@@ -16,11 +16,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected $fillable = ['leisure_id','email', 'password', 'active','remember_token', 'name', 'last_name','confirmed','language',
 						    'confirmation_code','country','state'];
 
-	public function vacation_fund_log(){
+	public function funds_log(){
 		return $this->hasMany('App\Model\VacationFundLog', 'users_id', 'id');
 	}
 	
-	public function vacational_funds(){
+	public function funds(){
 		return $this->hasMany('App\Model\UserVacationalFunds', 'users_id', 'id');
 	}
 	
@@ -49,10 +49,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasMany('App\Model\PasswordResets', 'email', 'email');
 	}
 	
-	public function phone( $type ){
-		return $this->phones()->where('type', $type )->first();
-	}
-	
 	public function getAffiliation(){
 		return 1;
 	}
@@ -65,12 +61,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return 20;
 	}
 	
-	public function getLanguage(){
-		return 'ES';
-	}
-	
 	public function getCurrency(){
 		return 'MXN';
+	}
+	
+	public function getDetails(){
+		$user = new \stdClass();
+		$user->currency = 'MXN';
+		$user->total_amount = 10;
+		$user->amount = 100;
+		$user->expires = '10-10-2015';
+		return $user;
 	}
 	
 }

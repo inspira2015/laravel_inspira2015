@@ -1,9 +1,13 @@
 <?php 
 namespace App\Http\Controllers;
 use Auth;
+use App\Model\Dao\UserDao;
+use App\Model\Dao\UserRegisteredPhoneDao;
 
 class UseraccountController extends Controller {
 
+	private $userDao;
+	private $phoneDao;
 	/*
 	|--------------------------------------------------------------------------
 	| Home Controller
@@ -20,9 +24,12 @@ class UseraccountController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	 
+	public function __construct( UserDao $userDao, UserRegisteredPhoneDao $phoneDao)
 	{
 		$this->middleware('auth');
+		$this->userDao = $userDao;
+		$this->phoneDao = $phoneDao;
 	}
 
 	/**
@@ -32,7 +39,18 @@ class UseraccountController extends Controller {
 	 */
 	public function index()
 	{
-		return view('useraccount.userdata');
+		$user = new \stdClass();
+		$phones = new \stdClass();
+		
+		$phones->cellphone = $this->userDao->getPhoneType( Auth::user()->id, 'cellphone');
+		$phones->phone = $this->userDao->getPhoneType( Auth::user()->id, 'phone');
+		$phones->office = $this->userDao->getPhoneType( Auth::user()->id, 'office');
+		
+		$user->details = $this->userDao->getById( Auth::user()->id );
+		$user->phones = $phones;
+		$user->address = $this->userDao->getAddress( Auth::user()->id );
+		
+		return view('useraccount.userdata')->with( 'user' , $user );
 	}
 
 }

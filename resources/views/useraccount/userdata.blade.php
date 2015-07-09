@@ -1,233 +1,259 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {!! HTML::style('css/bootstrap/css/style.css') !!}
-    {!! HTML::style('css/bootstrap/css/menu.css') !!}
-    {!! HTML::style('css/bootstrap/css/bootstrap.min.css') !!}
-    {!! HTML::style('css/font-awesome/css/font-awesome.min.css') !!}
-    <link rel="icon" href="/images/inspira.ico" type="image/ico" />
-    {!! HTML::script('js/jquery-1.10.2.min.js') !!}
-    {!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
-    {!! HTML::script('js/datos.js') !!}
-    {!! HTML::script('js/datos_cuenta.js') !!}
-    {!! HTML::script('js/datos_fondo.js') !!}
-    {!! HTML::style('css/bootstrap/css/slide.css') !!}
-    {!! HTML::style('css/bootstrap/css/slidestyle.css') !!}
-  </head>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	{!! HTML::style('css/bootstrap/css/style.css') !!}
+	{!! HTML::style('css/bootstrap/css/menu.css') !!}
+	{!! HTML::style('css/bootstrap/css/bootstrap.min.css') !!}
+	{!! HTML::style('css/font-awesome/css/font-awesome.min.css') !!}
+	<link rel="icon" href="/images/inspira.ico" type="image/ico" />
+	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
+	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
+	{!! HTML::script('js/datos.js') !!}
+	{!! HTML::script('js/datos_cuenta.js') !!}
+	{!! HTML::script('js/datos_fondo.js') !!}
+	{!! HTML::style('css/bootstrap/css/slide.css') !!}
+	{!! HTML::style('css/bootstrap/css/slidestyle.css') !!}
+</head>
 
-  <body id="page" style="background-image:url('images/1.png'); background-repeat:no-repeat; background-position: center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;">
+<body id="page" style="background-image:url('images/1.png'); background-repeat:no-repeat; background-position: center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;">
 
-    @include('layouts.__common.header')
+@include('layouts.__common.header')
 
+<div class="container">
+	<div class="container">
+		<div class="row"  style="margin-bottom:50px; background-color:#e5e7e9;">
 
-  <div class="container">
+			<div class="col-lg-12 col-md-12 col-sm-12" style="background-color:#e5e7e9; z-index:1000; margin-bottom:70px; margin-top: 50px;">
+				<div class="col-lg-6">
+					<h1 style="font-size:32px;  color:#818c95; ">
+						<i class="fa fa-user" style="border: 3px solid grey; border-radius:50%; width:35px; height:35px;"></i>&nbsp;
+						{{ Str::upper($user->details->name) }} {{ Str::upper($user->details->last_name) }}
+					</h1>
+				</div>
+				<div class="col-lg-3"> </div>
 
-  <div class="container">
-  	
-      <div class="row"  style="margin-bottom:50px; background-color:#e5e7e9;">
-          
-  		<div class="col-lg-12 col-md-12 col-sm-12" style="background-color:#e5e7e9; z-index:1000; margin-bottom:70px;">
-  			<div class="col-lg-4">
-      <h1 style="font-size:32px;  color:#818c95; "><i class="fa fa-user" style="border: 3px solid grey; border-radius:50%; width:35px; height:35px;"></i>&nbsp;{{ Auth::user()->name }} {{ Auth::user()->last_name }}</h1>
-  			</div>
-  					<div class="col-lg-4">
-      		</div>
-      
-  					<div class="col-lg-4">
-      		</div>
-      
-      
-          </div>
-  		
-          <div class="col-lg-6" style="margin-top:35px;">
-            <div class="col-lg-12">
-            <div class="content" style="padding-bottom:40px; padding-top:10px;">
-              <div class="informacion" style="padding-bottom:60px;">
-              <h2 style="padding-bottom:20px;">Datos de contacto</h2>
-              <div id = "campos">
-  				<input type = "hidden" id = "leisure" value ="<?php //echo $user_data['leisure_id'] ?>">
-  				<input type = "hidden" id = "afiliacion" name="afiliacion" value ="<?php //echo $afiliacion['tier_id'] ?>">
-  				<p id = "cel" class="">Cel: {{ Auth::user()->phone('cellphone')->number  }}</p>
-  				<p id = "hmt" class="">Tel: {{ Auth::user()->phone('home')->number  }} </p>
-  				<p id = "wkt" class="">Of: {{ Auth::user()->phone('office')->number  }}</p>
-  				<p id = "address" class="">Dir: {{ Auth::user()->address->address }}</p>
-  				
-  				<p id = "city" class="">Cd: {{ Auth::user()->address->city }}</p>
-  				
-  				<p id = "country" class="">Pa&iacute;s: {{ Auth::user()->address->country }}</p>
-  				
-  				<p id = "state" class="">Edo: {{ Auth::user()->address->state }} </p>
-  			</div>
-            </div>
-              <a id ="cambiar" class="linkcambiar"> <img src="images/cambiar.png"/></a>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="content" style="padding-bottom:40px; padding-top:20px;">
-              <div class="informacion" style="padding-bottom:60px;">
-              <h2 style="padding-bottom:20px;">Datos de cuenta</h2>
-              			<div id = "campos2">
-  				<p id = "correo" class=""> Email: {{ Auth::user()->email }}</p>
-  				<p id = "contrasena" class="">Contraseña: *********</p>
-  				</div>
-            </div>
-              <a id= "cambiar2"><img src="images/cambiar.png"/></a>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="content">
-              <div class="informacion-2" style="padding-top:10px; padding-bottom:10px;">
-	          
-	          @if( Auth::user()->language == 'es' )
-	          <p>
-		        <p style="display:inline-block; width:40%;"> Idioma: &nbsp; ES</p> <a onclick="changeEng()" style="color:#cc4b9b;"> <img src="images/cambiar.png" style="vertical-align:text-top;"/></a>
-	          </p>
-	          @else
-	          <p > <p style="display:inline-block; width:40%;"> Language: EN</p> <a onclick="changeEsp()" style="color:#cc4b9b;"><img src="images/cambiarENG.png" style="vertical-align:text-top;"/></a></p>	          
-	          @endif
-	          
-	          
-	          @if( Auth::user()->getCurrency() == 'MXN' )
-	          <p>
-		          <p style="display:inline-block; width:40%;"> Moneda:  {{ Auth::user()->getCurrency() }}</p>
-		          <a onclick="confirmeMXN()" style="color:#cc4b9b;"><img src="images/cambiar.png" style="vertical-align:text-top;"/></a>
-	          </p>
-	          @else
-	          <p>
-		          <p style="display:inline-block; width:40%;"> Currency:  {{ Auth::user()->getCurrency() }}</p>
-		          <a onclick="confirmeUSD()" style="color:#cc4b9b;"><img src="images/cambiarENG.png" style="vertical-align:text-top;"/></a>
-	          </p>	          
-	          @endif
-            </div>
-            </div>
-          </div>
-  			<div class="col-lg-12">
-            <div class="content">
-              <div class="informacion-2" style="padding-top:30px; padding-bottom:30px;">
-              <h1 style="text-align:center;">PUNTOS INSPIRA {{ Auth::user()->getPoints() }} puntos</h1>
-            </div>
-            </div>
-          </div>
-          </div>
-          <div class="col-lg-6" style="margin-top:35px;">
-            <div class="col-lg-12">
-            <div class="content">
-              <div class="informacion">
-              <h2>TIPO DE AFILIACIón</h2>
-              @if( Auth::user()->getAffiliation() == 1 )
-              	<h2>Descubre</h2>
-              @elseif (Auth::user()->getAffiliation() == 2 )
-              	<h2>Platino</h2>
-              @elseif (Auth::user()->getAffiliation() == 3 )
-              	<h2>Diamante</h2>
-              @endif
-
+				<div class="col-lg-3"> </div>
 			</div>
-			@if( (Auth::user()->getCode() - Auth::user()->getAffiliation()) > 0 )
-				<a style="text-align:center;" href="?route=users/gotoAfiliacion_single"><img src="images/categoria.png" style="width:80%;"/></a>
-			@endif
-  				<div class="informacion-2">
-              <p>Fecha de vencimiento:</p>
-              <p> 2000-10-10</p>
-            </div>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="content">
-              <div class="informacion-2" style="margin-bottom:20px;">
-              <h2>FONDO vacacional</h2>
-  				<p>
-  					Abono mensual: $ <?php //if($user_data["amount"]){echo round($user_data['amount'], 2).' '.$user_data['currency'];}else{echo '0 '.$user_data['currency'];} ?>
-  							</p>
-  				<p>
-  						Ahorros totales: $ <?php //echo $user_data['total_saved'];?> <?php //echo $user_data['currency'];?>
-  				</p>
-            </div>
-  			  <div style="display:inline-block;">
-  				  
-  			  <form action="https://mexico.dineromail.com/Shop/Shop_Ingreso.asp" method="post"> 
-  				  <input type="hidden" name="NombreItem" value="Agregar a fondo"> 
-  				  <input type="hidden" name="TipoMoneda" value="<?php 
-  //					if($user_data["currency"]=="MXN"){
-  //						echo 1;										   
-  //					 }else{
-  //													echo 2;
-  //													}?>"> 
-  				 
-  				  <input type="hidden" name="E_Comercio" value="1534470"> 
-  				  <input type="hidden" name="NroItem" value="12"> 
-  				  <input type="hidden" name="DireccionExito" value="http://inspiramexico.mx/payments/dineromail"> 
-  				  <input type="hidden" name="DireccionFracaso" value="http://inspiramexico.mx/payments/dineromail/error"> 
-  				  <input type="hidden" name="DireccionEnvio" value="0"> 
-  				  <input type="hidden" name="Mensaje" value="1"> 
-  				  <input type='hidden' name='MediosPago' value='4,5,6,17,19,20,21,22,13,14,7'>
-  				  
-              <?PHP 
-  				// if($user_data["amount"]>0){
-  				// 	echo '<a style="text-align:center; display:inline-block; width:40%; vertical-align:top;" href="?route=users/gotoFondosingle"><img src="images/cambiar.png"/></a><div id="agregarfondo" style="display:inline-block;" width:100%; class="informacion-2;"> <a id="cambiar3"   style="display:inline-block; width:40%;"><img src="images/abonoadicional.png" style="width:80%;"/><img src="images/visa_master_american_oxxo_7.png" style=""/></a>
 
-  				//   </div>
-  			 //  		<div style="width:80%; margin:0 auto; padding-top:20px;">
-  				// 	<div id="formularioabono">
+			<div class="col-lg-6" style="margin-top:35px;">
+				<div class="col-lg-12">
+					<div class="content" style="padding-bottom:40px; padding-top:10px;">
+						<div class="informacion" style="padding-bottom:60px;">
+							<h2 style="padding-bottom:20px;">Datos de contacto</h2>
+							<div id = "campos">
+								<input type = "hidden" id = "leisure" value ="<?php //echo $user_data['leisure_id'] ?>">
+								<input type = "hidden" id = "afiliacion" name="afiliacion" value ="<?php //echo $afiliacion['tier_id'] ?>">
+								<p id = "cel" class="">{{ Lang::get('userdata.cell') }}: {{ $user->phones->cellphone['number'] }}</p>
+								<p id = "hmt" class="">{{ Lang::get('userdata.phone') }}: {{ $user->phones->phone['number'] }}</p>
+								<p id = "wkt" class="">{{ Lang::get('userdata.office') }}: {{ $user->phones->office['number'] }}</p>
+								<p id = "address" class="">{{ Lang::get('userdata.address') }}: {{ $user->address['address'] }}</p>
 
-  				// 	</div>
-  			 //  <p style="text-align:center;">Fecha de sig. abono: '.date("d-m-Y", strtotime("+1 month")).'</p></div></div>';
-  			  
-  				// }
-  				// else{
-  				// 	echo '
-  				// 	<a style="text-align:center; display:inline-block; width:100%;" href="?route=users/gotoFondosingle" ><img src="images/fondo.png" style="width:80%; height:auto;"/></a> 
+								<p id = "city" class="">{{ Lang::get('userdata.city') }}: {{ $user->address['city'] }}</p>
 
-  				// 	<div id="agregarfondo" style="display:inline-block;" width:100%; class="informacion-2;">
-  				// 		<a id="cambiar3" style="display:inline-block; width:50%;"><img src="images/abonoadicional.png" style="width:80%;"/>
-  				// 		<img src="images/visa_master_american_oxxo_7.png" style="margin-bottom:0px; display:inline-block;/">
-  				// 		</a>
-  				//   		</div>
-  				// 	</div>
-  			 //  		<div style="width:80%; margin:0 auto; padding-top:20px;">
-  				// 		<p style="color:#529ad3;">Mas información</p>
-  				// 	</div>';
+								<p id = "country" class="">{{ Lang::get('userdata.country') }}: {{ $user->details->country }}</p>
 
-  				// }
-  			?>	  
-  				</form>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <h2 class="content" style="background-color:transparent;">Promociones del mes</h2>
-            <div class="col-lg-6 col-md-6 promo" style="padding:1px; margin:0 0;"><img src="images/manzanillo.png" style="width:100%;"/>
-              <p>Manzanillo</p>
+								<p id = "state" class="">{{ Lang::get('userdata.state') }}: {{ $user->details->state }} </p>
+							</div>
+						</div>
+						<a id ="cambiar" class="linkcambiar"> <img src="images/cambiar.png"/></a>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="content" style="padding-bottom:40px; padding-top:20px;">
+						<div class="informacion" style="padding-bottom:60px;">
+							<h2 style="padding-bottom:20px;">{{ Lang::get('userdata.account-details') }}</h2>
+							<div id = "campos2">
+								<p id = "correo" class=""> Email: {{ $user->details->email }}</p>
+								<p id = "contrasena" class="">{{ Lang::get('userdata.password') }}: *********</p>
+							</div>
+						</div>
+						<a id= "cambiar2"><img src="images/cambiar.png"/></a>
+					</div>
+				</div>
 
-            </div>
-            <div class="col-lg-6 col-md-6 promo"  style="padding:1px; margin:0 0;"><img src="images/mazatlan.png" style="width:100%;"/><p>Mazatlan</p></div>
-            <div class="col-lg-6 col-md-6 promo"  style="padding:1px; margin:0 0;"><img src="images/lasvegas.png" style="width:100%;"/><p>Las Vegas</p></div>
-            <div class="col-lg-6 col-md-6 promo"  style="padding:1px; margin:0 0;"><img src="images/malaga.png" style="width:100%;"/><p>Malaga</p></div>
-          </div>
-          </div>
-      <div class="col-lg-12 col-md-12">
-            <div class="divider"></div>
-          </div>
-          <div class="col-lg-12 col-md-12" style="padding:20px;">
-            <?php
-  //echo '<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user_data["leisure_id"].'">';
-  ?><img style="width:50%; height:auto;"src="images/irareservacion.png"/></a>
-          </div>
-          
-      </div>
-        
-  	</div>
+				<div class="col-lg-12">
+					<div class="content">
+						<div class="informacion-2" style="padding-top:10px; padding-bottom:10px;">
 
-  </div>
-  	 @include('layouts.__common.footer')
+							@if( $user->details->language == 'es' )
+							<p style="display:inline-block; width:40%;">{{ Lang::get('userdata.language') }}: &nbsp; ES</p> 
+							<a onclick="changeEng()" style="color:#cc4b9b;"> 
+								<img src="images/cambiar.png" style="vertical-align:text-top;"/>
+							</a>
+							@else
+							<p style="display:inline-block; width:40%;">{{ Lang::get('userdata.language') }}: EN</p> 
+							<a onclick="changeEsp()" style="color:#cc4b9b;">
+								<img src="images/cambiarENG.png" style="vertical-align:text-top;"/>
+							</a>          
+							@endif
 
-  @include('layouts.__common.tawk')
-  @include('layouts.__common.analytics')
-  </body>
-  </html>
+
+							@if( Auth::user()->getCurrency() == 'MXN' )
+							<p style="display:inline-block; width:40%;">{{ Lang::get('userdata.currency') }}: {{ Auth::user()->getCurrency() }}</p>
+							<a onclick="confirmeMXN()" style="color:#cc4b9b;">
+								<img src="images/cambiar.png" style="vertical-align:text-top;"/>
+							</a>
+							@else
+							<p style="display:inline-block; width:40%;">{{ Lang::get('userdata.currency') }}: {{ Auth::user()->getCurrency() }}</p>
+							<a onclick="confirmeUSD()" style="color:#cc4b9b;">
+								<img src="images/cambiarENG.png" style="vertical-align:text-top;"/>
+							</a>          
+							@endif
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-12">
+					<div class="content">
+						<div class="informacion-2" style="padding-top:30px; padding-bottom:30px;">
+							<h1 style="text-align:center;">{{ Lang::get('userdata.inspira-points') }} {{ Auth::user()->getPoints() }} {{ Lang::get('userdata.points') }}</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6" style="margin-top:35px;">
+				<div class="col-lg-12">
+					<div class="content">
+						<div class="informacion">
+							<h2>{{ Lang::get('userdata.affiliation-type') }}</h2>
+							@if( Auth::user()->getAffiliation() == 1 )
+							<h2>{{ Lang::get('userdata.discover') }}</h2>
+							@elseif (Auth::user()->getAffiliation() == 2 )
+							<h2>{{ Lang::get('userdata.platinium') }}</h2>
+							@elseif (Auth::user()->getAffiliation() == 3 )
+							<h2>{{ Lang::get('userdata.diamond') }}</h2>
+							@endif
+						</div>
+						@if( (Auth::user()->getCode() - Auth::user()->getAffiliation()) > 0 )
+						<a style="text-align:center;" href="?route=users/gotoAfiliacion_single">
+							@if( $user->details->language )
+							<img src="images/categoria.png" style="width:80%;"/>
+							@else
+							<img src="images/categoriaENG.png" style="width:80%;"/>
+							@endif
+						</a>
+						@endif
+						<div class="informacion-2">
+							<p>{{ Lang::get('userdata.expiration-date') }}:</p>
+							<p>{{ Auth::user()->getDetails()->expires }}</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="content">
+						<div class="informacion-2" style="margin-bottom:20px;">
+							<h2>{{ Lang::get('userdata.vacation-fund') }}</h2>
+							<p> {{ Lang::get('userdata.monthly-fee') }}: 
+								$ {{ Auth::user()->getDetails()->amount }} {{ Auth::user()->getDetails()->currency }}
+							</p>
+							<p>{{ Lang::get('userdata.total-saved') }}: 
+								$ {{ Auth::user()->getDetails()->total_amount }} {{ Auth::user()->getDetails()->currency }}
+								<?php //echo $user_data['total_saved'];?> <?php //echo $user_data['currency'];?>
+							</p>
+						</div>
+						<div style="display:inline-block;">
+
+							<form action="https://mexico.dineromail.com/Shop/Shop_Ingreso.asp" method="post"> 
+								<input type="hidden" name="NombreItem" value="Agregar a fondo"> 
+								<input type="hidden" name="TipoMoneda" value="{{ Auth::user()->getDetails()->currency  == 'MXN' ? 1: 2 }}">
+								<input type="hidden" name="E_Comercio" value="1534470"> 
+								<input type="hidden" name="NroItem" value="12"> 
+								<input type="hidden" name="DireccionExito" value="http://inspiramexico.mx/payments/dineromail"> 
+								<input type="hidden" name="DireccionFracaso" value="http://inspiramexico.mx/payments/dineromail/error"> 
+								<input type="hidden" name="DireccionEnvio" value="0"> 
+								<input type="hidden" name="Mensaje" value="1"> 
+								<input type='hidden' name='MediosPago' value='4,5,6,17,19,20,21,22,13,14,7'>
+								
+								@if( Auth::user()->getDetails()->amount > 0 )
+								<a style="text-align:center; display:inline-block; width:40%; vertical-align:top;" href="?route=users/gotoFondosingle">
+									<img src="images/cambiar.png"/>
+								</a>
+									<div id="agregarfondo" style="display:inline-block;" width:100%;="" class="informacion-2;">
+										<a id="cambiar3" style="display:inline-block; width:50%;">
+											@if( $user->details->language == 'es' )
+												<img src="images/abonoadicional.png" style="width:80%;">
+											@else
+												<img src="images/abonoadicionalENG.png" style="width:80%;">
+											@endif
+											<img src="images/visa_master_american_oxxo_7.png" style="margin-bottom:0px; display:inline-block;/">
+										</a>
+							  		</div>
+
+								<div style="width:80%; margin:0 auto; padding-top:20px;">
+									<div id="formularioabono">
+																	
+									</div>
+									<p style="text-align:center;">Fecha de sig. abono: {{ date("d-m-Y", strtotime("+1 month")) }}</p>
+								</div>
+								@else
+									<a style="text-align:center; display:inline-block; width:100%;" href="?route=users/gotoFondosingle">
+										@if( $user->details->language == 'es' )
+											<img src="images/fondo.png" style="width:80%; height:auto;">
+										@else
+											<img src="images/fondoENG.png" style="width:80%; height:auto;">
+										@endif
+									</a>
+									<div id="agregarfondo" style="display:inline-block;" width:100%;="" class="informacion-2;">
+										<a id="cambiar3" style="display:inline-block; width:50%;">
+											@if( $user->details->language == 'es' )
+												<img src="images/abonoadicional.png" style="width:80%;">
+											@else
+												<img src="images/abonoadicionalENG.png" style="width:80%;">
+											@endif
+											<img src="images/visa_master_american_oxxo_7.png" style="margin-bottom:0px; display:inline-block;/">
+										</a>
+							  		</div>
+							  		<div style="width:80%; margin:0 auto; padding-top:20px;">
+										<p style="color:#529ad3;">More information</p>
+									</div>
+								@endif
+							</form>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<h2 class="content" style="background-color:transparent;">Promociones del mes</h2>
+						<div class="col-lg-6 col-md-6 promo" style="padding:1px; margin:0 0;">
+							<img src="images/manzanillo.png" style="width:100%;"/>
+							<p>Manzanillo</p>
+						</div>
+						<div class="col-lg-6 col-md-6 promo"  style="padding:1px; margin:0 0;">
+							<img src="images/mazatlan.png" style="width:100%;"/><p>Mazatlan</p>
+						</div>
+						<div class="col-lg-6 col-md-6 promo"  style="padding:1px; margin:0 0;">
+							<img src="images/lasvegas.png" style="width:100%;"/><p>Las Vegas</p>
+						</div>
+						<div class="col-lg-6 col-md-6 promo"  style="padding:1px; margin:0 0;">
+							<img src="images/malaga.png" style="width:100%;"/><p>Malaga</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-12 col-md-12">
+				<div class="divider"></div>
+			</div>
+			<div class="col-lg-12 col-md-12" style="padding:20px;">
+				<?php
+				//echo '<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user_data["leisure_id"].'">';
+				?>
+				@if( $user->details->language == 'es' )
+					<img style="width:50%; height:auto;"src="images/irareservacion.png"/></a>
+				@else
+					<img style="width:50%; height:auto;"src="images/irareservacionENG.png"/></a>
+				@endif
+			</div>
+		</div>
+	</div>	
+</div>
+@include('layouts.__common.footer')
+
+@include('layouts.__common.tawk')
+@include('layouts.__common.analytics')
+</body>
+</html>
