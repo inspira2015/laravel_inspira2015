@@ -48,13 +48,13 @@ class UserDao extends UserEntity implements ICrudOperations
 	}
 
 
-	public function load($id)
+	public function load( $id )
 	{
 
-		$this->populate($this->getById($id));
+		$this->populate( $this->getById( $id ) );
 	}
 
-	private function populate($row)
+	private function populate( $row )
  	{
  		foreach($row->toArray() as $key => $value)
  		{
@@ -62,16 +62,26 @@ class UserDao extends UserEntity implements ICrudOperations
  		}
  	}
 
- 	public function getPhones($id){
-	 	return $this->getById($id)->phones;
+ 	public function getPhones( $id ){
+	 	return $this->getById( $id )->phones;
  	}
  	
  	public function getPhoneType( $id, $type ){
-	 	return $this->getPhones($id)->where('type', $type)->first();
+	 	return $this->getPhones( $id )->where('type', $type)->first();
  	}
  	
  	public function getAddress( $id ){
-	 	return $this->getById($id)->address;
+	 	return $this->getById( $id )->address;
+ 	}
+
+ 	public function getByFacebookId( $fbUser )
+ 	{
+ 		$user = User::where( 'facebook_id', $fbUser->id )->first();
+ 		if ( empty( $user ) )
+ 		{
+ 			return FALSE;
+ 		}
+		return $user;
  	}
 
 }

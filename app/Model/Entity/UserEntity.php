@@ -20,6 +20,11 @@ class UserEntity
 	public $confirmation_code;
 	public $country;
 	public $state;
+	public $facebook_id;
+	public $facebook_link;
+	public $gender;
+	public $facebook_avatar;
+
 
 
 
@@ -39,6 +44,11 @@ class UserEntity
         $this->confirmation_code     = $this->getConfirmationCode();
 	    $this->country             	 = (isset($valid_data['country'])) ? trim($valid_data['country']) : null;
         $this->state             	 = (isset($valid_data['state'])) ? trim($valid_data['state']) : null;
+        $this->facebook_id           = (isset($valid_data['facebook_id'])) ? trim($valid_data['facebook_id']) : null;
+        $this->facebook_link         = (isset($valid_data['facebook_link'])) ? trim($valid_data['facebook_link']) : null;
+        $this->gender         		 = (isset($valid_data['gender'])) ? trim($valid_data['gender']) : null;
+        $this->facebook_avatar       = (isset($valid_data['facebook_avatar'])) ? trim($valid_data['facebook_avatar']) : null;
+        
 
 	}
 
