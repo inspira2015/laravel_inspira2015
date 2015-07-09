@@ -51,6 +51,7 @@ class UseraccountController extends Controller {
 		$user->address = $this->userDao->getAddress( Auth::user()->id );
 		
 		return view('useraccount.userdata')->with( 'user' , $user );
+
 	}
 
 }
