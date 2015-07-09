@@ -24,7 +24,7 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 
 
 Route::get('api/test', 'Api\UsersController@test');
-Route::get('api/users/all', 'Api\UsersController@all');
+Route::get('api/users/details', 'Api\UsersController@all');
 
 
 // Password reset routes...
@@ -52,7 +52,3 @@ Route::post('/language', array(
 	'as'    =>  'language-choose',
 	'uses'  =>  'LanguageController@choose'
 ));
-
-
-
-
