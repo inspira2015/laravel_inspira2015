@@ -7,8 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Session\Store as Session;
+use Laravel\Socialite\Contracts\Factory as Socialite; 
+use App\Model\UserRepository; use UserRequest; 
+use App\Libraries\AuthUserWithFacebook;
+use App\Libraries\Interfaces\AuthenticateUserListener;
 
-class AuthController extends Controller {
+class AuthController extends Controller implements AuthenticateUserListener {
 
     /**
      * The Guard implementation.
@@ -17,7 +21,7 @@ class AuthController extends Controller {
      */
     protected $auth;
     private $session;
-
+    private $socialite;
     /**
      * Create a new authentication controller instance.
      *
@@ -25,10 +29,11 @@ class AuthController extends Controller {
      * @param  Registrar  $registrar
      * @return void
      */
-    public function __construct(Guard $auth, Session $session) {
+    public function __construct(Guard $auth, Session $session,Socialite $socialite) {
         $this->auth = $auth;
         $this->session = $session;
         $this->middleware('guest', ['except' => 'getLogout']);
+        $this->socialite = $socialite;
     }
 
     /**
@@ -39,6 +44,21 @@ class AuthController extends Controller {
     public function getLogin() {
         return view('auth.login');
     }
+
+    public function getLoginfb(AuthUserWithFacebook $authfb, Request $request)
+    {
+        return $authfb->execute($request->has('code'), $this);
+    }
+
+
+    public function userHasLoggedIn($user)
+    {
+        $this->session->flash('message', "Ha iniciado sesión con éxito");
+        $this->session->flash('alert-class', 'alert-success');
+
+        return redirect()->intended($this->redirectPath());
+    }
+
 
     /**
      * Handle a login request to the application.
