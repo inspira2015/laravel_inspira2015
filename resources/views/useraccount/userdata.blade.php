@@ -4,6 +4,8 @@
 	<meta charset="utf-8" />
 	<title></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="csrf-token" content={!! csrf_token() !!}>
+
 	{!! HTML::style('css/bootstrap/css/style.css') !!}
 	{!! HTML::style('css/bootstrap/css/menu.css') !!}
 	{!! HTML::style('css/bootstrap/css/bootstrap.min.css') !!}
@@ -11,11 +13,17 @@
 	<link rel="icon" href="/images/inspira.ico" type="image/ico" />
 	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
 	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
+	
+	{!!  HTML::script('js/main.js') !!}
+<!--
 	{!! HTML::script('js/datos.js') !!}
 	{!! HTML::script('js/datos_cuenta.js') !!}
 	{!! HTML::script('js/datos_fondo.js') !!}
+-->
 	{!! HTML::style('css/bootstrap/css/slide.css') !!}
 	{!! HTML::style('css/bootstrap/css/slidestyle.css') !!}
+	
+	
 </head>
 
 <body id="page" style="background-image:url('images/1.png'); background-repeat:no-repeat; background-position: center center fixed; 
@@ -45,56 +53,32 @@ background-size: cover;">
 			<div class="col-lg-6" style="margin-top:35px;">
 				<div class="col-lg-12">
 					<div class="content" style="padding-bottom:40px; padding-top:10px;">
-						<div class="informacion" style="padding-bottom:60px;">
-							<h2 style="padding-bottom:20px;">Datos de contacto</h2>
-							<div id = "campos">
-								<input type = "hidden" id = "leisure" value ="<?php //echo $user_data['leisure_id'] ?>">
-								<input type = "hidden" id = "afiliacion" name="afiliacion" value ="<?php //echo $afiliacion['tier_id'] ?>">
-								<p id = "cel" class="">{{ Lang::get('userdata.cell') }}: {{ $user->phones->cellphone['number'] }}</p>
-								<p id = "hmt" class="">{{ Lang::get('userdata.phone') }}: {{ $user->phones->phone['number'] }}</p>
-								<p id = "wkt" class="">{{ Lang::get('userdata.office') }}: {{ $user->phones->office['number'] }}</p>
-								<p id = "address" class="">{{ Lang::get('userdata.address') }}: {{ $user->address['address'] }}</p>
-
-								<p id = "city" class="">{{ Lang::get('userdata.city') }}: {{ $user->address['city'] }}</p>
-
-								<p id = "country" class="">{{ Lang::get('userdata.country') }}: {{ $user->details->country }}</p>
-
-								<p id = "state" class="">{{ Lang::get('userdata.state') }}: {{ $user->details->state }} </p>
+						<div class="informacion">
+							<h2>{{ Lang::get('userdata.information') }}</h2>
+							<div data-role="response">
+								@include('useraccount.contact')
 							</div>
 						</div>
-						<a id ="cambiar" class="linkcambiar"> <img src="images/cambiar.png"/></a>
 					</div>
 				</div>
 				<div class="col-lg-12">
-					<div class="content" style="padding-bottom:40px; padding-top:20px;">
-						<div class="informacion" style="padding-bottom:60px;">
-							<h2 style="padding-bottom:20px;">{{ Lang::get('userdata.account-details') }}</h2>
-							<div id = "campos2">
-								<p id = "correo" class=""> Email: {{ $user->details->email }}</p>
-								<p id = "contrasena" class="">{{ Lang::get('userdata.password') }}: *********</p>
+					<div class="content" style="padding-top:20px;">
+						<div class="informacion">
+							<h2>{{ Lang::get('userdata.account-details') }}</h2>
+							<div data-role="response">
+								@include('useraccount.password', array('action' => 'edit' ))
 							</div>
 						</div>
-						<a id= "cambiar2"><img src="images/cambiar.png"/></a>
 					</div>
 				</div>
 
 				<div class="col-lg-12">
 					<div class="content">
 						<div class="informacion-2" style="padding-top:10px; padding-bottom:10px;">
-
-							@if( $user->details->language == 'es' )
-							<p style="display:inline-block; width:40%;">{{ Lang::get('userdata.language') }}: &nbsp; ES</p> 
-							<a onclick="changeEng()" style="color:#cc4b9b;"> 
-								<img src="images/cambiar.png" style="vertical-align:text-top;"/>
-							</a>
-							@else
-							<p style="display:inline-block; width:40%;">{{ Lang::get('userdata.language') }}: EN</p> 
-							<a onclick="changeEsp()" style="color:#cc4b9b;">
-								<img src="images/cambiarENG.png" style="vertical-align:text-top;"/>
-							</a>          
-							@endif
-
-
+							<div data-role="response">
+								@include('useraccount.choose-language', array( 'action' => 'edit' ))
+							</div>
+							
 							@if( Auth::user()->getCurrency() == 'MXN' )
 							<p style="display:inline-block; width:40%;">{{ Lang::get('userdata.currency') }}: {{ Auth::user()->getCurrency() }}</p>
 							<a onclick="confirmeMXN()" style="color:#cc4b9b;">
@@ -122,14 +106,15 @@ background-size: cover;">
 				<div class="col-lg-12">
 					<div class="content">
 						<div class="informacion">
-							<h2>{{ Lang::get('userdata.affiliation-type') }}</h2>
+							<h2>{{ Lang::get('userdata.affiliation-type') }}<br/>
 							@if( Auth::user()->getAffiliation() == 1 )
-							<h2>{{ Lang::get('userdata.discover') }}</h2>
+								{{ Lang::get('userdata.discover') }}
 							@elseif (Auth::user()->getAffiliation() == 2 )
-							<h2>{{ Lang::get('userdata.platinium') }}</h2>
+								{{ Lang::get('userdata.platinium') }}
 							@elseif (Auth::user()->getAffiliation() == 3 )
-							<h2>{{ Lang::get('userdata.diamond') }}</h2>
+								{{ Lang::get('userdata.diamond') }}
 							@endif
+							</h2>
 						</div>
 						@if( (Auth::user()->getCode() - Auth::user()->getAffiliation()) > 0 )
 						<a style="text-align:center;" href="?route=users/gotoAfiliacion_single">
@@ -251,6 +236,34 @@ background-size: cover;">
 		</div>
 	</div>	
 </div>
+<style>
+	div[data-role="response"] a[data-role="change"], 
+	div[data-role="response"] div[data-role="submit"] {
+		cursor: pointer;
+		padding-left: 0px;
+		display: inline-block;
+		padding-right: 0px;
+		padding-bottom: 0px;
+	}
+	div.informacion h2{
+		padding-bottom: 20px;
+	}
+	
+	div.informacion form label{
+		text-transform: capitalize;
+	}
+	
+	div.informacion form .form-group {
+	  margin-bottom: 5px;
+	}
+	div.informacion .alert-danger{
+		margin: 20px 0 0 0;
+	}
+	
+	div.informacion div[data-role="submit"]{
+		margin: 20px 0;
+	}
+</style>
 @include('layouts.__common.footer')
 
 @include('layouts.__common.tawk')

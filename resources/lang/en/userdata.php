@@ -11,6 +11,7 @@ return [
 	"state" => "State",
 	"account-details" => "Account Details",
 	"password" => "Password",
+	"confirm-password" => "Confirm",
 	"language" => "Language",
 	"currency" => "Currency",
 	"inspira-points" => "INSPIRA POINTS",

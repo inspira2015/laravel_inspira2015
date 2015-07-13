@@ -11,6 +11,7 @@ return [
 	"state" => "Edo",
 	"account-details" => "Datos de Cuenta",
 	"password" => "Contrase&ntilde;a",
+	"confirm-password" => "Confirmar",
 	"language" => "Idioma",
 	"currency" => "Moneda",
 	"inspira-points" => "PUNTOS INSPIRA",

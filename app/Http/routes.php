@@ -26,6 +26,7 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 Route::get('api/test', 'Api\UsersController@test');
 Route::get('api/users/details', 'Api\UsersController@all');
 
+Route::post('api/users/edit-account', 'Api\UsersController@editAccount');
 
 // Password reset routes...
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
@@ -43,7 +44,13 @@ Route::get('payment', 'PaymentController@index');
 Route::put('payment/subtotal', 'PaymentController@subtotal');
 
 Route::get('codes', 'CodesController@index');
+
 Route::get('useraccount', 'UseraccountController@index');
+Route::post('useraccount/update-contact', 'UseraccountController@updateAccount');
+Route::post('useraccount/edit-contact', 'UseraccountController@editAccount');
+Route::post('useraccount/edit-details', 'UseraccountController@editDetails');
+Route::post('useraccount/update-details', 'UseraccountController@updateDetails');
+Route::post('useraccount/edit-language', 'UseraccountController@editLanguage');
 
 Route::post('codes/check', 'CodesController@check');
 
