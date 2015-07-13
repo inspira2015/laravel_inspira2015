@@ -14,14 +14,17 @@
 	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
 	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
 	<link rel="icon" href="/images/inspira.ico" type="image/ico" />
+	{!! HTML::style('css/jquery.h5-lightbox.css') !!}
+	
 </head>
 
-<body id="page" style="background-image:url('<?php echo url();?>/images/codigo-background.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
+<body id="page" style="background-image:url('<?php echo url();?>/images/<?php echo $background; ?>'); background-repeat:no-repeat; background-position: center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;">
 
+	
 	@include('layouts.__common.header')
 
 	<div class="container">

@@ -22,7 +22,7 @@ class CodesController extends Controller {
 
 	public function Index() 
 	{
-		return view('codes.view')->with('title', 'Ingresa tu c&oacute;digo' );
+		return view('codes.view')->with('title', 'Ingresa tu c&oacute;digo' )->with('background','codigo-background.jpg');
 	}
 
 	public function Check() 
@@ -41,10 +41,10 @@ class CodesController extends Controller {
 				return Redirect::to('users');
 			}
 
-			return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->withErrors(array('message' => 'Code is not valid'));
+			return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->with('background','codigo-background.jpg')->withErrors(array('message' => 'Code is not valid'));
         }
         
-        return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->withErrors($validator);
+        return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->with('background','codigo-background.jpg')->withErrors($validator);
 	}
 	
 	public function GetValid( $code ){

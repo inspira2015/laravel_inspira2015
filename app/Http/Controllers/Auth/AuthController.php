@@ -41,8 +41,9 @@ class AuthController extends Controller implements AuthenticateUserListener {
      *
      * @return \Illuminate\Http\Response
      */
-    public function getLogin() {
-        return view('auth.login');
+    public function getLogin() 
+    {
+        return view('auth.login')->with('title', 'Login' )->with('background','3.jpg');
     }
 
     public function getLoginfb(AuthUserWithFacebook $authfb, Request $request)

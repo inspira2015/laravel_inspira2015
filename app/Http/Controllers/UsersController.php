@@ -150,6 +150,7 @@ class UsersController extends Controller {
 
 	public function getUserdata()
 	{
+	    
 		return view('users.userdata');
 	}
 	
@@ -158,12 +159,6 @@ class UsersController extends Controller {
 		return view('users.leisure');
 	}
 
-	public function getLogin()
-	{
-		return view('users.login');
-	}
-	
-	
 
 	protected function getCountryArray($language = FALSE)
 	{
