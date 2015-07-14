@@ -47,7 +47,8 @@ background-size: cover;">
 				</div>
 				<div class="col-lg-3"> </div>
 
-				<div class="col-lg-3"> </div>
+				<div class="col-lg-3"><a href="<?php echo url(); ?>/auth/logout">Logout</a> </div>
+
 			</div>
 
 			<div class="col-lg-6" style="margin-top:35px;">
@@ -106,7 +107,7 @@ background-size: cover;">
 				<div class="col-lg-12">
 					<div class="content">
 						<div class="informacion">
-							<h2>{{ Lang::get('userdata.affiliation-type') }}<br/>
+							<h2>a {{ Lang::get('userdata.affiliation-type') }}<br/>
 							@if( Auth::user()->getAffiliation() == 1 )
 								{{ Lang::get('userdata.discover') }}
 							@elseif (Auth::user()->getAffiliation() == 2 )

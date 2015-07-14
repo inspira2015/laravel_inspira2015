@@ -15,18 +15,21 @@ class UserDao extends UserEntity implements ICrudOperations
 		return User::find($id);
 	}
 
-	public function getAll() {
+	public function getAll() 
+	{
 		return User::all();
 	}
 
-	public function delete($id) {
+	public function delete($id) 
+	{
 		if ($id) {
 			$User = User::find($id);
 			$User->delete();
 		}
 	}
 	
-	public function save() {
+	public function save() 
+	{
 		$id = isset($this->id) ? (int) $this->id : 0;
 
 		if ($id > 0) {

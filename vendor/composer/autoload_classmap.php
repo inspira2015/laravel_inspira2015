@@ -469,4 +469,5 @@ return array(
     'UpdateTableUsers' => $baseDir . '/database/migrations/2015_06_16_191324_update_table_users.php',
     'UpdateUsersFbfieldsTable' => $baseDir . '/database/migrations/2015_07_08_212844_update_users_fbfields_table.php',
     'UpdateUsersTable' => $baseDir . '/database/migrations/2015_07_02_180548_update_users_table.php',
+    'UpdateUsersVacationalFundTable' => $baseDir . '/database/migrations/2015_07_13_195342_update_usersVacational_fund_table.php',
 );
