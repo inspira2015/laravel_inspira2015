@@ -9,8 +9,8 @@ class UserVacationalFunds extends UserVacationalFundsDao
 	public $id;
 	public $users_id;
 	public $description;
-	public $added_points;
-	public $substracted_points;
+	public $added_amount;
+	public $substracted_amount;
 
 
 	

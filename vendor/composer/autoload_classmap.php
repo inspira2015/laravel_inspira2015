@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddBalanceUservacationalfunds' => $baseDir . '/database/migrations/2015_07_13_205145_add_balance_uservacationalfunds.php',
     'AddForeignToAuthentications' => $baseDir . '/database/migrations/2015_06_24_212620_add_foreign_to_authentications.php',
     'AddForeignToAuthenticationsTable' => $baseDir . '/database/migrations/2015_06_24_213009_add_foreign_to_authentications_table.php',
     'AddForeignsToCodesUsedTable' => $baseDir . '/database/migrations/2015_06_24_102417_add_foreigns_to_codes_used_table.php',
