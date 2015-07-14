@@ -5,11 +5,16 @@ use Input;
 use App\Model\Dao\UserDao;
 use App\Model\Dao\UserRegisteredPhoneDao;
 use App\Services\UserPassword;
+use App\Model\Entity\UserAffiliation;
+use App\Libraries\AccountValidation\CompleteAccountSetup;
+use App\Model\Entity\UserVacationalFunds;
+
 
 class UseraccountController extends Controller {
 	
 	private $userDao;
 	private $phoneDao;
+	private $userAffDao;
 	/*
 	|--------------------------------------------------------------------------
 	| Home Controller
@@ -27,11 +32,15 @@ class UseraccountController extends Controller {
 	* @return void
 	*/
 	 
-	public function __construct( UserDao $userDao, UserRegisteredPhoneDao $phoneDao)
+	public function __construct( UserDao $userDao, 
+								 UserRegisteredPhoneDao $phoneDao,
+								 UserAffiliation $userAffiliation
+								 )
 	{
 		$this->middleware('auth');
 		$this->userDao = $userDao;
 		$this->phoneDao = $phoneDao;
+		$this->userAffDao = $userAffiliation;
 	}
 	
 	/**
@@ -39,7 +48,7 @@ class UseraccountController extends Controller {
 	*
 	* @return Response
 	*/
-	public function index()
+	public function index(UserAffiliation $userAff,UserVacationalFunds $userVac)
 	{
 		$user = new \stdClass();
 		$phones = new \stdClass();
@@ -49,6 +58,10 @@ class UseraccountController extends Controller {
 		$user->details = $this->userDao->getById( Auth::user()->id );
 		$user->phones = $phones;
 		$user->address = $this->userDao->getAddress( Auth::user()->id );
+		$objValidSetup = new CompleteAccountSetup($userAff, $userVac);
+		$objValidSetup->setUsersID(Auth::user()->id );
+
+
 		return view('useraccount.userdata')->with( 'user' , $user );
 	}
 	
