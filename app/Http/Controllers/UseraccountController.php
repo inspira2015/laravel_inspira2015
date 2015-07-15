@@ -15,7 +15,7 @@ class UseraccountController extends Controller {
 	
 	private $userDao;
 	private $phoneDao;
-	private $userAffDao;
+	private $accountSetup;
 	/*
 	|--------------------------------------------------------------------------
 	| Home Controller
@@ -35,13 +35,14 @@ class UseraccountController extends Controller {
 	 
 	public function __construct( UserDao $userDao, 
 								 UserRegisteredPhoneDao $phoneDao,
-								 UserAffiliation $userAffiliation
+								 CompleteAccountSetup $accountSetup
 								 )
 	{
 		$this->middleware('auth');
 		$this->userDao = $userDao;
 		$this->phoneDao = $phoneDao;
-		$this->userAffDao = $userAffiliation;
+		$this->accountSetup = $accountSetup;
+
 	}
 	
 	/**
@@ -49,7 +50,7 @@ class UseraccountController extends Controller {
 	*
 	* @return Response
 	*/
-	public function index(CompleteAccountSetup $userAff)
+	public function index()
 	{
 		$user = new \stdClass();
 		$phones = new \stdClass();
@@ -59,11 +60,10 @@ class UseraccountController extends Controller {
 		$user->details = $this->userDao->getById( Auth::user()->id );
 		$user->phones = $phones;
 		$user->address = $this->userDao->getAddress( Auth::user()->id );
-		$objValidSetup = $userAff;
-		$objValidSetup->setUsersID(Auth::user()->id );
+		$this->accountSetup->setUsersID(Auth::user()->id );
+		$this->accountSetup->checkValidAccount();
 
-
-		return view('useraccount.userdata')->with( 'user' , $user );
+		return view('useraccount.userdata')->with( 'user' , $user )->with( 'accountSetup' , $this->accountSetup );
 	}
 	
 	public function editAccount()

@@ -47,9 +47,14 @@ class UserVacFundLogDao implements ICrudOperations
 			return $new_user->id;
 	}
 
-	public function getByCode($code = FALSE)
+	public function getByUsersId($users_id = FALSE)
 	{
-		return UserVacLog::where('code', $code)->get();
+		$queryVac = UserVacLog::where('users_id', $users_id)->get();
+		if ( empty( $queryVac->all() ) )
+		{
+			return FALSE;
+		}
+		return $queryVac;
 	}
 
 

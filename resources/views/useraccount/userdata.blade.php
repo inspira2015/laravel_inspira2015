@@ -106,6 +106,7 @@ background-size: cover;">
 			<div class="col-lg-6" style="margin-top:35px;">
 				<div class="col-lg-12">
 					<div class="content">
+					@if( $accountSetup->checkValidAccount() !==FALSE )
 						<div class="informacion">
 							<h2>a {{ Lang::get('userdata.affiliation-type') }}<br/>
 							@if( Auth::user()->getAffiliation() == 1 )
@@ -130,10 +131,18 @@ background-size: cover;">
 							<p>{{ Lang::get('userdata.expiration-date') }}:</p>
 							<p>{{ Auth::user()->getDetails()->expires }}</p>
 						</div>
+					@else
+						<div class="informacion">
+							<h2>a {{ Lang::get('userdata.affiliation-type') }}<br/>
+						</h2>
+						</div>
+					@endif
 					</div>
+				
 				</div>
 				<div class="col-lg-12">
 					<div class="content">
+						@if( $accountSetup->checkValidAccount() !==FALSE )
 						<div class="informacion-2" style="margin-bottom:20px;">
 							<h2>{{ Lang::get('userdata.vacation-fund') }}</h2>
 							<p> {{ Lang::get('userdata.monthly-fee') }}: 
@@ -202,7 +211,16 @@ background-size: cover;">
 								@endif
 							</form>
 						</div>
+						@else
+							<div class="informacion-2" style="margin-bottom:20px;">
+								<h2>{{ Lang::get('userdata.vacation-fund') }}</h2>
+							</div>
+
+						@endif
+						<?PHP ?>
 					</div>
+
+
 					<div class="col-lg-12">
 						<h2 class="content" style="background-color:transparent;">Promociones del mes</h2>
 						<div class="col-lg-6 col-md-6 promo" style="padding:1px; margin:0 0;">
@@ -224,6 +242,8 @@ background-size: cover;">
 			<div class="col-lg-12 col-md-12">
 				<div class="divider"></div>
 			</div>
+
+			@if( $accountSetup->checkValidAccount() !==FALSE )
 			<div class="col-lg-12 col-md-12" style="padding:20px;">
 				<?php
 				//echo '<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user_data["leisure_id"].'">';
@@ -234,6 +254,7 @@ background-size: cover;">
 					<img style="width:50%; height:auto;"src="images/irareservacionENG.png"/></a>
 				@endif
 			</div>
+			@endif
 		</div>
 	</div>	
 </div>
