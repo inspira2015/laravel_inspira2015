@@ -48,30 +48,5 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function password_resets(){
 		return $this->hasMany('App\Model\PasswordResets', 'email', 'email');
 	}
-	
-	public function getAffiliation(){
-		return 1;
-	}
-	
-	public function getPoints(){
-		return 0;
-	}
-	
-	public function getCode(){
-		return 20;
-	}
-	
-	public function getCurrency(){
-		return 'MXN';
-	}
-	
-	public function getDetails(){
-		$user = new \stdClass();
-		$user->currency = 'MXN';
-		$user->total_amount = 10;
-		$user->amount = 100;
-		$user->expires = '10-10-2015';
-		return $user;
-	}
-	
+
 }
