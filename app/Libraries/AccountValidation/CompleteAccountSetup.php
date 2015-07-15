@@ -3,6 +3,7 @@ namespace App\Libraries\AccountValidation;
 
 use App\Model\Entity\UserAffiliation;
 use App\Model\Entity\UserVacationalFunds;
+use App\Model\Entity\UserVacFundLog;
 
 use Carbon; 
 
@@ -13,7 +14,7 @@ class CompleteAccountSetup
 	private $usersAffDao;
 	private $usersVacDao;
 
-	public function  __construct(UserAffiliation $userAff,UserVacationalFunds $userVac)
+	public function  __construct(UserAffiliation $userAff,UserVacFundLog $userVac)
 	{
 		$this->usersAffDao = $userAff;
 		$this->usersVacDao = $userVac;
@@ -31,14 +32,26 @@ class CompleteAccountSetup
 
 	private function validate( )
 	{
-
+		
 
 	}
 
 
-	public function checkUserSetup()
+	public function checkAffiliation()
 	{
+
 	}
 
 	
+	public function checkVacFund()
+	{
+
+	}
+
+
+	public function checkCreditCard()
+	{
+		
+	}
+
 }

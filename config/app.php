@@ -145,6 +145,7 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 		'App\Providers\DaoServiceProvider',
+		'App\Providers\LibrariesServiceProvider',
 		'Laravel\Socialite\SocialiteServiceProvider'
 
 

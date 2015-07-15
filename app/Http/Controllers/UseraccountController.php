@@ -8,6 +8,7 @@ use App\Services\UserPassword;
 use App\Model\Entity\UserAffiliation;
 use App\Libraries\AccountValidation\CompleteAccountSetup;
 use App\Model\Entity\UserVacationalFunds;
+use App\Model\Entity\UserVacFundLog;
 
 
 class UseraccountController extends Controller {
@@ -48,7 +49,7 @@ class UseraccountController extends Controller {
 	*
 	* @return Response
 	*/
-	public function index(UserAffiliation $userAff,UserVacationalFunds $userVac)
+	public function index(CompleteAccountSetup $userAff)
 	{
 		$user = new \stdClass();
 		$phones = new \stdClass();
@@ -58,7 +59,7 @@ class UseraccountController extends Controller {
 		$user->details = $this->userDao->getById( Auth::user()->id );
 		$user->phones = $phones;
 		$user->address = $this->userDao->getAddress( Auth::user()->id );
-		$objValidSetup = new CompleteAccountSetup($userAff, $userVac);
+		$objValidSetup = $userAff;
 		$objValidSetup->setUsersID(Auth::user()->id );
 
 
