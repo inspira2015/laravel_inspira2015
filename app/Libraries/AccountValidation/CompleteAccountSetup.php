@@ -116,4 +116,20 @@ class CompleteAccountSetup
 		return TRUE;
 	}
 
+
+	public function getRedirect()
+	{
+		if($this->checkAffiliation==FALSE)
+		{
+			return redirect('/affiliation');
+		}
+
+		if($this->checkVacFund==FALSE)
+		{
+			return redirect('/affiliation');
+		}
+
+		return redirect('/useraccount');
+	}
+
 }

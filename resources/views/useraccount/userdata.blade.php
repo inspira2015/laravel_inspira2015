@@ -135,6 +135,7 @@ background-size: cover;">
 						<div class="informacion">
 							<h2>a {{ Lang::get('userdata.affiliation-type') }}<br/>
 						</h2>
+							<a href="/accountsetup">Continuar la configuracion de tu Cuenta</a>
 						</div>
 					@endif
 					</div>
@@ -215,6 +216,7 @@ background-size: cover;">
 							<div class="informacion-2" style="margin-bottom:20px;">
 								<h2>{{ Lang::get('userdata.vacation-fund') }}</h2>
 							</div>
+								<a href="/accountsetup">Continuar la configuracion de tu Cuenta</a>
 
 						@endif
 						<?PHP ?>

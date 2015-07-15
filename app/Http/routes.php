@@ -46,6 +46,8 @@ Route::put('payment/subtotal', 'PaymentController@subtotal');
 Route::get('codes', 'CodesController@index');
 
 Route::get('useraccount', 'UseraccountController@index');
+
+Route::get('accountsetup', 'UseraccountController@accountSetup');
 Route::post('useraccount/update-contact', 'UseraccountController@updateAccount');
 Route::post('useraccount/edit-contact', 'UseraccountController@editAccount');
 Route::post('useraccount/edit-details', 'UseraccountController@editDetails');

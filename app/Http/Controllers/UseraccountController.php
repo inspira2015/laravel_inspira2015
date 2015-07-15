@@ -65,6 +65,17 @@ class UseraccountController extends Controller {
 
 		return view('useraccount.userdata')->with( 'user' , $user )->with( 'accountSetup' , $this->accountSetup );
 	}
+
+	/**
+	* Show the application dashboard to the user.
+	*
+	* @return Response
+	*/
+	public function accountSetup()
+	{
+		$this->accountSetup->setUsersID(Auth::user()->id );
+		return $this->accountSetup->getRedirect();
+	}
 	
 	public function editAccount()
 	{
