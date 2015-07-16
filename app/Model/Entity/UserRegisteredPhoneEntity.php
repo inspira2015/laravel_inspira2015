@@ -4,8 +4,7 @@ namespace App\Model\Entity;
 
 use App\Model\Dao\UserRegisteredPhoneDao;
 
-
-class UserRegisteredPhone extends UserRegisteredPhoneDao
+class UserRegisteredPhoneEntity
 {
 	public $id;
 	public $users_id;

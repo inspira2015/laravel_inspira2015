@@ -2,10 +2,10 @@
 namespace App\Model\Dao;
 
 use App\Model\UserRegisteredPhones;
-use App\Model\Entity\UserRegisteredPhone;
+use App\Model\Entity\UserRegisteredPhoneEntity;
 
 
-class UserRegisteredPhoneDao implements ICrudOperations 
+class UserRegisteredPhoneDao extends UserRegisteredPhoneEntity implements ICrudOperations 
 {
 
 
@@ -26,23 +26,10 @@ class UserRegisteredPhoneDao implements ICrudOperations
 	}
 	
 	public function save() {
-		$id = isset($this->id) ? (int) $this->id : 0;
-
-		if ($id > 0) {
-			$temp_table = UserRegisteredPhones::find($id);
-			$temp_table->fill($this);
-		} else {
-			$temp_table = new UserRegisteredPhones;
-			foreach($this as $key =>$value)
-			{
-				$temp_table->$key = $value;
-			}
-
-			//$code = User::create($this);
-		}
-			$temp_table->save();
-			return $temp_table->id;
-
+		$temp_table = UserRegisteredPhones::firstOrNew( array('users_id' => $this->users_id, 'type' => $this->type) );
+		$temp_table->number = $this->number;
+		$temp_table->save();
+		return $temp_table->id;
 	}
 
 
@@ -59,10 +46,13 @@ class UserRegisteredPhoneDao implements ICrudOperations
  		}
  	}
 
- 	public function getByUserType( $users_id, $type )
+ 	public function findByUserType( $users_id, $type )
  	{
-	 	$phone = UserRegisteredPhones::where('users_id', $users_id )->where('type', $type )->get();
-	 	$this->populate( $phone );
+	 	$phone = UserRegisteredPhones::where('users_id', $users_id )->where('type', $type )->first();
+	 	if( empty($phone) )
+	 		return FALSE;
+	 	return $phone;
+	 	
  	}
 
 }
