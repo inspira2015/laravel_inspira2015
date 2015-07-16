@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddBalanceUservacationalfunds' => $baseDir . '/database/migrations/2015_07_13_205145_add_balance_uservacationalfunds.php',
     'AddCurrencyUserVacationalFundLog' => $baseDir . '/database/migrations/2015_07_13_221344_add_currency_user_vacational_fund_log.php',
+    'AddFieldsOnUsersTable' => $baseDir . '/database/migrations/2015_07_16_114556_add_fields_on_users_table.php',
     'AddForeignToAuthentications' => $baseDir . '/database/migrations/2015_06_24_212620_add_foreign_to_authentications.php',
     'AddForeignToAuthenticationsTable' => $baseDir . '/database/migrations/2015_06_24_213009_add_foreign_to_authentications_table.php',
     'AddForeignsToCodesUsedTable' => $baseDir . '/database/migrations/2015_06_24_102417_add_foreigns_to_codes_used_table.php',

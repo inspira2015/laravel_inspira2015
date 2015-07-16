@@ -24,14 +24,14 @@
 	<div class="form-group">
 		<label for="cell">{{ Lang::get('userdata.address') }}:</label>
 		<div class="input-group">
-			{!! Form::text( 'address',  $user->address['address'] ) !!}
+			{!! Form::text( 'address',  $user->details->address ) !!}
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for="cell">{{  Lang::get('userdata.city') }}:</label>
 		<div class="input-group">
-			{!! Form::text( 'city',  $user->address['city'] ) !!}
+			{!! Form::text( 'city',  $user->details->city ) !!}
 		</div>
 	</div>
 	

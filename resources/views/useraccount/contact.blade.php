@@ -4,9 +4,9 @@
 	<p id = "cel" class="">{{ Lang::get('userdata.cell') }}: {{ $user->phones->cellphone['number'] }}</p>
 	<p id = "hmt" class="">{{ Lang::get('userdata.phone') }}: {{ $user->phones->phone['number'] }}</p>
 	<p id = "wkt" class="">{{ Lang::get('userdata.office') }}: {{ $user->phones->office['number'] }}</p>
-	<p id = "address" class="">{{ Lang::get('userdata.address') }}: {{ $user->address['address'] }}</p>
+	<p id = "address" class="">{{ Lang::get('userdata.address') }}: {{ $user->details->address }}</p>
 
-	<p id = "city" class="">{{ Lang::get('userdata.city') }}: {{ $user->address['city'] }}</p>
+	<p id = "city" class="">{{ Lang::get('userdata.city') }}: {{ $user->details->city }}</p>
 
 	<p id = "country" class="">{{ Lang::get('userdata.country') }}: {{ $user->details->country }}</p>
 

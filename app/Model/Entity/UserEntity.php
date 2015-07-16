@@ -48,8 +48,6 @@ class UserEntity
         $this->facebook_link         = (isset($valid_data['facebook_link'])) ? trim($valid_data['facebook_link']) : null;
         $this->gender         		 = (isset($valid_data['gender'])) ? trim($valid_data['gender']) : null;
         $this->facebook_avatar       = (isset($valid_data['facebook_avatar'])) ? trim($valid_data['facebook_avatar']) : null;
-        
-
 	}
 
 

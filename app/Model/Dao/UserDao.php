@@ -31,23 +31,13 @@ class UserDao extends UserEntity implements ICrudOperations
 	public function save() 
 	{
 		$id = isset($this->id) ? (int) $this->id : 0;
-
-		if ($id > 0) {
-			$new_user = User::find($id);
-			$array_data = (array)$this;
-			$new_user->fill($array_data);
-		} else {
-			$new_user = new User;
-			foreach($this as $key =>$value)
-			{
-				$new_user->$key = $value;
-			}
-
-			//$code = User::create($this);
+		$user = User::firstOrNew( array( 'id' => $id ));
+		foreach($this as $key =>$value)
+		{
+			$user->$key = $value;
 		}
-			$new_user->save();
-			return $new_user->id;
-
+		$user->save();
+		return $user->id;
 	}
 
 
@@ -76,8 +66,6 @@ class UserDao extends UserEntity implements ICrudOperations
 		
 		$user->details = $this->getById( $id );
 		$user->phones = $phones;
-		$user->address = $this->getAddress( $id );
-		
 		return $user;
  	}
 

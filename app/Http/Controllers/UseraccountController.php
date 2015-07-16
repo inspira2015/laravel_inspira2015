@@ -92,6 +92,7 @@ class UseraccountController extends Controller {
 	public function updateAccount()
 	{
 		$data = Input::except('_token');
+
 		//Validar esta parte
 		$this->phoneDao->exchangeArray(  array ( 'users_id' => Auth::user()->id , 'type' => 'cellphone', 'number' => $data['phone']['cellphone'] ) );
 		$this->phoneDao->save();
@@ -100,10 +101,13 @@ class UseraccountController extends Controller {
 		$this->phoneDao->exchangeArray(  array ( 'users_id' => Auth::user()->id , 'type' => 'office', 'number' => $data['phone']['office'] ) );
 		$this->phoneDao->save();
 	
-		$this->userDao->load(Auth::user()->id);
+		$this->userDao->load( Auth::user()->id );
+		$this->userDao->address = $data['address'];
+		$this->userDao->city = $data['city'];		
 		$this->userDao->country = $data['country'];
 		$this->userDao->state = $data['state'];
 		$this->userDao->save();		
+		
 		return view( 'useraccount.contact')
 			->with( 'user' , $this->details() );
 	}
