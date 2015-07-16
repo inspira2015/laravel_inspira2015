@@ -2,7 +2,12 @@
 namespace App\Http\Controllers;
 use Auth;
 use Input;
+use Hash;
+use App\Model\User;
+
 use App\Model\Dao\UserDao;
+use App\Model\Dao\CountryDao;
+use App\Model\Dao\StatesDao;
 use App\Model\Dao\UserRegisteredPhoneDao;
 use App\Services\UserPassword;
 use App\Model\Entity\UserAffiliation;
@@ -10,12 +15,15 @@ use App\Libraries\AccountValidation\CompleteAccountSetup;
 use App\Model\Entity\UserVacationalFunds;
 use App\Model\Entity\UserVacFundLog;
 
-
 class UseraccountController extends Controller {
 	
 	private $userDao;
-	private $phoneDao;
+	private $countryDao;
 	private $accountSetup;
+	private $statesDao;
+	private $phonesDao;
+	public $user;
+	
 	/*
 	|--------------------------------------------------------------------------
 	| Home Controller
@@ -34,15 +42,18 @@ class UseraccountController extends Controller {
 	*/
 	 
 	public function __construct( UserDao $userDao, 
+								 CompleteAccountSetup $accountSetup,
+								 StatesDao $statesDao,
 								 UserRegisteredPhoneDao $phoneDao,
-								 CompleteAccountSetup $accountSetup
+								 CountryDao $countryDao
 								 )
 	{
 		$this->middleware('auth');
 		$this->userDao = $userDao;
+		$this->countryDao = $countryDao;
+		$this->statesDao = $statesDao;
 		$this->phoneDao = $phoneDao;
 		$this->accountSetup = $accountSetup;
-
 	}
 	
 	/**
@@ -52,18 +63,15 @@ class UseraccountController extends Controller {
 	*/
 	public function index()
 	{
-		$user = new \stdClass();
-		$phones = new \stdClass();
-		$phones->cellphone = $this->userDao->getPhoneType( Auth::user()->id, 'cellphone');
-		$phones->phone = $this->userDao->getPhoneType( Auth::user()->id, 'phone');
-		$phones->office = $this->userDao->getPhoneType( Auth::user()->id, 'office');
-		$user->details = $this->userDao->getById( Auth::user()->id );
-		$user->phones = $phones;
-		$user->address = $this->userDao->getAddress( Auth::user()->id );
+		$user = $this->userDao->getDetails( Auth::user()->id );
+		$user->details->country_code = $user->details->country;
+		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
+		
 		$this->accountSetup->setUsersID(Auth::user()->id );
 		$this->accountSetup->checkValidAccount();
-
-		return view('useraccount.userdata')->with( 'user' , $user )->with( 'accountSetup' , $this->accountSetup );
+		return view('useraccount.userdata')
+			->with( 'user' , $user )
+			->with( 'accountSetup' , $this->accountSetup );
 	}
 
 	/**
@@ -79,45 +87,63 @@ class UseraccountController extends Controller {
 	
 	public function editAccount()
 	{
-		return view('useraccount.edit-contact');
+		$user = $this->userDao->getDetails( Auth::user()->id );
+		$user->details->country_code = $user->details->country;
+		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
+		return view('useraccount.form-contact')
+			->with('user', $user )
+			->with( 'countries' , $this->countryDao->forSelect('name', 'code'))
+			->with( 'states', $this->statesDao->forSelect('name', 'code', array('country' => $user->details->country_code ) ));
 	}
 	
 	public function updateAccount()
 	{
-		$user = new \stdClass();
-		$phones = new \stdClass();
-		$phones->cellphone = $this->userDao->getPhoneType( Auth::user()->id, 'cellphone');
-		$phones->phone = $this->userDao->getPhoneType( Auth::user()->id, 'phone');
-		$phones->office = $this->userDao->getPhoneType( Auth::user()->id, 'office');
-		$user->details = $this->userDao->getById( Auth::user()->id );
-		$user->phones = $phones;
-		$user->address = $this->userDao->getAddress( Auth::user()->id );
-		return view('useraccount.contact')->with( 'user' , $user );
-	}
-	
-	public function editDetails(){
-		$user = new \stdClass();
-		$user->details = $this->userDao->getById( Auth::user()->id );
-		return  view('useraccount.password')->with( array( 'action' => 'update', 'user' => $user ) );
-	}
-	
-	public function updateDetails(){
-		$user = new \stdClass();
-		$user->details = $this->userDao->getById( Auth::user()->id );
-		
 		$data = Input::except('_token');
 		
-		$validator = UserPassword::validator( $data );
-		if( $validator->passes() ){
-			return view('useraccount.password')->with( array( 'action' => 'edit', 'user' => $user ));
-		}
-		return view('useraccount.password')->with( array( 'action' => 'update', 'user' => $user ))->withErrors($validator);
+		//validate phones
+		$this->phoneDao->setUserId( Auth::user()->id );
+		$this->phoneDao->load();
+		//User::phones()
+		//Validate state-contry
+		$this->userDao->load(Auth::user()->id);
+		$this->userDao->country = $data['country'];
+		$this->userDao->state = $data['state'];
+		$this->userDao->save();
+		$user = $this->userDao->getDetails( Auth::user()->id );
+		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
+		return view( 'useraccount.contact')
+			->with( 'user' , $user );
 	}
 	
-	public function editLanguage(){
-		$user = new \stdClass();
-		$user->details = $this->userDao->getById( Auth::user()->id );
-		return view('useraccount.choose-language')->with( array( 'action' => 'update', 'user' => $user) );
+	public function editPassword()
+	{
+		$user = $this->userDao->getDetails( Auth::user()->id );
+		return  view('useraccount.form-password')
+			->with( 'user' , $user );
+	}
+	
+	public function updatePassword()
+	{
+		$user = $this->userDao->getDetails( Auth::user()->id );
+		$data = Input::except('_token');
+		$validator = UserPassword::validator( $data );
+		if( $validator->passes() ){
+			$this->userDao->load(Auth::user()->id);
+			$this->userDao->password = Hash::make($data['password']);
+			$this->userDao->save();
+			return view('useraccount.password')
+				->with( 'user', $user );
+		}
+		return view('useraccount.form-password')
+			->with( 'user',  $user )
+			->withErrors($validator);
+	}
+	
+	public function updateLanguage()
+	{
+		$user = $this->userDao->getDetails( Auth::user()->id );
+		return view('useraccount.choose-language')
+			->with( array( 'action' => 'update', 'user' => $user) );
 	}
 
 }

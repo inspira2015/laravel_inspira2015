@@ -48,7 +48,6 @@ class UserRegisteredPhoneDao implements ICrudOperations
 
 	public function load($id)
 	{
-
 		$this->populate($this->getById($id));
 	}
 
@@ -60,6 +59,10 @@ class UserRegisteredPhoneDao implements ICrudOperations
  		}
  	}
 
-
+ 	public function getByUserType( $users_id, $type )
+ 	{
+	 	$phone = UserRegisteredPhones::where('users_id', $users_id )->where('type', $type )->get();
+	 	$this->populate( $phone );
+ 	}
 
 }

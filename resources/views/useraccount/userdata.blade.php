@@ -67,7 +67,7 @@ background-size: cover;">
 						<div class="informacion">
 							<h2>{{ Lang::get('userdata.account-details') }}</h2>
 							<div data-role="response">
-								@include('useraccount.password', array('action' => 'edit' ))
+								@include('useraccount.password')
 							</div>
 						</div>
 					</div>
@@ -77,16 +77,18 @@ background-size: cover;">
 					<div class="content">
 						<div class="informacion-2" style="padding-top:10px; padding-bottom:10px;">
 							<div data-role="response">
-								@include('useraccount.choose-language', array( 'action' => 'edit' ))
+								@include('useraccount.choose-language')
 							</div>
-							
-							@if( Auth::user()->getCurrency() == 'MXN' )
-							<p style="display:inline-block; width:40%;">{{ Lang::get('userdata.currency') }}: {{ Auth::user()->getCurrency() }}</p>
+							<?php //Remove this line. Get currency method.
+							$currency = 'MXN';
+							 ?>
+							 
+							<p style="display:inline-block; width:40%;">{{ Lang::get('userdata.currency') }}: {{ $currency }}</p>
+							@if( $currency == 'MXN' )
 							<a onclick="confirmeMXN()" style="color:#cc4b9b;">
 								<img src="images/cambiar.png" style="vertical-align:text-top;"/>
 							</a>
 							@else
-							<p style="display:inline-block; width:40%;">{{ Lang::get('userdata.currency') }}: {{ Auth::user()->getCurrency() }}</p>
 							<a onclick="confirmeUSD()" style="color:#cc4b9b;">
 								<img src="images/cambiarENG.png" style="vertical-align:text-top;"/>
 							</a>          
@@ -98,7 +100,7 @@ background-size: cover;">
 				<div class="col-lg-12">
 					<div class="content">
 						<div class="informacion-2" style="padding-top:30px; padding-bottom:30px;">
-							<h1 style="text-align:center;">{{ Lang::get('userdata.inspira-points') }} {{ Auth::user()->getPoints() }} {{ Lang::get('userdata.points') }}</h1>
+							<h1 style="text-align:center;">{{ Lang::get('userdata.inspira-points') }} 0  {{ Lang::get('userdata.points') }}</h1>
 						</div>
 					</div>
 				</div>
@@ -287,6 +289,11 @@ background-size: cover;">
 	div.informacion div[data-role="submit"]{
 		margin: 20px 0;
 	}
+	
+	div.informacion form .input-group select {
+		width: calc(100% - 10px);
+  	}
+  	
 </style>
 @include('layouts.__common.footer')
 

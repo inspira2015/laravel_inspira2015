@@ -39,4 +39,15 @@ class UsersController extends Controller
 			'message' => 'Success api!'
 		), 200);
 	}
+	
+	public function changeLanguage(){
+		$this->userDao->load( $this->auth->user()->id );
+		$this->userDao->language = $this->auth->user()->language == 'es' ? 'en' : 'es';
+		$this->userDao->save();
+		
+		return Response::json(array(
+			'error' => false,
+			'redirect' => '/useraccount'
+		), 200);
+	}
 }
