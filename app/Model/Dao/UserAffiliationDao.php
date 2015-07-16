@@ -54,7 +54,7 @@ class UserAffiliationDao implements ICrudOperations
 		{
 			return FALSE;
 		}
-		return $queryVac;
+		return $queryAff;
 	}
 
 

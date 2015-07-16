@@ -110,17 +110,20 @@ background-size: cover;">
 					<div class="content">
 					@if( $accountSetup->checkValidAccount() !==FALSE )
 						<div class="informacion">
+							<?php 
+								//Change this
+								$affiliation = 1; $code = 2; $amount = 2;?>
 							<h2>a {{ Lang::get('userdata.affiliation-type') }}<br/>
-							@if( Auth::user()->getAffiliation() == 1 )
+							@if( $affiliation == 1 )
 								{{ Lang::get('userdata.discover') }}
-							@elseif (Auth::user()->getAffiliation() == 2 )
+							@elseif ($affiliation == 2 )
 								{{ Lang::get('userdata.platinium') }}
-							@elseif (Auth::user()->getAffiliation() == 3 )
+							@elseif ($affiliation == 3 )
 								{{ Lang::get('userdata.diamond') }}
 							@endif
 							</h2>
 						</div>
-						@if( (Auth::user()->getCode() - Auth::user()->getAffiliation()) > 0 )
+						@if( ( $code - $affiliation) > 0 )
 						<a style="text-align:center;" href="?route=users/gotoAfiliacion_single">
 							@if( $user->details->language )
 							<img src="images/categoria.png" style="width:80%;"/>
@@ -131,7 +134,7 @@ background-size: cover;">
 						@endif
 						<div class="informacion-2">
 							<p>{{ Lang::get('userdata.expiration-date') }}:</p>
-							<p>{{ Auth::user()->getDetails()->expires }}</p>
+							<p>00-00-0000</p>
 						</div>
 					@else
 						<div class="informacion">
@@ -149,10 +152,10 @@ background-size: cover;">
 						<div class="informacion-2" style="margin-bottom:20px;">
 							<h2>{{ Lang::get('userdata.vacation-fund') }}</h2>
 							<p> {{ Lang::get('userdata.monthly-fee') }}: 
-								$ {{ Auth::user()->getDetails()->amount }} {{ Auth::user()->getDetails()->currency }}
+								$ amount currency
 							</p>
 							<p>{{ Lang::get('userdata.total-saved') }}: 
-								$ {{ Auth::user()->getDetails()->total_amount }} {{ Auth::user()->getDetails()->currency }}
+								$ total_amount currency
 								<?php //echo $user_data['total_saved'];?> <?php //echo $user_data['currency'];?>
 							</p>
 						</div>
@@ -160,7 +163,7 @@ background-size: cover;">
 
 							<form action="https://mexico.dineromail.com/Shop/Shop_Ingreso.asp" method="post"> 
 								<input type="hidden" name="NombreItem" value="Agregar a fondo"> 
-								<input type="hidden" name="TipoMoneda" value="{{ Auth::user()->getDetails()->currency  == 'MXN' ? 1: 2 }}">
+<!-- 								<input type="hidden" name="TipoMoneda" value="{{ 'MXN'  == 'MXN' ? 1: 2 }}"> -->
 								<input type="hidden" name="E_Comercio" value="1534470"> 
 								<input type="hidden" name="NroItem" value="12"> 
 								<input type="hidden" name="DireccionExito" value="http://inspiramexico.mx/payments/dineromail"> 
@@ -169,7 +172,7 @@ background-size: cover;">
 								<input type="hidden" name="Mensaje" value="1"> 
 								<input type='hidden' name='MediosPago' value='4,5,6,17,19,20,21,22,13,14,7'>
 								
-								@if( Auth::user()->getDetails()->amount > 0 )
+								@if( $amount > 0 )
 								<a style="text-align:center; display:inline-block; width:40%; vertical-align:top;" href="?route=users/gotoFondosingle">
 									<img src="images/cambiar.png"/>
 								</a>
