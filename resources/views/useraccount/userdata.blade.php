@@ -163,7 +163,7 @@ background-size: cover;">
 
 							<form action="https://mexico.dineromail.com/Shop/Shop_Ingreso.asp" method="post"> 
 								<input type="hidden" name="NombreItem" value="Agregar a fondo"> 
-<!-- 								<input type="hidden" name="TipoMoneda" value="{{ 'MXN'  == 'MXN' ? 1: 2 }}"> -->
+							<!--<input type="hidden" name="TipoMoneda" value="{{ 'MXN'  == 'MXN' ? 1: 2 }}"> -->
 								<input type="hidden" name="E_Comercio" value="1534470"> 
 								<input type="hidden" name="NroItem" value="12"> 
 								<input type="hidden" name="DireccionExito" value="http://inspiramexico.mx/payments/dineromail"> 

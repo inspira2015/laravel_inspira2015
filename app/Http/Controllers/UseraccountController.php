@@ -101,8 +101,9 @@ class UseraccountController extends Controller {
 		$data = Input::except('_token');
 		
 		//validate phones
-		$this->phoneDao->setUserId( Auth::user()->id );
-		$this->phoneDao->load();
+		//$this->phoneDao->setUserId( Auth::user()->id );
+		//$this->phoneDao->load();
+		
 		//User::phones()
 		//Validate state-contry
 		$this->userDao->load(Auth::user()->id);
