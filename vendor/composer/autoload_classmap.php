@@ -36,6 +36,7 @@ return array(
     'CreateTableUsersRegisteredPhones' => $baseDir . '/database/migrations/2015_06_16_204344_create_table_users_registered_phones.php',
     'CreateTableUsersVacationsFunds' => $baseDir . '/database/migrations/2015_06_16_204433_create_table_users_vacations_funds.php',
     'CreateTableVacationFundLog' => $baseDir . '/database/migrations/2015_06_16_204455_create_table_vacation_fund_log.php',
+    'CreateUsersTypesTable' => $baseDir . '/database/migrations/2015_07_16_143630_create_users_types_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
