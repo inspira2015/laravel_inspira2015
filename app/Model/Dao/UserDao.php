@@ -80,15 +80,11 @@ class UserDao extends UserEntity implements ICrudOperations
 		
 		return $user;
  	}
- 	
- 	public function getPhones( $id )
- 	{
-	 	return $this->getById( $id )->phones;
- 	}
+
  	
  	public function getPhoneType( $id, $type )
  	{
-	 	return $this->getPhones( $id )->where('type', $type)->first();
+	 	return $this->getById( $id )->phones->where('type', $type)->first();
  	}
  	
  	public function getAddress( $id )

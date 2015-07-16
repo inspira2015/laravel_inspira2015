@@ -22,7 +22,6 @@ class UseraccountController extends Controller {
 	private $accountSetup;
 	private $statesDao;
 	private $phonesDao;
-	public $user;
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -63,14 +62,10 @@ class UseraccountController extends Controller {
 	*/
 	public function index()
 	{
-		$user = $this->userDao->getDetails( Auth::user()->id );
-		$user->details->country_code = $user->details->country;
-		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
-		
 		$this->accountSetup->setUsersID(Auth::user()->id );
 		$this->accountSetup->checkValidAccount();
 		return view('useraccount.userdata')
-			->with( 'user' , $user )
+			->with( 'user' , $this->details() )
 			->with( 'accountSetup' , $this->accountSetup );
 	}
 
@@ -87,9 +82,7 @@ class UseraccountController extends Controller {
 	
 	public function editAccount()
 	{
-		$user = $this->userDao->getDetails( Auth::user()->id );
-		$user->details->country_code = $user->details->country;
-		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
+		$user = $this->details();
 		return view('useraccount.form-contact')
 			->with('user', $user )
 			->with( 'countries' , $this->countryDao->forSelect('name', 'code'))
@@ -109,42 +102,38 @@ class UseraccountController extends Controller {
 		$this->userDao->load(Auth::user()->id);
 		$this->userDao->country = $data['country'];
 		$this->userDao->state = $data['state'];
-		$this->userDao->save();
-		$user = $this->userDao->getDetails( Auth::user()->id );
-		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
+		$this->userDao->save();		
 		return view( 'useraccount.contact')
-			->with( 'user' , $user );
+			->with( 'user' , $this->details() );
 	}
 	
 	public function editPassword()
 	{
-		$user = $this->userDao->getDetails( Auth::user()->id );
 		return  view('useraccount.form-password')
-			->with( 'user' , $user );
+			->with( 'user' , $this->details() );
 	}
 	
 	public function updatePassword()
 	{
-		$user = $this->userDao->getDetails( Auth::user()->id );
 		$data = Input::except('_token');
 		$validator = UserPassword::validator( $data );
 		if( $validator->passes() ){
-			$this->userDao->load(Auth::user()->id);
+			$this->userDao->load( Auth::user()->id );
 			$this->userDao->password = Hash::make($data['password']);
 			$this->userDao->save();
 			return view('useraccount.password')
-				->with( 'user', $user );
+				->with( 'user', $this->details() );
 		}
 		return view('useraccount.form-password')
-			->with( 'user',  $user )
+			->with( 'user',  $this->details() )
 			->withErrors($validator);
 	}
-	
-	public function updateLanguage()
-	{
+		
+	private function details(){
 		$user = $this->userDao->getDetails( Auth::user()->id );
-		return view('useraccount.choose-language')
-			->with( array( 'action' => 'update', 'user' => $user) );
+		$user->details->country_code = $user->details->country;
+		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
+		return $user;
 	}
 
 }
