@@ -3,21 +3,21 @@
 	<div class="form-group">
 		<label for="cell">{{ Lang::get('userdata.cell') }}:</label>
 		<div class="input-group">
-			{!! Form::text( 'phone[cellphone]',  $user->phones->cellphone['number'] ) !!}
+			{!! Form::text( 'cell',  $user->phones->cell['number'] ) !!}
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for="cell">{{ Lang::get('userdata.phone') }}:</label>
 		<div class="input-group">
-			{!! Form::text( 'phone[phone]',  $user->phones->phone['number']) !!}
+			{!! Form::text( 'phone',  $user->phones->phone['number']) !!}
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for="cell">{{ Lang::get('userdata.office') }}:</label>
 		<div class="input-group">
-			{!! Form::text( 'phone[office]',  $user->phones->office['number']) !!}
+			{!! Form::text( 'office',  $user->phones->office['number']) !!}
 		</div>
 	</div>
 	
@@ -51,6 +51,7 @@
 			@endif
 		</div>
 	</div>
+	@include('errors.messages')
 	<div data-role="submit" data-route="useraccount/update-contact"><img src="images/guardar.png"/></div>
 {!! Form::close() !!}
 </div>

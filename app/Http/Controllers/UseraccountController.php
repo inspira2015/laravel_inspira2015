@@ -10,6 +10,7 @@ use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
 use App\Model\Dao\UserRegisteredPhoneDao;
 use App\Services\UserPassword;
+use App\Services\UserDetails;
 use App\Model\Entity\UserAffiliation;
 use App\Libraries\AccountValidation\CompleteAccountSetup;
 use App\Model\Entity\UserVacationalFunds;
@@ -94,22 +95,32 @@ class UseraccountController extends Controller {
 		$data = Input::except('_token');
 
 		//Validar esta parte
-		$this->phoneDao->exchangeArray(  array ( 'users_id' => Auth::user()->id , 'type' => 'cellphone', 'number' => $data['phone']['cellphone'] ) );
-		$this->phoneDao->save();
-		$this->phoneDao->exchangeArray(  array ( 'users_id' => Auth::user()->id , 'type' => 'phone', 'number' => $data['phone']['phone'] ) );
-		$this->phoneDao->save();
-		$this->phoneDao->exchangeArray(  array ( 'users_id' => Auth::user()->id , 'type' => 'office', 'number' => $data['phone']['office'] ) );
-		$this->phoneDao->save();
-	
-		$this->userDao->load( Auth::user()->id );
-		$this->userDao->address = $data['address'];
-		$this->userDao->city = $data['city'];		
-		$this->userDao->country = $data['country'];
-		$this->userDao->state = $data['state'];
-		$this->userDao->save();		
+		$validator = UserDetails::validator($data);
+		if( $validator->passes() ){
+			$this->phoneDao->exchangeArray(  array ( 'users_id' => Auth::user()->id , 'type' => 'cell', 'number' => $data['cell'] ) );
+			$this->phoneDao->save();
+			$this->phoneDao->exchangeArray(  array ( 'users_id' => Auth::user()->id , 'type' => 'phone', 'number' => $data['phone'] ) );
+			$this->phoneDao->save();
+			$this->phoneDao->exchangeArray(  array ( 'users_id' => Auth::user()->id , 'type' => 'office', 'number' => $data['office'] ) );
+			$this->phoneDao->save();
 		
-		return view( 'useraccount.contact')
-			->with( 'user' , $this->details() );
+			$this->userDao->load( Auth::user()->id );
+			$this->userDao->address = $data['address'];
+			$this->userDao->city = $data['city'];		
+			$this->userDao->country = $data['country'];
+			$this->userDao->state = $data['state'];
+			$this->userDao->save();		
+			
+			return view( 'useraccount.contact')
+				->with( 'user' , $this->details() );
+		}
+		$user = $this->details();
+		return view( 'useraccount.form-contact')
+				->with( 'user' , $user )
+				->with( 'countries' , $this->countryDao->forSelect('name', 'code'))
+				->with( 'states', $this->statesDao->forSelect('name', 'code', array('country' => $user->details->country_code ) ))
+				->withErrors($validator);
+
 	}
 	
 	public function editPassword()

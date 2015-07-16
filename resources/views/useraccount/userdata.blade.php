@@ -53,7 +53,7 @@ background-size: cover;">
 
 			<div class="col-lg-6" style="margin-top:35px;">
 				<div class="col-lg-12">
-					<div class="content" style="padding-bottom:40px; padding-top:10px;">
+					<div class="content" style="padding-top:10px;">
 						<div class="informacion">
 							<h2>{{ Lang::get('userdata.information') }}</h2>
 							<div data-role="response">

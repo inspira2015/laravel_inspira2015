@@ -1,7 +1,7 @@
 <div id = "campos">
 	<input type = "hidden" id = "leisure" value ="<?php //echo $user_data['leisure_id'] ?>">
 	<input type = "hidden" id = "afiliacion" name="afiliacion" value ="<?php //echo $afiliacion['tier_id'] ?>">
-	<p id = "cel" class="">{{ Lang::get('userdata.cell') }}: {{ $user->phones->cellphone['number'] }}</p>
+	<p id = "cel" class="">{{ Lang::get('userdata.cell') }}: {{ $user->phones->cell['number'] }}</p>
 	<p id = "hmt" class="">{{ Lang::get('userdata.phone') }}: {{ $user->phones->phone['number'] }}</p>
 	<p id = "wkt" class="">{{ Lang::get('userdata.office') }}: {{ $user->phones->office['number'] }}</p>
 	<p id = "address" class="">{{ Lang::get('userdata.address') }}: {{ $user->details->address }}</p>
