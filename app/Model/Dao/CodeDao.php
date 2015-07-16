@@ -28,9 +28,14 @@ class CodeDao implements ICrudOperations
 		
 		if ($id > 0) {
 			$code = Code::find($id);
-			$code->fill($data);
+			$array_data = (array)$this;
+			$code->fill($array_data);
 		} else {
-			$code = Code::create($data);
+			$code = new Code;
+			foreach($this as $key =>$value)
+			{
+				$code->$key = $value;
+			}
 		}
 			$code->save();
 	}

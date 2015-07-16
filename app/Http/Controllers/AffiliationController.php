@@ -1,7 +1,11 @@
 <?php 
-namespace App\Http\Controllers;
 
-class AffiliationController extends Controller {
+namespace App\Http\Controllers;
+use Auth;
+use App\Model\Dao\UserDao;
+
+class AffiliationController extends Controller 
+{
 
 	/*
 	|--------------------------------------------------------------------------
@@ -14,14 +18,18 @@ class AffiliationController extends Controller {
 	|
 	*/
 
+
+	private $userDao;
+
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(UserDao $userDao)
 	{
 		$this->middleware('auth');
+		$this->userDao = $userDao;
 	}
 
 	/**
@@ -31,8 +39,19 @@ class AffiliationController extends Controller {
 	 */
 	public function Index()
 	{
-		return view('affiliations.affiliation');
+		// Check User code 
+		//echo Auth::user()->id;
+
+		$user = $this->userDao->getUsersCode( Auth::user()->id );
+		
+		
+		print_r($user->code_used()->count());
+
+
+		exit;
+		return view('affiliations.affiliation')->with('title', 'Affiliaciones' )->with('background','3.jpg');
 	}
+	
 
 	
 

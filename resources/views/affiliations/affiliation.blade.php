@@ -1,46 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-    <title>Afiliacion</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/style.css" />
-    <link rel="icon" href="<?php echo url();?>/images/inspira.ico" type="image/ico" />
-    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/menu.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/font-awesome/css/font-awesome.min.css" />
-    <style type="text/css">
-      .container li{
-        margin-bottom: 8px;
-      }
-    </style>
-    <script type="text/javascript" src="<?php echo url();?>/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="<?php echo url();?>/bootstrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slide.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slidestyle.css" />
-    <link rel="stylesheet" href="jquery.h5-lightbox.css">
-  </head>
-  
-  <body id="page" style="background-image:url('<?php echo url();?>/images/3.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;">
-    <?php 
-        $path_header = base_path()."/resources/views/chunks/header.php";
-        $path_header_en = base_path()."/resources/views/chunks/headerENG.php";
-        switch(@$user_data["language"]){
-          case "EN" :
-            include_once $path_header_en;
-            break;
+@extends('layouts.basic')
 
-          default:
-          case "ES" :
-            include_once $path_header;
-            break;
-        }
-    ?>
-  <div class="container">
+@section('content')
     <div class="container">
       <div class="row" style="background-color:#e5e7e9; margin-bottom:0px; padding-top:50px; padding-left:40px; padding-right:40px;">
         <h2 style="float:left; text-transform:uppercase; margin-bottom:25px; text-align:left; 40px;display:inline;">
@@ -50,6 +10,8 @@
       
       <div class="row"  style="margin-bottom:50px; background-color:#e5e7e9; margin-bottom:50px; padding-top:50px;">
         <form method="post" action="?route=users/afiliacion" id="profile" name="formulario"><input type="hidden" name="email" value="$user_data["email"]"/>
+        
+
         <?PHP 
             if($user_codes["discover"]>=0){
                   echo '<div class="col-lg-'.(12/$cols).' col-md-'.(12/$cols).'" style="margin-bottom:100px;">
@@ -334,19 +296,4 @@ echo '</h2>
       
   </div>
 
-</div>
-   <?php 
-if(isset($user_data["language"])){
-if($user_data["language"]=="ES"){
-include "php/footer.php";
-}else{
-include "php/footerENG.php";
-}
-}else{
-include "php/footer.php";
-}
-?>
-
-  </footer>
-</body>
-</html>
+@endsection

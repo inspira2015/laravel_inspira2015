@@ -119,12 +119,12 @@ class CompleteAccountSetup
 
 	public function getRedirect()
 	{
-		if($this->checkAffiliation==FALSE)
+		if($this->checkAffiliation()==FALSE)
 		{
 			return redirect('/affiliation');
 		}
 
-		if($this->checkVacFund==FALSE)
+		if($this->checkVacFund()==FALSE)
 		{
 			return redirect('/affiliation');
 		}
