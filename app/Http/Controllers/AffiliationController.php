@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 use Auth;
 use App\Model\Dao\UserDao;
+use App\Libraries\Affiliations\CheckCodeAffiliations;
+use App\Model\Entity\Affiliations;
+use Lang;
+
 
 class AffiliationController extends Controller 
 {
@@ -20,16 +24,22 @@ class AffiliationController extends Controller
 
 
 	private $userDao;
+	private $checkAff;
+	private $affiDao;
 
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct(UserDao $userDao)
+	public function __construct( UserDao $userDao, 
+								 CheckCodeAffiliations $checkAff,
+								 Affiliations $affil)
 	{
 		$this->middleware('auth');
 		$this->userDao = $userDao;
+		$this->checkAff = $checkAff;
+		$this->affiDao = $affil;
 	}
 
 	/**
@@ -39,17 +49,20 @@ class AffiliationController extends Controller
 	 */
 	public function Index()
 	{
-		// Check User code 
-		//echo Auth::user()->id;
-
 		$user = $this->userDao->getUsersCode( Auth::user()->id );
-		
-		
-		print_r($user->code_used()->count());
+		$this->checkAff->setUser( $user );
+		$suscription_array = $this->checkAff->getAffiliationObjectArray();
+		$suscription_count = count( $suscription_array );
+		$objAff = $this->affiDao->getAll();
 
+		$data = array(
+						'title' =>'Affiliaciones',
+						'background' =>'3.jpg',
+						'suscription_array' => $suscription_array,
+						'suscription_count ' => $suscription_count,
 
-		exit;
-		return view('affiliations.affiliation')->with('title', 'Affiliaciones' )->with('background','3.jpg');
+			);
+		return view('affiliations.affiliation')->with( $data );
 	}
 	
 

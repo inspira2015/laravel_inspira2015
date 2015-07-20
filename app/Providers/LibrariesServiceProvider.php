@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Model\Entity\UserAffiliation;
+use App\Model\Entity\Affiliations;
 use App\Model\Entity\UserVacFundLog;
 
 class LibrariesServiceProvider extends ServiceProvider {
@@ -26,11 +26,16 @@ class LibrariesServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		//
-		 $this->app->bind('App\Libraries\AccountValidation\CompleteAccountSetup', function($app) {
+		$this->app->bind('App\Libraries\AccountValidation\CompleteAccountSetup', function($app) {
                 return new \App\Libraries\AccountValidation\CompleteAccountSetup($app->make('\App\Model\Entity\UserAffiliation'), 
                 	$app->make('\App\Model\Entity\UserVacFundLog'));
-        });      
+        });    
+		$this->app->bind('App\Libraries\Affiliations\CheckCodeAffiliations', function($app) {
+                return new \App\Libraries\Affiliations\CheckCodeAffiliations($app->make('\App\Model\Entity\Affiliations'),
+					$app->make('\App\Model\Dao\CodeDao')
 
+                	);
+        });
 
 	}
 

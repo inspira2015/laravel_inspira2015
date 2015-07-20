@@ -7,9 +7,9 @@ use Carbon;
 class ValidateCodeAffiliations implements Ivalidate
 {
 	private $db_code;
-	private $error_array;
+	protected $error_array;
 	private $valid;
-	private $affiliations;
+	protected $affiliations;
 
 	public function  __construct()
 	{

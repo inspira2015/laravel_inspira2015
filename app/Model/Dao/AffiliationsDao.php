@@ -43,4 +43,10 @@ class AffiliationsDao implements ICrudOperations
 	}
 
 
+	public function getByNameEng($affiliation)
+	{
+		return Affiliations::where( 'name_eng', strtoupper( $affiliation ) )->with( 'affiliations_description' )->first();
+	}
+
+
 }
