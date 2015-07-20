@@ -106,7 +106,30 @@ class StatesSeeder extends Seeder
             array( "country" => "MX", "code" => "TLAX", "name"=> "Tlaxcala" ),
             array( "country" => "MX", "code" => "VER", "name"=> "Veracruz de Ignacio de la Llave" ),
             array( "country" => "MX", "code" => "YUC", "name"=> "Yucatán" ),
-            array( "country" => "MX", "code" => "ZAC", "name"=> "Zacatecas" )
+            array( "country" => "MX", "code" => "ZAC", "name"=> "Zacatecas" ),
+            array( "country" => "CA", "code"=>"AB", "name"=>"Alberta"),
+			array( "country" => "CA", "code"=>"BC", "name"=>"British Columbia"),
+			array( "country" => "CA", "code"=>"LB", "name"=>"Labrador"),
+			array( "country" => "CA", "code"=>"MB", "name"=>"Manitoba"),
+			array( "country" => "CA", "code"=>"NB", "name"=>"New Brunswick"),
+			array( "country" => "CA", "code"=>"NF", "name"=>"Newfoundland"),
+			array( "country" => "CA", "code"=>"NL", "name"=>"Newfoundland & Labrador"),
+			array( "country" => "CA", "code"=>"NS", "name"=>"Nova Scotia"),
+			array( "country" => "CA", "code"=>"NT", "name"=>"Northwest Territories"),
+			array( "country" => "CA", "code"=>"NU", "name"=>"Nunavut Territory"),
+			array( "country" => "CA", "code"=>"ON", "name"=>"Ontario"),
+			array( "country" => "CA", "code"=>"PE ", "name"=>"Prince Edward Island"),
+			array( "country" => "CA", "code"=>"PQ", "name"=>"Quebec"),
+			array( "country" => "CA", "code"=>"SK", "name"=>"Saskatchewan "),
+			array( "country" => "CA", "code"=>"YT", "name"=>"Yukon Territory"),
+			array( "country" => "AU", "code"=>"ACT ", "name"=>"Australian Cap. Terr."),
+			array( "country" => "AU", "code"=>"NSW", "name"=>"New South Wales"),
+			array( "country" => "AU", "code"=>"NT ", "name"=>"Northern Territory"),
+			array( "country" => "AU", "code"=>"QLD ", "name"=>"Queensland "),
+			array( "country" => "AU", "code"=>"SA", "name"=>"South Australia"),
+			array( "country" => "AU", "code"=>"TAS", "name"=>"Tasmania"),
+			array( "country" => "AU", "code"=>"VIC", "name"=>"Victoria"),
+			array( "country" => "AU", "code"=>"WA", "name"=>"Western Australia")
         );
         
         DB::table('states')->insert($states);
