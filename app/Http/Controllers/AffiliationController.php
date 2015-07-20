@@ -53,16 +53,15 @@ class AffiliationController extends Controller
 		$this->checkAff->setUser( $user );
 		$suscription_array = $this->checkAff->getAffiliationObjectArray();
 		$suscription_count = count( $suscription_array );
-		$objAff = $this->affiDao->getAll();
 
 		$data = array(
 						'title' =>'Affiliaciones',
 						'background' =>'3.jpg',
 						'suscription_array' => $suscription_array,
-						'suscription_count ' => $suscription_count,
+						'suscription_count' => $suscription_count
 
 			);
-		return view('affiliations.affiliation')->with( $data );
+		return view('affiliations.affiliation3')->with( $data );
 	}
 	
 
