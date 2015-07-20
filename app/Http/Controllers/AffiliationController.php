@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Model\Dao\UserDao;
 use App\Libraries\Affiliations\CheckCodeAffiliations;
+use App\Libraries\Affiliations\AffiliationsColorCodes;
 use App\Model\Entity\Affiliations;
 use Lang;
 
@@ -59,7 +60,8 @@ class AffiliationController extends Controller
 						'title' =>'Affiliaciones',
 						'background' =>'3.jpg',
 						'suscription_array' => $suscription_array,
-						'suscription_count' => $suscription_count
+						'suscription_count' => $suscription_count,
+						'colorCodes' => new AffiliationsColorCodes()
 
 			);
 		return view('affiliations.affiliation')->with( $data );

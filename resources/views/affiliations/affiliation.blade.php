@@ -20,7 +20,7 @@
           	{
           		$descriptions = $obj->getAffDescriptionArray();
 				echo '<div class="col-lg-'.(12/$suscription_count).' col-md-'.(12/$suscription_count).'" style="margin-bottom:100px;">
-                  		<h1 style="color:#ffffff; background-color:#529ad3; text-align:center;  margin:0px 10px; padding:10px; font-size:26px;">
+                  		<h1 style="color:#ffffff; background-color:' . call_user_func(array($colorCodes, $obj->getAffiliationName())) . '; text-align:center;  margin:0px 10px; padding:10px; font-size:26px;">
                   			'. $obj->getAffiliationName() .'
                   		</h1>
                  		
@@ -61,7 +61,7 @@
           					<div style="display:inline; float:left; text-align:left;">
             					<input type="radio" value="<?php echo $obj->getAffiliationId(); ?>" name="afiliacion" style="width:30px;" checked="checked"/>
           					</div>
-         				 	<h2  style="display:inline;color:#5198cc; float:left; width:60%;">
+         				 	<h2  style="display:inline;color:<?php echo call_user_func(array($colorCodes, $obj->getAffiliationName()));?>; float:left; width:60%;">
             					<?php echo Lang::get('affiliations.affconfirm', array('affiliation' => $obj->getAffiliationName())); ?>
             				</h2> 
             

@@ -4,10 +4,10 @@ namespace App\Libraries\Affiliations;
 
 /*
 	|--------------------------------------------------------------------------
-	| CheckCodeAffiliations
+	| AffiliationViewObject
 	|--------------------------------------------------------------------------
 	|
-	| This library check and gets Codes Affiliations
+	| This library its use by the view to populate with correct data
 	| 
 	|
 */

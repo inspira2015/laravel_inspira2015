@@ -16,7 +16,7 @@ use App\Libraries\ValidateCodeAffiliations;
 	| CheckCodeAffiliations
 	|--------------------------------------------------------------------------
 	|
-	| This library check and gets Codes Affiliations
+	| This library check codes Affiliations and setup a new AffiliationViewObject
 	| 
 	|
 */
