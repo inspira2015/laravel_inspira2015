@@ -49,7 +49,7 @@ $(document).ready(function(){
 			
 		},
 		_on_change_country : function( element ){
-			var _countries = [ "MX", "US" ];
+			var _countries = [ "MX", "US", "CA", "AU" ];
 
 			element.on('change', function(){
 				var _this = $(this);

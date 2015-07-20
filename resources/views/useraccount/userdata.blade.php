@@ -10,6 +10,9 @@
 	{!! HTML::style('css/bootstrap/css/menu.css') !!}
 	{!! HTML::style('css/bootstrap/css/bootstrap.min.css') !!}
 	{!! HTML::style('css/font-awesome/css/font-awesome.min.css') !!}
+	
+	{!! HTML::style('css/app/main.css') !!}
+	
 	<link rel="icon" href="/images/inspira.ico" type="image/ico" />
 	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
 	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
@@ -63,7 +66,7 @@ background-size: cover;">
 					</div>
 				</div>
 				<div class="col-lg-12">
-					<div class="content" style="padding-top:20px;">
+					<div class="content">
 						<div class="informacion">
 							<h2>{{ Lang::get('userdata.account-details') }}</h2>
 							<div data-role="response">
@@ -149,7 +152,7 @@ background-size: cover;">
 				<div class="col-lg-12">
 					<div class="content">
 						@if( $accountSetup->checkValidAccount() !==FALSE )
-						<div class="informacion-2" style="margin-bottom:20px;">
+						<div class="informacion">
 							<h2>{{ Lang::get('userdata.vacation-fund') }}</h2>
 							<p> {{ Lang::get('userdata.monthly-fee') }}: 
 								$ amount currency
@@ -265,39 +268,7 @@ background-size: cover;">
 		</div>
 	</div>	
 </div>
-<style>
-	div[data-role="response"] a[data-role="change"], 
-	div[data-role="response"] div[data-role="submit"] {
-		cursor: pointer;
-		padding-left: 0px;
-		display: inline-block;
-		padding-right: 0px;
-		padding-bottom: 0px;
-	}
-	div.informacion h2{
-		padding-bottom: 20px;
-	}
-	
-	div.informacion form label{
-		text-transform: capitalize;
-	}
-	
-	div.informacion form .form-group {
-	  margin-bottom: 5px;
-	}
-	div.informacion .alert-danger{
-		margin: 20px 0 0 0;
-	}
-	
-	div.informacion div[data-role="submit"]{
-		margin: 20px 0;
-	}
-	
-	div.informacion form .input-group select {
-		width: calc(100% - 10px);
-  	}
-  	
-</style>
+
 @include('layouts.__common.footer')
 
 @include('layouts.__common.tawk')

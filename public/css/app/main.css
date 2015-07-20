@@ -1,0 +1,41 @@
+div[data-role="response"] a[data-role="change"], 
+div[data-role="response"] div[data-role="submit"] {
+	cursor: pointer;
+	padding-left: 0px;
+	display: inline-block;
+	padding-right: 0px;
+	padding-bottom: 0px;
+}
+
+/*Check if these applies on different templates*/
+div.informacion h2{
+	padding-bottom: 20px;
+}
+
+div.informacion form label{
+	text-transform: capitalize;
+	width: 40%!important;
+}
+
+div.informacion form .form-group {
+  margin-bottom: 5px;
+}
+
+div.informacion form .form-group input,
+div.informacion form .form-group select{
+	width: 100%;
+}
+div.informacion .alert-danger{
+	margin: 20px 0 0 0;
+}
+
+div.informacion div[data-role="submit"]{
+	margin: 20px 0;
+}
+
+/*
+
+div.informacion form .input-group select {
+width: calc(100% - 10px);
+}
+*/
