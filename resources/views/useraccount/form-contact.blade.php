@@ -44,7 +44,7 @@
 	<div class="form-group">
 		<label for="cell">{{ Lang::get('userdata.state') }}:</label>
 		<div class="input-group select-state">
-			@if( in_array($user->details->country_code, ['US', 'MX']))
+			@if( in_array($user->details->country_code, Config::get('extra.countries') ))
 			{!! Form::select('state', $states, $user->details->state ) !!}
 			@else
 			{!! Form::text( 'state',  $user->details->state ) !!}

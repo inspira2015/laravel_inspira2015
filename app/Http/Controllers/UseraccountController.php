@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 use Auth;
 use Input;
+use Javascript;
+use Config;
 use Hash;
 use App\Model\User;
 
@@ -63,6 +65,8 @@ class UseraccountController extends Controller {
 	*/
 	public function index()
 	{
+		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
+
 		$this->accountSetup->setUsersID(Auth::user()->id );
 		$this->accountSetup->checkValidAccount();
 		return view('useraccount.userdata')

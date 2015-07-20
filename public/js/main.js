@@ -45,12 +45,9 @@ $(document).ready(function(){
 				});
 			});
 		}, 
-		_change_language : function(){
-			
-		},
 		_on_change_country : function( element ){
-			var _countries = [ "MX", "US", "CA", "AU" ];
-
+			//var _countries = [ "MX", "US", "CA", "AU" ];
+			var _countries = inspira.countries;
 			element.on('change', function(){
 				var _this = $(this);
 				var _value = _this.val();

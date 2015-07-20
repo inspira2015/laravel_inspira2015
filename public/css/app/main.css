@@ -7,7 +7,8 @@ div[data-role="response"] div[data-role="submit"] {
 	padding-bottom: 0px;
 }
 
-/*Check if these applies on different templates*/
+/*Check if these apply on different templates*/
+
 div.informacion h2{
 	padding-bottom: 20px;
 }
@@ -32,10 +33,3 @@ div.informacion .alert-danger{
 div.informacion div[data-role="submit"]{
 	margin: 20px 0;
 }
-
-/*
-
-div.informacion form .input-group select {
-width: calc(100% - 10px);
-}
-*/

@@ -146,8 +146,8 @@ return [
 		'App\Providers\RouteServiceProvider',
 		'App\Providers\DaoServiceProvider',
 		'App\Providers\LibrariesServiceProvider',
-		'Laravel\Socialite\SocialiteServiceProvider'
-
+		'Laravel\Socialite\SocialiteServiceProvider',
+		'Laracasts\Utilities\JavaScript\JavascriptServiceProvider'
 
 	],
 
@@ -199,7 +199,8 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
-		'Socialize' => 'Laravel\Socialite\Facades\Socialite'
+		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
+		'Javascript'=> 'Laracasts\Utilities\JavaScript\JavaScriptFacade'
 	],
 
 ];
