@@ -49,6 +49,7 @@ class AffiliationController extends Controller
 	 */
 	public function Index()
 	{
+		
 		$user = $this->userDao->getUsersCode( Auth::user()->id );
 		$this->checkAff->setUser( $user );
 		$suscription_array = $this->checkAff->getAffiliationObjectArray();
@@ -61,7 +62,7 @@ class AffiliationController extends Controller
 						'suscription_count' => $suscription_count
 
 			);
-		return view('affiliations.affiliation3')->with( $data );
+		return view('affiliations.affiliation')->with( $data );
 	}
 	
 

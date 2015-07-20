@@ -9,7 +9,7 @@
 <div class="container">
 	<div class="row" style="background-color:#e5e7e9; margin-bottom:0px; padding-top:50px; padding-left:40px; padding-right:40px;">
         <h2 style="float:left; text-transform:uppercase; margin-bottom:25px; text-align:left; 40px;display:inline;">
-          Favor de seleccionar la afiliaci&oacute;n de su preferencia
+          @lang('affiliations.select')
         </h2>
 	</div>
 	<div class="row"  style="margin-bottom:50px; background-color:#e5e7e9; margin-bottom:50px; padding-top:50px;">
@@ -17,7 +17,6 @@
         	<input type="hidden" name="email" value=""/>
         
 <?php
-			
           	foreach($suscription_array as $key => $obj)
           	{
           		$descriptions = $obj->getAffDescriptionArray();
@@ -40,43 +39,45 @@
     		    foreach($descriptions as $k => $descArray)
     			{
 					echo '<li>'.$descArray['description'].'</li>';
-				}
-					echo'</ul>
+				}		
+?>
+					</ul>
           				</div>
             			</div>
           				<div class="content" style="margin-top:0px; background-color:#eef0f0; margin-bottom:0px; padding-bottom:0px; padding-top:0px;">
           				<div class="divider content" style="padding-top:0px; padding-bottom:0px; margin: 0px 0px; bottom:0px;" ></div>  
             			<div class="informacion">
-            			<h2 style="text-align:center">CUOTA MENSUAL: <br>';
-						echo $obj->getAffiliationPrice();
-						echo ' MXN';
-					echo '</h2>
+            			<h2 style="text-align:center">@lang('affiliations.monthfee'): <br>
+						<?php echo $obj->getAffiliationPrice(); ?>
+						<?php echo ' MXN'; ?>
+						</h2>
 				          </div>
 				            <div class="divider content" style="padding-top:0px; padding-bottom:0px; margin: 0px 0px; bottom:0px;" ></div>
 				          </div>
 				          <div class="content" style="margin-top:0px; margin-bottom:0px;">
 				            <div class="informacion" style="min-height:130px;">
 
-            				<h2>PRIMER MES GRATIS</h2>
+            				<h2>@lang('affiliations.promotion')</h2>
             
           					<div style="display:inline; float:left; text-align:left;">
-            					<input type="radio" value="'. $descArray['id'] .'" name="afiliacion" style="width:30px;" checked="checked"/>
+            					<input type="radio" value="<?php echo $descArray['id']; ?>" name="afiliacion" style="width:30px;" checked="checked"/>
           					</div>
          				 	<h2  style="display:inline;color:#5198cc; float:left; width:60%;">
-            				Deseo ser afiliado '.$obj->getAffiliationName().'</h2> 
+            					<?php echo Lang::get('affiliations.affconfirm', array('affiliation' => $obj->getAffiliationName())); ?>
+            				</h2> 
             
 					          </div>
 					            
 					          </div>
 
-					        </div>';
-
-          }
+					        </div>
+<?php
+}
 ?>
+
   <div class="col-lg-12 col-md-12" style="padding:20px;">
           <div class="divider"></div></div>
-        <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">  
-        <a href="?route=users/profile"><img style="width:50%; height:auto;"src="images/regresartransparente.png"/></a></div>
+       
           <div class="col-lg-4 col-md-4 col-sm-4">&nbsp;</div>
           <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;"> 
            <a href="#" onClick="formulario.submit()"><img style="width:50%; height:auto;"src="images/continuar.png"/></a></div>

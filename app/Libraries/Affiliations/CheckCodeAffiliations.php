@@ -1,5 +1,6 @@
 <?php
 namespace App\Libraries\Affiliations;
+use Lang;
 
 
 use App\Model\User;
@@ -87,10 +88,12 @@ class CheckCodeAffiliations
 	{
 		$suscription = array();
 		$aff_array = $this->check();
+		
 		foreach($aff_array as $key => $value)
 		{
 			$affiliation = key( $value );
 			$obj = new AffiliationViewObject();
+			$obj->setLang( Lang::getLocale() );
 			$obj->setAffiliationPrice( $value[ $affiliation ] );
 			$obj->setAffiliationDB( $this->affiliations->getByNameEng( $affiliation ) );
 			$obj->setAffiliationDescription( $this->affiliations->getByNameEng( $affiliation ) );

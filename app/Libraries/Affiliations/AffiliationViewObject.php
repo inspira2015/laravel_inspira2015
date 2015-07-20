@@ -19,7 +19,7 @@ class AffiliationViewObject
 
 	public function __construct()
 	{
-		$this->setLang();
+		//$this->setLang();
 		$this->setCurrency();
 	}
 
