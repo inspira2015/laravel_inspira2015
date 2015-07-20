@@ -26,11 +26,15 @@ class ValidateCodeAffiliations implements Ivalidate
 	private function check()
 	{
 		$valid_array = array();
+		$i =0;
 		foreach($this->affiliations as $value)
 		{
 			if($this->db_code->$value >= 0)
 			{
-				$valid_array[][$value] = $this->db_code->$value;
+				$valid_array[$i][$value] = $this->db_code->$value;
+				$valid_array[$i]['currency'] = $this->db_code->currency;
+
+				$i++;
 			}
 		}
 		return $valid_array;

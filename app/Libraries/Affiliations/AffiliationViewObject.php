@@ -71,11 +71,12 @@ class AffiliationViewObject
 
 	public function getAffiliationPrice()
 	{
-		if( strcasecmp( $this->storeData['currency'] , 'MXP' ) == 0 )
-		{
-			return $this->storeData['AffiliationPrice'];
-		}
+		return $this->storeData['AffiliationPrice'];
+	}
 
+	public function getCurrency()
+	{
+		return $this->storeData['currency'];
 	}
 
 	public function getAffiliationId()

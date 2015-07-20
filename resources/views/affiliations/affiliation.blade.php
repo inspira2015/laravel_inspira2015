@@ -15,7 +15,6 @@
 	<div class="row"  style="margin-bottom:50px; background-color:#e5e7e9; margin-bottom:50px; padding-top:50px;">
         <form method="post" action="?route=users/afiliacion" id="profile" name="formulario">
         	<input type="hidden" name="email" value=""/>
-        
 <?php
           	foreach($suscription_array as $key => $obj)
           	{
@@ -49,7 +48,7 @@
             			<div class="informacion">
             			<h2 style="text-align:center">@lang('affiliations.monthfee'): <br>
 						<?php echo $obj->getAffiliationPrice(); ?>
-						<?php echo ' MXN'; ?>
+						<?php echo $obj->getCurrency(); ?>
 						</h2>
 				          </div>
 				            <div class="divider content" style="padding-top:0px; padding-bottom:0px; margin: 0px 0px; bottom:0px;" ></div>
@@ -60,7 +59,7 @@
             				<h2>@lang('affiliations.promotion')</h2>
             
           					<div style="display:inline; float:left; text-align:left;">
-            					<input type="radio" value="<?php echo $descArray['id']; ?>" name="afiliacion" style="width:30px;" checked="checked"/>
+            					<input type="radio" value="<?php echo $obj->getAffiliationId(); ?>" name="afiliacion" style="width:30px;" checked="checked"/>
           					</div>
          				 	<h2  style="display:inline;color:#5198cc; float:left; width:60%;">
             					<?php echo Lang::get('affiliations.affconfirm', array('affiliation' => $obj->getAffiliationName())); ?>
@@ -82,8 +81,6 @@
           <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;"> 
            <a href="#" onClick="formulario.submit()"><img style="width:50%; height:auto;"src="images/continuar.png"/></a></div>
     </div>
-    
-      
   </div>
 
 @endsection
