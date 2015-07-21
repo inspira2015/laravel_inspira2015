@@ -43,6 +43,7 @@ Route::post('users/registration', 'UsersController@registration');
 Route::get('users/activation/{code}', 'UsersController@activation');
 
 Route::get('affiliation', 'AffiliationController@index');
+Route::post('affiliation/add', 'AffiliationController@create');
 
 Route::get('payment', 'PaymentController@index');
 Route::put('payment/subtotal', 'PaymentController@subtotal');

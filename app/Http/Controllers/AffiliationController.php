@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Auth;
+use Request;
 use App\Model\Dao\UserDao;
 use App\Libraries\Affiliations\CheckCodeAffiliations;
 use App\Libraries\Affiliations\AffiliationsColorCodes;
@@ -56,15 +57,17 @@ class AffiliationController extends Controller
 		$suscription_array = $this->checkAff->getAffiliationObjectArray();
 		$suscription_count = count( $suscription_array );
 
-		$data = array(
-						'title' =>'Affiliaciones',
-						'background' =>'3.jpg',
-						'suscription_array' => $suscription_array,
-						'suscription_count' => $suscription_count,
-						'colorCodes' => new AffiliationsColorCodes()
+		return view('affiliations.affiliation')->with( array( 'title' =>'Affiliaciones',
+															  'background' =>'3.jpg',
+															  'suscription_array' => $suscription_array,
+															  'suscription_count' => $suscription_count,
+															  'colorCodes' => new AffiliationsColorCodes() ) );
+	}
 
-			);
-		return view('affiliations.affiliation')->with( $data );
+
+	public function create()
+	{
+
 	}
 	
 

@@ -13,7 +13,8 @@
         </h2>
 	</div>
 	<div class="row"  style="margin-bottom:50px; background-color:#e5e7e9; margin-bottom:50px; padding-top:50px;">
-        <form method="post" action="?route=users/afiliacion" id="profile" name="formulario">
+        <?php echo Form::open(array('url' => 'affiliation/add', 'id' => 'affiliation','name' => 'formulario' )) ?>
+
         	<input type="hidden" name="email" value=""/>
 <?php
           	foreach($suscription_array as $key => $obj)
