@@ -5,7 +5,7 @@ use Request;
 use Redirect;
 use App\Services\UserRegistration as UserRegistration;
 use App\Model\Dao\UserDao;
-use App\Model\Entity\UserRegisteredPhone;
+use App\Model\Dao\UserRegisteredPhoneDao as UserRegisteredPhone;
 use App\Model\Entity\CodesUsedEntity;
 use App\Model\Dao\CodeDao;
 use App\Libraries\CodeValidator as CodeValidator;
@@ -78,12 +78,12 @@ class UsersController extends Controller {
 
 		if($validator->passes()) 
 		{
-			$this->userDao->exchangeArray($post_data);
+			$this->userDao->exchangeArray( $post_data );
 			$users_id =$this->userDao->save();
 			$this->userDao->load($users_id);
 			$post_data['users_id'] = $users_id;//last_id
-			$this->userPhone->exchangeArray($post_data);
-			$last_phone_id =$this->userPhone->save();
+			$this->userPhone->exchangeArray( $post_data );
+			$last_phone_id = $this->userPhone->save();
 			$full_nam = $this->userDao->name . ' ' . $this->userDao->last_name;
 			$code = Session::get('code', FALSE);
 			$ObjCode = $this->codeDao->getByCode($code);
@@ -126,8 +126,9 @@ class UsersController extends Controller {
 			return view('users.erroractivation');
 		}
 		$userDao = new UserDao();
-		$user = $userDao->getUserByEmailCode($code);
-		if(empty($user->all()))
+		$user = $userDao->getUserByEmailCode( $code );
+
+		if( empty( $user->all() ) )
 		{
 			//Error page
 			return view('users.erroractivation');
