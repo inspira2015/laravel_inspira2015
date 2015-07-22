@@ -70,6 +70,11 @@ class UsersController extends Controller {
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
 		$data['locale'] = $locale;
+		
+		if ( Session::has('users') )
+		{			
+			return view('users.user')->with($data)->with( Session::get('users') );
+		}
 		return view('users.user',$data);
 	}
 
