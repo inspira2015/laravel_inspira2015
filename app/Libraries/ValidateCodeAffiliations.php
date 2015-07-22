@@ -1,6 +1,6 @@
 <?php
 namespace App\Libraries;
-use App\Model\Code as Code;
+use App\Model\Code;
 use Carbon; 
 
 

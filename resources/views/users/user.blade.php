@@ -125,7 +125,7 @@ function verificar() {
             <div class="divider"></div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">  
-            <a >
+            <a href="/codes">
               <img style="width:50%; height:auto;"src="<?php echo url();?>/images/regresartransparente.png"/>
             </a>
           </div>

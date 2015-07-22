@@ -74,10 +74,15 @@
 <?php
 }
 ?>
+        <?php echo Form::close() ?>
 
   <div class="col-lg-12 col-md-12" style="padding:20px;">
           <div class="divider"></div></div>
-       
+       <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">  
+            <a href="/users">
+              <img style="width:50%; height:auto;"src="<?php echo url();?>/images/regresartransparente.png"/>
+            </a>
+          </div>
           <div class="col-lg-4 col-md-4 col-sm-4">&nbsp;</div>
           <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;"> 
            <a href="#" onClick="formulario.submit()"><img style="width:50%; height:auto;"src="images/continuar.png"/></a></div>

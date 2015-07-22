@@ -1,37 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title> <?php 
-    //if($user_data["language"]=="ES"){
-echo 'fondo vacacional';
-//}else{
-//echo 'vacation fund';
-//}
-?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/menu.css" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
-	<script type="text/javascript" src="js/fondo.js"></script>
-    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-	<link rel="icon" href="images/inspira.ico" type="image/ico" />
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/slide.css" />
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/slidestyle.css" />
-	<link rel="stylesheet" href="jquery.h5-lightbox.css">
-</head>
-<body id="page" style="background-image:url('images/4.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;">
- <?php 
-$path_header = base_path()."/resources/views/chunks/header.php";
-    include_once $path_header;
-?>
-<div class="container">
+@extends('layouts.master')
+
+@section('content')
 
 <div class="container">
 	
@@ -119,16 +88,5 @@ No en este momento<input type="radio" name="fondo" id="fondo1" value=0  onclick=
 	}
 	}
     </script>
-<?php 
-if(isset($user_data["language"])){
-if($user_data["language"]=="ES"){
-include "php/footer.php";
-}else{
-include "php/footerENG.php";
-}
-}else{
-include "php/footer.php";
-}
-?>
-</body>
-</html>
+
+  @stop

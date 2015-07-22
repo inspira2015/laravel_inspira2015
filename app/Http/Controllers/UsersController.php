@@ -9,9 +9,11 @@ use App\Model\Dao\UserRegisteredPhoneDao as UserRegisteredPhone;
 use App\Model\Entity\CodesUsedEntity;
 use App\Model\Dao\CodeDao;
 use App\Libraries\CodeValidator as CodeValidator;
+use App\Libraries\Referer\CheckReferer;
 use Input;
 use Mail;
 use Session;
+use URL;
 
 
 class UsersController extends Controller {
@@ -30,6 +32,7 @@ class UsersController extends Controller {
 	private $userPhone;
 	private $codesUsed;
 	private $codesDao;
+	private $checkReferer;
 
 
 	/**
@@ -48,6 +51,7 @@ class UsersController extends Controller {
 		$this->codesUsed = $codesUsed;
 		$this->codeDao = $codeDao;
 		$this->check = new CodeValidator();
+		$this->checkReferer = new CheckReferer();
 	}
 
 	/**
@@ -57,12 +61,25 @@ class UsersController extends Controller {
 	 */
 	public function Index()
 	{
+		if ( $this->checkSession() == FALSE )
+		{
+			return Redirect::to('codes/1');
+		}
 		$locale = Lang::getLocale();
 		$data['country_list'] = $this->getCountryArray($locale);
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
 		$data['locale'] = $locale;
 		return view('users.user',$data);
+	}
+
+
+	public function checkSession()
+	{
+		$this->checkReferer->setRefererUrl( URL::previous() );
+		$this->checkReferer->setValidUrl( 'codes' );
+		$this->checkReferer->setValidUrl( 'affiliation' );
+		return $this->checkReferer->checkValid();
 	}
 
 	/**
@@ -78,7 +95,10 @@ class UsersController extends Controller {
 
 		if($validator->passes()) 
 		{
-			$this->userDao->exchangeArray( $post_data );
+
+			Session::put('users',  $post_data );
+			return Redirect::to('affiliation');
+			/*$this->userDao->exchangeArray( $post_data );
 			$users_id =$this->userDao->save();
 			$this->userDao->load($users_id);
 			$post_data['users_id'] = $users_id;//last_id
@@ -102,7 +122,7 @@ class UsersController extends Controller {
 			});
 
 			$data = array('full_name'=> $full_nam);
-			return view('users.emailconfirmation',$data);
+			return view('users.emailconfirmation',$data);*/
 		}
 		$locale = Lang::getLocale();
 		$data['country_list'] = $this->getCountryArray($locale);

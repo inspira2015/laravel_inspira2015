@@ -29,7 +29,7 @@ class VacationfundsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getVacationfund()
+	public function Index()
 	{
 		return view('vacationfunds.vacationfund');
 	}

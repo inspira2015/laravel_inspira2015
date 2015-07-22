@@ -20,8 +20,12 @@ class CodesController extends Controller {
 		$this->check = new CodeValidator();
 	}
 
-	public function Index() 
+	public function Index($reset = FALSE) 
 	{
+		if( $reset !== FALSE )
+		{
+			Session::regenerate();
+		}
 		return view('codes.view')->with('title', 'Ingresa tu c&oacute;digo' )->with('background','codigo-background.jpg');
 	}
 
@@ -43,7 +47,7 @@ class CodesController extends Controller {
 
 			return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->with('background','codigo-background.jpg')->withErrors(array('message' => 'Code is not valid'));
         }
-        
+        Session::put('code', 'default');
         return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->with('background','codigo-background.jpg')->withErrors($validator);
 	}
 	

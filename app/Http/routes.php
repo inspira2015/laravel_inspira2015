@@ -45,10 +45,14 @@ Route::get('users/activation/{code}', 'UsersController@activation');
 Route::get('affiliation', 'AffiliationController@index');
 Route::post('affiliation/add', 'AffiliationController@create');
 
+Route::get('vacationfund', 'VacationfundsController@index');
+
+
+
 Route::get('payment', 'PaymentController@index');
 Route::put('payment/subtotal', 'PaymentController@subtotal');
 
-Route::get('codes', 'CodesController@index');
+Route::get('codes/{reset?}', 'CodesController@index');
 
 Route::get('useraccount', 'UseraccountController@index');
 

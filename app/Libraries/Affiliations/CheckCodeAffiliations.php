@@ -28,6 +28,7 @@ class CheckCodeAffiliations
 	private $usersVacDao;
 	private $checkCodeVal;
 	private $codeDao;
+	private $userCode;
 
 	/**
 	 * Initialize Dao Models - 
@@ -46,9 +47,9 @@ class CheckCodeAffiliations
 	 *
 	 * @return void
 	 */
-	public function setUser( User $user )
+	public function setCode($code)
 	{
-		$this->objUser = $user;
+		$this->userCode = $code;
 	}
 
 
@@ -62,27 +63,16 @@ class CheckCodeAffiliations
 
 	public function checkAffiliations()
 	{
-		if( $this->getUserCode() )
-		{
-			$code = $this->codeDao->getById( $this->getUserCode() );
-		}
-		else
-		{
-			$code = $this->codeDao->getByCode( 'default' );
-		}
+
+		$code = $this->codeDao->getByCode( $this->userCode )->first();
+
+		
 		$objValidateAff = new ValidateCodeAffiliations();
 		$objValidateAff->setCode( $code );
 		return $objValidateAff;
 	}
 
-	public function getUserCode()
-	{
-		if( $this->objUser->code_used()->count() == 0 )
-		{
-			return FALSE;
-		}
-		return (int)$this->objUser->code_used->codes_id;
-	}
+
 
 	private function convertObject()
 	{

@@ -8,6 +8,7 @@ use App\Libraries\Affiliations\CheckCodeAffiliations;
 use App\Libraries\Affiliations\AffiliationsColorCodes;
 use App\Model\Entity\Affiliations;
 use Lang;
+use Session;
 
 
 class AffiliationController extends Controller 
@@ -38,7 +39,7 @@ class AffiliationController extends Controller
 								 CheckCodeAffiliations $checkAff,
 								 Affiliations $affil)
 	{
-		$this->middleware('auth');
+		$this->middleware('guest');
 		$this->userDao = $userDao;
 		$this->checkAff = $checkAff;
 		$this->affiDao = $affil;
@@ -51,9 +52,8 @@ class AffiliationController extends Controller
 	 */
 	public function Index()
 	{
-		
-		$user = $this->userDao->getUsersCode( Auth::user()->id );
-		$this->checkAff->setUser( $user );
+		//$user = $this->userDao->getUsersCode( Auth::user()->id );
+		$this->checkAff->setCode( Session::get('code') );
 		$suscription_array = $this->checkAff->getAffiliationObjectArray();
 		$suscription_count = count( $suscription_array );
 
@@ -67,6 +67,10 @@ class AffiliationController extends Controller
 
 	public function create()
 	{
+		$post_data = Request::all();
+
+		print_r($post_data);
+		exit;
 
 	}
 	
