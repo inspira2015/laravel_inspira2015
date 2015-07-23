@@ -27,7 +27,6 @@ class CheckReferer
 	public function setRefererUrl($referer)
 	{
 		$this->refererUrl = $referer;
-		echo $this->refererUrl;
 	}
 
 	public function setValidUrl($url)

@@ -9,6 +9,7 @@ use App\Libraries\Affiliations\AffiliationsColorCodes;
 use App\Model\Entity\Affiliations;
 use Lang;
 use Session;
+use Redirect;
 
 
 class AffiliationController extends Controller 
@@ -68,10 +69,8 @@ class AffiliationController extends Controller
 	public function create()
 	{
 		$post_data = Request::all();
-
-		print_r($post_data);
-		exit;
-
+		Session::put('affiliation',  $post_data );
+		return Redirect::to('vacationfund');
 	}
 	
 

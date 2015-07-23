@@ -1,7 +1,14 @@
 <?php 
 namespace App\Http\Controllers;
+use Request;
+use Redirect;
+use Input;
+use Mail;
+use Session;
+use URL;
 
-class VacationfundsController extends Controller {
+class VacationfundsController extends Controller 
+{
 
 	/*
 	|--------------------------------------------------------------------------
@@ -31,7 +38,12 @@ class VacationfundsController extends Controller {
 	 */
 	public function Index()
 	{
-		return view('vacationfunds.vacationfund');
+		if ( !Session::has('users') )
+		{			
+			return Redirect::to('codes/1');
+		}
+		$users = Session::get('users');
+		return view('vacationfunds.vacationfund')->with('name', $users['name']);
 	}
 
 	
