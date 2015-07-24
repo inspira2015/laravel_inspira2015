@@ -43,9 +43,15 @@ class VacationfundsController extends Controller
 			return Redirect::to('codes/1');
 		}
 		$users = Session::get('users');
-		return view('vacationfunds.vacationfund')->with('name', $users['name']);
+		return view('vacationfunds.vacationfund')->with(array('title' =>'Fondo Vacacional',
+															  'background' =>'4.jpg',
+															   'name' => $users['name'],
+															   ));
 	}
 
-	
+	public function create()
+	{
+
+	}
 
 }
