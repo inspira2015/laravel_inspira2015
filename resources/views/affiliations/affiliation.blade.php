@@ -60,7 +60,21 @@
             				<h2>@lang('affiliations.promotion')</h2>
             
           					<div style="display:inline; float:left; text-align:left;">
-            					<input type="radio" value="<?php echo $obj->getAffiliationId(); ?>" name="afiliacion" style="width:30px;" checked="checked"/>
+
+                      <?php  
+                        $afiliacion = ( int )$afiliacion;
+                        $radio_select = FALSE;
+                        if ( $afiliacion != 0 )
+                        {
+                          $temp =  $obj->getAffiliationId();
+                          if ( $temp == $afiliacion )
+                          {
+                            $radio_select = TRUE;
+                          }
+                        }
+                        echo Form::radio('afiliacion', $obj->getAffiliationId(), $radio_select,array('style' => 'width: 30px')); 
+                      ?>
+
           					</div>
          				 	<h2  style="display:inline;color:<?php echo call_user_func(array($colorCodes, $obj->getAffiliationName()));?>; float:left; width:60%;">
             					<?php echo Lang::get('affiliations.affconfirm', array('affiliation' => $obj->getAffiliationName())); ?>
