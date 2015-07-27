@@ -33,9 +33,17 @@ class LibrariesServiceProvider extends ServiceProvider {
 		$this->app->bind('App\Libraries\Affiliations\CheckCodeAffiliations', function($app) {
                 return new \App\Libraries\Affiliations\CheckCodeAffiliations($app->make('\App\Model\Entity\Affiliations'),
 					$app->make('\App\Model\Dao\CodeDao')
-
                 	);
         });
+
+		$this->app->bind('App\Libraries\CreateUser\CheckAndSaveUserInfo', function($app) {
+                return new \App\Libraries\CreateUser\CheckAndSaveUserInfo($app->make('\App\Model\Dao\UserDao'),
+					$app->make('\App\Model\Dao\CodeDao'),$app->make('\App\Model\Entity\UserAffiliation'),
+					$app->make('\App\Model\Entity\UserVacFundLog')
+                	);
+        });
+
+
 
 	}
 

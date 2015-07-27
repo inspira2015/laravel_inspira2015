@@ -51,6 +51,17 @@ class VacationfundsController extends Controller
 
 	public function create()
 	{
+		$post_data = Request::all();
+		Session::put('vacationfund',  $post_data );
+		print_r( $post_data );
+		exit;
+		return Redirect::to('vacationfund');
+	}
+
+
+	private function create_user()
+	{
+		
 
 	}
 

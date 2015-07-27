@@ -50,6 +50,8 @@
             			<h2 style="text-align:center">@lang('affiliations.monthfee'): <br>
 						<?php echo $obj->getAffiliationPrice(); ?>
 						<?php echo $obj->getCurrency(); ?>
+            <?php  echo Form::hidden('currency_' . $obj->getAffiliationId(), $obj->getCurrency()); ?>
+
 						</h2>
 				          </div>
 				            <div class="divider content" style="padding-top:0px; padding-bottom:0px; margin: 0px 0px; bottom:0px;" ></div>

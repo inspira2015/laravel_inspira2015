@@ -46,7 +46,7 @@ Route::get('affiliation', 'AffiliationController@index');
 Route::post('affiliation/add', 'AffiliationController@create');
 
 Route::get('vacationfund', 'VacationfundsController@index');
-Route::get('vacationfund/add', 'VacationfundsController@create');
+Route::post('vacationfund/add', 'VacationfundsController@create');
 
 
 
