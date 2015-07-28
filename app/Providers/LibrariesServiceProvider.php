@@ -5,8 +5,11 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Model\Entity\Affiliations;
 use App\Model\Entity\UserVacFundLog;
+use App\Model\Dao\UserRegisteredPhoneDao;
 
-class LibrariesServiceProvider extends ServiceProvider {
+
+class LibrariesServiceProvider extends ServiceProvider 
+{
 
 	/**
 	 * Bootstrap the application services.
@@ -39,7 +42,9 @@ class LibrariesServiceProvider extends ServiceProvider {
 		$this->app->bind('App\Libraries\CreateUser\CheckAndSaveUserInfo', function($app) {
                 return new \App\Libraries\CreateUser\CheckAndSaveUserInfo($app->make('\App\Model\Dao\UserDao'),
 					$app->make('\App\Model\Dao\CodeDao'),$app->make('\App\Model\Entity\UserAffiliation'),
-					$app->make('\App\Model\Entity\UserVacFundLog')
+					$app->make('\App\Model\Entity\UserVacFundLog'),$app->make('\App\Model\Dao\UserRegisteredPhoneDao'),
+					$app->make('\App\Model\Entity\CodesUsedEntity')
+
                 	);
         });
 

@@ -7,6 +7,7 @@ use Mail;
 use Session;
 use URL;
 use App\Libraries\Affiliations\ParseCurrencyFromPost;
+use App\Libraries\CreateUser\CheckAndSaveUserInfo;
 
 
 
@@ -24,16 +25,18 @@ class VacationfundsController extends Controller
 	|
 	*/
 	private $parseAff;
+	private $createUser;
 
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(CheckAndSaveUserInfo $checkUser)
 	{
 		$this->middleware('guest');
 		$this->parseAff = new ParseCurrencyFromPost();
+		$this->createUser = $checkUser;
 	}
 
 	/**
@@ -69,6 +72,7 @@ class VacationfundsController extends Controller
 	{
 		$post_data = Request::all();
 		Session::put('vacationfund',  $post_data );
+		$this->create_user();
 		print_r( $post_data );
 		exit;
 		return Redirect::to('vacationfund');
@@ -77,7 +81,14 @@ class VacationfundsController extends Controller
 
 	private function create_user()
 	{
-		
+		$this->createUser->setUserPost( Session::get( 'users' ) );
+		$this->createUser->setCodePost( Session::get( 'code' ) );
+		$this->createUser->setAffiliationPost( Session::get( 'affiliation' ) );
+		$this->createUser->setVacationFundPost( Session::get( 'vacationfund' ) );
+		$this->createUser->saveData();
+
+
+
 
 	}
 
