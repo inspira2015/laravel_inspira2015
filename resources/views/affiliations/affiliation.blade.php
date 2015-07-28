@@ -15,7 +15,6 @@
 	<div class="row"  style="margin-bottom:50px; background-color:#e5e7e9; margin-bottom:50px; padding-top:50px;">
         <?php echo Form::open(array('url' => 'affiliation/add', 'id' => 'affiliation','name' => 'formulario' )) ?>
 
-        	<input type="hidden" name="email" value=""/>
 <?php
           	foreach($suscription_array as $key => $obj)
           	{
@@ -74,7 +73,7 @@
                             $radio_select = TRUE;
                           }
                         }
-                        echo Form::radio('afiliacion', $obj->getAffiliationId(), $radio_select,array('style' => 'width: 30px')); 
+                        echo Form::radio('affiliation', $obj->getAffiliationId(), $radio_select,array('style' => 'width: 30px')); 
                       ?>
 
           					</div>

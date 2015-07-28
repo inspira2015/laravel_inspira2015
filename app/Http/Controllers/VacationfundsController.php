@@ -6,6 +6,9 @@ use Input;
 use Mail;
 use Session;
 use URL;
+use App\Libraries\Affiliations\ParseCurrencyFromPost;
+
+
 
 class VacationfundsController extends Controller 
 {
@@ -20,6 +23,7 @@ class VacationfundsController extends Controller
 	| controllers, you are free to modify or remove it as you desire.
 	|
 	*/
+	private $parseAff;
 
 	/**
 	 * Create a new controller instance.
@@ -29,6 +33,7 @@ class VacationfundsController extends Controller
 	public function __construct()
 	{
 		$this->middleware('guest');
+		$this->parseAff = new ParseCurrencyFromPost();
 	}
 
 	/**
@@ -43,11 +48,22 @@ class VacationfundsController extends Controller
 			return Redirect::to('codes/1');
 		}
 		$users = Session::get('users');
+
+		if ( !Session::has('affiliation') )
+		{			
+			return Redirect::to('codes/1');
+		}
+
+		$this->parseAff->setAffiliationPost( Session::get( 'affiliation' ) );
+
 		return view('vacationfunds.vacationfund')->with(array('title' =>'Fondo Vacacional',
 															  'background' =>'4.jpg',
 															   'name' => $users['name'],
+															   'currency' => $this->parseAff->getCurrency(),
 															   ));
 	}
+
+
 
 	public function create()
 	{
