@@ -29,22 +29,14 @@ class UserVacFundLogDao implements ICrudOperations
 	public function save() 
 	{
 		$id = isset($this->id) ? (int) $this->id : 0;
-
-		if ($id > 0) 
+		$vacLog = UserVacLog::firstOrNew( array( 'id' => $id ));
+		foreach($this as $key =>$value)
 		{
-			$new_user = UserVacLog::find($id);
-			$array_data = (array)$this;
-			$new_user->fill($array_data);
-		} else {
-			$new_user = new UserVacLog;
-			foreach($this as $key =>$value)
-			{
-				$new_user->$key = $value;
-			}
-
+			$vacLog->$key = $value;
 		}
-			$new_user->save();
-			return $new_user->id;
+		$vacLog->save();
+		return $vacLog->id;
+
 	}
 
 	public function getByUsersId($users_id = FALSE)

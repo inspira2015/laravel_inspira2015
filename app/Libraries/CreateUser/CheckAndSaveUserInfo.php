@@ -5,10 +5,10 @@ use App\Model\Dao\UserRegisteredPhoneDao as UserRegisteredPhone;
 use App\Model\Entity\CodesUsedEntity;
 use App\Model\Dao\CodeDao;
 use App\Libraries\CodeValidator as CodeValidator;
-use \App\Model\Entity\UserAffiliation;
-use \App\Libraries\CodesOperations;
-
-
+use App\Model\Entity\UserAffiliation;
+use App\Libraries\CodesOperations;
+use App\Model\Entity\UserVacFundLog;
+use App\Model\Dao\UserRegisteredPhoneDao;
 /*
 	|--------------------------------------------------------------------------
 	| Final validataion befor user creation
@@ -34,7 +34,8 @@ class CheckAndSaveUserInfo
 	private $errorArray;
 
 	public function __construct(UserDao $userDao,CodeDao $codeDao, 
-								UserAffiliation $affiliationDao, $vacationDao, $userPh, $usedCodes)
+								UserAffiliation $affiliationDao,UserVacFundLog $vacationDao, 
+								UserRegisteredPhoneDao $userPh,CodesUsedEntity $usedCodes)
 	{
 		$this->userDao = $userDao;
 		$this->codeDao = $codeDao;
@@ -102,6 +103,8 @@ class CheckAndSaveUserInfo
 			$this->errorArray[] = "El codigo ya fue usado";
 			return FALSE;
 		}
+
+
 		
 		$this->userDao->exchangeArray( $this->storeData['User'] );
 		$users_id = $this->userDao->save();
@@ -114,11 +117,15 @@ class CheckAndSaveUserInfo
 		$this->codeOperations->saveUsedCode();
 		$this->codeOperations->markCodeUsed();
 
-
 		$this->affDao->exchangeArray( array('users_id' => $users_id,'affiliations_id' => $this->storeData['Affiliation']['affiliation'],
 											'active' =>1) );
 		$this->affDao->save();
 
+		$this->vacDao->exchangeArray( array('users_id' => $users_id,'amount' => $this->storeData['VacationFund']['amount'],
+											'active' =>1,'currency' => $this->storeData['VacationFund']['currency']) );
+		$this->vacDao->save();
+
+		echo "done";
 		exit;
 		
 
