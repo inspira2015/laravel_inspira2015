@@ -36,7 +36,7 @@ class CodesController extends Controller {
 		
         if ( $validator->passes() ) 
         {
-			$code = $this->codeDao->getByCode($data['code'])->first();
+			$code = $this->codeDao->getByCode( $data['code'] )->first();
 			$this->check->setCode($code);
 
 			if ( $this->check->checkValid() )

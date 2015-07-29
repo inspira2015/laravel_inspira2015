@@ -23,22 +23,16 @@ class CodesUsedDao implements ICrudOperations
 		}
 	}
 	
-	public function save() {
-		$id = isset($data['id']) ? (int) $data['id'] : 0;
-		
-		if ($id > 0) {
-			$code = Code::find($id);
-			$array_data = (array)$this;
-			$code->fill($array_data);
-		} else {
-			$code = new Code;
-			foreach($this as $key =>$value)
-			{
-				$code->$key = $value;
-			}
+	public function save() 
+	{
+		$id = isset($this->id) ? (int) $this->id : 0;
+		$code = Code::firstOrNew( array( 'id' => $id ));
+		foreach($this as $key =>$value)
+		{
+			$code->$key = $value;
 		}
-			$code->save();
-			return $code->id;
+		$code->save();
+		return $code->id;
 	}
 
 	

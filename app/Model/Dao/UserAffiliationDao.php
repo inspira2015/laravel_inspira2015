@@ -30,21 +30,13 @@ class UserAffiliationDao implements ICrudOperations
 	{
 		$id = isset($this->id) ? (int) $this->id : 0;
 
-		if ($id > 0) 
+		$userAff = UserAff::firstOrNew( array( 'id' => $id ));
+		foreach($this as $key =>$value)
 		{
-			$new_user = UserAff::find($id);
-			$array_data = (array)$this;
-			$new_user->fill($array_data);
-		} else {
-			$new_user = new UserAff;
-			foreach($this as $key =>$value)
-			{
-				$new_user->$key = $value;
-			}
-
+			$userAff->$key = $value;
 		}
-			$new_user->save();
-			return $new_user->id;
+		$userAff->save();
+		return $userAff->id;
 	}
 
 	public function getByUsersId($users_id = FALSE)

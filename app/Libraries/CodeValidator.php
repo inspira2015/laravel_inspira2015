@@ -8,7 +8,7 @@ class CodeValidator
 {
 
 	private $objValidate;
-	private $db_code;
+	protected $db_code;
 
 	public function __construct()
 	{
