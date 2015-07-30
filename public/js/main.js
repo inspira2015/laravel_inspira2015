@@ -63,7 +63,7 @@ $(document).ready(function(){
 						var _states = _response.data;
 						var _option = '';
 						$.each(_states, function( index, value ){
-							_option+= '<option value="'+value['code']+'">'+ value['name'] +'</option>';
+							_option+= '<option value="'+value['code']+'" name="state">'+ value['name'] +'</option>';
 						});
 						_html = '<select name="state" class="form-control">' + _option + '</select>';
 						$('.'+_select_state).html(_html);

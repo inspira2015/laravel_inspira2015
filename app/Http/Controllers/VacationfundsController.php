@@ -6,8 +6,11 @@ use Input;
 use Mail;
 use Session;
 use URL;
+use Lang;
 use App\Libraries\Affiliations\ParseCurrencyFromPost;
 use App\Libraries\CreateUser\CheckAndSaveUserInfo;
+use App\Services\UserRegistration;
+use App\Services\VacationFund;
 
 
 class VacationfundsController extends Controller 
@@ -72,7 +75,22 @@ class VacationfundsController extends Controller
 	{
 		$post_data = Request::all();
 		Session::put('vacationfund',  $post_data );
-		$this->createUser->setUserPost( Session::get( 'users' ) );
+		$user = Session::get( 'users' );
+
+		$userValidator = new UserRegistration();		
+		$userValidation = $userValidator->validator( $user , Lang::getLocale() );
+
+		$fundValidator = new VacationFund();
+		$fundValidation = $fundValidator->validator(Session::get( 'vacationfund' ), Lang::getLocale());
+		
+		if( ! $userValidation->passes() ){
+			return Redirect::to('vacationfund')->withErrors($userValidation);
+		}
+		if(! $fundValidation->passes() ){
+			return Redirect::to('vacationfund')->withErrors($fundValidation);
+		}
+		
+		$this->createUser->setUserPost( $user );
 		$this->createUser->setCodePost( Session::get( 'code' ) );
 		$this->createUser->setAffiliationPost( Session::get( 'affiliation' ) );
 		$this->createUser->setVacationFundPost( Session::get( 'vacationfund' ) );

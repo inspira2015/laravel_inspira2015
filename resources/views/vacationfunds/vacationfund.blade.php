@@ -7,6 +7,7 @@
     <div class="col-lg-12 col-md-12">
       <div class="content">
         <div class="informacion">
+	        @include('errors.messages')
           <h2 style="padding-bottom:20px;"> 
             {{  @$name }}  
           </h2> 

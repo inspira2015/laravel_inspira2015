@@ -173,22 +173,6 @@ class UsersController extends Controller {
 
 	protected function getCountryArray($language = FALSE)
 	{
-/*
-		if($language== 'es' || $language==FALSE)
-		{
-			$country_list = array( 0 => 'Seleccione un pais',
-								   'MX' => 'Mexico',
-								   'US' => 'Estados Unidos de America');
-		}
-		else
-		{
-			$country_list = array( 0 => 'Chose a Country',
-								   'MX' => 'Mexico',
-								   'US' => 'USA');
-		}
-		return $country_list;
-*/
-
 		$country = new CountryDao();
 		return $country->forSelect('name', 'code');
 		

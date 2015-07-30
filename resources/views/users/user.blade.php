@@ -55,7 +55,7 @@
 				<div class="form-group">
 					<label for="pais">* {{ Lang::get('registry.country') }}</label>
 					<div class="input-group">
-					{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : @$country, array('class' => 'select-country form-control', 'data-change' => 'select-state')) !!}
+					{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : 'MX', array('class' => 'select-country form-control', 'data-change' => 'select-state')) !!}
 					</div>
 				</div>
 			</div>

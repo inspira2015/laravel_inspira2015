@@ -13,7 +13,7 @@ class UserRegistration
 			'email.unique' => 'La dirección de correo electrónico ya ha sido tomada.',
 			'state.alpha' => 'El estado sólo puede contener letras.',
 			'password.min' => 'La contraseña debe tener como mínimo 6 caracteres.',
-			'cellphone_number.min' => 'El celular debe tener como mínimo 10 digitos.'
+			'cellphone_number.min' => 'El celular debe tener como mínimo 10 dígitos.'
 		]
 	);
 
