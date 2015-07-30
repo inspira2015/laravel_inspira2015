@@ -96,7 +96,7 @@ class UsersController extends Controller {
 	{
 		$post_data = Request::all();
 		$user_check = new UserRegistration();
-		$validator = $user_check->validator($post_data);
+		$validator = $user_check->validator($post_data, Lang::getLocale());
 
 		if($validator->passes()) 
 		{
