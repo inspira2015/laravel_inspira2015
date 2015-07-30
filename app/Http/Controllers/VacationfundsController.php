@@ -10,7 +10,6 @@ use App\Libraries\Affiliations\ParseCurrencyFromPost;
 use App\Libraries\CreateUser\CheckAndSaveUserInfo;
 
 
-
 class VacationfundsController extends Controller 
 {
 
@@ -26,6 +25,7 @@ class VacationfundsController extends Controller
 	*/
 	private $parseAff;
 	private $createUser;
+	private $userDao;
 
 	/**
 	 * Create a new controller instance.
@@ -72,24 +72,28 @@ class VacationfundsController extends Controller
 	{
 		$post_data = Request::all();
 		Session::put('vacationfund',  $post_data );
-		$this->create_user();
-		print_r( $post_data );
-		exit;
-		return Redirect::to('vacationfund');
-	}
-
-
-	private function create_user()
-	{
 		$this->createUser->setUserPost( Session::get( 'users' ) );
 		$this->createUser->setCodePost( Session::get( 'code' ) );
 		$this->createUser->setAffiliationPost( Session::get( 'affiliation' ) );
 		$this->createUser->setVacationFundPost( Session::get( 'vacationfund' ) );
-		$this->createUser->saveData();
 
+		if ( $this->createUser->saveData()== FALSE )
+		{
+			return Redirect::to('codes');
 
+		}
 
+		$this->userDao = $this->createUser->getUserDao();
+		$sent =Mail::send('emails.user_registration', array('user' => $this->userDao), function($message)
+			{
+				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
+		    	$message->to( $this->userDao->email, $full_name )->subject( 'Welcome!' );
+			});
 
+		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
+		$data = array('full_name'=> $full_name);
+		return view('users.emailconfirmation',$data);
 	}
+
 
 }

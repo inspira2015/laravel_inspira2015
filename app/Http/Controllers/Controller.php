@@ -5,6 +5,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Model\SystemLog as Log;
 use Auth; 
+use Session;
 
 abstract class Controller extends BaseController {
 
@@ -22,5 +23,29 @@ abstract class Controller extends BaseController {
 		$log->save();
 		
 		return $this;
+	}
+
+
+	protected function deleteSessionData()
+	{
+		if ( Session::has('code') )
+		{
+			Session::forget('code');			
+		}
+
+		if ( Session::has('users') )
+		{
+			Session::forget('users');			
+		}
+
+		if ( Session::has('affiliation') )
+		{
+			Session::forget('affiliation');			
+		}
+
+		if ( Session::has('vacationfund') )
+		{
+			Session::forget('vacationfund');			
+		}
 	}
 }

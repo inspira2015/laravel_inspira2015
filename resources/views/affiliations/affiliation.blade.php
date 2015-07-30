@@ -63,12 +63,12 @@
           					<div style="display:inline; float:left; text-align:left;">
 
                       <?php  
-                        $afiliacion = ( int )$afiliacion;
+                        $affiliation = ( int )$affiliation;
                         $radio_select = FALSE;
-                        if ( $afiliacion != 0 )
+                        if ( $affiliation != 0 )
                         {
                           $temp =  $obj->getAffiliationId();
-                          if ( $temp == $afiliacion )
+                          if ( $temp == $affiliation )
                           {
                             $radio_select = TRUE;
                           }

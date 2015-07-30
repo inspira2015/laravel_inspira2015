@@ -22,7 +22,7 @@
         		<br>
     			<hr width=80%;>
     			<font style="font-family:LondonBetween; font-size: 18px; color:#5a6b75;">
-					Activa tu cuenta haciendo click en el link <a href="http://dev.inspira2015/users/activation/<?php echo $user->confirmation_code; ?>">Valida Email</a> 
+					Activa tu cuenta haciendo click en el link <a href="<?php echo url(); ?>/users/activation/<?php echo $user->confirmation_code; ?>">Valida Email</a> 
 				</font>
 				<br>
 				<div style="padding:10% 10% 10% 10%; margin:0 auto; width:60%; height:auto; border-style: solid; border-color:#d6dadd;  background-color: #ffffff; color:#616f7a; text-align:left; line-height: 19px;" align = "center">

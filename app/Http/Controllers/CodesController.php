@@ -7,6 +7,8 @@ use App\Model\Dao\CodeDao;
 use App\Model\Code;
 use App\Services\ServiceCode as ServiceCode;
 use App\Libraries\CodeValidator as CodeValidator;
+use Input;
+
 
 class CodesController extends Controller {
 
@@ -22,10 +24,20 @@ class CodesController extends Controller {
 
 	public function Index($reset = FALSE) 
 	{
-		if( $reset !== FALSE )
+		if( $reset == FALSE )
 		{
+			$this->deleteSessionData();
 			Session::regenerate();
 		}
+		if ( Session::has('code') )
+		{			
+			$code = Session::get('code');
+			return view('codes.view')->with('title', 'Ingresa tu c&oacute;digo' )
+									 ->with('background','codigo-background.jpg')
+									 ->with('code',$code);
+
+		}
+
 		return view('codes.view')->with('title', 'Ingresa tu c&oacute;digo' )->with('background','codigo-background.jpg');
 	}
 
