@@ -1,5 +1,7 @@
 <?php 
 namespace App\Http\Controllers;
+use Javascript;
+use Config;
 use Lang;
 use Request;
 use Redirect;
@@ -8,12 +10,15 @@ use App\Model\Dao\UserDao;
 use App\Model\Dao\UserRegisteredPhoneDao as UserRegisteredPhone;
 use App\Model\Entity\CodesUsedEntity;
 use App\Model\Dao\CodeDao;
+use App\Model\Dao\CountryDao;
+use App\Model\Dao\StatesDao;
 use App\Libraries\CodeValidator as CodeValidator;
 use App\Libraries\Referer\CheckReferer;
 use Input;
 use Mail;
 use Session;
 use URL;
+
 
 
 class UsersController extends Controller {
@@ -61,12 +66,15 @@ class UsersController extends Controller {
 	 */
 	public function Index()
 	{
+		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
+		
 		if ( $this->checkSession() == FALSE )
 		{
 			return Redirect::to('codes/1');
 		}
 		$locale = Lang::getLocale();
 		$data['country_list'] = $this->getCountryArray($locale);
+		$data['states'] = $this->getStatesArray($locale);
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
 		$data['locale'] = $locale;
@@ -94,6 +102,8 @@ class UsersController extends Controller {
 	 */
 	public function registration()
 	{
+		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
+
 		$post_data = Request::all();
 		$user_check = new UserRegistration();
 		$validator = $user_check->validator($post_data, Lang::getLocale());
@@ -106,6 +116,7 @@ class UsersController extends Controller {
 
 		$locale = Lang::getLocale();
 		$data['country_list'] = $this->getCountryArray($locale);
+		$data['states'] = $this->getStatesArray($locale);
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
         return view('users.user')->with($data)->withErrors($validator)
@@ -162,6 +173,7 @@ class UsersController extends Controller {
 
 	protected function getCountryArray($language = FALSE)
 	{
+/*
 		if($language== 'es' || $language==FALSE)
 		{
 			$country_list = array( 0 => 'Seleccione un pais',
@@ -175,8 +187,27 @@ class UsersController extends Controller {
 								   'US' => 'USA');
 		}
 		return $country_list;
-	}
+*/
 
+		$country = new CountryDao();
+		return $country->forSelect('name', 'code');
+		
+	}
+	
+	
+	protected function getStatesArray($language = FALSE)
+	{
+		$states = new StatesDao();
+		//default MX - check if its gonna be changed.
+		if($language== 'es' || $language==FALSE){
+			$country = 'MX';
+		}else{
+			$country = 'US';
+		}
+		return $states->forSelect('name', 'code', array('country' => $country ));
+	}
+	
+	
 	protected function getLanguaje($language = FALSE)
 	{
 		if($language== 'es' || $language==FALSE)
@@ -196,7 +227,7 @@ class UsersController extends Controller {
 
 	protected function getCurrency()
 	{
-		return array('MXN' => 'PESOS','USD' => 'DOLLAR');
+		return array('MXN' => 'PESO','USD' => 'DOLLAR');
 	}
 
 }

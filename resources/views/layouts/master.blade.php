@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title><?php echo  Lang::get('registry.title'); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/style.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/menu.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/bootstrap.min.css" />
@@ -12,64 +13,34 @@
     <script type="text/javascript" src="<?php echo url();?>/js/jquery.validate.min.js"></script>
 
     <script type="text/javascript" src="<?php echo url();?>/css/bootstrap/js/bootstrap.min.js"></script>
+        {!!  HTML::script('js/main.js') !!}
+
     <script type="text/javascript" src="<?php echo url();?>/js/estados.js"></script>
     <link rel="icon" href="<?php echo url();?>/images/inspira.ico" type="image/ico" />
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slide.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo url();?>/css/bootstrap/css/slidestyle.css" />
     <link rel="stylesheet" href="<?php echo url();?>/css/jquery.h5-lightbox.css">
     
-    <style>
-      div.description{
-          padding-top: 25px;
-          padding-bottom: 25px;
-          margin-top:100px;
-          position:absolute; /* absolute position (so we can position it where we want)*/  
-          bottombottom:0px; /* position will be on bottom */  
-          left:0px;  
-          width:50%;  
-          /* styling bellow */  
-          background-color:#F8F8F8;  
-          font-family: 'tahoma';  
-          font-size:15px;  
-          color:#404040;  
-          opacity:0.4; /* transparency */  
-          filter:alpha(opacity=60); /* IE transparency */  
-      }  
+-->
 
-      .error{
-        width:70% !important;
-      }
-      .account_conf{
-        font-size: 32px;
-      }
+	<meta name="csrf-token" content={!! csrf_token() !!}>
 
-      div.continuar{
-          padding-top: 25px;
-          padding-bottom: 25px;
-          margin-top:100px;
-          position:absolute; /* absolute position (so we can position it where we want)*/  
-          
-          top:250px;
-          left:0px;  
-          width:50%;  
-          /* styling bellow */  
-          background-color:#F8F8F8;  
-          font-family: 'tahoma';  
-          font-size:15px;  
-          color:#404040;  
-          opacity:0.4; /* transparency */  
-          filter:alpha(opacity=60); /* IE transparency */  
-      }
-      
-      #page {
-	      background-image:url('{{ url() }}/images/2.jpg'); 
-	      background-repeat:no-repeat; background-position: center center fixed; 
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover; height:auto;position:relative;
-      }
-    </style>
+	{!! HTML::style('css/bootstrap/css/style.css') !!}
+	{!! HTML::style('css/bootstrap/css/menu.css') !!}
+	{!! HTML::style('css/bootstrap/css/bootstrap.min.css') !!}
+	{!! HTML::style('css/font-awesome/css/font-awesome.min.css') !!}
+	
+	{!! HTML::style('css/app/main.css') !!}
+	
+	<link rel="icon" href="/images/inspira.ico" type="image/ico" />
+	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
+	{!! HTML::script('js/jquery.validate.min.js') !!}
+
+	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
+	{!!  HTML::script('js/main.js') !!}
+
+	{!! HTML::style('css/bootstrap/css/slide.css') !!}
+	{!! HTML::style('css/bootstrap/css/slidestyle.css') !!}
 
   </head>
   <body id="page">
@@ -87,10 +58,13 @@
   </div>
 </div>
 
-<div class="container">
-      @yield('content')
- 
+<div class="body-content">
+	<div class="container">
+	      @yield('content')
+	 
+	</div>
 </div>
+
 
 <footer>
   <div class="container">
@@ -136,6 +110,7 @@
 		display:inline-block; width:100%; height:auto; vertical-align:top;
 	}
 </style>
+
 	@include('layouts.__common.tawk')
 	@include('layouts.__common.analytics')
   

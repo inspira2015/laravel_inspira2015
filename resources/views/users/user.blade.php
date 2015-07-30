@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-
 <div class="row" id="arriba">
 	<div id="error">
 
@@ -56,7 +55,7 @@
 				<div class="form-group">
 					<label for="pais">* {{ Lang::get('registry.country') }}</label>
 					<div class="input-group">
-						{!! Form::select('country', $country_list,Input::get('country') ? Input::get('country') : @$country, array('class' => 'form-control','id' => 'country')) !!}
+					{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : @$country, array('class' => 'select-country form-control', 'data-change' => 'select-state')) !!}
 					</div>
 				</div>
 			</div>
@@ -64,8 +63,12 @@
 			<div class="col-lg-6 col-md-6">
 				<div class="form-group">
 					<label for="state">* {{ Lang::get('registry.state') }}</label>
-					<div id="contenedor-estados" class="input-group">
-						{!! Form::text('state', Input::get('state') ? Input::get('state') : @$state, array('required','class' => 'form-control','id' => 'state')) !!}
+					<div class="input-group select-state">
+						@if( in_array( 'MX' , Config::get('extra.countries') ))
+						{!! Form::select('state', $states, null, array('class' => 'form-control') ) !!}
+						@else
+						{!! Form::text( 'state',  '', array('class' => 'form-control')) !!}
+						@endif
 					</div>
 				</div>
 			</div>
@@ -107,109 +110,7 @@
 		</a></div>
 	</div>
 
-	<script>
-	$(function() {
-		// Setup form validation on the #register-form element
-		$("#user_data").validate({
-			// Specify the validation rules
-			rules: {
-				name: "required",
-				last_name: "required",
-				email: {
-					required: true,
-					email: true
-				},
-				password: {
-					minlength: 5
-				},
-				password_check: {
-					minlength: 5,
-					equalTo: "#password"
-				},
-				cellphone_number:{
-					required: true,
-					minlength: 10,
-				}
-			},
-			submitHandler: function(form) {
-				form.submit();
-			}
-		});
-	});
+{!! HTML::style('css/app/users.css') !!}
+{!! HTML::script('js/users.js') !!}
 
-
-	function verificar() {
-		$("#user_data").submit();
-	}
-
-
-	$(document).ready(function(){
-		$('input[type="email"]').on('keyup', function(){
-			var _this = $(this);
-			var _email = _this.val();
-			var _error =  _this.parent().find('label.error-db');
-
-			delay(function(){
-
-				$.get('/api/users/exists', {'email': _email }, function( response ){
-					var _result = response.data;
-					if(_result.exists == true ){
-						if(typeof _error[0] != 'object') {
-							_this.attr('id', 'error')
-							_this.parent().append('<label class="error-db">User is already on db</label>');
-							_this.on('focus', function(){
-								_error.remove();
-								_this.removeAttr('id', 'error');
-
-							});
-
-						}
-					}else{
-						_error.remove();
-						_this.removeAttr('id', 'error');
-					}
-
-				});
-			}, 500 );
-
-		});
-		var delay = (function(){
-			var timer = 0;
-			return function(callback, ms){
-				clearTimeout (timer);
-				timer = setTimeout(callback, ms);
-			};
-		})();
-
-	});
-</script>
-<style>
-	#arriba {
-		margin-bottom:50px;
-
-	}
-	#error {
-		color:red; 
-		text-align:left; 
-		margin:0 auto; 
-		width:300px;
-	}
-	.form-control {
-		width: 100%!important;
-		border-radius: 0px;
-	}
-	label.error, label.error-db{
-		margin-top: 5px;
-		width: 100%!important;
-		color: #cc4b9b;
-		font-size: 12px;
-		
-	}
-
-	input#error {
-		border-color: #E386BF;
-		box-shadow: 1px 1px 5px #E386BF;
-		color: #AF195C;
-	}
-</style>
 @stop

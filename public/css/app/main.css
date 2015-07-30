@@ -1,3 +1,6 @@
+div.container {
+	height: 100%;
+}
 div[data-role="response"] a[data-role="change"], 
 div[data-role="response"] div[data-role="submit"] {
 	cursor: pointer;
@@ -32,4 +35,68 @@ div.informacion .alert-danger{
 
 div.informacion div[data-role="submit"]{
 	margin: 20px 0;
+}
+
+
+div.description{
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-top:100px;
+  position:absolute; /* absolute position (so we can position it where we want)*/  
+  bottombottom:0px; /* position will be on bottom */  
+  left:0px;  
+  width:50%;  
+  /* styling bellow */  
+  background-color:#F8F8F8;  
+  font-family: 'tahoma';  
+  font-size:15px;  
+  color:#404040;  
+  opacity:0.4; /* transparency */  
+  filter:alpha(opacity=60); /* IE transparency */  
+}  
+
+.error{
+width:70% !important;
+}
+.account_conf{
+font-size: 32px;
+}
+
+div.continuar{
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-top:100px;
+  position:absolute; /* absolute position (so we can position it where we want)*/  
+  top:250px;
+  left:0px;  
+  width:50%;  
+  /* styling bellow */  
+  background-color:#F8F8F8;  
+  font-family: 'tahoma';  
+  font-size:15px;  
+  color:#404040;  
+  opacity:0.4; /* transparency */  
+  filter:alpha(opacity=60); /* IE transparency */  
+}
+
+#page {
+  background-image:url('images/2.jpg'); 
+  background-repeat:no-repeat; background-position: center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover; 
+height: 100%;
+position:relative;
+}
+
+div.body-content{
+	    position: relative;
+    clear: both;
+    height: calc(100% - 100px);
+}
+footer  {
+	z-index: 10;
+	clear:both;
+	position:relative;
 }

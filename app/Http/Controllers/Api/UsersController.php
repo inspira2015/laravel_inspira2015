@@ -7,6 +7,7 @@ use Redirect;
 use Response;
 use Session;
 use Auth;
+use Lang;
 use Input;
 use App\Model\Dao\UserDao;
 use Illuminate\Contracts\Auth\Guard;
@@ -63,9 +64,17 @@ class UsersController extends Controller
 		$email = Input::get('email');
 		
 		$exists = empty($this->userDao->getByEmail( $email )) ? false : true ;	
+		$message = '';
+		if($exists){
+			if( Lang::getLocale() == 'es' ){
+				$message ='Ya existe cuenta con esta dirección de correo electrónico.';				
+			}else{
+				$message ='The email has already been taken.';	
+			}
+		}
 		return Response::json(array(
 			'error' => false,
-			'data' => array( 'exists' => $exists )
+			'data' => array( 'exists' => $exists, 'message' => $message )
 		), 200);
 	}
 }

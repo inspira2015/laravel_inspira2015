@@ -9,8 +9,10 @@ $(document).ready(function(){
 				var _this = $(this);
 				var _buttons = _this.find('a[data-role=change], div[data-role=submit]');
 				var _change_country = _this.find('select.select-country');
+				var _email = _this.find('input[type="email"]');
 				feature._set_change( _buttons );
 				feature._on_change_country( _change_country );
+				feature._on_change_email( _email );
 
 				$.ajaxSetup({headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')	}});
 
@@ -46,25 +48,24 @@ $(document).ready(function(){
 			});
 		}, 
 		_on_change_country : function( element ){
-			//var _countries = [ "MX", "US", "CA", "AU" ];
-			var _countries = inspira.countries;
+			var _countries = [ "MX", "US", "CA", "AU" ];
+			//var _countries = inspira.countries;
 			element.on('change', function(){
 				var _this = $(this);
 				var _value = _this.val();
 				var _placeholder = _this.data('placeholder');
-				var _html =  $('<input>').attr({ 'type' : 'text', 'name' : 'state'});
+				var _html =  $('<input>').attr({ 'type' : 'text', 'name' : 'state', 'class' : 'form-control'});
 
 				var _select_state = _this.data('change');
 				
 				if( _countries.indexOf(_value) > -1 ){
-					//make request form list - states 
 					$.ajax({url: '/api/states', data: { country: _value }, type: 'POST'}).done(function(_response){
 						var _states = _response.data;
 						var _option = '';
 						$.each(_states, function( index, value ){
 							_option+= '<option value="'+value['code']+'">'+ value['name'] +'</option>';
 						});
-						_html = '<select name="state">' + _option + '</select>';
+						_html = '<select name="state" class="form-control">' + _option + '</select>';
 						$('.'+_select_state).html(_html);
 					});
 				}else{
@@ -72,6 +73,41 @@ $(document).ready(function(){
 				}
 			});
 		},
+		_on_change_email : function(element){
+			element.on('keyup', function(){
+				var _this = $(this);
+				var _email = _this.val();
+				var _error =  _this.parent().find('label.error-db');
+		
+				delay(function(){
+		
+					$.get('/api/users/exists', {'email': _email }, function( response ){
+						var _result = response.data;
+						if(_result.exists == true ){
+							if(typeof _error[0] != 'object') {
+								_this.parent().append('<label class="error-db">'+_result.message+'</label>');
+								_this.on('focus', function(){
+									_error.remove();
+								});
+		
+							}
+						}else{
+							_error.remove();
+						}
+		
+					});
+				}, 500 );
+		
+			});
+			var delay = (function(){
+				var timer = 0;
+				return function(callback, ms){
+					clearTimeout (timer);
+					timer = setTimeout(callback, ms);
+				};
+			})();
+
+		}
 	
 	};
 	

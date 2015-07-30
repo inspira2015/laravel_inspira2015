@@ -1,0 +1,15 @@
+#arriba {
+	margin-bottom:50px;
+
+}
+
+.form-control {
+	width: 100%!important;
+	border-radius: 0px;
+}
+label.error, label.error-db{
+	margin-top: 5px;
+	width: 100%!important;
+	color: #cc4b9b;
+	font-size: 12px;
+}
