@@ -81,7 +81,8 @@ div.continuar{
 
 #page {
   background-image:url('images/2.jpg'); 
-  background-repeat:no-repeat; background-position: center center fixed; 
+  background-repeat:no-repeat; 
+  background-position: center center fixed; 
 -webkit-background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover;

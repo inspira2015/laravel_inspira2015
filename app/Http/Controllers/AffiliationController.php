@@ -76,8 +76,18 @@ class AffiliationController extends Controller
 	public function create()
 	{
 		$post_data = Request::all();
-		Session::put('affiliation',  $post_data );
-		return Redirect::to('vacationfund');
+		
+		if( !isset($post_data['affiliation']) ){
+			if( Lang::getLocale() == 'es' ){
+				$message = 'Por favor seleccione el tipo de afiliaci&oacute;n.';
+			}else{
+				$message = 'Please select affiliation type.';
+			}
+			return Redirect::back()->withErrors(array('message' => $message ));
+		}else{
+			Session::put('affiliation',  $post_data );
+			return Redirect::to('vacationfund');	
+		}
 	}
 	
 

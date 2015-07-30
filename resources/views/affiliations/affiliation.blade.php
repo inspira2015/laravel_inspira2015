@@ -6,16 +6,20 @@
         margin-bottom: 8px;
       }
     </style>
-<div class="container">
-	<div class="row" style="background-color:#e5e7e9; margin-bottom:0px; padding-top:50px; padding-left:40px; padding-right:40px;">
+<div style="background-color:#e5e7e9;padding-left:40px; padding-right:40px;">
+	<div class="row" style="background-color:#e5e7e9; margin-bottom:0px; padding-top:50px;">
         <h2 style="float:left; text-transform:uppercase; margin-bottom:25px; text-align:left; 40px;display:inline;">
           @lang('affiliations.select')
         </h2>
+	</div>
+	<div class="row" style="padding: 0 20px;">
+		@include('errors.messages')
 	</div>
 	<div class="row"  style="margin-bottom:50px; background-color:#e5e7e9; margin-bottom:50px; padding-top:50px;">
         <?php echo Form::open(array('url' => 'affiliation/add', 'id' => 'affiliation','name' => 'formulario' )) ?>
 
 <?php
+
           	foreach($suscription_array as $key => $obj)
           	{
           		$descriptions = $obj->getAffDescriptionArray();
