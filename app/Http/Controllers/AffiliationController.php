@@ -57,16 +57,16 @@ class AffiliationController extends Controller
 		$this->checkAff->setCode( Session::get('code') );
 		$suscription_array = $this->checkAff->getAffiliationObjectArray();
 		$suscription_count = count( $suscription_array );
-		$afiliacion = 0;
+		$affiliation = 0;
 		if ( Session::has('affiliation') )
 		{
 			$aff = Session::get('affiliation');
-			$afiliacion = $aff['afiliacion'];
+			$affiliation = $aff['affiliation'];
 		}
 
 		return view('affiliations.affiliation')->with( array( 'title' =>'Affiliaciones',
 															  'background' =>'3.jpg',
-															  'afiliacion' => $afiliacion,
+															  'affiliation' => $affiliation,
 															  'suscription_array' => $suscription_array,
 															  'suscription_count' => $suscription_count,
 															  'colorCodes' => new AffiliationsColorCodes() ) );

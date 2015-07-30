@@ -7,13 +7,14 @@
 		<div class="codigo"></div>
 		<div class="col-lg-12 col-md-12" style="padding:20px;">
 			<?php echo Form::open(array('url' => 'codes/check', 'id' => 'profile', 'name'=>'formulario')) ?>
+			<input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
 			<div class="content" style="background-color:transparent; ">
 				<h2 style="text-transform:none; font-size:24px; color:#465664; text-align:justify;">
 					{{ Lang::get('code.promo') }}
 				</h2>
 				<br><br>
 				<div class="inputs" style="margin:0 auto; width:70%;">
-					<?php echo Form::text('code', '', array('style' => 'width:100%; border:12px solid #465664; background-color:#bec4c9; color:#465664;', 'required' => 'required'));?>
+					<?php echo Form::text('code', Input::get('code')   ? Input::get('code') : @$code, array('style' => 'width:100%; border:12px solid #465664; background-color:#bec4c9; color:#465664;', 'required' => 'required'));?>
 				</div>
 				<?php echo Form::close()?>
 			</div>
