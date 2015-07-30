@@ -96,14 +96,14 @@ class UsersController extends Controller {
 	{
 		$post_data = Request::all();
 		$user_check = new UserRegistration();
-		$validator = $user_check->validator($post_data);
+		$validator = $user_check->validator($post_data, 'es');
 
 		if($validator->passes()) 
 		{
 
 			Session::put('users',  $post_data );
-			return Redirect::to('affiliation');
-			/*$this->userDao->exchangeArray( $post_data );
+		//	return Redirect::to('affiliation');
+			$this->userDao->exchangeArray( $post_data );
 			$users_id =$this->userDao->save();
 			$this->userDao->load($users_id);
 			$post_data['users_id'] = $users_id;//last_id
@@ -127,15 +127,14 @@ class UsersController extends Controller {
 			});
 
 			$data = array('full_name'=> $full_nam);
-			return view('users.emailconfirmation',$data);*/
+			return view('users.emailconfirmation',$data);
 		}
 		$locale = Lang::getLocale();
 		$data['country_list'] = $this->getCountryArray($locale);
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
 
-        return view('users.user')->with($data)->withErrors($validator)
-        																	 ->withInput($post_data);
+        return view('users.user')->with($data)->withErrors($validator)->withInput($post_data);
 	}
 	
 	/**

@@ -17,6 +17,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::get('terms', 'WelcomeController@terms');
 
 // Password reset link request routes...
 Route::get('password/email', 'Auth\PasswordController@getEmail');
@@ -25,6 +26,7 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 
 Route::get('api/test', 'Api\UsersController@test');
 Route::get('api/users/details', 'Api\UsersController@all');
+Route::get('api/users/exists', 'Api\UsersController@exists');
 Route::post('api/user/change-language', 'Api\UsersController@changeLanguage');
 
 

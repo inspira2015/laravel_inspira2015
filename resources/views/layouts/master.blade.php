@@ -60,18 +60,23 @@
           opacity:0.4; /* transparency */  
           filter:alpha(opacity=60); /* IE transparency */  
       }
+      
+      #page {
+	      background-image:url('{{ url() }}/images/2.jpg'); 
+	      background-repeat:no-repeat; background-position: center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover; height:auto;position:relative;
+      }
     </style>
 
   </head>
-  <body id="page" style="background-image:url('<?php echo url();?>/images/2.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
-                        -webkit-background-size: cover;
-                        -moz-background-size: cover;
-                        -o-background-size: cover;
-                        background-size: cover; height:100%;position:relative;">
+  <body id="page">
    <div class="header">
   <div class="container">
       <div class="logo">
-        <a href="http://inspiramexico.mx">
+        <a href="{{ url() }}">
           <img src="<?php echo url();?>/css/bootstrap/css/images/logo.png"/>
         </a>
       </div>
@@ -87,32 +92,50 @@
  
 </div>
 
-<footer style="position:absolute;margin-top:100px;">
-  <div class="container" style="color:#fff; font-size:11px; padding:0 !important;">
+<footer>
+  <div class="container">
     <div class="section-1">
       <img src="<?php echo url();?>/images/copyright.png"/>
         &nbsp;<?php echo  Lang::get('layoutmaster.copyright'); ?> 
     </div>
     <div class="section-2">
-      <a href="http://inspiramexico.mx/terminos-y-condiciones/"  onclick="window.open(this.href, 'mywin',
-        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" style="color:#fff;">
+      <a href="/terms"  onclick="window.open(this.href, 'mywin',
+        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">
         <?php echo  Lang::get('layoutmaster.privacypolicy'); ?> 
       </a>
     </div>
-    <div class="section-3">México : 55.8526.1061
+    <div class="section-3">M&eacute;xico : 55.8526.1061
       <br>US Toll Free: 1.855.INSPIRA
     </div>
-    <div class="section-4" style="display:inline-block;">
-      <p style="display:inline-block; width:65%; padding-right:10px; vertical-align:middle;">
-        <?php echo  Lang::get('layoutmaster.followus'); ?>:
+    <div class="section-4" id="fb">
+      <p>
+      {{ Lang::get('layoutmaster.followus') }}:
       </p>
-      <p style="display:inline-block; width:30%; vertical-align:top;">
-        <img style="display:inline-block; width:100%; height:auto; vertical-align:top;"src="<?php echo url();?>/images/logofacebook.png"/>
+      <p id="fb">
+        <img src="<?php echo url();?>/images/logofacebook.png"/>
       </p>
     </div>
   </div>
 </footer>
+<style>
 
+/* 	footer  { position:absolute;margin-top:100px; } */
+	footer a:hover{
+		color:white;
+	}
+	footer div.container {
+		color:#fff; font-size:11px; padding:0 0 20px 0!important;
+	}
+	footer #fb p:nth-child(1){
+		display:inline-block; width:65%; padding-right:10px; vertical-align:middle;
+	}
+	footer #fb p:nth-child(2) {
+		display:inline-block; width:30%; vertical-align:top;
+	}
+	footer #fb img{
+		display:inline-block; width:100%; height:auto; vertical-align:top;
+	}
+</style>
 	@include('layouts.__common.tawk')
 	@include('layouts.__common.analytics')
   

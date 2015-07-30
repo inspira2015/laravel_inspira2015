@@ -55,6 +55,14 @@ class UserDao extends UserEntity implements ICrudOperations
  		}
  	}
 
+ 	public function getByEmail( $email ){
+	 	$user = User::where('email', $email)->first();
+	 	if( empty($user) ){
+		 	return FALSE;
+	 	}
+	 	return $user;
+ 	}
+ 	
  	public function getDetails( $id )
  	{
 	 	$user = new \stdClass();
