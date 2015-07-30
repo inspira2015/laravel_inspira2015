@@ -49,14 +49,15 @@ class CodesController extends Controller {
         if ( $validator->passes() ) 
         {
 			$code = $this->codeDao->getByCode( $data['code'] )->first();
-			$this->check->setCode($code);
-
-			if ( $this->check->checkValid() )
-			{
-				Session::put('code', $data['code']);
-				return Redirect::to('users');
+			if(!empty($code)){
+				$this->check->setCode($code);
+	
+				if ( $this->check->checkValid() )
+				{
+					Session::put('code', $data['code']);
+					return Redirect::to('users');
+				}				
 			}
-
 			return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->with('background','codigo-background.jpg')->withErrors(array('message' => 'Code is not valid'));
         }
         Session::put('code', 'default');
