@@ -1,7 +1,7 @@
 @extends('layouts.basic')
 
 @section('content')
-<?php echo url(); ?>
+
 <div class="row"  style="background-color:rgba(229,231,233,0.4); margin-bottom:10px;">
 	<div class="col-lg-12 col-md-12">
 		<div class="codigo"></div>

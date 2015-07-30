@@ -100,40 +100,14 @@ class UsersController extends Controller {
 
 		if($validator->passes()) 
 		{
-
 			Session::put('users',  $post_data );
 			return Redirect::to('affiliation');
-			/*$this->userDao->exchangeArray( $post_data );
-			$users_id =$this->userDao->save();
-			$this->userDao->load($users_id);
-			$post_data['users_id'] = $users_id;//last_id
-			$this->userPhone->exchangeArray( $post_data );
-			$last_phone_id = $this->userPhone->save();
-			$full_nam = $this->userDao->name . ' ' . $this->userDao->last_name;
-			$code = Session::get('code', FALSE);
-			$ObjCode = $this->codeDao->getByCode($code);
-			
-			if(!empty($ObjCode->all()))
-			{
-				$this->codesUsed->exchangeArray(array('codes_id' => $ObjCode->first()->id, 'users_id' =>$users_id));
-				$this->codesUsed->save();
-			}
-
-
-			$sent =Mail::send('emails.user_registration', array('user' => $this->userDao), function($message)
-			{
-				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
-		    	$message->to($this->userDao->email, $full_name)->subject('Welcome!');
-			});
-
-			$data = array('full_name'=> $full_nam);
-			return view('users.emailconfirmation',$data);*/
 		}
+
 		$locale = Lang::getLocale();
 		$data['country_list'] = $this->getCountryArray($locale);
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
-
         return view('users.user')->with($data)->withErrors($validator)
         																	 ->withInput($post_data);
 	}
