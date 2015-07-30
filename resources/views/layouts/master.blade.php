@@ -91,25 +91,6 @@
     </div>
   </div>
 </footer>
-<style>
-
-/* 	footer  { position:absolute;margin-top:100px; } */
-	footer a:hover{
-		color:white;
-	}
-	footer div.container {
-		color:#fff; font-size:11px; padding:0 0 20px 0!important;
-	}
-	footer #fb p:nth-child(1){
-		display:inline-block; width:65%; padding-right:10px; vertical-align:middle;
-	}
-	footer #fb p:nth-child(2) {
-		display:inline-block; width:30%; vertical-align:top;
-	}
-	footer #fb img{
-		display:inline-block; width:100%; height:auto; vertical-align:top;
-	}
-</style>
 
 	@include('layouts.__common.tawk')
 	@include('layouts.__common.analytics')
