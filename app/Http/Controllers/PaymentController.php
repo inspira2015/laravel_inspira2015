@@ -31,7 +31,10 @@ class PaymentController extends Controller {
 	 */
 	public function Index()
 	{
-		return view('creditcards.creditcard');
+
+
+		return view('creditcards.creditcard')->with(array('title' =>'Fondo Vacacional',
+															 'background' =>'2.jpg'));
 	}
 
 	public function Subtotal()

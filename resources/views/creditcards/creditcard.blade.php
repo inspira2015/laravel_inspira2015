@@ -1,35 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Tarjeta</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/menu.css" />
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
-    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/estados.js"></script>
-	<link rel="icon" href="images/inspira.ico" type="image/ico" />
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/slide.css" />
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/slidestyle.css" />
-	<link rel="stylesheet" href="jquery.h5-lightbox.css">
-</head>
-<body style="height:100%;background-image:url('images/2.jpg'); background-repeat:no-repeat; background-position: center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;">
- <?php 
-$path_header = base_path()."/resources/views/chunks/header.php";
-    include_once $path_header;
 
-?>
-<div class="container">
+	@extends('layouts.basic')
 
-<div class="container">
-	
+@section('content')
+
     <div class="row" id="arriba" style="margin-bottom:50px;">
         <div id="error" style="color:red; text-align:left; margin:0 auto; width:300px;"></div>
 		<div class="col-lg-12 col-md-12 col-sm-12" >
@@ -38,16 +11,7 @@ $path_header = base_path()."/resources/views/chunks/header.php";
 			</h1>
         <form method="post" action="?route=users/addcreditcard"  onsubmit="return verificar()" id="profile" name="formulario" data-toggle="validator">
             <div class="col-lg-1col-md-push-2 col-sm-10-col-sm-push-2 " id="formularios">
-                <div class="form-group" style="width:100%;">
-					<label for="tipo" style="width:100% !important; ">* TIPO DE TARJETA </label>
-                    <div class="input-group" style="margin:0 auto;">
-						 <div class="inputs"  style="font-weight:bold;">
-          VISA<input type="radio" name="tipo" value="visa" id="tipo" checked="checked"  />
-			MASTERCARD<input type="radio" name="tipo" id="tipo" value="master" />
-					AMEX<input type="radio" name="tipo" id="tipo" value="amex" />
-</div>
-                    </div>
-                </div>
+ 
 			<div class="form-group">
                     <label for="numero">* Numero de tarjeta</label>
                     <div class="input-group">
@@ -397,20 +361,7 @@ $path_header = base_path()."/resources/views/chunks/header.php";
           <div class="col-lg-4 col-md-4 col-sm-4">&nbsp;</div>
           <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">   <a href="#" onClick="verificar()"><img style="width:50%; height:auto;"src="images/continuar.png"/></a></div>
         </div>
-	</div><!--arriba-->
-	</div>
-	</div>
-<?php 
-if(isset($user_data["language"])){
-if($user_data["language"]=="ES"){
-include "php/footer.php";
-}else{
-include "php/footerENG.php";
-}
-}else{
-include "php/footer.php";
-}
-?>
-	<script type="text/javascript" src="js/validations_cc.js"></script>
-</body>
-</html>
+
+  @stop
+
+	
