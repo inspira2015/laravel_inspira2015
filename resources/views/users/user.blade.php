@@ -15,38 +15,38 @@
 		<div class="form-group">
 			<label for="name">* {{ Lang::get('registry.name') }}</label>
 			<div class="input-group">
-				{!! Form::text('name',  Input::get('name') ? Input::get('name') : @$name, array('required','class' => 'form-control','id' => 'name', 'placeholder' => Lang::get('registry.name_place'))) !!}
+				{!! Form::text('name',  Input::get('name') ? Input::get('name') : @$name, array('class' => 'form-control','id' => 'name', 'placeholder' => Lang::get('registry.name_place'))) !!}
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="last_name">* {{ Lang::get('registry.last_name') }}</label>
 			<div class="input-group">
-				{!! Form::text('last_name', Input::get('last_name') ? Input::get('last_name') : @$last_name, array('required','class' => 'form-control','id' => 'last_name')) !!}
+				{!! Form::text('last_name', Input::get('last_name') ? Input::get('last_name') : @$last_name, array('class' => 'form-control','id' => 'last_name')) !!}
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="InputEmail">* E-mail</label>
 			<div class="input-group">
-				{!! Form::email('email', Input::get('email') ? Input::get('email') : @$email, array('required','class' => 'form-control','id' => 'email', 'autocomplete' => 'false')) !!}
+				{!! Form::email('email', Input::get('email') ? Input::get('email') : @$email, array('class' => 'form-control','id' => 'email', 'autocomplete' => 'false')) !!}
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="contrasena">* {{ Lang::get('registry.password') }}</label>
 			<div class="input-group">
-				{!! Form::password('password',  array('required','class' => 'form-control','id' => 'password')) !!}
+				{!! Form::password('password',  array('class' => 'form-control')) !!}
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="contrasena2">* {{ Lang::get('registry.retype_pwd') }}</label>
 			<div class="input-group">
-				<input type="password" class="form-control" name="password_check" id="password_check"  value=""required>
+				{!! Form::password('password_confirmation',  array('class' => 'form-control')) !!}
 			</div>
 		</div>  
 
 		<div class="form-group">
 			<label for="celular">* {{ Lang::get('registry.celphone') }}</label>
 			<div class="input-group">
-				{!! Form::text('cellphone_number', Input::get('cellphone_number') ? Input::get('cellphone_number') : @$cellphone_number, array('required','class' => 'form-control','id' => 'cellphone_number')) !!}
+				{!! Form::text('cellphone_number', Input::get('cellphone_number') ? Input::get('cellphone_number') : @$cellphone_number, array('class' => 'form-control','id' => 'cellphone_number')) !!}
 			</div>
 		</div>
 
