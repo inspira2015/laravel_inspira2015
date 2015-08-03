@@ -2,72 +2,46 @@
 
 @section('content')
 
-<div class="row"  style="background-color:rgba(229,231,233,0.4); margin-bottom:10px;padding-top:50px;">
-	<div class="col-lg-12 col-md-12">
-		<div class="codigo"></div>
-		<div class="col-lg-12 col-md-12" style="padding:20px;">
-			<?php echo Form::open(array('url' => 'codes/check', 'id' => 'profile', 'name'=>'formulario')) ?>
-			<input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
-			<div class="content" style="background-color:transparent; ">
-				<h2 style="text-transform:none; font-size:24px; color:#465664; text-align:justify;">
-					{{ Lang::get('code.promo') }}
-				</h2>
-				<br><br>
-				<div class="col-sm-10 col-sm-push-1 col-md-8 col-md-push-2 nopadding">				
-					<div class="inputs">
-						<?php echo Form::text('code', Input::get('code')   ? Input::get('code') : @$code, array('style' => 'width:100%; border:12px solid #465664; background-color:#bec4c9; color:#465664;', 'required' => 'required'));?>
-					</div>
-				</div>
-				<?php echo Form::close()?>
-			</div>
-			
-			<div class="col-lg-12 col-md-12" style="padding:20px;">
-				<div class="divider"></div>
-			</div>
+<div class="row bg-gray-transparent">
+	<div class="codigo"></div>
+	{!! Form::open(array('url' => 'codes/check', 'id' => 'profile', 'name'=>'formulario')) !!}
+	<input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
+	
+	<h2>
+		{{ Lang::get('code.promo') }}
+	</h2>
+	<div class="col-sm-10 col-sm-push-1 col-md-8 col-md-push-2 nopadding">				
+		<div class="inputs">
+			<?php echo Form::text('code', Input::get('code') ? Input::get('code') : @$code, array( 'required' => 'required'));?>
 		</div>
 	</div>
+	{!! Form::close() !!}
 </div>
-<div class="row"  style="margin-bottom:350px; background-color:rgba(229,231,233,0.4); margin-top:10px; padding:0px;">
-	<div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:30px; margin-top:70px;"></div>
-	<div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:30px; margin-top:70px;">  
-		<a href="#" onClick="formulario.submit()" class="btn-blue">{{ Lang::get('layout.continue') }}</a>
-<!--
-		<a href="#" onClick="formulario.submit()">
-			<img style="width:100%; height:auto;"src="<?php echo url();?>/images/continuargrande.png"/>
-		</a>
--->
-	</div>
-	<div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:30px; margin-top:70px;"></div>
-	<div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom:0px;"> 
-		
+<div class="row bg-gray-transparent">
+	<div class="col-xs-8 col-xs-push-2 col-sm-4 col-sm-push-4">
+		<div class="row">
+			<a href="#" onClick="formulario.submit()" class="btn-blue">{{ Lang::get('layout.continue') }}</a>
+		</div>
 		@if($errors->has())
-			<div class="col-lg-3"></div>
-			<div class="col-lg-6 col-sm-12" style="margin:0 auto;">
-				<p style="color:#cc4b9b">
+			<div class="row" id="code-error">
+				<p>
 					{{ Lang::get('code.promo-invalid') }}
 				</p> 
-				<a href="{{ url('/users') }}">
-					{!! HTML::image('/images/sincodigo.png', 'Inspira Mexico - Sin Codigo', array('style' => 'margin-top:30px;width:50%; height:auto;')) !!}
+				<a href="{{ url('/users') }}" class="btn-pink-clear">
+					{{ Lang::get('code.continue-without-code') }}
 				</a>
 			</div>
-			<div class="col-lg-3"></div>
 		@endif
 	</div>
 </div>
 <style>
-	.nopadding {
-		padding: 0px;
-	}
-	
-	a.btn-blue {
-		color: white;
-		font-size: 24px;
-		font-weight: 200;
-		background-color: #465664;
-		padding-top: 5px;
-		width: 100%;
-		padding-bottom: 5px;
-		display: inline-block;
+	h2 {
+		text-transform:none; 
+		font-size:24px; 
+		color:#465664; 
+		text-align:justify;
+		margin-top:20px;
+		margin-bottom: 20px;
 	}
 </style>
 @endsection

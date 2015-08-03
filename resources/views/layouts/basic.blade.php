@@ -16,6 +16,7 @@
 	<link rel="icon" href="/images/inspira.ico" type="image/ico" />
 	{!! HTML::style('css/jquery.h5-lightbox.css') !!}
 	
+	{!! HTML::style('css/app/main.css') !!}
 </head>
 
 <body id="page" style="background-image:url('<?php echo url();?>/images/<?php echo $background; ?>'); background-repeat:no-repeat; background-position: center center fixed; 
@@ -24,7 +25,6 @@
 	-o-background-size: cover;
 	background-size: cover;">
 
-	
 	@include('layouts.__common.header')
 
 	<div class="container">
@@ -33,8 +33,9 @@
 
 	@include('layouts.__common.footer')
 
-	@include('layouts.__common.tawk')
-	@include('layouts.__common.analytics')
-
+	@if(!$app->environment('local'))
+		@include('layouts.__common.tawk')
+		@include('layouts.__common.analytics')
+	@endif
 </body>
 </html>
