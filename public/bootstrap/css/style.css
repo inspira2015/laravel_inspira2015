@@ -40,14 +40,15 @@ label{
 .linkcambiar{
 	
 }
-.codigo{
+
+.code{
 	background-image: url('images/codigo.png');
 	margin:0 auto;
 	min-height: 200px;
 	width: 33%;
 	background-repeat:no-repeat;
 	background-position: center;
-	  background-size: contain;
+	background-size: contain;
 }
 .controles{
 	width:60%;

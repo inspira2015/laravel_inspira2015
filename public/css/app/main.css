@@ -136,37 +136,52 @@ a.btn-blue {
 	padding-bottom: 5px;
 	display: inline-block;
 	text-decoration: none;
-
 	background-image: url('images/arrow.png');
 	background-repeat: no-repeat;
 	background-position: right center;
 	background-position-x: 95%;
 	background-size: 7px;
-
 }
-
+a.btn-pink-clear,
+a.btn-blue-clear{
+	display: inline-block;
+	width: 100%;
+	font-size: 24px;
+	text-decoration: none;
+	background-color: none!important;
+	background-image: url('images/arrow.png');
+	background-repeat: no-repeat;
+	background-position: right center;
+}
 
 a.btn-pink-clear {
 	color: #cc4b9b;
 	padding-top: 5px;
 	padding-bottom: 5px;
-	font-size: 24px;
-	text-decoration: none;
-	background-image: url('images/arrow.png');
-	background-repeat: no-repeat;
-	background-position: right center;
-	background-position-x: 92%;
-	background-size: 7px;
-	display: inline-block;
 	text-decoration: underline;
-	width: 100%;
+	background-position-x: 92%;
 }
+
+a.btn-blue-clear{
+	background-position-x: 92%;
+	color: #465664;
+	background-position-x: 95%;
+	clear:both;
+
+}
+
+.spacing {
+	letter-spacing: 1px;
+    color: #465664;
+}
+
 
 #code-error{
 	color: #cc4b9b;
 	margin-top: 20px;
 	font-size: 16px;
 	margin-bottom: 10px;
+	clear:both;
 }
 
 div.inputs input[name="code"]{
@@ -179,6 +194,10 @@ div.inputs input[name="code"]{
 div.bg-gray-transparent{
 	background-color:rgba(229,231,233,0.4); 
 	padding:40px; 
+}
+
+div.container > div.bg-gray-transparent:nth-child(1){
+	margin-top: 50px;
 }
 
 div.container > div.bg-gray-transparent:nth-child(2){
