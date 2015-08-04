@@ -49,6 +49,13 @@ class LibrariesServiceProvider extends ServiceProvider
         });
 
 
+        $this->app->bind('App\Libraries\ExchangeRate\ExchangeMXNUSD', function($app) {
+                return new \App\Libraries\ExchangeRate\ExchangeMXNUSD($app->make('\App\Model\Entity\ExchangeRateEntity'));
+        });
+
+
+
+
 
 	}
 

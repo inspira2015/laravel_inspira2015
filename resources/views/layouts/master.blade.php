@@ -66,7 +66,7 @@
 </div>
 
 
-	@include('layouts._common.footer')
+	@include('layouts.__common.footer')
 
 	@include('layouts.__common.tawk')
 	@include('layouts.__common.analytics')

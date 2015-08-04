@@ -51,8 +51,14 @@
           				<div class="divider content" style="padding-top:0px; padding-bottom:0px; margin: 0px 0px; bottom:0px;" ></div>  
             			<div class="informacion">
             			<h2 style="text-align:center">@lang('affiliations.monthfee'): <br>
-						<?php echo $obj->getAffiliationPrice(); ?>
-						<?php echo $obj->getCurrency(); ?>
+                  <?php
+                    $convertHelper->setCost($obj->getAffiliationPrice());
+                    $convertHelper->setCurrencyOfCost($obj->getCurrency());
+
+
+                   ?>
+						<?php echo $convertHelper->getFomattedAmount(); ?>
+						<?php echo $convertHelper->getCurrencyShow(); ?>
             <?php  echo Form::hidden('currency_' . $obj->getAffiliationId(), $obj->getCurrency()); ?>
 
 						</h2>

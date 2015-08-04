@@ -32,6 +32,7 @@ class DaoServiceProvider extends ServiceProvider {
 		$this->app->bind('App\Model\Entity\UserVacationalFunds');
 		$this->app->bind('App\Model\Entity\UserVacFundLog');
 		$this->app->bind('App\Model\Entity\Affiliations');
+		$this->app->bind('App\Model\Entity\ExchangeRateEntity');
 
 
 	}

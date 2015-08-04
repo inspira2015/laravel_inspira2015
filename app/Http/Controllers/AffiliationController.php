@@ -6,6 +6,9 @@ use Request;
 use App\Model\Dao\UserDao;
 use App\Libraries\Affiliations\CheckCodeAffiliations;
 use App\Libraries\Affiliations\AffiliationsColorCodes;
+use App\Libraries\ExchangeRate\ExchangeMXNUSD;
+use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
+
 use App\Model\Entity\Affiliations;
 use Lang;
 use Session;
@@ -30,6 +33,8 @@ class AffiliationController extends Controller
 	private $userDao;
 	private $checkAff;
 	private $affiDao;
+	private $exchange;
+	private $convertHelper;
 
 	/**
 	 * Create a new controller instance.
@@ -38,12 +43,20 @@ class AffiliationController extends Controller
 	 */
 	public function __construct( UserDao $userDao, 
 								 CheckCodeAffiliations $checkAff,
-								 Affiliations $affil)
+								 Affiliations $affil,
+								 ExchangeMXNUSD $exchange
+								 )
 	{
 		$this->middleware('guest');
 		$this->userDao = $userDao;
 		$this->checkAff = $checkAff;
 		$this->affiDao = $affil;
+		$this->exchange = $exchange;
+		$userData = Session::get('users');
+		$this->convertHelper = new ConvertCurrencyHelper();
+		$this->convertHelper->setCurrencyShow( $userData['currency'] );
+		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
+
 	}
 
 	/**
@@ -69,6 +82,7 @@ class AffiliationController extends Controller
 															  'affiliation' => $affiliation,
 															  'suscription_array' => $suscription_array,
 															  'suscription_count' => $suscription_count,
+															  'convertHelper' => $this->convertHelper,
 															  'colorCodes' => new AffiliationsColorCodes() ) );
 	}
 
