@@ -37,4 +37,9 @@ class ExchangeRateDao implements ICrudOperations
 		$exchange->save();
 		return $exchange->id;
 	}
+
+	public function getByDate($date = FALSE, $type)
+	{
+		return ExchangeRate::where('exchange_date', $date)->where('exchange_type',$type)->get();
+	}
 }
