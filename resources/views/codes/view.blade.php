@@ -11,12 +11,12 @@
 				<a href="#" onClick="formulario.submit()" class="btn-blue-clear">{{ Lang::get('layout.continue') }}</a>
 			</div>
 			<div class="divider"></div>
-			<div class="col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
+			<div class="col-sm-10 col-sm-push-1 col-md-6 col-md-push-3">
 				<div class="code"></div>
 			</div>
 		</div>
 
-		<div class="row text-center">
+		<div class="row">
 			<div class="col-sm-12 nopadding spacing">
 			{{ Lang::get('code.promo') }}
 			</div>
@@ -50,14 +50,4 @@
 		@endif
 	</div>
 </div>
-<style>
-	h2 {
-		text-transform:none; 
-		font-size:24px; 
-		color:#465664; 
-		text-align:justify;
-		margin-top:20px;
-		margin-bottom: 20px;
-	}
-</style>
 @endsection

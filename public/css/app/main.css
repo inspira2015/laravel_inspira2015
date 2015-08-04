@@ -102,9 +102,11 @@ footer  {
 	z-index: 10;
 	clear:both;
 	position:relative;
+	color: white;
 }
 
-footer a:hover{
+footer a:hover,
+footer a{
 	color:white;
 }
 footer div.container {
@@ -114,12 +116,25 @@ footer #fb p:nth-child(1){
 	display:inline-block; width:65%; padding-right:10px; vertical-align:middle;
 }
 footer #fb p:nth-child(2) {
-	display:inline-block; width:30%; vertical-align:top;
+	display:inline-block; width:30%;
 }
 footer #fb img{
-	display:inline-block; width:100%; height:auto; vertical-align:top;
+	display:inline-block; 
+	width:100%; 
+	height:auto; 
+	vertical-align:top;
+	max-width: 25px;
 }
 
+footer > .container > div:not(:first-child) {
+	border-left: 1px solid white;
+	padding: 0 20px;
+	text-align: left;
+}
+
+footer > .container > div:nth-child(3){
+	width: 21%;
+}
 
 /*Defaults*/
 .nopadding {
@@ -149,7 +164,6 @@ a.btn-blue-clear{
 	font-size: 24px;
 	text-decoration: none;
 	background-color: none!important;
-	background-image: url('images/arrow.png');
 	background-repeat: no-repeat;
 	background-position: right center;
 }
@@ -160,14 +174,16 @@ a.btn-pink-clear {
 	padding-bottom: 5px;
 	text-decoration: underline;
 	background-position-x: 92%;
+	background-image: url('images/arrow-pink.png');
 }
 
 a.btn-blue-clear{
-	background-position-x: 92%;
 	color: #465664;
-	background-position-x: 95%;
 	clear:both;
-
+	background-image: url('images/arrow-blue.png');
+	background-size: 9px 15px;
+	background-position-y: 40%;
+	margin-right: 20px;
 }
 
 .spacing {

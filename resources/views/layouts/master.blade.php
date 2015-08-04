@@ -66,31 +66,7 @@
 </div>
 
 
-<footer>
-  <div class="container">
-    <div class="section-1">
-      <img src="<?php echo url();?>/images/copyright.png"/>
-        &nbsp;<?php echo  Lang::get('layoutmaster.copyright'); ?> 
-    </div>
-    <div class="section-2">
-      <a href="/terms"  onclick="window.open(this.href, 'mywin',
-        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">
-        <?php echo  Lang::get('layoutmaster.privacypolicy'); ?> 
-      </a>
-    </div>
-    <div class="section-3">M&eacute;xico : 55.8526.1061
-      <br>US Toll Free: 1.855.INSPIRA
-    </div>
-    <div class="section-4" id="fb">
-      <p>
-      {{ Lang::get('layoutmaster.followus') }}:
-      </p>
-      <p id="fb">
-        <img src="<?php echo url();?>/images/logofacebook.png"/>
-      </p>
-    </div>
-  </div>
-</footer>
+	@include('layouts._common.footer')
 
 	@include('layouts.__common.tawk')
 	@include('layouts.__common.analytics')
