@@ -57,7 +57,7 @@
 
 
                    ?>
-						<?php echo $convertHelper->getConvertAmount(); ?>
+						<?php echo $convertHelper->getFomattedAmount(); ?>
 						<?php echo $convertHelper->getCurrencyShow(); ?>
             <?php  echo Form::hidden('currency_' . $obj->getAffiliationId(), $obj->getCurrency()); ?>
 

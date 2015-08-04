@@ -79,5 +79,11 @@ class ConvertCurrencyHelper
 	}
 
 
+	public function getFomattedAmount()
+	{
+		setlocale(LC_MONETARY, "en_US");
+		return money_format( "%10.2n", $this->getConvertAmount() );
+	}
+
 
 }
