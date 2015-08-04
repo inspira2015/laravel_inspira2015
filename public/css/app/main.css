@@ -206,7 +206,12 @@ div.inputs input[name="code"]{
 	background-color:#bec4c9; 
 	color:#465664;
 }
-
+div.bg-gray{
+	background-color: #e5e7e9;
+	padding: 40px;
+	margin-bottom: 175px;
+}
+	
 div.bg-gray-transparent{
 	background-color:rgba(229,231,233,0.4); 
 	padding:40px; 

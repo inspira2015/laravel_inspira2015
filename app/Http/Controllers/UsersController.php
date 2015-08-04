@@ -81,9 +81,9 @@ class UsersController extends Controller {
 		
 		if ( Session::has('users') )
 		{			
-			return view('users.user')->with($data)->with( Session::get('users') );
+			return view('users.user')->with('title', 'Informaci&oacute;n de Usuario' )->with('background','2.jpg')->with($data)->with( Session::get('users') );
 		}
-		return view('users.user',$data);
+		return view('users.user',$data)->with('title', 'Informaci&oacute;n de Usuario' )->with('background','2.jpg');
 	}
 
 
@@ -119,8 +119,7 @@ class UsersController extends Controller {
 		$data['states'] = $this->getStatesArray($locale);
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
-        return view('users.user')->with($data)->withErrors($validator)
-        																	 ->withInput($post_data);
+        return view('users.user')->with('title', 'Informaci&oacute;n de Usuario' )->with('background','2.jpg')->with($data)->withErrors($validator)->withInput($post_data);
 	}
 	
 	/**

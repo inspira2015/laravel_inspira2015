@@ -1,10 +1,8 @@
-@extends('layouts.master')
+@extends('layouts.basic')
 
 @section('content')
-<div class="row" id="arriba">
-	<div id="error">
-
-	</div>
+<div class="row bg-gray">
+	
 	<div class="col-md-10 col-md-push-1">
 		@include('errors.messages')
 	</div>
