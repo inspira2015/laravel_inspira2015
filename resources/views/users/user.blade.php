@@ -3,13 +3,26 @@
 @section('content')
 <div class="row bg-gray">
 	
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-sm-2">  
+			<a href="/codes/1" class="btn-blue-clear btn-medium back">
+				{{ Lang::get('layout.back') }}
+			</a>
+		</div>
+		<div class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8">   
+			<a href="#" onClick="verificar()" class="btn-blue-clear btn-medium">
+				{{ Lang::get('layout.continue') }}
+			</a>
+		</div>
+		<div class="divider"></div>
+	</div>
+	
 	<div class="col-md-10 col-md-push-1">
 		@include('errors.messages')
 	</div>
 
 	{!! Form::open(array('url' => 'users/registration', 'id' => 'user_data','name' => 'formulario','data-toggle' => 'validator')) !!}
-
-	<div class="col-sm-10-col-sm-push-2 " id="formularios">
+	<div class="col-sm-10-col-sm-push-2">
 		<div class="form-group">
 			<label for="name">* {{ Lang::get('registry.name') }}</label>
 			<div class="input-group">
@@ -53,7 +66,7 @@
 				<div class="form-group">
 					<label for="pais">* {{ Lang::get('registry.country') }}</label>
 					<div class="input-group">
-					{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : 'MX', array('class' => 'select-country form-control', 'data-change' => 'select-state')) !!}
+					{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : 'MX', array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state')) !!}
 					</div>
 				</div>
 			</div>
@@ -93,20 +106,23 @@
 		</div>
 	</div>
 	{!! Form::close() !!}
-	<div class="col-lg-12 col-md-12" style="padding:20px 20px 45px 20px;">
+	<div class="col-sm-12" style="padding:20px;">
 		<div class="divider"></div>
 	</div>
-	<div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">  
-		<a href="/codes/1">
-			<img style="width:50%; height:auto;"src="<?php echo url();?>/images/regresartransparente.png"/>
+	<div class="col-xs-4 col-sm-2">  
+		<a href="/codes/1" class="btn-blue-clear btn-medium back">
+			{{ Lang::get('layout.back') }}
 		</a>
 	</div>
-	<div class="col-lg-4 col-md-4 col-sm-4"></div>
-	<div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">   
-		<a href="#" onClick="verificar()">
-			<img style="width:50%; height:auto;"src="<?php echo url();?>/images/continuar.png"/>
-		</a></div>
+	<div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-7">   
+		<a href="#" onClick="verificar()" class="btn-blue btn-medium">
+			{{ Lang::get('layout.continue') }}
+		</a>
+		<div class="col-xs-12 text-right nopadding">
+		* {{ Lang::get('layout.required-fields') }}
+		</div>
 	</div>
+</div>
 
 {!! HTML::style('css/app/users.css') !!}
 {!! HTML::script('js/users.js') !!}

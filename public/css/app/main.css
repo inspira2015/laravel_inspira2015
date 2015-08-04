@@ -1,6 +1,8 @@
 div.container {
 	height: 100%;
 }
+
+
 div[data-role="response"] a[data-role="change"], 
 div[data-role="response"] div[data-role="submit"] {
 	cursor: pointer;
@@ -141,6 +143,11 @@ footer > .container > div:nth-child(3){
 	padding: 0px;
 }
 
+
+.btn-medium{
+	font-size: 20px!important;
+}
+
 a.btn-blue {
 	color: white;
 	font-size: 24px;
@@ -166,6 +173,12 @@ a.btn-blue-clear{
 	background-color: none!important;
 	background-repeat: no-repeat;
 	background-position: right center;
+}
+
+a.back{
+	background-position: left center;
+	background-image: url('images/arrow-blue-back.png');
+
 }
 
 a.btn-pink-clear {
@@ -212,6 +225,9 @@ div.bg-gray{
 	margin-bottom: 175px;
 }
 	
+div.bg-gray label{
+	color: #465664;
+}
 div.bg-gray-transparent{
 	background-color:rgba(229,231,233,0.4); 
 	padding:40px; 
@@ -224,4 +240,8 @@ div.container > div.bg-gray-transparent:nth-child(1){
 div.container > div.bg-gray-transparent:nth-child(2){
 	margin-bottom: 350px;
 	margin-top: 10px;
+}
+
+.inspira-select {
+
 }

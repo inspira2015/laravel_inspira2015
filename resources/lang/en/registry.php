@@ -24,6 +24,5 @@ return [
 	"lang" => "Language",
 	"currency" => "Currency",
 	"name_place" => "Type your name",
-
-
+	"title" => "Register"
 ];
