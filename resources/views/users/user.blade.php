@@ -31,31 +31,31 @@
 		</div>
 		<div class="form-group">
 			<label for="last_name">* {{ Lang::get('registry.last_name') }}</label>
-			<div class="input-group">
+				<div class="input-group">
 				{!! Form::text('last_name', Input::get('last_name') ? Input::get('last_name') : @$last_name, array('class' => 'form-control','id' => 'last_name')) !!}
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="InputEmail">* E-mail</label>
+			<label for="email">* E-mail</label>
 			<div class="input-group">
-				{!! Form::email('email', Input::get('email') ? Input::get('email') : @$email, array('class' => 'form-control','id' => 'email', 'autocomplete' => 'false')) !!}
+				{!! Form::email('email', Input::get('email') ? Input::get('email') : @$email, array('class' => 'form-control','id' => 'email')) !!}
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="contrasena">* {{ Lang::get('registry.password') }}</label>
+			<label for="password">* {{ Lang::get('registry.password') }}</label>
 			<div class="input-group">
 				{!! Form::password('password',  array('class' => 'form-control')) !!}
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="contrasena2">* {{ Lang::get('registry.retype_pwd') }}</label>
+			<label for="password_confirmation">* {{ Lang::get('registry.retype_pwd') }}</label>
 			<div class="input-group">
 				{!! Form::password('password_confirmation',  array('class' => 'form-control')) !!}
 			</div>
 		</div>  
 
 		<div class="form-group">
-			<label for="celular">* {{ Lang::get('registry.celphone') }}</label>
+			<label for="cellphone_number">* {{ Lang::get('registry.celphone') }}</label>
 			<div class="input-group">
 				{!! Form::text('cellphone_number', Input::get('cellphone_number') ? Input::get('cellphone_number') : @$cellphone_number, array('class' => 'form-control','id' => 'cellphone_number')) !!}
 			</div>
@@ -64,7 +64,7 @@
 		<div class="row">
 			<div class="col-lg-6 col-md-6">
 				<div class="form-group">
-					<label for="pais">* {{ Lang::get('registry.country') }}</label>
+					<label for="country">* {{ Lang::get('registry.country') }}</label>
 					<div class="input-group">
 					{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : 'MX', array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state')) !!}
 					</div>
