@@ -12,7 +12,7 @@ namespace App\Libraries\ApiExchangeRate;
 	|
 */
 
-class OpenExchangeRates implements IApiConsumption
+class OpenExchangeRatesApi implements IApiConsumption
 {
 
 	public function __construct()
@@ -38,6 +38,11 @@ class OpenExchangeRates implements IApiConsumption
 		$result = curl_exec($ch);
 		curl_close($ch);
 		$result_arr = json_decode($result, true);
+		if ( empty( $result_arr ) )
+		{
+			return FALSE;
+		}
+
 		$rate = (float)$result_arr['rates']['MXN'];
 		return $rate;
 	}
