@@ -15,18 +15,21 @@ class ExchangeRateUpdate extends Controller
 {
 	private $exchangeDao;
 	protected $auth;
+	private $currentExchangeRate;
+	
 	
 	public function __construct( ExchangeRateEntity $exchange )
 	{
 		$this->middleware('guest');		
 		$this->exchangeDao =  $exchange;
+		$this->currentExchangeRate = new CurrentExchangeRate();
 	}
 	
 
 	public function Currentrate()
 	{
 		
-
+		echo $this->currentExchangeRate->getExchangeRate();
 
 
 

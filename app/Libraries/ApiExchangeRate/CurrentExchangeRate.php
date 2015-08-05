@@ -1,7 +1,7 @@
 <?php
 namespace App\Libraries\ApiExchangeRate;
-use WebservicexApi;
-use OpenExchangeRatesApi;
+use App\Libraries\ApiExchangeRate\WebservicexApi;
+use App\Libraries\ApiExchangeRate\OpenExchangeRatesApi;
 
 /*
 	|--------------------------------------------------------------------------
