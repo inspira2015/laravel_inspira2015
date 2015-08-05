@@ -38,9 +38,12 @@ class WebservicexApi implements IApiConsumption
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		$result = curl_exec($ch);
 		curl_close($ch);
-
 		$xmlRate = simplexml_load_string($result) or die("Error: Cannot create object");
 		$xmlarray = (array)$xmlRate;
+		if ( empty( $xmlarray ) )
+		{
+			return FALSE;
+		}
 		$rate = (float)$xmlarray[0];
 		return $rate;
 	}

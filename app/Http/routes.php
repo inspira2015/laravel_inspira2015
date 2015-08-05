@@ -24,6 +24,9 @@ Route::get('password/email', 'Auth\PasswordController@getEmail');
 Route::post('password/email', 'Auth\PasswordController@postEmail');
 
 
+Route::get('cronjob/exchangerate', 'CronJobs\ExchangeRateUpdate@Currentrate');
+
+
 Route::get('api/test', 'Api\UsersController@test');
 Route::get('api/users/details', 'Api\UsersController@all');
 Route::get('api/users/exists', 'Api\UsersController@exists');
