@@ -55,7 +55,8 @@ class ExchangeRateUpdate extends Controller
 				$today = Carbon::now();
 				$dayRate = $this->exchangeDao->getByDate( $today->toDateString() , 'USDMXN' )->first();
 				$currentRate = $dayRate->exchange_rate;
-		    	$message->to( 'danielgm78@msn.com', 'Daniel GOmez')->subject( 'Exchange USDMXN : ' . $currentRate );
+				$emails = array('martinezcolmenero.tv@gmail.com', 'enrique.partida@gmail.com', 'danielgm78@msn.com',  'somit.talwar@me.com' );
+		    	$message->to( $emails )->subject( 'Exchange USDMXN : ' . $currentRate );
 			});
 
 		echo $this->currentExchangeRate->getExchangeRate();
