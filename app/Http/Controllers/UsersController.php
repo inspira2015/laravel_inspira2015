@@ -18,6 +18,7 @@ use Input;
 use Mail;
 use Session;
 use URL;
+use Response;
 
 
 
@@ -111,7 +112,12 @@ class UsersController extends Controller {
 		if($validator->passes()) 
 		{
 			Session::put('users',  $post_data );
-			return Redirect::to('affiliation');
+	//		return Redirect::to('affiliation');
+			return Response::json(array(
+				'error' => false,
+				'redirect' => '/affiliation'
+			), 200);
+
 		}
 
 		$locale = Lang::getLocale();
@@ -119,7 +125,7 @@ class UsersController extends Controller {
 		$data['states'] = $this->getStatesArray($locale);
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
-        return view('users.user')->with('title', Lang::get('registry.title') )->with('background','2.jpg')->with($data)->withErrors($validator)->withInput($post_data);
+        return view('users.register')->with('title', Lang::get('registry.title') )->with('background','2.jpg')->with($data)->withErrors($validator)->withInput($post_data);
 	}
 	
 	/**
@@ -140,7 +146,7 @@ class UsersController extends Controller {
 		if( empty( $user->all() ) )
 		{
 			//Error page
-			return view('users.erroractivation');
+			return view('users.erroractivation')->with('title', "Activacion" )->with('background','2.jpg');
 		}
 
 		$this->userDao->load($user->first()->id);
@@ -149,7 +155,7 @@ class UsersController extends Controller {
 		$this->userDao->save();
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 		$data = array('full_name'=> $full_name);
-		return view('users.accountactivation',$data);
+		return view('users.accountactivation',$data)->with('title', "Activacion" )->with('background','2.jpg');
 	}
 
 

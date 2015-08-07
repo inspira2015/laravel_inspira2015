@@ -105,12 +105,12 @@ class VacationfundsController extends Controller
 		$sent =Mail::send('emails.user_registration', array('user' => $this->userDao), function($message)
 			{
 				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
-		    	$message->to( $this->userDao->email, $full_name )->subject( 'Welcome!' );
+		    	$message->to( $this->userDao->email, $full_name )->subject( Lang::get('emails.welcome-to')." InspiraMexico, {$full_name}!" );
 			});
 
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 		$data = array('full_name'=> $full_name);
-		return view('users.emailconfirmation',$data);
+		return view('users.emailconfirmation',$data)->with('title', "Confirmacion de email" )->with('background','2.jpg');
 	}
 
 

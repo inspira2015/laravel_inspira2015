@@ -7,7 +7,7 @@ class UserRegistration
 	private $messages = array(
 		'en' => [],
 		'es' => [
-			'name.alpha' => 'El nombre sólo puede contener letras.',
+		//	'name.alpha' => 'El nombre sólo puede contener letras.',
 			'name.required' => 'El nombre es requerido.',
 			'last_name.alpha' => 'El apellido sólo puede contener letras.',
 			'last_name.required' => 'El apellido es requerido.',
@@ -28,7 +28,7 @@ class UserRegistration
 	public function validator(array $user_data, $lang) 
 	{
 		return Validator::make($user_data, [
-			'name' => 'required|alpha',
+			'name' => 'required',
 			'last_name' => 'required|alpha',
 			'email' => 'required|email|unique:users',
 			'password' => 'required|min:6|confirmed',
