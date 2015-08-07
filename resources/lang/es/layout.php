@@ -6,5 +6,6 @@ return [
 	"follow-us" => "S&iacute;guenos en",
 	"continue" => "Continuar",
 	"back" => "Regresar",
-	"required-fields" => "Campos obligatorios"
+	"required-fields" => "Campos obligatorios",
+	"reset-password" => "Restablecer Contrase&ntilde;a"
 ];

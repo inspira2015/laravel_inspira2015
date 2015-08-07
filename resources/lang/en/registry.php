@@ -17,7 +17,7 @@ return [
 	"name" => "Name",
 	"last_name" => "Last Name",
 	"password" => "Password",
-	"retype_pwd" => "Retype Password",
+	"retype_pwd" => "Password Confirmation",
 	"celphone" => "Mobile",
 	"country" => "Country",
 	"state" => "State",

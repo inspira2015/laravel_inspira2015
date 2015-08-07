@@ -7,5 +7,7 @@ return [
 	"cancel" => "Cancel",
 	"help" => "Help",
 	"modify-data" => "Modify Data",
-	"welcome-to" => "Welcome to"
+	"welcome-to" => "Welcome to",
+	"reset-password" => "Reset Password",
+	"password-message" => "Please click on the link below to reset your password."
 ];

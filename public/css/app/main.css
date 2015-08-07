@@ -1,7 +1,22 @@
+body#page{
+	display:table;
+	width:100%;
+	height:100%;
+}
+
+body#page div#wrapper{
+	height:100%;
+	display:table-row;
+}
+
+body#page footer{
+	display:table-row;
+	height:60px
+}
+
 div.container {
 	height: 100%;
 }
-
 
 div[data-role="response"] a[data-role="change"], 
 div[data-role="response"] div[data-role="submit"] {
@@ -112,7 +127,7 @@ footer a{
 	color:white;
 }
 footer div.container {
-	color:#fff; font-size:11px; padding:0 0 20px 0!important;
+	color:#fff; font-size:11px; padding:20px 0 20px 0!important;
 }
 footer #fb p:nth-child(1){
 	display:inline-block; width:65%; padding-right:10px; vertical-align:middle;

@@ -28,14 +28,16 @@
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-	background-size: cover;">
+	background-size: cover;
+	">
 
 	@include('layouts.__common.header')
 
-	<div class="container">
-	    @yield('content')
+	<div id="wrapper">
+		<div class="container">
+		    @yield('content')
+		</div>
 	</div>
-
 	@include('layouts.__common.footer')
 
 	@if(!$app->environment('local'))

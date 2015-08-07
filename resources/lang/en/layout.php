@@ -6,5 +6,6 @@ return [
 	"follow-us" => "Follow us",
 	"continue" => "Continue",
 	"back" => "Back",
-	"required-fields" => "Required Fields"
+	"required-fields" => "Required Fields",
+	"reset-password" => "Reset Password"
 ];

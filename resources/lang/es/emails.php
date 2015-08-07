@@ -7,5 +7,7 @@ return [
 	"cancel" => "Cancelar",
 	"help" => "Ayuda",
 	"modify-data" => "Modificar datos",
-	"welcome-to" => "Bienvenido a"
+	"welcome-to" => "Bienvenido a",
+	"reset-password" => "Restablecer contraseña",
+	"password-message" => "Favor de dar clic en el siguiente enlace para restablecer contrase&ntilde;a."
 ];
