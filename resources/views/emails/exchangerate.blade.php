@@ -1,41 +1,33 @@
-<!doctype html>
-<html lang="en">
-	<head>
-	  <meta charset="utf-8">
-	  <title>Activa tu cuenta</title>
-	  <meta name="description" content="The HTML5 Herald">
-	  <meta name="author" content="SitePoint">
-	</head>
-<body>
-	<div style="width:600px; margin:0 auto;">
-		<div style="@import url(http://inspiramexico.mx/resources/fonts/fonts.css?family=LondonBetween);">
-			<div>
-  				<div class="" style="width:100%; height:auto;"> 
-	 				<img  src="http://inspiramexico.mx/usuarios/images/header2.png" style="width:100%; height:auto;" />
-					<br>
-				</div>
+<div style="display: table;height:100%;width:100%;background-color:#e5e7e9;font-size:20px;color:#465664;font-family: 'LondonBetween', Calibri;">
+	<div style="background-color:#465664;display: table-row;text-align: center;">
+		<img  src="https://inspiramexico.mx/mailcontent/email-confirm-header.png" style="width:100%; height:auto;" />
+	</div>
+	<div style="display: table-row;text-align: center;">
+		<div style="padding: 40px 20px 40px 20px; font-size: 26px; vertical-align:top;width:100%;text-align:center;">
+			<div style="text-transform:uppercase;padding-bottom:20px;font-weight:800;">
+				Tipo de Cambio
 			</div>
-
-			<div align = "center" style="width:100%;  weight:60px; font-weight: bold; background-color: #E5E7E9;">
-				
-    			<hr width=80%;>
-
-				<br>
-				<div style="padding:10% 10% 10% 10%; margin:0 auto; width:60%; height:auto; border-style: solid; border-color:#d6dadd;  background-color: #ffffff; color:#616f7a; text-align:left; line-height: 19px;" align = "center">
-					TIPO DE CAMBIO:<br>
-					Dia: <?php echo $day; ?><br>
-					Hora: <?php echo $hour; ?><br>
-					Tipo de Cambio: <?php echo $exchange; ?><br>
-					
-				</div>
-			</div>	
-    
-			<div align = "center"> 
-				<a href="http://inspiramexico.mx/#openModal2">
-				<img  align = "center" src="http://inspiramexico.mx/usuarios/images/correo2_secc3.jpg" style="width:100%; heigth:auto"/>
-				</a>
+			<div style="padding-top:10px;padding-bottom:10px;">
+				D&iacute;a: {{ $day }}
+			</div>
+			<div style="padding-bottom:10px;">
+				Hora: {{ $hour }}
+			</div>
+			<div style="padding-bottom:10px;">
+				Cambio:  {{ $exchange }}
 			</div>
 		</div>
+		
 	</div>
-</body>
-</html>
+	<div style="background-color:#465664;display: table-row;text-align: center;">
+		<div style="display: table;text-align:center;width:100%;color:white;font-size:18px;"> 
+			<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">
+				<a href="//inspiramexico.mx" style="color: white; text-decoration: none;padding-right: 10px;">InspiraMexico.mx</a>
+			</div>
+			<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">
+				<a href="mailto:Info@inspiramexico.mx?Subject=Info" target="_top" style="color: white; text-decoration: none;padding-right: 10px;">Info@inspiramexico.mx</a>
+			</div>
+			<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">55.8526.1061 ext. 1007</div>
+		</div>
+	</div>
+</div>

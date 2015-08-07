@@ -1,46 +1,53 @@
-<!doctype html>
-<html lang="en">
-	<head>
-	  <meta charset="utf-8">
-	  <title>Activa tu cuenta</title>
-	  <meta name="description" content="The HTML5 Herald">
-	  <meta name="author" content="SitePoint">
-	</head>
-<body>
-	<div style="width:600px; margin:0 auto;">
-		<div style="@import url(http://inspiramexico.mx/resources/fonts/fonts.css?family=LondonBetween);">
-			<div>
-  				<div class="" style="width:100%; height:auto;"> 
-	 				<img  src="http://inspiramexico.mx/usuarios/images/header2.png" style="width:100%; height:auto;" />
-					<br>
-				</div>
+<div style="display: table;height:100%;width:100%;background-color:#e5e7e9;font-size:20px;color:#465664;font-family: 'LondonBetween', Calibri;">
+	<div style="background-color:#465664;display: table-row;text-align: center;">
+		<img  src="https://inspiramexico.mx/mailcontent/email-confirm-header.png" style="width:100%; height:auto;" />
+	</div>
+	<div style="display: table-row;text-align: center;">
+		<div style="padding: 40px 20px 0px 20px;text-transform: uppercase;font-size: 26px; vertical-align:top;"><img src="https://inspiramexico.mx/mailcontent/email-usericon.png" style="display:inline-block;margin-right: 15px;">
+			{{ $user->name .' '. $user->last_name }}
+		</div>
+		<div style="padding: 10px 20px 20px 20px;">
+			{{ Lang::get('emails.confirm') }}
+		</div>
+		<div style="padding: 20px 20px 30px 20px;">
+			<a href="{{ url() }}/users/activation/{{  $user->confirmation_code }} " style="padding: 10px 35px 10px 40px; background-color: #4D9AD4; color:white; text-decoration: none;"> {{ Lang::get('emails.confirm-now') }}			 <img src="https://inspiramexico.mx/mailcontent/arrow.png" style="margin-left: 10px;width: 9px;height:13px;"></a>
+		</div>
+		<div style="padding: 0 10%;">
+			<hr style="border: 0;height: 0;border-bottom: 1px solid #465664">
+		</div>
+		<div style="display: table;text-align:center;width:100%;"> 
+			<div style="display: table-cell;text-align:center;padding-bottom: 40px;padding-left: 20px;padding-top:20px;">
+				&nbsp;
 			</div>
-
-			<div align = "center" style="width:100%;  weight:60px; font-weight: bold; background-color: #E5E7E9;">
-				<font style="font-family:LondonBetween; font-size: 18px; color:#5a6b75;">
-					¡ <?php echo $user->name .' '. $user->last_name; ?> gracias por afiliarte a Inspira México ! </font>
-        		<br>
-    			<hr width=80%;>
-    			<font style="font-family:LondonBetween; font-size: 18px; color:#5a6b75;">
-					Activa tu cuenta haciendo click en el link <a href="<?php echo url(); ?>/users/activation/<?php echo $user->confirmation_code; ?>">Valida Email</a> 
-				</font>
-				<br>
-				<div style="padding:10% 10% 10% 10%; margin:0 auto; width:60%; height:auto; border-style: solid; border-color:#d6dadd;  background-color: #ffffff; color:#616f7a; text-align:left; line-height: 19px;" align = "center">
-					TUS DATOS DE CUENTA SON:<br>
-					Nombre: <?php echo $user->name .' '. $user->last_name; ?><br>
-					Correo: <?php echo $user->email; ?><br>
-					Celular: <?php //echo $user->email; ?><br>
-					Estado: <?php //echo $var_state; ?><br>
-					Pais: <?php //echo $var_country; ?><br>
-				</div>
-			</div>	
-    
-			<div align = "center"> 
-				<a href="http://inspiramexico.mx/#openModal2">
-				<img  align = "center" src="http://inspiramexico.mx/usuarios/images/correo2_secc3.jpg" style="width:100%; heigth:auto"/>
-				</a>
+			<div style="display: table-cell;text-align:center; padding-bottom: 40px;">
+				<a href="{{ url() }}/useraccount" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.modify-data') }}</a>
+			</div>
+			<div style="display:table-cell;width:15px;padding-left:5px;padding-right:5px;">|</div>
+			<div style="display: table-cell;text-align:center; padding-bottom: 40px;">
+				<a href="#" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.help') }}</a>
+			</div>
+			<div style="display:table-cell;width:15px;padding-left:5px;padding-right:5px;">|</div>
+			<div style="display: table-cell;text-align:center; padding-bottom: 40px;">
+				<a href="#" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.cancel') }}</a>
+			</div>
+			<div style="display:table-cell;width:15px;padding-left:5px;padding-right:5px;">|</div>
+			<div style="display: table-cell;text-align:center;padding-bottom: 40px;">
+				<a href="#" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.not-mine') }}</a>
+			</div>
+			<div style="display: table-cell;text-align:center;padding-bottom: 40px;padding-right: 20px;">
+				&nbsp;
 			</div>
 		</div>
 	</div>
-</body>
-</html>
+	<div style="background-color:#465664;display: table-row;text-align: center;">
+		<div style="display: table;text-align:center;width:100%;color:white;font-size:18px;"> 
+			<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">
+				<a href="//inspiramexico.mx" style="color: white; text-decoration: none;padding-right: 10px;">InspiraMexico.mx</a>
+			</div>
+			<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">
+				<a href="mailto:Info@inspiramexico.mx?Subject=Info" target="_top" style="color: white; text-decoration: none;padding-right: 10px;">Info@inspiramexico.mx</a>
+			</div>
+			<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">55.8526.1061 ext. 1007</div>
+		</div>
+	</div>
+</div>
