@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries\PayU\api;
 
 /**
  * Specifies the transaction operations 

@@ -1,5 +1,10 @@
 <?php
 
+namespace App\Libraries;
+use App\Libraries\PayU\api\Environment;
+
+echo "daniel" . dirname(__FILE__);
+
 require_once dirname(__FILE__).'/PayU/api/SupportedLanguages.php';
 require_once dirname(__FILE__).'/PayU/api/PayUKeyMapName.php';
 require_once dirname(__FILE__).'/PayU/api/PayUCommands.php';
@@ -29,7 +34,7 @@ require_once dirname(__FILE__).'/PayU/util/PayUSubscriptionsUrlResolver.php';
 require_once dirname(__FILE__).'/PayU/util/HttpClientUtil.php';
 require_once dirname(__FILE__).'/PayU/util/PayUApiServiceUtil.php';
 
-require_once dirname(__FILE__).'/PayU/api/Environment.php';
+//require_once dirname(__FILE__).'/PayU/api/Environment.php';
 
 require_once dirname(__FILE__).'/PayU/PayUBankAccounts.php';
 require_once dirname(__FILE__).'/PayU/PayUPayments.php';
@@ -103,4 +108,5 @@ abstract class PayU {
 
 /** validates Environment before begin any operation */
 	Environment::validate();
+
 

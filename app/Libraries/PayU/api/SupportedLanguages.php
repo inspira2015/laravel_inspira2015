@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries\PayU\api;
 
 /**
  * Contains the supported languages by the payu platform

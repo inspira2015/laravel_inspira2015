@@ -1,4 +1,6 @@
 <?php
+namespace App\Libraries\PayU\api;
+
 /**
  * This class contains the payu commands
  * availables in payu platform

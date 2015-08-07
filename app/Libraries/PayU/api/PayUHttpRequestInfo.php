@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries\PayU\api;
 
 /**
  * This class helps to build the request api info 

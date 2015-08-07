@@ -1,7 +1,7 @@
 <?php
+
 require_once 'PayU.php';
 
-namespace App\Libraries;
 
 
 

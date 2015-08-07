@@ -1,4 +1,6 @@
 <?php
+namespace App\Libraries\PayU\api;
+
 /**
  * Contains the response codes for a transaction in the PayU SDK.
  * @author PayU Latam

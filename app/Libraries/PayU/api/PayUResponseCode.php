@@ -1,8 +1,8 @@
 <?php
+namespace App\Libraries\PayU\api;
 
 /**
  * Available PayU response codes for request
-
  * @author PayU Latam
  * @since 1.0.0
  * @version 1.0.0, 23/10/2013
