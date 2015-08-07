@@ -1,4 +1,5 @@
 <?php
+namespace App\Libraries\PayU;
 
 /**
  * Manages all PayU Bank Accounts operations over payment plans

@@ -1,4 +1,6 @@
 <?php
+namespace App\Libraries\PayU;
+
 /**
  * Manages all PayU reports operations
  *

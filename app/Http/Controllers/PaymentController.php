@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use File;
 use App\Libraries\PayU;
+use App\Libraries\PayU\api\SupportedLanguages;
 
 //require_once "/var/www/html/laravel_inspira2015/app/Libraries/PayU.php";
 //require_once '/var/www/html/laravel_inspira2015/app/Libraries/PayU.php';
