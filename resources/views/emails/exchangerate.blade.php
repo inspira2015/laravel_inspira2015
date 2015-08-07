@@ -3,17 +3,17 @@
 		<img  src="https://inspiramexico.mx/mailcontent/email-confirm-header.png" style="width:100%; height:auto;" />
 	</div>
 	<div style="display: table-row;text-align: center;">
-		<div style="padding: 40px 20px 40px 20px; font-size: 26px; vertical-align:top;width:100%;text-align:center;">
+		<div style="padding: 40px 0px 40px 0px; font-size: 26px; vertical-align:top;width:100%;text-align:center;">
 			<div style="text-transform:uppercase;padding-bottom:20px;font-weight:800;">
 				Tipo de Cambio
 			</div>
-			<div style="padding-top:10px;padding-bottom:10px;">
+			<div style="padding-top:10px;padding-bottom:10px;font-size:20px;">
 				D&iacute;a: {{ $day }}
 			</div>
-			<div style="padding-bottom:10px;">
+			<div style="padding-bottom:10px;font-size:20px;">
 				Hora: {{ $hour }}
 			</div>
-			<div style="padding-bottom:10px;">
+			<div style="padding-bottom:10px;font-size:20px;">
 				Cambio:  {{ $exchange }}
 			</div>
 		</div>
