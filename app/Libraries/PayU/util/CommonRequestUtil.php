@@ -219,7 +219,7 @@ class CommonRequestUtil{
 	 * @return boolean true if is valid or exception the otherwise
 	 */
 	protected static function isValidDate( $dateString, $dateFormat, $parameterName){
-		if (DateTime::createFromFormat($dateFormat, $dateString) == FALSE) {
+		if (\DateTime::createFromFormat($dateFormat, $dateString) == FALSE) {
 			throw new
 			InvalidArgumentException(
 					sprintf("The [%s] format is invalid. Use [%s] ",

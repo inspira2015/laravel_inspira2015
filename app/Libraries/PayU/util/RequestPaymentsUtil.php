@@ -108,7 +108,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 		$request = CommonRequestUtil::buildCommonRequest($lang,
 				PayUCommands::GET_BANKS_LIST);
 		
-		$request->bankListInformation = new stdClass();
+		$request->bankListInformation = new \stdClass();
 		
 		$request->bankListInformation->paymentMethod = PaymentMethods::PSE;
 		$request->bankListInformation->paymentCountry = $paymentCountry;
@@ -186,7 +186,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	 * 
 	 */
 	private static function buildTransactionRequest($parameters, $lang){
-		$transaction = new stdClass();
+		$transaction = new \stdClass();
 		$order = null;
 		
 			$transaction->paymentCountry = CommonRequestUtil::getParameter($parameters, PayUParameters::COUNTRY);
@@ -208,7 +208,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 				$transaction->order = $order;
 			}else{
 				$orderId = CommonRequestUtil::getParameter($parameters, PayUParameters::ORDER_ID);
-				$order = new stdClass();
+				$order = new \stdClass();
 				$order->orderId($orderId);
 				$transaction.setOrder($order);
 			}
@@ -289,11 +289,11 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	 */
 	private static function buildTransactionRequestAfterAuthorization($parameters){
 		
-		$transaction = new stdClass();
+		$transaction = new \stdClass();
 		$transaction->parentTransactionId = CommonRequestUtil::getParameter($parameters, PayUParameters::TRANSACTION_ID);
 		$transaction->reason = CommonRequestUtil::getParameter($parameters, PayUParameters::REASON);
 		
-		$order = new stdClass();
+		$order = new \stdClass();
 		$order->id = CommonRequestUtil::getParameter($parameters, PayUParameters::ORDER_ID);
 		
 		$transaction->order = $order;
@@ -310,7 +310,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	private static function buildOrderRequest($parameters, $lang){
 		
 		
-		$order = new stdClass();
+		$order = new \stdClass();
 		$order->accountId = CommonRequestUtil::getParameter($parameters, PayUParameters::ACCOUNT_ID);
 		$order = RequestPaymentsUtil::addOrderBasicData($order, $parameters, $lang);
 		$order->notifyUrl = CommonRequestUtil::getParameter($parameters, PayUParameters::NOTIFY_URL);
@@ -335,7 +335,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	 */
 	private static function addOrderBasicData($order, $parameters, $lang){
 		if(!isset($order)){
-			$order = new stdClass();
+			$order = new \stdClass();
 		}
 		
 		$order->referenceCode = CommonRequestUtil::getParameter($parameters, PayUParameters::REFERENCE_CODE);
@@ -357,7 +357,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	 */
 	private static function buildOrderAdditionalValues($txCurrency, $txValue, $taxValue, $taxReturnBase){
 		
-		$additionalValues = new stdClass();
+		$additionalValues = new \stdClass();
 		
 		$additionalValues = RequestPaymentsUtil::addAdditionalValue($additionalValues, $txCurrency, PayUKeyMapName::TX_VALUE, $txValue);
 		
@@ -381,7 +381,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	private static function addAdditionalValue($container, $txCurrency, $txValueName, $value){
 		
 		if($value != null){
-			$additionalValue = new stdClass();
+			$additionalValue = new \stdClass();
 			$additionalValue->value = $value;
 			$additionalValue->currency = $txCurrency;
 			
@@ -403,11 +403,11 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	 */
 	private static function addExtraParameter($container, $name, $value){
 		if( !isset($container->extraParameters) ){
-			$container->extraParameters = new stdClass();
+			$container->extraParameters = new \stdClass();
 		}
 	
 		if(isset($value) && isset($name)){
-			$extraParameter = new stdClass();
+			$extraParameter = new \stdClass();
 			$extraParameter->value = $value;
 			$container->extraParameters->$name = $value;
 		}
@@ -421,7 +421,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	 * @return return a buyer
 	 */
 	private static function buildBuyer($parameters){
-		$buyer = new stdClass();
+		$buyer = new \stdClass();
 		$buyer->fullName = CommonRequestUtil::getParameter($parameters, PayUParameters::BUYER_NAME);
 		$buyer->emailAddress = CommonRequestUtil::getParameter($parameters, PayUParameters::BUYER_EMAIL);
 		$buyer->cnpj = CommonRequestUtil::getParameter($parameters, PayUParameters::BUYER_CNPJ);
@@ -439,7 +439,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	 * @return return a payer
 	 */
 	private static function buildPayer($parameters){
-		$payer = new stdClass();
+		$payer = new \stdClass();
 		$payer->fullName = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_NAME);
 		$payer->emailAddress = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_EMAIL);
 		$payer->cnpj = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_CNPJ);
@@ -465,7 +465,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	 */
 	private static function buildAddress($parameters){
 		
-		$address = new stdClass();
+		$address = new \stdClass();
 		$address->city = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_CITY);
 		$address->country = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_COUNTRY);
 		$address->phone = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_PHONE);
@@ -486,7 +486,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	 */
 	private static function buildBuyerAddress($parameters){
 		
-		$address = new stdClass();
+		$address = new \stdClass();
 		$address->city = CommonRequestUtil::getParameter($parameters, PayUParameters::BUYER_CITY);
 		$address->country = CommonRequestUtil::getParameter($parameters, PayUParameters::BUYER_COUNTRY);
 		$address->phone = CommonRequestUtil::getParameter($parameters, PayUParameters::BUYER_PHONE);
@@ -516,7 +516,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	 * @return the credit card built 
 	 */
 	private static function buildCreditCardForToken($parameters){
-		$creditCard = new stdClass();
+		$creditCard = new \stdClass();
 		$creditCard->securityCode = CommonRequestUtil::getParameter($parameters, PayUParameters::CREDIT_CARD_SECURITY_CODE);
 		return $creditCard;
 	}
@@ -594,10 +594,10 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	/**
 	 * Build a bank account request
 	 * @param array $parameters
-	 * @return stdClass with the bank account request built
+	 * @return \stdClass with the bank account request built
 	 */
 	public static function buildBankAccountRequest($parameters){
-		$bankAccount = new stdClass();
+		$bankAccount = new \stdClass();
 	
 		$bankAccount->id = CommonRequestUtil::getParameter($parameters, PayUParameters::BANK_ACCOUNT_ID);
 		$bankAccount->accountId = CommonRequestUtil::getParameter($parameters, PayUParameters::ACCOUNT_ID );
@@ -624,7 +624,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 	 * @return stdClass with the bank account list request built
 	 */
 	public static function buildBankAccountListRequest($parameters) {
-		$bankAccountListRequest = new stdClass();
+		$bankAccountListRequest = new \stdClass();
 	
 		$bankAccountListRequest->customerId = CommonRequestUtil::getParameter($parameters, PayUParameters::CUSTOMER_ID);
 	

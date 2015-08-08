@@ -13,7 +13,7 @@ use App\Libraries\PayU\api\PayUKeyMapName;
 use App\Libraries\PayU\api\PayUCommands;
 //require_once dirname(__FILE__).'/PayU/api/PayUTransactionResponseCode.php';
 use App\Libraries\PayU\api\PayUTransactionResponseCode;
-//require_once dirname(__FILE__).'/PayU/api/PayUHttpRequestInfo.php'; PayUResponseCode
+//require_once dirname(__FILE__).'/PayU/api/PayUHttpRequestInfo.php'; PayUPayments
 use App\Libraries\PayU\api\PayUHttpRequestInfo;
 //require_once dirname(__FILE__).'/PayU/api/PayUResponseCode.php';
 use App\Libraries\PayU\api\PayUResponseCode;
@@ -59,7 +59,7 @@ use App\Libraries\PayU\util\PayUSubscriptionsRequestUtil;
 use App\Libraries\PayU\util\PayUSubscriptionsUrlResolver;
 //require_once dirname(__FILE__).'/PayU/util/HttpClientUtil.php';
 use App\Libraries\PayU\util\HttpClientUtil;
-//require_once dirname(__FILE__).'/PayU/util/PayUApiServiceUtil.php';PayUCommands
+//require_once dirname(__FILE__).'/PayU/util/PayUApiServiceUtil.php';CommonRequestUtil
 use App\Libraries\PayU\util\PayUApiServiceUtil;
 //require_once dirname(__FILE__).'/PayU/api/Environment.php';
 
