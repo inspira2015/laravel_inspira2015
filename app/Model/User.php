@@ -13,7 +13,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected $table = 'users';
 	protected $primaryKey = 'id';
 	//All filable cause its used on update to fill
-	protected $fillable = ['leisure_id','email', 'password', 'active','remember_token', 'name', 'last_name','confirmed','language',
+	protected $fillable = ['leisure_id','email', 'password', 'active','remember_token', 'name', 'last_name','confirmed','language','currency',
 						    'confirmation_code','country','state','facebook_id','facebook_link','gender','facebook_avatar'];
 
 	public function funds_log(){

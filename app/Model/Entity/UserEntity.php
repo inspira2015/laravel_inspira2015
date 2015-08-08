@@ -15,6 +15,7 @@ class UserEntity
 	public $last_name;
 	public $confirmed;
 	public $language;
+	public $currency;
 	public $created_at;
 	public $updated_at;
 	public $confirmation_code;
@@ -40,6 +41,7 @@ class UserEntity
         $this->last_name             = (isset($valid_data['last_name'])) ? trim($valid_data['last_name']) : null;
         $this->confirmed             = (isset($valid_data['confirmed'])) ? trim($valid_data['confirmed']) : 0;
         $this->language              = (isset($valid_data['language'])) ? trim($valid_data['language']) : 'es';
+        $this->currency              = (isset($valid_data['currency'])) ? trim($valid_data['currency']) : 'MXN';		
 		$this->created_at            = (isset($valid_data['created_at'])) ? trim($valid_data['created_at']) : date('Y-m-d H:i:s');
         $this->confirmation_code     = $this->getConfirmationCode();
 	    $this->country             	 = (isset($valid_data['country'])) ? trim($valid_data['country']) : null;
