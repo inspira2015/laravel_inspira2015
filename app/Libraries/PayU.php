@@ -13,7 +13,7 @@ use App\Libraries\PayU\api\PayUKeyMapName;
 use App\Libraries\PayU\api\PayUCommands;
 //require_once dirname(__FILE__).'/PayU/api/PayUTransactionResponseCode.php';
 use App\Libraries\PayU\api\PayUTransactionResponseCode;
-//require_once dirname(__FILE__).'/PayU/api/PayUHttpRequestInfo.php';
+//require_once dirname(__FILE__).'/PayU/api/PayUHttpRequestInfo.php'; PayUResponseCode
 use App\Libraries\PayU\api\PayUHttpRequestInfo;
 //require_once dirname(__FILE__).'/PayU/api/PayUResponseCode.php';
 use App\Libraries\PayU\api\PayUResponseCode;
@@ -33,7 +33,7 @@ use App\Libraries\PayU\exceptions\ConnectionException;
 use App\Libraries\PayU\api\PayUConfig;
 //require_once dirname(__FILE__).'/PayU/api/RequestMethod.php';
 use App\Libraries\PayU\api\RequestMethod;
-//require_once dirname(__FILE__).'/PayU/util/SignatureUtil.php';
+//require_once dirname(__FILE__).'/PayU/util/SignatureUtil.php';SignatureUtil
 use App\Libraries\PayU\util\SignatureUtil;
 //require_once dirname(__FILE__).'/PayU/api/PaymentMethods.php';
 //use App\Libraries\PayU\api\PaymentMethods;
@@ -59,7 +59,7 @@ use App\Libraries\PayU\util\PayUSubscriptionsRequestUtil;
 use App\Libraries\PayU\util\PayUSubscriptionsUrlResolver;
 //require_once dirname(__FILE__).'/PayU/util/HttpClientUtil.php';
 use App\Libraries\PayU\util\HttpClientUtil;
-//require_once dirname(__FILE__).'/PayU/util/PayUApiServiceUtil.php';
+//require_once dirname(__FILE__).'/PayU/util/PayUApiServiceUtil.php';PayUCommands
 use App\Libraries\PayU\util\PayUApiServiceUtil;
 //require_once dirname(__FILE__).'/PayU/api/Environment.php';
 
@@ -144,8 +144,12 @@ abstract class PayU {
 	
 
 }
-
-
+/*
+PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
+		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
+		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
+		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
+		PayU::$isTest = True; //Dejarlo True cuan*/
 /** validates Environment before begin any operation */
 	Environment::validate();
 

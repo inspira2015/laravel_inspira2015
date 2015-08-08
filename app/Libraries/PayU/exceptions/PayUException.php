@@ -9,7 +9,7 @@ namespace App\Libraries\PayU\exceptions;
  * @version 1.0
  * 
  */
-class PayUException extends Exception{
+class PayUException extends \Exception{
 	
 	public $payUCode;
 	

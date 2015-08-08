@@ -1,6 +1,44 @@
 <?php
 namespace App\Libraries\PayU\util;
-
+use App\Libraries\PayU;
+use App\Libraries\PayU\api\Environment;
+use App\Libraries\PayU\api\SupportedLanguages;
+use App\Libraries\PayU\api\PayUKeyMapName;
+use App\Libraries\PayU\api\PayUCommands;
+use App\Libraries\PayU\api\PayUTransactionResponseCode;
+use App\Libraries\PayU\api\PayUHttpRequestInfo;
+use App\Libraries\PayU\api\PayUResponseCode;
+use App\Libraries\PayU\api\PayuPaymentMethodType;
+use App\Libraries\PayU\api\PaymentMethods;
+use App\Libraries\PayU\api\PayUCountries;
+use App\Libraries\PayU\exceptions\PayUErrorCodes;
+use App\Libraries\PayU\exceptions\PayUException;
+use App\Libraries\PayU\exceptions\ConnectionException;
+use App\Libraries\PayU\api\PayUConfig;
+use App\Libraries\PayU\api\RequestMethod;
+use App\Libraries\PayU\util\SignatureUtil;
+use App\Libraries\PayU\api\TransactionType;
+use App\Libraries\PayU\util\PayURequestObjectUtil;
+use App\Libraries\PayU\util\PayUParameters;
+use App\Libraries\PayU\util\CommonRequestUtil;
+use App\Libraries\PayU\util\RequestPaymentsUtil;
+use App\Libraries\PayU\util\UrlResolver;
+use App\Libraries\PayU\util\PayUReportsRequestUtil;
+use App\Libraries\PayU\util\PayUTokensRequestUtil;
+use App\Libraries\PayU\util\PayUSubscriptionsRequestUtil;
+use App\Libraries\PayU\util\PayUSubscriptionsUrlResolver;
+use App\Libraries\PayU\util\HttpClientUtil;
+use App\Libraries\PayU\util\PayUApiServiceUtil;
+use App\Libraries\PayU\PayUBankAccounts;
+use App\Libraries\PayU\PayUPayments;
+use App\Libraries\PayU\PayUReports;
+use App\Libraries\PayU\PayUTokens;
+use App\Libraries\PayU\PayUSubscriptions;
+use App\Libraries\PayU\PayUCustomers;
+use App\Libraries\PayU\PayUSubscriptionPlans;
+use App\Libraries\PayU\PayUCreditCards;
+use App\Libraries\PayU\PayURecurringBill;
+use App\Libraries\PayU\PayURecurringBillItem;
 /**
  *
  * Util class for WEB request
@@ -20,7 +58,7 @@ class CommonRequestUtil{
 	 * @return the request with basic information
 	 */
 	protected static function buildCommonRequest($lang, $command){
-		$request = new stdClass();
+		$request = new \stdClass();
 		$request->language = $lang;
 		$request->command = $command;
 		$request->merchant = CommonRequestUtil::buildMerchant();
@@ -33,7 +71,7 @@ class CommonRequestUtil{
 	 * @return the merchant built
 	 */
 	protected static function buildMerchant(){
-		$merchant = new stdClass();
+		$merchant = new \stdClass();
 		$merchant->apiLogin = PayU::$apiLogin;
 		$merchant->apiKey= PayU::$apiKey;
 		return $merchant;
@@ -52,7 +90,7 @@ class CommonRequestUtil{
 	public static function addMapEntry($map, $key, $value){
 	
 		if( !isset($map) ){
-			$map = new stdClass();
+			$map = new \stdClass();
 		}
 		
 		if(isset($key) && isset($value)){
@@ -159,7 +197,7 @@ class CommonRequestUtil{
 	 * @return the credit card built
 	 */
 	protected static function buildCreditCard($parameters){
-		$creditCard = new stdClass();
+		$creditCard = new \stdClass();
 		$creditCard->name = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_NAME);
 		$creditCard->number = CommonRequestUtil::getParameter($parameters, PayUParameters::CREDIT_CARD_NUMBER);
 		$creditCard->expirationDate = CommonRequestUtil::getParameter($parameters, PayUParameters::CREDIT_CARD_EXPIRATION_DATE);

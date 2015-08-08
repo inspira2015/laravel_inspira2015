@@ -3,6 +3,10 @@ namespace App\Http\Controllers;
 use File;
 use App\Libraries\PayU;
 use App\Libraries\PayU\api\SupportedLanguages;
+use App\Libraries\PayU\api\Environment;
+use App\Libraries\PayU\util\PayUParameters;
+use App\Libraries\PayU\api\PaymentMethods;
+use App\Libraries\PayU\PayUTokens;
 
 //require_once "/var/www/html/laravel_inspira2015/app/Libraries/PayU.php";
 //require_once '/var/www/html/laravel_inspira2015/app/Libraries/PayU.php';
@@ -46,8 +50,38 @@ class PaymentController extends Controller {
 	 */
 	public function Index()
 	{
+		// URL de Pagos
+		Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
+		// URL de Consultas
+		Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
+		// URL de Suscripciones para Pagos Recurrentes
+		Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");
+
+		$parameters = array(
+			//Ingrese aquí el nombre del pagador.
+			PayUParameters::PAYER_NAME => "APPROVED",
+			//Ingrese aquí el identificador del pagador.
+			PayUParameters::PAYER_ID => "10",
+			//Ingrese aquí el documento de identificación del comprador.
+			PayUParameters::PAYER_DNI => "32144457",
+			//Ingrese aquí el número de la tarjeta de crédito
+			PayUParameters::CREDIT_CARD_NUMBER => "4012888888881881",
+			//Ingrese aquí la fecha de vencimiento de la tarjeta de crédito
+			PayUParameters::CREDIT_CARD_EXPIRATION_DATE => "2017/01",
+			//Ingrese aquí el nombre de la tarjeta de crédito
+			PayUParameters::PAYMENT_METHOD => PaymentMethods::VISA
+		);
+	
+		$response = PayUTokens::create($parameters);
+
+		print_r($response);
+		if($response){
+			//podrás obtener el token de la tarjeta
+			$response->creditCardToken->creditCardTokenId;
+		}
 
 
+		exit;
 		return view('creditcards.creditcard')->with(array('title' =>'Fondo Vacacional',
 															 'background' =>'2.jpg'));
 	}

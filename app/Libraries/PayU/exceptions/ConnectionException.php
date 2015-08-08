@@ -1,6 +1,5 @@
 <?php
 namespace App\Libraries\PayU\exceptions;
-
 /**
  * 
  * Payu exception throw when the api service cann't 
@@ -10,7 +9,7 @@ namespace App\Libraries\PayU\exceptions;
  * @version 1.0
  * 
  */
-class ConnectionException extends Exception{
+class ConnectionException extends \Exception{
 	
 	/**
 	 * constructor method
