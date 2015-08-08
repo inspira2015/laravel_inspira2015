@@ -49,4 +49,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasMany('App\Model\PasswordResets', 'email', 'email');
 	}
 
+	public function user_payment_info(){
+		return $this->hasOne('App\Model\UserPaymentInfo', 'users_id', 'id');
+	}
+
+
 }
