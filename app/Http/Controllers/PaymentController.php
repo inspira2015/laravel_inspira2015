@@ -35,7 +35,7 @@ class PaymentController extends Controller {
 	public function __construct()
 	{
 		//echo base_path();
-		$this->middleware('guest');
+		$this->middleware('auth');
 		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
 		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
@@ -81,11 +81,11 @@ class PaymentController extends Controller {
 			//podrás obtener el token de la tarjeta
 		//	$response->creditCardToken->creditCardTokenId;
 		//}
-		$reference = "payment000001";
+		$reference = "payment000002";
 		$value = "100";
 
 
-
+/*
 		$parameters = array(
 			//Ingrese aquí el identificador de la cuenta.
 			PayUParameters::ACCOUNT_ID => "500547",
@@ -98,7 +98,7 @@ class PaymentController extends Controller {
 			//Ingrese aquí el valor.        
 			PayUParameters::VALUE => $value,
 			//Ingrese aquí la moneda.
-			PayUParameters::CURRENCY => "MXN",
+			PayUParameters::CURRENCY => "USD",
 			
 			// -- Comprador 
 			//Ingrese aquí el nombre del comprador.
@@ -181,7 +181,6 @@ class PaymentController extends Controller {
 		} */   
 
 
-		exit;
 		return view('creditcards.creditcard')->with(array('title' =>'Fondo Vacacional',
 															 'background' =>'2.jpg'));
 	}

@@ -31,7 +31,7 @@ class LibrariesServiceProvider extends ServiceProvider
 		//
 		$this->app->bind('App\Libraries\AccountValidation\CompleteAccountSetup', function($app) {
                 return new \App\Libraries\AccountValidation\CompleteAccountSetup($app->make('\App\Model\Entity\UserAffiliation'), 
-                	$app->make('\App\Model\Entity\UserVacFundLog'));
+                	$app->make('\App\Model\Entity\UserVacFundLog'), $app->make('\App\Model\Entity\UserPaymentInfoEntity'));
         });    
 		$this->app->bind('App\Libraries\Affiliations\CheckCodeAffiliations', function($app) {
                 return new \App\Libraries\Affiliations\CheckCodeAffiliations($app->make('\App\Model\Entity\Affiliations'),

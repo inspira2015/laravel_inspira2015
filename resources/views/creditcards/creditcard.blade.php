@@ -9,7 +9,7 @@
 			<h1 style="font-size:24px; font-weight:bold;">
 				DATOS DE TARJETA DE CREDITO O DEBITO
 			</h1>
-        <form method="post" action="?route=users/addcreditcard"  onsubmit="return verificar()" id="profile" name="formulario" data-toggle="validator">
+        <form method="post" action="payment/Subtotal"   id="profile" name="formulario" data-toggle="validator">
             <div class="col-lg-1col-md-push-2 col-sm-10-col-sm-push-2 " id="formularios">
  
 			<div class="form-group">
@@ -64,40 +64,35 @@
                     </div>
                 </div>	
 				<div class="form-group">
-                    <label for="nombre">* Nombre</label>
+                    <label for="nombre">* Nombre en tarjeta</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresa tu nombre" value="<?php //echo $user_data["first_name"]; ?>" required>
+                        <input type="text" class="form-control" name="name_on_card" id="name_on_card" placeholder="Ingresa tu nombre" value="<?php //echo $user_data["first_name"]; ?>" required>
                         
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="apellido">* Apellido(s)</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="apellido" id="apellido"  value="<?php //echo $user_data["last_name"]; ?>" required>
-                    </div>
-                </div>
+                
                 <div class="form-group">
                     <label for="direccion">* Dirección</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="direccion" name="direccion"  placeholder="Calle y Numero" value="<?php //echo $user_data["address"]; ?>" required>
+                        <input type="text" class="form-control" id="address" name="address"  placeholder="Calle y Numero" value="<?php //echo $user_data["address"]; ?>" required>
                     </div>
                 </div>
 				<div class="form-group">
                     <label for="direccion">* Ciudad</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="ciudad" name="ciudad"  placeholder="Ciudad" value="<?php //echo $user_data["address"]; ?>" required>
+                        <input type="text" class="form-control" id="city" name="city"  placeholder="Ciudad" value="<?php //echo $user_data["address"]; ?>" required>
                     </div>
                 </div>
 				<div class="form-group">
                     <label for="direccion">* Codigo Postal</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="postal" name="postal"  placeholder="Codigo postal" required>
+                        <input type="text" class="form-control" id="zip_code" name="zip_code"  placeholder="Codigo postal" required>
                     </div>
                 </div>
                 <div class="form-group col-lg-6 col-md-6">
                     <label for="pais">* Pais</label>
                     <div class="input-group">
-                     <select name="pais" id="pais" required class="form-control">
+                     <select name="country" id="country" required class="form-control">
 						 <option value="" selected>--Seleccionar--</option>
                       <option value="MX">México</option>
 					  <option value="US">Estados Unidos</option>

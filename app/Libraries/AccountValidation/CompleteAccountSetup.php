@@ -4,7 +4,7 @@ namespace App\Libraries\AccountValidation;
 use App\Model\Entity\UserAffiliation;
 use App\Model\Entity\UserVacationalFunds;
 use App\Model\Entity\UserVacFundLog;
-
+use App\Model\Entity\UserPaymentInfoEntity;
 /*
 	|--------------------------------------------------------------------------
 	| CompleteAccountSetup
@@ -22,16 +22,20 @@ class CompleteAccountSetup
 	private $users_id;
 	private $usersAffDao;
 	private $usersVacDao;
+	private $usersPayDao;
 
 	/**
 	 * Initialize Dao Models - 
 	 *
 	 * @return void
 	 */
-	public function  __construct(UserAffiliation $userAff,UserVacFundLog $userVac)
+	public function  __construct( UserAffiliation $userAff, 
+								  UserVacFundLog $userVac,
+								  UserPaymentInfoEntity $userPayment )
 	{
 		$this->usersAffDao = $userAff;
 		$this->usersVacDao = $userVac;
+		$this->usersPayDao = $userPayment;
 
 	}
 
@@ -113,7 +117,8 @@ class CompleteAccountSetup
 	 */
 	public function checkCreditCard()
 	{
-		return TRUE;
+		return $this->usersPayDao->getByUsersId( $this->users_id );
+
 	}
 
 

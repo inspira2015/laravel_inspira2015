@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -11,6 +10,9 @@ use Laravel\Socialite\Contracts\Factory as Socialite;
 use App\Model\UserRepository; use UserRequest; 
 use App\Libraries\AuthUserWithFacebook;
 use App\Libraries\Interfaces\AuthenticateUserListener;
+use App\Libraries\AccountValidation\CompleteAccountSetup;
+use App\Model\Dao\UserDao;
+
 
 class AuthController extends Controller implements AuthenticateUserListener {
 
@@ -22,6 +24,8 @@ class AuthController extends Controller implements AuthenticateUserListener {
     protected $auth;
     private $session;
     private $socialite;
+    private $checkAccountSetup;
+    private $userDao;
     /**
      * Create a new authentication controller instance.
      *
@@ -29,11 +33,17 @@ class AuthController extends Controller implements AuthenticateUserListener {
      * @param  Registrar  $registrar
      * @return void
      */
-    public function __construct(Guard $auth, Session $session,Socialite $socialite) {
+    public function __construct( Guard $auth, 
+                                 Session $session,
+                                 Socialite $socialite,
+                                 CompleteAccountSetup $checkUser,
+                                 UserDao $userdao ) {
         $this->auth = $auth;
         $this->session = $session;
         $this->middleware('guest', ['except' => 'getLogout']);
         $this->socialite = $socialite;
+        $this->checkAccountSetup = $checkUser;
+        $this->userDao = $userdao;
     }
 
     /**
@@ -78,7 +88,17 @@ class AuthController extends Controller implements AuthenticateUserListener {
             $this->session->flash('message', "Ha iniciado sesión con éxito");
             $this->session->flash('alert-class', 'alert-success');
 
-            return redirect()->intended($this->redirectPath());
+           // $this->checkAccountSetup->setUsersID
+            //$data = $this->session->all();
+            $user = $this->userDao->getUserByEmail( $credentials['email'] );
+            $this->checkAccountSetup->setUsersID( $user->id );
+
+            if( !$this->checkAccountSetup->checkCreditCard() )
+            {
+                return redirect()->intended($this->redirectPaymentInfoPath());
+            }
+
+            return redirect()->intended($this->redirectUserAccountPath());
         }
 
         return redirect('/auth/login')
@@ -105,8 +125,20 @@ class AuthController extends Controller implements AuthenticateUserListener {
      *
      * @return string
      */
-    public function redirectPath() {
+    public function redirectUserAccountPath() {
         return property_exists($this, 'redirectTo') ? $this->redirectTo : '/useraccount';
     }
+
+   /**
+     * Get the post register / login redirect path.
+     *
+     * @return string
+     */
+    public function redirectPaymentInfoPath() {
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/payment';
+    }
+
+
+
 
 }
