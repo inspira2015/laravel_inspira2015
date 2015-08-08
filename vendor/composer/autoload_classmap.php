@@ -22,6 +22,7 @@ return array(
     'AddForeignsToVacationFundLogTable' => $baseDir . '/database/migrations/2015_06_24_103217_add_foreigns_to_vacation_fund_log_table.php',
     'AddNewTableAffiliationDescriptions' => $baseDir . '/database/migrations/2015_07_18_172752_add_new_table_affiliation_descriptions.php',
     'AddNewTableExchangerate' => $baseDir . '/database/migrations/2015_08_03_190320_add_new_table_exchangerate.php',
+    'AddNewTableUserPaymentInfo' => $baseDir . '/database/migrations/2015_08_07_221130_add_new_table_user_payment_info.php',
     'AffiliationsDescriptionSeeder' => $baseDir . '/database/seeds/AffiliationsDescriptionSeeder.php',
     'AffiliationsSeeder' => $baseDir . '/database/seeds/AffiliationsSeeder.php',
     'CountriesSeeder' => $baseDir . '/database/seeds/CountriesSeeder.php',
