@@ -18,7 +18,7 @@
 	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
 	{!! HTML::script('js/main.js') !!}
 
-	<link rel="icon" href="/images/inspira.ico" type="image/ico" />
+	<link rel="icon" href="<?php echo url();?>/images/inspira.ico" type="image/ico" />
 	{!! HTML::style('css/jquery.h5-lightbox.css') !!}
 	
 	{!! HTML::style('css/app/main.css') !!}

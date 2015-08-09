@@ -1,5 +1,4 @@
-
-	@extends('layouts.basic')
+@extends('layouts.basic')
 
 @section('content')
 
@@ -9,7 +8,10 @@
 			<h1 style="font-size:24px; font-weight:bold;">
 				DATOS DE TARJETA DE CREDITO O DEBITO
 			</h1>
-        <form method="post" action="payment/Subtotal"   id="profile" name="formulario" data-toggle="validator">
+
+      {!! Form::open(array('url' => 'payment/addcreditcard', 'id' => 'profile', 'name'=>'formulario')) !!}
+        <input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
+
             <div class="col-lg-1col-md-push-2 col-sm-10-col-sm-push-2 " id="formularios">
  
 			<div class="form-group">
@@ -348,15 +350,14 @@
 </div>
                     </div>
             </div>
-			</form>
+    {!! Form::close() !!}
             </div>
            <div class="col-lg-12 col-md-12" style="padding:20px;">
           <div class="divider"></div></div>
 		<div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">&nbsp;</div>
           <div class="col-lg-4 col-md-4 col-sm-4">&nbsp;</div>
-          <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">   <a href="#" onClick="verificar()"><img style="width:50%; height:auto;"src="images/continuar.png"/></a></div>
+          <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">  
+           <a href="#" onClick="$('#profile').submit();"><img style="width:50%; height:auto;"src="images/continuar.png"/></a></div>
         </div>
 
-  @stop
-
-	
+@stop	
