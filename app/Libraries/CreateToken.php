@@ -57,13 +57,13 @@ class CreateToken extends InitializePayUCredentials
 			return FALSE;
 		}
 
-		if(  $this->cardType( $this->userCreditCard['numero'] ) == FALSE )
+		if(  $this->cardType( $this->userCreditCard['cnumber'] ) == FALSE )
 		{
 			$this->errorArray[] = "Error la tarjeta no es soportada intente con Visa o MasterCard";
 			return FALSE;
 		}
 
-		$card_type = $this->cardType( $this->userCreditCard['numero'] );
+		$card_type = $this->cardType( $this->userCreditCard['cnumber'] );
 		$parameters = array(
 			//Ingrese aquí el nombre del pagador.
 			PayUParameters::PAYER_NAME => $this->userCreditCard['name_on_card'],
@@ -72,7 +72,7 @@ class CreateToken extends InitializePayUCredentials
 			//Ingrese aquí el documento de identificación del comprador.
 			PayUParameters::PAYER_DNI => "",
 			//Ingrese aquí el número de la tarjeta de crédito
-			PayUParameters::CREDIT_CARD_NUMBER => $this->userCreditCard['numero'],
+			PayUParameters::CREDIT_CARD_NUMBER => $this->userCreditCard['cnumber'],
 			//Ingrese aquí la fecha de vencimiento de la tarjeta de crédito
 			PayUParameters::CREDIT_CARD_EXPIRATION_DATE => "{$this->userCreditCard['expiracion_ano']}/{$this->userCreditCard['expiracion_mes']}",
 			//Ingrese aquí el nombre de la tarjeta de crédito

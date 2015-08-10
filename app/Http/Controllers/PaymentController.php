@@ -9,10 +9,13 @@ use App\Libraries\PayU\api\PaymentMethods;
 use App\Libraries\PayU\PayUTokens;
 use App\Libraries\PayU\api\PayUCountries;
 use App\Libraries\PayU\PayUPayments;
+use App\Libraries\CreateToken;
+
 use Input;
 use Session;
 use Request;
 use Redirect;
+use Auth;
 
 
 class PaymentController extends Controller {
@@ -33,17 +36,26 @@ class PaymentController extends Controller {
 	 *
 	 * @return void
 	 */
+	private $createToken;
+
+
 	public function __construct()
 	{
 		//echo base_path();
 		$this->middleware('auth');
+		$this->createToken = new CreateToken();
 		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
 		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
 		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
 		PayU::$isTest = True; //Dejarlo True cuando sean pruebas.
-		//StartPayUInspira::setTestEnv();
 
+		// URL de Pagos
+		Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
+		// URL de Consultas
+		Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
+		// URL de Suscripciones para Pagos Recurrentes
+		Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");
 	}
 
 	/**
@@ -55,16 +67,73 @@ class PaymentController extends Controller {
 	{
 	
 
-		return view('creditcards.creditcard')->with(array('title' =>'Fondo Vacacional',
-															 'background' =>'2.jpg'));
+	
+
+		$data = array( 'title' => 'Credit Card Information',
+					   'background' => '2.jpg',
+					   'monthsList' => $this->getArrayMonths(),
+					   'yearsList' => $this->getArrayYears(),
+			);
+
+		return view('creditcards.creditcard')->with($data);
 	}
 
 
 	public function Addcreditcard()
 	{
+
+
+
+
 		$postData = Request::all();
 		print_r($postData);
+
+		$userAuth = Auth::user();
+		print_r( $userAuth->id  );
+		echo "<br><br>";
+
+		$this->createToken->setAuthUser( $userAuth  );
+		$this->createToken->setUserCreditCard( $postData   );
+		
+		if ( $this->createToken->checkCreditCardData() == FALSE )
+		{
+			//Error en tarjeta de credito direccionarlo a pagina
+			print_r( $this->createToken->getErrors() );
+			echo "error";
+			exit;
+		}
+
+		$this->createToken->doToken();
+
 		exit;
+	}
+
+
+	private function getArrayMonths()
+	{
+		$months[0] = '---Month/Mes----';
+		for ($x = 1; $x <= 12; $x++) 
+		{
+    		$temp = date('m', mktime(0, 0, 0, $x, 1));
+			$months[$temp] = $temp;
+		}
+		return $months;
+	}
+
+
+	private function getArrayYears()
+	{
+		$currentYear = (int)date("Y");
+		$maxYear = $currentYear + 10;
+		$years = array();
+		$years[0] = '---Year/Ano----';
+
+		for ( $i = $currentYear; $i <= $maxYear; $i++ )
+		{
+			$years[$i] = $i;
+		}
+
+		return $years;
 	}
 
 

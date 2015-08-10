@@ -2,93 +2,64 @@
 
 @section('content')
 
-    <div class="row" id="arriba" style="margin-bottom:50px;">
-        <div id="error" style="color:red; text-align:left; margin:0 auto; width:300px;"></div>
+  <div class="row" id="arriba" style="margin-bottom:50px;">
+    <div id="error" style="color:red; text-align:left; margin:0 auto; width:300px;"></div>
 		<div class="col-lg-12 col-md-12 col-sm-12" >
 			<h1 style="font-size:24px; font-weight:bold;">
 				DATOS DE TARJETA DE CREDITO O DEBITO
 			</h1>
-
+      
       {!! Form::open(array('url' => 'payment/addcreditcard', 'id' => 'profile', 'name'=>'formulario')) !!}
         <input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
-
-            <div class="col-lg-1col-md-push-2 col-sm-10-col-sm-push-2 " id="formularios">
+        <div class="col-lg-1col-md-push-2 col-sm-10-col-sm-push-2 " id="formularios">
  
-			<div class="form-group">
-                    <label for="numero">* Numero de tarjeta</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="numero" id="numero" placeholder="XXXXXXXXXXXXXXXX"  required>
-                        
-                    </div>
+          <div class="form-group">
+              <label for="numero">* Numero de tarjeta</label>
+                <div class="input-group">
+                  {!! Form::text('last_name', Input::get('cnumber') ? Input::get('cnumber') : @$cnumber, array('class' => 'form-control','id' => 'cnumber')) !!}                        
                 </div>
-			<div class="form-group">
-                    <label for="numero">* Codigo CVV <a style="color:#cc4b9b; font-size:10px;" href="http://inspiramexico.mx/cvv/spanish.html" onclick="window.open(this.href, 'mywin',
-'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">¿que es?</a></label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="codigo" id="codigo" placeholder="3 o 4 dígitos"  required>
-                        
-                    </div>
-                </div>
-				   <div class="form-group"> 
+          </div>
+          
+          <div class="form-group">
+            <label for="numero">* Codigo CVV <a style="color:#cc4b9b; font-size:10px;" href="http://inspiramexico.mx/cvv/spanish.html" onclick="window.open(this.href, 'mywin',
+              'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">¿que es?</a></label>
+            <div class="input-group">
+              {!! Form::text('codigo', Input::get('codigo') ? Input::get('codigo') : @$codigo, array('class' => 'form-control','id' => 'codigo')) !!}                        
+            </div>
+          </div>
+
+				  <div class="form-group"> 
 					   <label for="numero">* EXPIRACION </label>
-                    <div class="input-group">
-                        <select  class="form-control" style="width:30%"  name="expiracion_mes" id="expiracion_mes" placeholder="3 o 4 dígitos"  required>
-                        <option value="">---Mes---</option>
-							<option value=1>01</option>
-							<option value=2>02</option>
-							<option value=3>03</option>
-							<option value=4>04</option>
-							<option value=5>05</option>
-							<option value=6>06</option>
-							<option value=7>07</option>
-							<option value=8>08</option>
-							<option value=9>09</option>
-							<option value=10>10</option>
-							<option value=11>11</option>
-							<option value=12>12</option>
-						</select>
+                <div class="input-group">
+                  {!! Form::select('exp_month', $monthsList, Input::get('exp_month') ? Input::get('exp_month') : '0', array('class' => 'form-control','style' => 'width:30%' )) !!}
+
 						<div class="form-control" style="width:3%;   background-color: transparent !important;  border: none !important; border-color: transparent"><label>&nbsp;</label></div>
-                        <select  class="form-control" style="width:30%"  name="expiracion_ano" id="expiracion_ano" placeholder="3 o 4 dígitos"  required>
-                        <option value="">---Año---</option>
-							<option value=15>2015</option>
-							<option value=16>2016</option>
-							<option value=17>2017</option>
-							<option value=18>2018</option>
-							<option value=19>2019</option>
-							<option value=20>2020</option>
-							<option value=21>2021</option>
-							<option value=22>2022</option>
-							<option value=23>2023</option>
-							<option value=24>2024</option>
-							<option value=25>2025</option>
-						</select>
-						
-                    </div>
+                  {!! Form::select('exp_year', $yearsList, Input::get('exp_year') ? Input::get('exp_year') : '0', array('class' => 'form-control','style' => 'width:30%' )) !!}
+            </div>
                 </div>	
 				<div class="form-group">
                     <label for="nombre">* Nombre en tarjeta</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="name_on_card" id="name_on_card" placeholder="Ingresa tu nombre" value="<?php //echo $user_data["first_name"]; ?>" required>
-                        
+                      {!! Form::text('name_on_card', Input::get('name_on_card') ? Input::get('name_on_card') : @$name_on_card, array('class' => 'form-control','id' => 'name_on_card')) !!}                                                
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="direccion">* Dirección</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="address" name="address"  placeholder="Calle y Numero" value="<?php //echo $user_data["address"]; ?>" required>
+                      {!! Form::text('address', Input::get('address') ? Input::get('address') : @$address, array('class' => 'form-control','id' => 'address')) !!}                                                
                     </div>
                 </div>
 				<div class="form-group">
                     <label for="direccion">* Ciudad</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="city" name="city"  placeholder="Ciudad" value="<?php //echo $user_data["address"]; ?>" required>
+                      {!! Form::text('city', Input::get('city') ? Input::get('city') : @$city, array('class' => 'form-control','id' => 'city')) !!}                                                
                     </div>
                 </div>
 				<div class="form-group">
                     <label for="direccion">* Codigo Postal</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="zip_code" name="zip_code"  placeholder="Codigo postal" required>
+                      {!! Form::text('zip_code', Input::get('zip_code') ? Input::get('zip_code') : @$zip_code, array('class' => 'form-control','id' => 'zip_code')) !!}                                                
                     </div>
                 </div>
                 <div class="form-group col-lg-6 col-md-6">
