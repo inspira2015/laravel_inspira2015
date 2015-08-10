@@ -1,7 +1,7 @@
 <?php
 
 return [
-	"information" => 'Datos de Contacto',
+	"information" => "Datos de Contacto",
 	"cell" => "Cel",
 	"phone" => "Tel",
 	"office" => "Of",

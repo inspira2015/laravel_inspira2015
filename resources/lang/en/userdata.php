@@ -1,7 +1,7 @@
 <?php
 
 return [
-	"information" => 'Contact Information',
+	"information" => "Contact Information",
 	"cell" => "Cell",
 	"phone" => "Phone",
 	"office" => "Office phn",
@@ -23,6 +23,6 @@ return [
 	"diamond" => "Diamond",
 	"vacation-fund" => "Vacation Fund",
 	"monthly-fee" => "Monthly Fee",
-	"total-saved" => "Total Saved"
+	"total-saved" => "Total Saved",
 	"promotions" => "This month's promotions"
 ];
