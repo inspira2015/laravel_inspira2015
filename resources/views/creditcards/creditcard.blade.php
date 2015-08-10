@@ -16,7 +16,7 @@
           <div class="form-group">
               <label for="numero">* Numero de tarjeta</label>
                 <div class="input-group">
-                  {!! Form::text('last_name', Input::get('cnumber') ? Input::get('cnumber') : @$cnumber, array('class' => 'form-control','id' => 'cnumber')) !!}                        
+                  {!! Form::text('cnumber', Input::get('cnumber') ? Input::get('cnumber') : @$cnumber, array('class' => 'form-control','id' => 'cnumber')) !!}                        
                 </div>
           </div>
           

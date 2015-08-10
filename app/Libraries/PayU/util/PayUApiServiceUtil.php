@@ -50,7 +50,8 @@ use App\Libraries\PayU\PayURecurringBillItem;
  * @version 1.0 
  *
  */
-class PayUApiServiceUtil{
+class PayUApiServiceUtil
+{
 	
 	
 	/**
@@ -104,7 +105,8 @@ class PayUApiServiceUtil{
 				if(PayUResponseCode::SUCCESS == $response->code){
 					return $response;
 				}else{
-					throw new PayUException(PayUErrorCodes::API_ERROR, $response->error);
+					return $response;
+					//throw new PayUException(PayUErrorCodes::API_ERROR, $response->error);
 				}
 			}else if($payUHttpRequestInfo->environment === Environment::SUBSCRIPTIONS_API){
 				if(!isset($response->type) || ($response->type != 'BAD_REQUEST' && $response->type != 'NOT_FOUND' && $response->type != 'MALFORMED_REQUEST')){
