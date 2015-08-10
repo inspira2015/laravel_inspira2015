@@ -1,4 +1,4 @@
-@extends('layouts.basic')
+@extends('layouts.basic', array( 'title' => Lang::get('code.title') ))
 
 @section('content')
 
@@ -30,7 +30,7 @@
 	</div>
 </div>
 <div class="row bg-gray-transparent">
-	<div class="col-xs-8 col-xs-push-2 col-sm-4 col-sm-push-4">
+	<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
 		<div class="row">
 			<a href="#" onClick="formulario.submit()" class="btn-blue">{{ Lang::get('layout.continue') }}</a>
 		</div>
