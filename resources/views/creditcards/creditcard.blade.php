@@ -6,7 +6,7 @@
     <div id="error" style="color:red; text-align:left; margin:0 auto; width:300px;"></div>
 		<div class="col-lg-12 col-md-12 col-sm-12" >
 			<h1 style="font-size:24px; font-weight:bold;">
-				DATOS DE TARJETA DE CREDITO O DEBITO
+				{{  Lang::get('creditcards.card-information') }}
 			</h1>
       
       {!! Form::open(array('url' => 'payment/addcreditcard', 'id' => 'profile', 'name'=>'formulario')) !!}
@@ -14,22 +14,22 @@
         <div class="col-lg-1col-md-push-2 col-sm-10-col-sm-push-2 " id="formularios">
  
           <div class="form-group">
-              <label for="numero">* Numero de tarjeta</label>
+              <label for="numero">* {{ Lang::get('creditcards.card-number') }}</label>
                 <div class="input-group">
                   {!! Form::text('cnumber', Input::get('cnumber') ? Input::get('cnumber') : @$cnumber, array('class' => 'form-control','id' => 'cnumber')) !!}                        
                 </div>
           </div>
           
           <div class="form-group">
-            <label for="numero">* Codigo CVV <a style="color:#cc4b9b; font-size:10px;" href="http://inspiramexico.mx/cvv/spanish.html" onclick="window.open(this.href, 'mywin',
-              'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">¿que es?</a></label>
+            <label for="numero">* {{ Lang::get('creditcards.ccv') }} <a style="color:#cc4b9b; font-size:10px;" href="http://inspiramexico.mx/cvv/spanish.html" onclick="window.open(this.href, 'mywin',
+              'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">{{ Lang::get('creditcards.what-is') }}</a></label>
             <div class="input-group">
               {!! Form::text('codigo', Input::get('codigo') ? Input::get('codigo') : @$codigo, array('class' => 'form-control','id' => 'codigo')) !!}                        
             </div>
           </div>
 
 				  <div class="form-group"> 
-					   <label for="numero">* EXPIRACION </label>
+					   <label for="numero">* {{ Lang::get('creditcards.expiration') }} </label>
                 <div class="input-group">
                   {!! Form::select('exp_month', $monthsList, Input::get('exp_month') ? Input::get('exp_month') : '0', array('class' => 'form-control','style' => 'width:30%' )) !!}
 
@@ -38,32 +38,32 @@
             </div>
                 </div>	
 				<div class="form-group">
-                    <label for="nombre">* Nombre en tarjeta</label>
+                    <label for="nombre">* {{ Lang::get('creditcards.name-on-card') }}</label>
                     <div class="input-group">
                       {!! Form::text('name_on_card', Input::get('name_on_card') ? Input::get('name_on_card') : @$name_on_card, array('class' => 'form-control','id' => 'name_on_card')) !!}                                                
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="direccion">* Dirección</label>
+                    <label for="direccion">* {{ Lang::get('creditcards.address') }}</label>
                     <div class="input-group">
                       {!! Form::text('address', Input::get('address') ? Input::get('address') : @$address, array('class' => 'form-control','id' => 'address')) !!}                                                
                     </div>
                 </div>
 				<div class="form-group">
-                    <label for="direccion">* Ciudad</label>
+                    <label for="direccion">* {{ Lang::get('creditcards.city') }}</label>
                     <div class="input-group">
                       {!! Form::text('city', Input::get('city') ? Input::get('city') : @$city, array('class' => 'form-control','id' => 'city')) !!}                                                
                     </div>
                 </div>
 				<div class="form-group">
-                    <label for="direccion">* Codigo Postal</label>
+                    <label for="direccion">* {{ Lang::get('creditcards.zip-code') }}</label>
                     <div class="input-group">
                       {!! Form::text('zip_code', Input::get('zip_code') ? Input::get('zip_code') : @$zip_code, array('class' => 'form-control','id' => 'zip_code')) !!}                                                
                     </div>
                 </div>
                 <div class="form-group col-lg-6 col-md-6">
-                    <label for="pais">* Pais</label>
+                    <label for="pais">* {{ Lang::get('creditcards.country') }}</label>
                     <div class="input-group">
                      <select name="country" id="country" required class="form-control">
 						 <option value="" selected>--Seleccionar--</option>
@@ -305,7 +305,7 @@
                     </div>
                 </div>
                <div class="form-group col-lg-6 col-md-6">
-                    <label for="state">* Estado</label>
+                    <label for="state">* {{ Lang::get('creditcards.state') }}</label>
                     <div id="contenedor-estados" class="input-group">
 						<input type="text" name="state" id="state" required class="form-control"/>
                     </div>

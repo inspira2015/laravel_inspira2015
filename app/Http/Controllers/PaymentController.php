@@ -17,7 +17,7 @@ use Session;
 use Request;
 use Redirect;
 use Auth;
-
+use Lang;
 
 class PaymentController extends Controller {
 
@@ -122,7 +122,7 @@ class PaymentController extends Controller {
 
 	private function getCCData()
 	{
-		return array( 'title' => 'Credit Card Information',
+		return array( 'title' => Lang::get('creditcards.title'),
 					   'background' => '2.jpg',
 					   'monthsList' => $this->getArrayMonths(),
 					   'yearsList' => $this->getArrayYears(),
