@@ -10,6 +10,7 @@ use App\Libraries\PayU\PayUTokens;
 use App\Libraries\PayU\api\PayUCountries;
 use App\Libraries\PayU\PayUPayments;
 use App\Libraries\CreateToken;
+use App\Services\PaymentMethodCC as PaymentMethodCC;
 
 use Input;
 use Session;
@@ -65,47 +66,67 @@ class PaymentController extends Controller {
 	 */
 	public function Index()
 	{
-	
 
-	
-
-		$data = array( 'title' => 'Credit Card Information',
-					   'background' => '2.jpg',
-					   'monthsList' => $this->getArrayMonths(),
-					   'yearsList' => $this->getArrayYears(),
-			);
-
-		return view('creditcards.creditcard')->with($data);
+		return view('creditcards.creditcard')->with( $this->getCCData() );
 	}
 
 
 	public function Addcreditcard()
 	{
-
-
-
-
 		$postData = Request::all();
-		print_r($postData);
-
-		$userAuth = Auth::user();
-		print_r( $userAuth->id  );
-		echo "<br><br>";
-
-		$this->createToken->setAuthUser( $userAuth  );
-		$this->createToken->setUserCreditCard( $postData   );
+		$validator = PaymentMethodCC::validator($postData);
 		
-		if ( $this->createToken->checkCreditCardData() == FALSE )
-		{
-			//Error en tarjeta de credito direccionarlo a pagina
-			print_r( $this->createToken->getErrors() );
-			echo "error";
-			exit;
-		}
+		if ( $validator->passes() ) 
+        {
+        	echo "success";
+			$this->createToken->setAuthUser( Auth::user()  );
+			$this->createToken->setUserCreditCard( $postData   );
 
-		$this->createToken->doToken();
+			/**
+			 * Check if Credit Card Info is correct
+			 *
+			 * @return Boolean
+			 */
+			if ( $this->createToken->checkCreditCardData() == FALSE )
+			{
+				//Error en tarjeta de credito direccionarlo a pagina
+				//Mostrar el mensaje de que dato fallo
+				return Redirect::back()->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
+			}
 
-		exit;
+			if( $this->createToken->doToken() == FALSE ) 
+			{
+				//Error en tarjeta de credito direccionarlo a pagina
+				//Mostrar el mensaje de que dato fallo
+				return Redirect::back()->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
+			}
+
+			
+
+
+			$this->createToken->doToken();
+        }
+        return Redirect::back()->with( $this->getCCData() )->withErrors($validator)->withInput( $postData );
+	}
+
+
+	public function Subtotal()
+	{
+
+		
+		return view('creditcards.subtotal')->with(array('title' =>'Resumen',
+															 'background' =>'2.jpg'));
+	}
+
+
+
+	private function getCCData()
+	{
+		return array( 'title' => 'Credit Card Information',
+					   'background' => '2.jpg',
+					   'monthsList' => $this->getArrayMonths(),
+					   'yearsList' => $this->getArrayYears(),
+			);
 	}
 
 
@@ -135,16 +156,6 @@ class PaymentController extends Controller {
 
 		return $years;
 	}
-
-
-	public function Subtotal()
-	{
-
-		
-		return view('creditcards.subtotal')->with(array('title' =>'Resumen',
-															 'background' =>'2.jpg'));
-	}
-
 	
 
 }
