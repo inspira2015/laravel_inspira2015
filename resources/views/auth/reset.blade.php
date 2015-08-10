@@ -8,6 +8,7 @@
 				@include('errors.messages')
 			</div>
 			{!! Form::open(array('url' => 'password/reset', 'method' => 'post', 'role' => 'form', 'class' => 'col-md-10 col-md-push-1')) !!}
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<input type="hidden" name="token" value="{{ $token }}">
 				<div class="form-group row">
 					<label for="email">E-mail</label>
