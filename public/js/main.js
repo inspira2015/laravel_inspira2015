@@ -9,7 +9,7 @@ $(document).ready(function(){
 				var _this = $(this);
 				var _buttons = _this.find('a[data-role=change], div[data-role=submit]');
 				var _change_country = _this.find('select.select-country');
-				var _email = _this.find('input[type="email"]');
+				var _email = _this.find('input[type="email"].validate-email');
 				feature._set_change( _buttons );
 				feature._on_change_country( _change_country );
 				feature._on_change_email( _email );

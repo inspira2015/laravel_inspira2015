@@ -163,12 +163,14 @@ footer > .container > div:nth-child(3){
 	font-size: 20px!important;
 }
 
+.btn-small{
+	font-size: 18px!important;
+}
 
-.btn-blue {
+.btn-blue, .btn-light-blue{
 	color: white;
 	font-size: 24px;
 	font-weight: 200;
-	background-color: #465664;
 	padding-top: 5px;
 	width: 100%;
 	padding-bottom: 5px;
@@ -179,7 +181,21 @@ footer > .container > div:nth-child(3){
 	background-position: right center;
 	background-position-x: 95%;
 	background-size: 7px;
+	border:none;
 }
+.btn-blue{
+	background-color: #465664;
+}
+
+.btn-light-blue{
+	background-color: #4d9ad4;
+}
+
+.btn-light-blue[data-role=submit]{
+	margin-top: 20px;
+    padding-right: 15px;
+}
+
 .btn-pink-clear,
 .btn-blue-clear{
 	display: inline-block;

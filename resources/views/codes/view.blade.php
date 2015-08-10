@@ -3,8 +3,6 @@
 @section('content')
 
 <div class="row bg-gray-transparent">
-	
-	
 	<div class="col-sm-12 col-sm-pull-1 col-sm-offset-1 text-justify" style="font-size:24px;">
 		<div class="row">
 			<div class="col-xs-4 col-xs-push-8 col-sm-3 col-sm-push-9 col-md-2 col-md-push-10">
@@ -24,12 +22,10 @@
 	</div>
 	<div class="col-sm-10 col-sm-push-1">
 		{!! Form::open(array('url' => 'codes/check', 'id' => 'profile', 'name'=>'formulario')) !!}
-
 		<input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
 		<div class="inputs">
 			{!! Form::text('code', Input::get('code') ? Input::get('code') : @$code, array( 'required' => 'required')) !!}
 		</div>
-				
 		{!! Form::close() !!}
 	</div>
 </div>
