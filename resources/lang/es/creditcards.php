@@ -14,5 +14,5 @@ return [
 	"country" => "Pa&iacute;s",
 	"state" => "Estado",
 	"month" => "Mes", 
-	"year" => "A&ntilde;o";
+	"year" => "A&ntilde;o"
 ];

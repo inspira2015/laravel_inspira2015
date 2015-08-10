@@ -1,5 +1,6 @@
 <?php 
 namespace App\Http\Controllers;
+use App;
 use Auth;
 use Input;
 use Javascript;
@@ -56,6 +57,7 @@ class UseraccountController extends Controller {
 		$this->statesDao = $statesDao;
 		$this->phoneDao = $phoneDao;
 		$this->accountSetup = $accountSetup;
+		App::setLocale(Auth::user()->language);
 	}
 	
 	/**
