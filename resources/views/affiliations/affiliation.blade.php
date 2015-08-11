@@ -59,7 +59,9 @@
                    ?>
 						<?php echo $convertHelper->getFomattedAmount(); ?>
 						<?php echo $convertHelper->getCurrencyShow(); ?>
-            <?php  echo Form::hidden('currency_' . $obj->getAffiliationId(), $obj->getCurrency()); ?>
+            <?php  echo Form::hidden('currency_' . $obj->getAffiliationId(), $convertHelper->getCurrencyShow()); ?>
+            <?php  echo Form::hidden('amount_' . $obj->getAffiliationId(), $convertHelper->getFomattedAmount()); ?>
+
 
 						</h2>
 				          </div>

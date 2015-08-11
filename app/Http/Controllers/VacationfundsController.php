@@ -92,6 +92,10 @@ class VacationfundsController extends Controller
 		if(! $fundValidation->passes() ){
 			return Redirect::to('vacationfund')->withErrors($fundValidation);
 		}
+
+
+
+		
 		
 		$this->createUser->setUserPost( $user );
 		$this->createUser->setCodePost( Session::get( 'code' ) );
