@@ -486,6 +486,7 @@ return array(
     'UpdateFieldOnStatesTable' => $baseDir . '/database/migrations/2015_07_20_091453_update_field_on_states_table.php',
     'UpdateFieldUserpaymentinfo' => $baseDir . '/database/migrations/2015_08_10_200112_update_field_userpaymentinfo.php',
     'UpdateFieldsAffiliationpayments' => $baseDir . '/database/migrations/2015_08_10_221708_update_fields_affiliationpayments.php',
+    'UpdateFieldsUserAffiliations' => $baseDir . '/database/migrations/2015_08_10_233908_update_fields_user_affiliations.php',
     'UpdateSystemLogTable' => $baseDir . '/database/migrations/2015_07_06_151357_update_system_log_table.php',
     'UpdateTableUsers' => $baseDir . '/database/migrations/2015_06_16_191324_update_table_users.php',
     'UpdateUsersFbfieldsTable' => $baseDir . '/database/migrations/2015_07_08_212844_update_users_fbfields_table.php',
