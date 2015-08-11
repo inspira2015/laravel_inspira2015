@@ -44,7 +44,6 @@ class LibrariesServiceProvider extends ServiceProvider
 					$app->make('\App\Model\Dao\CodeDao'),$app->make('\App\Model\Entity\UserAffiliation'),
 					$app->make('\App\Model\Entity\UserVacFundLog'),$app->make('\App\Model\Dao\UserRegisteredPhoneDao'),
 					$app->make('\App\Model\Entity\CodesUsedEntity')
-
                 	);
         });
 
@@ -53,14 +52,15 @@ class LibrariesServiceProvider extends ServiceProvider
                 return new \App\Libraries\ExchangeRate\ExchangeMXNUSD($app->make('\App\Model\Entity\ExchangeRateEntity'));
         });
 
-         $this->app->bind('App\Libraries\SystemTransactions\UserTokenRegistration', function($app) {
+        $this->app->bind('App\Libraries\SystemTransactions\UserTokenRegistration', function($app) {
                 return new \App\Libraries\SystemTransactions\UserTokenRegistration($app->make('\App\Model\Entity\SystemTransactionEntity'),
-                	$app->make('\App\Model\Entity\UserPaymentInfoEntity')
-
-                	);
+                	$app->make('\App\Model\Entity\UserPaymentInfoEntity'));
         });
 
-
+ 		$this->app->bind('App\Libraries\SystemTransactions\SetBillableDate', function($app) {
+                return new \App\Libraries\SystemTransactions\SetBillableDate($app->make('\App\Model\Entity\SystemTransactionEntity'),
+                	$app->make('\App\Model\Dao\UserDao'));
+        });
 
 	}
 

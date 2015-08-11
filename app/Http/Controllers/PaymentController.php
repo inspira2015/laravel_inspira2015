@@ -13,6 +13,8 @@ use App\Libraries\CreateToken;
 use App\Services\PaymentMethodCC as PaymentMethodCC;
 use App\Model\Entity\SystemTransactionEntity;
 use App\Libraries\SystemTransactions\UserTokenRegistration;
+use App\Libraries\SystemTransactions\SetBillableDate;
+
 use Input;
 use Session;
 use Request;
@@ -40,14 +42,17 @@ class PaymentController extends Controller {
 	 */
 	private $createToken;
 	private $sysTransaction;
+	private $transactionBill;
 
 
-	public function __construct(UserTokenRegistration $sysDao)
+	public function __construct( UserTokenRegistration $sysDao,
+								SetBillableDate $billable)
 	{
 		//echo base_path();
 		$this->middleware('auth');
 		$this->sysTransaction = $sysDao;
 		$this->createToken = new CreateToken();
+		$this->transactionBill = $billable;
 		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
 		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
@@ -126,8 +131,19 @@ class PaymentController extends Controller {
 														      'state' => $postData['state'],
 														      'zip_code' => $postData['zip_code'],
 														      'country' => $postData['country']));
-
 			$this->sysTransaction->saveData();
+
+			//
+
+			$this->transactionBill->setUser( $userAuth );
+			$this->transactionBill->setTransactionInfo( array(	'users_id' => $userAuth->id,
+															'code' => 'Success',
+															'type' => 'Create Billing Day',
+															'description' => 'Add Billing Day to User Account',
+															'json_data' => ''));
+			$this->transactionBill->saveData();
+
+
 
 
 
