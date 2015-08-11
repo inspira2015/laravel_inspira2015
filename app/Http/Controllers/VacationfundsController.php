@@ -61,9 +61,12 @@ class VacationfundsController extends Controller
 		}
 
 		$this->parseAff->setAffiliationPost( Session::get( 'affiliation' ) );
+		$userData = Session::get('users');
+
 
 		return view('vacationfunds.vacationfund')->with(array('title' =>'Fondo Vacacional',
 															  'background' =>'4.jpg',
+															   'userCurrency' => $userData['currency'],
 															   'name' => $users['name'],
 															   'currency' => $this->parseAff->getCurrency(),
 															   ));

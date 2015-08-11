@@ -37,8 +37,8 @@
               <div class="col-lg-6 col-md-12 amounts" style="text-align:left; padding-top:12px;">
                 $ &nbsp;<?php echo Form::text('amount', Input::get('amount') ? Input::get('amount') : @$amount, 
                 array('style'=>'width:70%; display:inline;', 'required','class' => 'form-control','id' => 'amount')); ?>
-                &nbsp;<?php echo $currency; ?>&nbsp;
-                {!! Form::hidden('currency', $currency, array('id' => 'currency')) !!}
+                &nbsp;<?php echo $userCurrency; ?>&nbsp;
+                {!! Form::hidden('currency', $userCurrency, array('id' => 'currency')) !!}
               </div>
        
       </div>
