@@ -8,6 +8,7 @@ class UserPaymentInfoEntity extends UserPaymentInfoDao
 {
 	public $id;
 	public $users_id;
+	public $transaction_id;
 	public $token;
 	public $name_on_card;
 	public $payment_method;
@@ -25,6 +26,7 @@ class UserPaymentInfoEntity extends UserPaymentInfoDao
 	{
 		$this->id                   = (isset($valid_data['id'])) ? trim($valid_data['id']) : 0;
         $this->users_id             = (isset($valid_data['users_id'])) ? trim($valid_data['users_id']) : null;
+        $this->transaction_id       = (isset($valid_data['transaction_id'])) ? trim($valid_data['transaction_id']) : null;
         $this->token       			= (isset($valid_data['token'])) ? trim($valid_data['token']) : null;
         $this->name_on_card       	= (isset($valid_data['name_on_card'])) ? trim($valid_data['name_on_card']) : null;
  		$this->payment_method       = (isset($valid_data['payment_method'])) ? trim($valid_data['payment_method']) : null;

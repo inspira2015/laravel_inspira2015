@@ -53,7 +53,12 @@ class LibrariesServiceProvider extends ServiceProvider
                 return new \App\Libraries\ExchangeRate\ExchangeMXNUSD($app->make('\App\Model\Entity\ExchangeRateEntity'));
         });
 
+         $this->app->bind('App\Libraries\SystemTransactions\UserTokenRegistration', function($app) {
+                return new \App\Libraries\SystemTransactions\UserTokenRegistration($app->make('\App\Model\Entity\SystemTransactionEntity'),
+                	$app->make('\App\Model\Entity\UserPaymentInfoEntity')
 
+                	);
+        });
 
 
 

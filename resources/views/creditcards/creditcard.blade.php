@@ -1,7 +1,9 @@
 @extends('layouts.basic')
 
 @section('content')
-
+@if ($errors->any())
+        {{ implode('', $errors->all('<div>:message</div>')) }}
+@endif
   <div class="row" id="arriba" style="margin-bottom:50px;">
     <div id="error" style="color:red; text-align:left; margin:0 auto; width:300px;"></div>
 		<div class="col-lg-12 col-md-12 col-sm-12" >

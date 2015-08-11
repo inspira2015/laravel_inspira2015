@@ -34,14 +34,11 @@ class UserPaymentInfoDao implements ICrudOperations
 		return $code->id;
 	}
 
-	public function getByUsersId($users_id = FALSE)
+
+
+	public function getPaymentByUserId($user_id = FALSE)
 	{
-		$queryVac = UserPaymentInfo::where('users_id', $users_id)->get();
-		if ( empty( $queryVac->all() ) )
-		{
-			return FALSE;
-		}
-		return $queryVac;
+		return UserPaymentInfo::where('users_id', $user_id)->get();
 	}
 
 }

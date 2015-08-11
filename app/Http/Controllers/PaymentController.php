@@ -11,7 +11,8 @@ use App\Libraries\PayU\api\PayUCountries;
 use App\Libraries\PayU\PayUPayments;
 use App\Libraries\CreateToken;
 use App\Services\PaymentMethodCC as PaymentMethodCC;
-
+use App\Model\Entity\SystemTransactionEntity;
+use App\Libraries\SystemTransactions\UserTokenRegistration;
 use Input;
 use Session;
 use Request;
@@ -38,12 +39,14 @@ class PaymentController extends Controller {
 	 * @return void
 	 */
 	private $createToken;
+	private $sysTransaction;
 
 
-	public function __construct()
+	public function __construct(UserTokenRegistration $sysDao)
 	{
 		//echo base_path();
 		$this->middleware('auth');
+		$this->sysTransaction = $sysDao;
 		$this->createToken = new CreateToken();
 		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
@@ -75,11 +78,12 @@ class PaymentController extends Controller {
 	{
 		$postData = Request::all();
 		$validator = PaymentMethodCC::validator($postData);
-		
+
+
 		if ( $validator->passes() ) 
         {
-        	echo "success";
-			$this->createToken->setAuthUser( Auth::user()  );
+        	$userAuth = Auth::user();
+			$this->createToken->setAuthUser( $userAuth  );
 			$this->createToken->setUserCreditCard( $postData   );
 
 			/**
@@ -101,11 +105,38 @@ class PaymentController extends Controller {
 				return Redirect::back()->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
 			}
 
-			
+			$response = $this->createToken->getToken();
+			$responseToStore = (array)$response;
+
+			$this->sysTransaction->setUser( $userAuth );
+			$this->sysTransaction->setTransactionInfo( array(	'users_id' => $userAuth->id,
+															'code' => 'Success',
+															'type' => 'Create Token',
+															'description' => 'Create User Token',
+															'json_data' => json_encode($responseToStore)));
+
+			$response_token = $response->creditCardToken;
+
+			$this->sysTransaction->setUserPaymentInfo( array( 'users_id' => $userAuth->id,
+														      'token' => $response_token->creditCardTokenId,
+														      'name_on_card' => $postData['name_on_card'],
+														      'payment_method' => '',
+														      'address' => $postData['address'],
+														      'city' => $postData['city'],
+														      'state' => $postData['state'],
+														      'zip_code' => $postData['zip_code'],
+														      'country' => $postData['country']));
+
+			$this->sysTransaction->saveData();
 
 
-			$this->createToken->doToken();
+
         }
+        $messages = $validator->messages();
+        print_r( $messages->all());
+
+        echo "validation err0r";
+        exit;
         return Redirect::back()->with( $this->getCCData() )->withErrors($validator)->withInput( $postData );
 	}
 
