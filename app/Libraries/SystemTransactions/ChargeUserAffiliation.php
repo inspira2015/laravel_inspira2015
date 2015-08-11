@@ -35,24 +35,26 @@ class ChargeUserAffiliation extends AbstractTransactions
 	}
 
 
-	private function checkUserToken()
+	private function checkUserAffiliation()
 	{
-		$userPayment = $this->userPaymentDao->getPaymentByUserId( $this->objUser->id )->first();
-		if( empty($userPayment) )
+		$userPayment = $this->userAffDao->getByUsersId( $this->objUser->id );
+		if( $userPayment !=FALSE )
 		{
-			return 0;
+			return $userPayment[0];
 		}
-		return $userPayment->id;
+		return FALSE;
 	}
 
 	public function saveData()
 	{
 		$this->saveTransaction();
-		$this->userPaymentArray['id'] = $this->checkUserToken();
-		$this->userPaymentArray['transaction_id'] = $this->transactionId;
-		$this->userPaymentDao->exchangeArray( $this->userPaymentArray );
-		$this->userPaymentDao->transaction_id = $this->transactionId;
-		$this->userPaymentDao->save();
+		$userAffiliation = $this->checkUserAffiliation();
+
+
+		$this->affiliationPaymentArray['transaction_id'] = $this->transactionId;
+		$this->affiliationPaymentArray['affiliations_id'] = $userAffiliation->affiliations_id;
+		$this->userAffiliationDao->exchangeArray( $this->userPaymentArray );
+		$this->userAffiliationDao->save();
 		return TRUE;
 	}
 

@@ -14,6 +14,8 @@ use App\Services\PaymentMethodCC as PaymentMethodCC;
 use App\Model\Entity\SystemTransactionEntity;
 use App\Libraries\SystemTransactions\UserTokenRegistration;
 use App\Libraries\SystemTransactions\SetBillableDate;
+use App\Libraries\SystemTransactions\ChargeUserAffiliation;
+use App\Model\Entity\UserAffiliation;
 
 use Input;
 use Session;
@@ -43,16 +45,22 @@ class PaymentController extends Controller {
 	private $createToken;
 	private $sysTransaction;
 	private $transactionBill;
+	private $chargeUserAffiliation;
 
 
 	public function __construct( UserTokenRegistration $sysDao,
-								SetBillableDate $billable)
+								SetBillableDate $billable,
+								ChargeUserAffiliation $chargeUserAff,
+								UserAffiliation $userAff)
 	{
 		//echo base_path();
 		$this->middleware('auth');
 		$this->sysTransaction = $sysDao;
 		$this->createToken = new CreateToken();
 		$this->transactionBill = $billable;
+		$this->chargeUserAffiliation = $chargeUserAff;
+		$this->userAff = $userAff;
+
 		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
 		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
@@ -74,6 +82,7 @@ class PaymentController extends Controller {
 	 */
 	public function Index()
 	{
+
 
 		return view('creditcards.creditcard')->with( $this->getCCData() );
 	}
@@ -144,6 +153,12 @@ class PaymentController extends Controller {
 			$this->transactionBill->saveData();
 
 
+			$this->chargeUserAffiliation->setUser( $userAuth );
+			$this->chargeUserAffiliation->setTransactionInfo( array(	'users_id' => $userAuth->id,
+																'code' => 'Success',
+																'type' => 'Charge Affiliation',
+																'description' => 'Charge of User Affiliation',
+																'json_data' => json_encode($responseToStore)));
 
 
 
