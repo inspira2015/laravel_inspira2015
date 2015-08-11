@@ -62,6 +62,12 @@ class LibrariesServiceProvider extends ServiceProvider
                 	$app->make('\App\Model\Dao\UserDao'));
         });
 
+ 		$this->app->bind('App\Libraries\SystemTransactions\ChargeUserAffiliation', function($app) {
+                return new \App\Libraries\SystemTransactions\ChargeUserAffiliation($app->make('\App\Model\Entity\SystemTransactionEntity'),
+                	$app->make('\App\Model\Entity\UserAffiliationPaymentEntity'), $app->make('\App\Model\Entity\UserAffiliation'));
+        });
+
+
 	}
 
 }
