@@ -10,9 +10,11 @@ $(document).ready(function(){
 				var _buttons = _this.find('a[data-role=change], div[data-role=submit]');
 				var _change_country = _this.find('select.select-country');
 				var _email = _this.find('input[type="email"].validate-email');
+				var _card = _this.find('input#card_number');
 				feature._set_change( _buttons );
 				feature._on_change_country( _change_country );
 				feature._on_change_email( _email );
+				feature._apply_card_validation( _card );
 
 				$.ajaxSetup({headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')	}});
 
@@ -21,6 +23,7 @@ $(document).ready(function(){
 		_set_actions: function( element ){
 			feature._set_change(element.find('div[data-role=submit],a[data-role=change]'));
 			feature._on_change_country( element.find('select.select-country') );
+			feature._apply_card_validation( element.find('input#card_number') );
 		},
 		_set_change: function( element ) {
 			element.bind('click', function(){
@@ -107,6 +110,19 @@ $(document).ready(function(){
 				};
 			})();
 
+		}, 
+		_apply_card_validation : function( element ){
+			var last_valid = '';
+			if(typeof element[0] == 'object') {
+				element.validateCreditCard(function(result){
+					if(result.card_type != null){
+						last_valid = result.card_type.name + " valid";
+						this.addClass(last_valid);
+					}else{
+						this.removeClass(last_valid);
+					}
+				 });
+			}
 		}
 	
 	};

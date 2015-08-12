@@ -14,7 +14,8 @@
 	{!! HTML::style('css/bootstrap/css/slidestyle.css') !!}
 	
 	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
-
+	{!! HTML::script('js/jquery.creditCardValidator.js') !!}
+	
 	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
 	{!! HTML::script('js/main.js') !!}
 
@@ -40,6 +41,9 @@
 	</div>
 	@include('layouts.__common.footer')
 
+	@include('layouts.__common.privacy')
+	@include('layouts.__common.terms')
+	
 	@if(!$app->environment('local'))
 		@include('layouts.__common.tawk')
 		@include('layouts.__common.analytics')

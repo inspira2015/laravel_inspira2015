@@ -34,6 +34,8 @@
 	
 	<link rel="icon" href="/images/inspira.ico" type="image/ico" />
 	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
+	{!! HTML::script('js/jquery.creditCardValidator.js') !!}
+
 	{!! HTML::script('js/jquery.validate.min.js') !!}
 
 	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
