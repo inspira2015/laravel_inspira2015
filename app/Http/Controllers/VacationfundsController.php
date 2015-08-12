@@ -40,6 +40,7 @@ class VacationfundsController extends Controller
 		$this->middleware('guest');
 		$this->parseAff = new ParseCurrencyFromPost();
 		$this->createUser = $checkUser;
+		$this->setLanguage(Session::get('users.language'));
 	}
 
 	/**
