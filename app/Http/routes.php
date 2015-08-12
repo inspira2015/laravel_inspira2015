@@ -57,8 +57,7 @@ Route::post('vacationfund/add', 'VacationfundsController@create');
 
 Route::get('payment', 'PaymentController@index');
 Route::post('payment/addcreditcard', 'PaymentController@Addcreditcard');
-
-Route::get('payment/subtotal', 'PaymentController@subtotal');
+Route::get('payment/creditcardinfo', 'PaymentController@Creditcardinfo');
 
 Route::get('codes/{reset?}', 'CodesController@index');
 

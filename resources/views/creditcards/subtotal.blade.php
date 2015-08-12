@@ -9,17 +9,19 @@
 					<p style="text-align:center;">
 						<span style="font-weight:bold;">PRIMER MES GRATUITO</span>
 					</p>
-					<div style="width:40%; margin:0 auto; padding-top:20px;">
+					<div style="width:45%; margin:0 auto; padding-top:20px;">
 						<p>
-							Pago mensual Afiliacion: $
+							Pago mensual Afiliacion: <strong>$ <?php echo number_format($affiliation_cost, 2, '.', '') . ' ' .
+							$affiliation_currency; ?></strong>
 	
 						</p>                      
 			 			<p>
-			 				Pago Mensual Fondo vacacional: $ 
+			 				Pago Mensual Fondo vacacional:  <strong>$ <?php echo number_format($vacational_fund_amount, 2, '.', '') . ' ' .
+							$vacational_fund_currency; ?></strong>
 			 			</p>
 						
 						<p>
-							Proxima fecha de pago:
+							Proxima fecha de pago: <strong><?php echo $next_payment_date; ?></strong>
 						</p>
 					</div>	
 				</div>
@@ -37,7 +39,7 @@
 				<img style="text-align: center; margin: 0 auto; width: 70%; height: auto;" src="<?php echo url();?>/images/visa_master_american.png"/> 
 			</a>
 		</div>
-        <a href="?route=users/addcard"> <img src="<?php echo url();?>/images/continuar.png"/></a>
+        <a href="/payment/creditcardinfo"> <img src="<?php echo url();?>/images/continuar.png"/></a>
         <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">
 		
 			

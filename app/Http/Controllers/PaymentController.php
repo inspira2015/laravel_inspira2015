@@ -16,6 +16,8 @@ use App\Libraries\SystemTransactions\UserTokenRegistration;
 use App\Libraries\SystemTransactions\SetBillableDate;
 use App\Libraries\SystemTransactions\ChargeUserAffiliation;
 use App\Model\Entity\UserAffiliation;
+use App\Model\Entity\UserVacFundLog;
+use App\Libraries\GeneratePaymentsDates;
 
 use Input;
 use Session;
@@ -46,12 +48,16 @@ class PaymentController extends Controller {
 	private $sysTransaction;
 	private $transactionBill;
 	private $chargeUserAffiliation;
+	private $userAffiliationDao;
+	private $userVacationalFundLog;
+	private $generatePaymentesDate;
 
 
 	public function __construct( UserTokenRegistration $sysDao,
 								SetBillableDate $billable,
 								ChargeUserAffiliation $chargeUserAff,
-								UserAffiliation $userAff)
+								UserAffiliation $userAff,
+								UserVacFundLog $userVacFundLog)
 	{
 		//echo base_path();
 		$this->middleware('auth');
@@ -59,7 +65,9 @@ class PaymentController extends Controller {
 		$this->createToken = new CreateToken();
 		$this->transactionBill = $billable;
 		$this->chargeUserAffiliation = $chargeUserAff;
-		$this->userAff = $userAff;
+		$this->userAffiliationDao = $userAff;
+		$this->userVacationalFundLog = $userVacFundLog;
+		$this->generatePaymentesDate = new GeneratePaymentsDates();
 
 		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
@@ -81,6 +89,36 @@ class PaymentController extends Controller {
 	 * @return Response
 	 */
 	public function Index()
+	{
+        $userAuth = Auth::user();
+		$queryUserAffiliation = $this->userAffiliationDao->getByUsersId( $userAuth->id );
+		$userAffiliation = $queryUserAffiliation[0];
+
+		$queryUserVac = $this->userVacationalFundLog->getByUsersId( $userAuth->id );
+		$userVacationalFundLog = $queryUserVac[0];
+
+		$this->generatePaymentesDate->setDate( \date('Y-m-d') );
+
+
+		$data = array(	'title' =>'Resumen',
+						'background' =>'2.jpg',
+						'affiliation_cost' => $userAffiliation->amount,
+						'affiliation_currency' => $userAffiliation->currency,
+						'vacational_fund_amount' => $userVacationalFundLog->amount,
+						'vacational_fund_currency' => $userVacationalFundLog->currency,
+						'next_payment_date' => $this->generatePaymentesDate->getNextPaymentDateHumanRead(),
+			);
+
+
+		return view('creditcards.subtotal')->with( $data );
+	}
+
+
+
+
+
+
+	public function Creditcardinfo()
 	{
 
 
@@ -165,24 +203,15 @@ class PaymentController extends Controller {
 			
 			$this->chargeUserAffiliation->saveData();
 
+			return redirect('useraccount');
         }
         $messages = $validator->messages();
-        print_r( $messages->all());
-
-        echo "validation err0r";
-        exit;
+       
         return Redirect::back()->with( $this->getCCData() )->withErrors($validator)->withInput( $postData );
 	}
 
 
-	public function Subtotal()
-	{
-
-		
-		return view('creditcards.subtotal')->with(array('title' =>'Resumen',
-															 'background' =>'2.jpg'));
-	}
-
+	
 
 
 	private function getCCData()

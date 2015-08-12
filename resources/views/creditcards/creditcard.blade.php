@@ -330,7 +330,7 @@
 		<div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">&nbsp;</div>
           <div class="col-lg-4 col-md-4 col-sm-4">&nbsp;</div>
           <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">  
-           <a href="#" onClick="$('#profile').submit();"><img style="width:50%; height:auto;"src="images/continuar.png"/></a></div>
+           <a href="#" onClick="$('#profile').submit();"><img style="width:50%; height:auto;"src="/images/continuar.png"/></a></div>
         </div>
 
 @stop	
