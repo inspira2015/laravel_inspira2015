@@ -49,11 +49,13 @@ class ChargeUserAffiliation extends AbstractTransactions
 	{
 		$this->saveTransaction();
 		$userAffiliation = $this->checkUserAffiliation();
-
-
 		$this->affiliationPaymentArray['transaction_id'] = $this->transactionId;
 		$this->affiliationPaymentArray['affiliations_id'] = $userAffiliation->affiliations_id;
-		$this->userAffiliationDao->exchangeArray( $this->userPaymentArray );
+		$this->affiliationPaymentArray['amount'] = 0;
+		$this->affiliationPaymentArray['currency'] = $userAffiliation->currency;
+		$this->affiliationPaymentArray['payu_transaction_id'] = '';
+
+		$this->userAffiliationDao->exchangeArray( $this->affiliationPaymentArray );
 		$this->userAffiliationDao->save();
 		return TRUE;
 	}

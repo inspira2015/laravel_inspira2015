@@ -157,10 +157,13 @@ class PaymentController extends Controller {
 			$this->chargeUserAffiliation->setTransactionInfo( array(	'users_id' => $userAuth->id,
 																'code' => 'Success',
 																'type' => 'Charge Affiliation',
-																'description' => 'Charge of User Affiliation',
+																'description' => 'Free Month',
 																'json_data' => json_encode($responseToStore)));
 
-
+			$this->chargeUserAffiliation->setAffiliationPayment( array( 'users_id' => $userAuth->id,
+																		'charge_at' => date('Y-m-d')));
+			
+			$this->chargeUserAffiliation->saveData();
 
         }
         $messages = $validator->messages();

@@ -10,18 +10,18 @@ class UserAffiliationPaymentDao  implements ICrudOperations
 {
 	public function getById($id) 
 	{
-		return User::find($id);
+		return UserAffiliationPayment::find($id);
 	}
 
 	public function getAll() 
 	{
-		return User::all();
+		return UserAffiliationPayment::all();
 	}
 
 	public function delete($id) 
 	{
 		if ($id) {
-			$User = User::find($id);
+			$User = UserAffiliationPayment::find($id);
 			$User->delete();
 		}
 	}
@@ -29,7 +29,7 @@ class UserAffiliationPaymentDao  implements ICrudOperations
 	public function save() 
 	{
 		$id = isset($this->id) ? (int) $this->id : 0;
-		$user = User::firstOrNew( array( 'id' => $id ));
+		$user = UserAffiliationPayment::firstOrNew( array( 'id' => $id ));
 		foreach($this as $key =>$value)
 		{
 			$user->$key = $value;
