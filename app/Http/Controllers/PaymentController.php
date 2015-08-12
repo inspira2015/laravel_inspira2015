@@ -17,6 +17,8 @@ use App\Libraries\SystemTransactions\SetBillableDate;
 use App\Libraries\SystemTransactions\ChargeUserAffiliation;
 use App\Model\Entity\UserAffiliation;
 use App\Model\Entity\UserVacFundLog;
+use App\Model\Dao\CountryDao;
+use App\Model\Dao\StatesDao;
 use App\Libraries\GeneratePaymentsDates;
 
 use Input;
@@ -81,6 +83,7 @@ class PaymentController extends Controller {
 		Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
 		// URL de Suscripciones para Pagos Recurrentes
 		Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");
+		$this->setLanguage();
 	}
 
 	/**
@@ -106,7 +109,7 @@ class PaymentController extends Controller {
 						'affiliation_currency' => $userAffiliation->currency,
 						'vacational_fund_amount' => $userVacationalFundLog->amount,
 						'vacational_fund_currency' => $userVacationalFundLog->currency,
-						'next_payment_date' => $this->generatePaymentesDate->getNextPaymentDateHumanRead(),
+						'next_payment_date' => $this->generatePaymentesDate->getNextPaymentDateHumanRead()
 			);
 
 
@@ -120,16 +123,15 @@ class PaymentController extends Controller {
 
 	public function Creditcardinfo()
 	{
-
-
 		return view('creditcards.creditcard')->with( $this->getCCData() );
 	}
 
 
 	public function Addcreditcard()
 	{
+		$paymentMethodCC = new PaymentMethodCC();
 		$postData = Request::all();
-		$validator = PaymentMethodCC::validator($postData);
+		$validator = $paymentMethodCC->validator( $postData, Lang::locale() );
 
 
 		if ( $validator->passes() ) 
@@ -147,14 +149,14 @@ class PaymentController extends Controller {
 			{
 				//Error en tarjeta de credito direccionarlo a pagina
 				//Mostrar el mensaje de que dato fallo
-				return Redirect::back()->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
+				return view('creditcards.payment_form')->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
 			}
 
 			if( $this->createToken->doToken() == FALSE ) 
 			{
 				//Error en tarjeta de credito direccionarlo a pagina
 				//Mostrar el mensaje de que dato fallo
-				return Redirect::back()->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
+				return view('creditcards.payment_form')->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
 			}
 
 			$response = $this->createToken->getToken();
@@ -207,7 +209,7 @@ class PaymentController extends Controller {
         }
         $messages = $validator->messages();
        
-        return Redirect::back()->with( $this->getCCData() )->withErrors($validator)->withInput( $postData );
+        return view('creditcards.payment_form')->with( $this->getCCData() )->withErrors($validator)->withInput( $postData );
 	}
 
 
@@ -216,10 +218,13 @@ class PaymentController extends Controller {
 
 	private function getCCData()
 	{
+		$locale = Lang::locale();
 		return array( 'title' => Lang::get('creditcards.title'),
 					   'background' => '2.jpg',
 					   'monthsList' => $this->getArrayMonths(),
 					   'yearsList' => $this->getArrayYears(),
+					   'country_list' => $this->getCountryArray($locale),
+					   'states' => $this->getStatesArray($locale)
 			);
 	}
 
@@ -251,5 +256,23 @@ class PaymentController extends Controller {
 		return $years;
 	}
 	
+	protected function getCountryArray($language = FALSE)
+	{
+		$country = new CountryDao();
+		return $country->forSelect('name', 'code');
+		
+	}
+	
+	protected function getStatesArray($language = FALSE)
+	{
+		$states = new StatesDao();
+		//default MX - check if its gonna be changed.
+		if($language== 'es' || $language==FALSE){
+			$country = 'MX';
+		}else{
+			$country = 'US';
+		}
+		return $states->forSelect('name', 'code', array('country' => $country ));
+	}
 
 }

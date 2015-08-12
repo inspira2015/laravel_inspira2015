@@ -5,12 +5,26 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Model\SystemLog as Log;
 use Auth; 
+use App;
+use Lang;
 use Session;
 
 abstract class Controller extends BaseController {
 
 	use DispatchesCommands, ValidatesRequests;
 
+	public function setLanguage()
+	{
+		$lang = Lang::locale();
+		
+		if( Auth::check() )
+		{
+			$lang =  Auth::user()->language;
+		}
+		
+		App::setLocale($lang);
+	}
+	
 	public function logAction( $module, $action, $method)
 	{
 		$action = ($action == null ) ? 'Index' : $action;

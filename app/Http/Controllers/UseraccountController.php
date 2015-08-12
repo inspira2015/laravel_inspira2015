@@ -57,7 +57,7 @@ class UseraccountController extends Controller {
 		$this->statesDao = $statesDao;
 		$this->phoneDao = $phoneDao;
 		$this->accountSetup = $accountSetup;
-		App::setLocale(Auth::user()->language);
+		$this->setLanguage();
 	}
 	
 	/**
