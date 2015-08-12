@@ -9,6 +9,8 @@ return [
 	"expiration" => "Expiration date",
 	"expiry" => "YYYY/MM",
 	"name-on-card" => "Name on card",
+	"birthdate" => "Birthdate",
+	"birthdate-format" => "YYYY/MM/DD",
 	"address" => "Address",
 	"city" => "City",
 	"zip-code" => "Zip Code",

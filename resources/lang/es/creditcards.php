@@ -8,6 +8,8 @@ return [
 	"what-is" => "¿Qu&eacute; es?", 
 	"expiration" => "Fecha de Expiraci&oacute;n",
 	"expiry" => "AAAA/MM",
+	"birthdate" => "Fecha de Nacimiento",
+	"birthdate-format" => "AAAA/MM/DD",
 	"name-on-card" => "Nombre en Tarjeta",
 	"address" => "Direcci&oacute;n",
 	"city" => "Ciudad",

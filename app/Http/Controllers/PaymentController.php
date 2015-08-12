@@ -27,6 +27,7 @@ use Request;
 use Redirect;
 use Auth;
 use Lang;
+use Response;
 
 class PaymentController extends Controller {
 
@@ -133,9 +134,13 @@ class PaymentController extends Controller {
 		$postData = Request::all();
 		$validator = $paymentMethodCC->validator( $postData, Lang::locale() );
 
-
+		
 		if ( $validator->passes() ) 
         {
+	        $exp_date = explode('/',$postData['expiration_date']);
+	        $postData['exp_month'] = $exp_date[1];
+	        $postData['exp_year'] = $exp_date[0];
+	        array_forget($postData, 'expiration_date');
         	$userAuth = Auth::user();
 			$this->createToken->setAuthUser( $userAuth  );
 			$this->createToken->setUserCreditCard( $postData   );
@@ -163,7 +168,7 @@ class PaymentController extends Controller {
 			$responseToStore = (array)$response;
 
 			$this->sysTransaction->setUser( $userAuth );
-			$this->sysTransaction->setTransactionInfo( array(	'users_id' => $userAuth->id,
+			$this->sysTransaction->setTransactionInfo( array('users_id' => $userAuth->id,
 															'code' => 'Success',
 															'type' => 'Create Token',
 															'description' => 'Create User Token',
@@ -205,10 +210,11 @@ class PaymentController extends Controller {
 			
 			$this->chargeUserAffiliation->saveData();
 
-			return redirect('useraccount');
-        }
-        $messages = $validator->messages();
-       
+			return Response::json(array(
+				'error' => false,
+				'redirect' => '/useraccount'
+			), 200);
+        }     
         return view('creditcards.payment_form')->with( $this->getCCData() )->withErrors($validator)->withInput( $postData );
 	}
 

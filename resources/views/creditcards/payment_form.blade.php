@@ -18,8 +18,6 @@
 
 {!! Form::open(array('url' => 'users/registration')) !!}
 <div class="col-sm-10-col-sm-push-2">
-
-	
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
@@ -30,9 +28,11 @@
 			</div>
 		</div>
 		<div class="col-md-6">
-			<label for="numero">* {{ Lang::get('creditcards.ccv') }} <a data-toggle="modal" class="small" data-target="#what-is-ccv" href="#">{{ Lang::get('creditcards.what-is') }}</a></label>
-			<div class="input-group">
-			  {!! Form::text('codigo', Input::get('codigo') ? Input::get('codigo') : @$codigo, array('class' => 'form-control','id' => 'codigo', 'size' => '4', 'maxlength' => '4' )) !!}                        
+			<div class="form-group">
+				<label for="numero">* {{ Lang::get('creditcards.ccv') }} <a data-toggle="modal" class="small" data-target="#what-is-ccv" href="#">{{ Lang::get('creditcards.what-is') }}</a></label>
+				<div class="input-group">
+				  {!! Form::text('codigo', Input::get('codigo') ? Input::get('codigo') : @$codigo, array('class' => 'form-control','id' => 'codigo', 'size' => '4', 'maxlength' => '4' )) !!}                        
+				</div>
 			</div>
 		</div>
 	</div>
@@ -47,18 +47,30 @@
 		</div>
 		<div class="col-md-6">
 			<div class="form-group">
-                <label for="nombre">* {{ Lang::get('creditcards.name-on-card') }}</label>
+                <label for="nombre">* {{ Lang::get('creditcards.birthdate') }}</label>
                 <div class="input-group">
-                  {!! Form::text('name_on_card', Input::get('name_on_card') ? Input::get('name_on_card') : @$name_on_card, array('class' => 'form-control','id' => 'name_on_card')) !!}                                                
+                  {!! Form::text('birthdate', Input::get('birthdate') ? Input::get('birthdate') : @$birthdate, array('class' => 'form-control', 'placeholder' => Lang::get('creditcards.birthdate-format') )) !!}                                                
                 </div>
 			</div>
 		</div>
 	</div>
-	<div class="form-group">
-	    <label for="direccion" style="width: 20%!important;">* {{ Lang::get('creditcards.address') }}</label>
-	    <div class="input-group" style="width: 75.5%!important;">
-	      {!! Form::text('address', Input::get('address') ? Input::get('address') : @$address, array('class' => 'form-control','id' => 'address')) !!}                                                
-	    </div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+	            <label for="nombre">* {{ Lang::get('creditcards.name-on-card') }}</label>
+	            <div class="input-group">
+	              {!! Form::text('name_on_card', Input::get('name_on_card') ? Input::get('name_on_card') : @$name_on_card, array('class' => 'form-control','id' => 'name_on_card')) !!}                                                
+	            </div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+			    <label for="direccion">* {{ Lang::get('creditcards.address') }}</label>
+			    <div class="input-group">
+			      {!! Form::text('address', Input::get('address') ? Input::get('address') : @$address, array('class' => 'form-control','id' => 'address')) !!}                                                
+			    </div>
+			</div>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-6">

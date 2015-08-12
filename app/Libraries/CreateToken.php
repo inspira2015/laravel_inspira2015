@@ -155,7 +155,7 @@ class CreateToken extends InitializePayUCredentials
 	private function checkToken()
 	{
 
-		print_r($this->parameters);
+	//	print_r($this->parameters);
    		$response = PayUTokens::create($this->parameters);
 		
 		if( $response->code == 'SUCCESS' )
