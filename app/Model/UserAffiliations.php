@@ -17,6 +17,6 @@ class UserAffiliations extends Model
 		return $this->belongsTo('App\Model\Affiliations', 'affiliations_id', 'id');
 	}
 
-	protected $fillable = ['users_id','affiliations_id', 'active'];
+	protected $fillable = ['users_id','affiliations_id', 'amount', 'currency', 'active'];
 
 }

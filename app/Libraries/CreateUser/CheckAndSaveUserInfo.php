@@ -95,6 +95,16 @@ class CheckAndSaveUserInfo
 	}
 
 
+	private function cleanAffiliationPost()
+	{
+		$temp_id = $this->storeData['Affiliation']['affiliation'];
+		return array( 'affiliations_id' => $temp_id,
+					  'amount' => (float)$this->storeData['Affiliation']['amount_' . $temp_id],
+					  'currency' => $this->storeData['Affiliation']['currency_' . $temp_id],
+			);
+	}
+
+
 	public function saveData()
 	{
 		if ( $this->checkingCode() == FALSE )
@@ -102,6 +112,8 @@ class CheckAndSaveUserInfo
 			$this->errorArray[] = "El codigo ya fue usado";
 			return FALSE;
 		}
+		$affiliationData = $this->cleanAffiliationPost();
+
 		
 		$this->userDao->exchangeArray( $this->storeData['User'] );
 		$users_id = $this->userDao->save();
@@ -112,8 +124,11 @@ class CheckAndSaveUserInfo
 		$this->codeOperations->setUserId( $users_id );
 		$this->codeOperations->saveUsedCode();
 		$this->codeOperations->markCodeUsed();
-		$this->affDao->exchangeArray( array('users_id' => $users_id,'affiliations_id' => $this->storeData['Affiliation']['affiliation'],
-											'active' =>1) );
+		$this->affDao->exchangeArray( array( 'users_id' => $users_id,
+											 'affiliations_id' => $affiliationData['affiliations_id'],
+											 'active' => 1,
+											 'amount' => $affiliationData['amount'],
+											 'currency' => $affiliationData['currency'] ) );
 		$this->affDao->save();
 		$this->vacDao->exchangeArray( array('users_id' => $users_id,'amount' => $this->storeData['VacationFund']['amount'],
 											'active' =>1,'currency' => $this->storeData['VacationFund']['currency']) );
