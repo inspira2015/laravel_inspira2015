@@ -101,7 +101,7 @@ class AffiliationViewObject
 			}
 			else
 			{
-				$description[$i]['description'] = $value['description_eng'];
+				$description[$i]['description'] = $value['description_en'];
 			}
 			$i++;
 		}

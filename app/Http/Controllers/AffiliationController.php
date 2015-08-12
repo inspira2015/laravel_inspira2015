@@ -56,7 +56,7 @@ class AffiliationController extends Controller
 		$this->convertHelper = new ConvertCurrencyHelper();
 		$this->convertHelper->setCurrencyShow( $userData['currency'] );
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
-
+		$this->setLanguage(Session::get('users.language'));
 	}
 
 	/**
@@ -65,7 +65,7 @@ class AffiliationController extends Controller
 	 * @return Response
 	 */
 	public function Index()
-	{
+	{	
 		//$user = $this->userDao->getUsersCode( Auth::user()->id );
 		$this->checkAff->setCode( Session::get('code') );
 		$suscription_array = $this->checkAff->getAffiliationObjectArray();

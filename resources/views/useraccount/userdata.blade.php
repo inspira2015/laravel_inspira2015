@@ -231,19 +231,19 @@ background-size: cover;">
 					</div>
 
 
-					<div class="col-lg-12">
+					<div class="row">
 						<h2 class="content" style="background-color:transparent;">Promociones del mes</h2>
-						<div class="col-lg-6 col-md-6 promo" style="padding:1px; margin:0 0;">
+						<div class="col-xs-3 col-md-6 promo" style="padding:1px; margin:0 0;">
 							<img src="images/manzanillo.png" style="width:100%;"/>
 							<p>Manzanillo</p>
 						</div>
-						<div class="col-lg-6 col-md-6 promo"  style="padding:1px; margin:0 0;">
+						<div class="col-xs-3 col-md-6 promo"  style="padding:1px; margin:0 0;">
 							<img src="images/mazatlan.png" style="width:100%;"/><p>Mazatlan</p>
 						</div>
-						<div class="col-lg-6 col-md-6 promo"  style="padding:1px; margin:0 0;">
+						<div class="col-xs-3 col-md-6 promo"  style="padding:1px; margin:0 0;">
 							<img src="images/lasvegas.png" style="width:100%;"/><p>Las Vegas</p>
 						</div>
-						<div class="col-lg-6 col-md-6 promo"  style="padding:1px; margin:0 0;">
+						<div class="col-xs-3 col-md-6 promo"  style="padding:1px; margin:0 0;">
 							<img src="images/malaga.png" style="width:100%;"/><p>Malaga</p>
 						</div>
 					</div>
