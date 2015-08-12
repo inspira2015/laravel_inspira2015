@@ -20,6 +20,7 @@ return array(
     'AddForeignsToUserVacationalFundsTable' => $baseDir . '/database/migrations/2015_06_24_103108_add_foreigns_to_user_vacational_funds_table.php',
     'AddForeignsToUsersPointsTable' => $baseDir . '/database/migrations/2015_06_24_111748_add_foreigns_to_users_points_table.php',
     'AddForeignsToVacationFundLogTable' => $baseDir . '/database/migrations/2015_06_24_103217_add_foreigns_to_vacation_fund_log_table.php',
+    'AddForeingUserpayment' => $baseDir . '/database/migrations/2015_08_11_221848_add_foreing_userpayment.php',
     'AddNewFieldSystemtransaction' => $baseDir . '/database/migrations/2015_08_10_184500_add_new_field_systemtransaction.php',
     'AddNewFieldUsers' => $baseDir . '/database/migrations/2015_08_09_222622_add_new_field_users.php',
     'AddNewTableAffiliationDescriptions' => $baseDir . '/database/migrations/2015_07_18_172752_add_new_table_affiliation_descriptions.php',
