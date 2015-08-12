@@ -7,7 +7,7 @@
 			<i class="fa fa-user"></i>
 			<p><?php echo $full_name; ?></p>
 			<br/>
-			<p class="account_conf">Por Favor revisa tu correo para confirmar tu cuenta</p>
+			<p class="account_conf">{{ Lang::get('emails.confirm-message') }}</p>
 		</div>
 	</div>
 </div>
@@ -20,7 +20,6 @@
 		margin-bottom: 350px;
 	}
 </style>
-{!! HTML::style('css/app/users.css') !!}
-{!! HTML::script('js/users.js') !!}
+
 @stop
   

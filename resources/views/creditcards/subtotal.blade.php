@@ -1,49 +1,41 @@
 @extends('layouts.basic')
 
 @section('content')
-    <div class="row"  style="margin-bottom:50px; background-color:#e5e7e9; margin-bottom:500px;">
-	    <div class="col-lg-12 col-md-12">
-            <div class="content" style="padding-bottom:20px;">
-            	<div class="informacion">
-            		<h2 style="padding-bottom:20px; text-align:center;">RESUMEN DE SU CUENTA</h2>
-					<p style="text-align:center;">
-						<span style="font-weight:bold;">PRIMER MES GRATUITO</span>
-					</p>
-					<div style="width:45%; margin:0 auto; padding-top:20px;">
-						<p>
-							Pago mensual Afiliacion: <strong>$ <?php echo number_format($affiliation_cost, 2, '.', '') . ' ' .
-							$affiliation_currency; ?></strong>
+    <div class="row bg-gray">
+	    <div class="col-xs-12 bg-light-gray">
+			<h2>{{ Lang::get('subtotal.title') }}</h2>
+			<h3>{{ Lang::get('subtotal.type') }}</h3>
+			
+			<div class="col-md-8 col-md-offset-2">
+				<p class="row">
+					{{ Lang::get('subtotal.affiliation-monthly-fee') }}: <strong>$ {{ number_format($affiliation_cost, 2, '.', '') . ' ' . $affiliation_currency }}</strong>
 	
-						</p>                      
-			 			<p>
-			 				Pago Mensual Fondo vacacional:  <strong>$ <?php echo number_format($vacational_fund_amount, 2, '.', '') . ' ' .
-							$vacational_fund_currency; ?></strong>
-			 			</p>
-						
-						<p>
-							Proxima fecha de pago: <strong><?php echo $next_payment_date; ?></strong>
-						</p>
-					</div>	
-				</div>
-            
-          	</div>
-			<div class="divider" style="margin-bottom:10px;"></div>
-		</div>
+				</p>                      
+	 			<p>
+	 				{{ Lang::get('subtotal.vacational-fund-fee') }}:  <strong>$ {{ number_format($vacational_fund_amount, 2, '.', '') . ' ' . $vacational_fund_currency }}</strong>
+	 			</p>
+				
+				<p>
+					{{ Lang::get('subtotal.next-payment-date') }}: <strong>{{ $next_payment_date }}</strong>
+				</p>
+			</div>		
+	    </div>
+	    <div class="divider"></div>
 
-		<div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">  
-        	
-         </div>
-		
-        <div class="col-lg-4 col-md-4 col-sm-4">
-			<a href="#" id = "" > 
-				<img style="text-align: center; margin: 0 auto; width: 70%; height: auto;" src="<?php echo url();?>/images/visa_master_american.png"/> 
+		<div class="col-xs-6 col-sm-3 col-sm-push-4 nopadding">
+			{!! HTML::image('images/visa_master_american.png', 'credit card allowed') !!}
+		</div>
+		<div class="col-xs-6 col-xs-push-0 col-sm-3 col-sm-push-5 col-md-3 col-md-push-6 nopadding">   
+			<a href="/payment/creditcardinfo" class="btn-blue btn-medium">
+				{{ Lang::get('layout.continue') }}
 			</a>
 		</div>
-        <a href="/payment/creditcardinfo"> <img src="<?php echo url();?>/images/continuar.png"/></a>
-        <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">
-		
-			
-		</div>
-
     </div>
+    
+    <style>
+	    .bg-light-gray{
+		    background-color: #f4f4f4;
+		    padding:20px;
+	    }
+    </style>
 @stop	

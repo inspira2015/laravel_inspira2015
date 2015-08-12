@@ -56,7 +56,7 @@ class AffiliationController extends Controller
 		$this->convertHelper = new ConvertCurrencyHelper();
 		$this->convertHelper->setCurrencyShow( $userData['currency'] );
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
-		$this->setLanguage(Session::get('users.language'));
+		$this->setLanguage();
 	}
 
 	/**

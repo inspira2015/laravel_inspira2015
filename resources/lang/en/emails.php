@@ -9,5 +9,6 @@ return [
 	"modify-data" => "Modify Data",
 	"welcome-to" => "Welcome to",
 	"reset-password" => "Reset Password",
-	"password-message" => "Please click on the link below to reset your password."
+	"password-message" => "Please click on the link below to reset your password.",
+	"confirm-message" => "Please check your e-mail to confirm your account"
 ];

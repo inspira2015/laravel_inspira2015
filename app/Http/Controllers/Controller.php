@@ -13,13 +13,16 @@ abstract class Controller extends BaseController {
 
 	use DispatchesCommands, ValidatesRequests;
 
-	public function setLanguage( $lang )
+	public function setLanguage()
 	{
-		$lang = ($lang != FALSE) ? $lang : Lang::locale();
+		$lang = Lang::locale();
 		
 		if( Auth::check() )
 		{
 			$lang =  Auth::user()->language;
+		}
+		else if( Session::get('users.language') ){
+			$lang = Session::get('users.language');
 		}
 		
 		App::setLocale($lang);
