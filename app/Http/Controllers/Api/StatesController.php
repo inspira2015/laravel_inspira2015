@@ -16,7 +16,6 @@ class StatesController extends Controller
 	
 	public function __construct( StatesDao $statesDao )
 	{
-		$this->middleware('guest');		
 		$this->statesDao =  $statesDao;
 	}
 	

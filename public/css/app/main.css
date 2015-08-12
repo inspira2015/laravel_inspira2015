@@ -39,7 +39,7 @@ div.informacion form label{
 }
 
 div.informacion form .form-group {
-  margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
 div.informacion form .form-group input,
@@ -56,51 +56,51 @@ div.informacion div[data-role="submit"]{
 
 
 div.description{
-  padding-top: 25px;
-  padding-bottom: 25px;
-  margin-top:100px;
- /* position:absolute; /* absolute position (so we can position it where we want)*/  
-  bottombottom:0px; /* position will be on bottom */  
-  left:0px;  
-/*   width:50%;   */
-  /* styling bellow */  
-  background-color:#F8F8F8;  
-  font-family: 'tahoma';  
-  font-size:15px;  
-  color:#404040;  
-  opacity:0.4; /* transparency */  
-  filter:alpha(opacity=60); /* IE transparency */  
+	padding-top: 25px;
+	padding-bottom: 25px;
+	margin-top:100px;
+	/* position:absolute; /* absolute position (so we can position it where we want)*/  
+	bottombottom:0px; /* position will be on bottom */  
+	left:0px;  
+	/*   width:50%;   */
+	/* styling bellow */  
+	background-color:#F8F8F8;  
+	font-family: 'tahoma';  
+	font-size:15px;  
+	color:#404040;  
+	opacity:0.4; /* transparency */  
+	filter:alpha(opacity=60); /* IE transparency */  
 }  
 
 .error{
-width:70% !important;
+	width:70% !important;
 }
 .account_conf{
-font-size: 32px;
+	font-size: 32px;
 }
 
 div.continuar{
-  padding-top: 25px;
-  padding-bottom: 25px;
-  margin-top:100px;
-  position:absolute; /* absolute position (so we can position it where we want)*/  
-  top:250px;
-  left:0px;  
-  width:50%;  
-  /* styling bellow */  
-  background-color:#F8F8F8;  
-  font-family: 'tahoma';  
-  font-size:15px;  
-  color:#404040;  
-  opacity:0.4; /* transparency */  
-  filter:alpha(opacity=60); /* IE transparency */  
+	padding-top: 25px;
+	padding-bottom: 25px;
+	margin-top:100px;
+	position:absolute; /* absolute position (so we can position it where we want)*/  
+	top:250px;
+	left:0px;  
+	width:50%;  
+	/* styling bellow */  
+	background-color:#F8F8F8;  
+	font-family: 'tahoma';  
+	font-size:15px;  
+	color:#404040;  
+	opacity:0.4; /* transparency */  
+	filter:alpha(opacity=60); /* IE transparency */  
 }
 
 /*
 #page {
-  background-image:url('images/2.jpg'); 
-  background-repeat:no-repeat; 
-  background-position: center center fixed; 
+background-image:url('images/2.jpg'); 
+background-repeat:no-repeat; 
+background-position: center center fixed; 
 -webkit-background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover;
@@ -111,9 +111,9 @@ position:relative;
 */
 
 div.body-content{
-	    position: relative;
-    clear: both;
-    height: calc(100% - 100px);
+	position: relative;
+	clear: both;
+	height: calc(100% - 100px);
 }
 footer  {
 	z-index: 10;
@@ -193,7 +193,7 @@ footer > .container > div:nth-child(3){
 
 .btn-light-blue[data-role=submit]{
 	margin-top: 20px;
-    padding-right: 15px;
+	padding-right: 15px;
 }
 
 .btn-pink-clear,
@@ -234,7 +234,7 @@ footer > .container > div:nth-child(3){
 
 .spacing {
 	letter-spacing: 1px;
-    color: #465664;
+	color: #465664;
 }
 
 
@@ -257,7 +257,7 @@ div.bg-gray{
 	padding: 40px;
 	margin-bottom: 175px;
 }
-	
+
 div.bg-gray label{
 	color: #465664;
 }
@@ -275,6 +275,126 @@ div.container > div.bg-gray-transparent:nth-child(2){
 	margin-top: 10px;
 }
 
-.inspira-select {
+/*credit card*/
+div[data-role="response"] h2{
+	font-size:24px; 
+	font-weight:bold; 
+	color: #465664;
+}
+form input[type=radio]{
+	cursor: pointer;
+}
+
+form input[type=radio]{
+	display:inline-block;
+	width:15px;
+}
+
+form a[data-toggle="modal"]{
+	color: #cc4b9b;
+}
+
+form a.small {
+	font-size: 10px;
+}
+
+form #card_number {
+	background-image: url("images/sprint_cards.png"), url("images/sprint_cards.png");
+	background-position: 2px -121px, calc(100% + 95px) -61px;
+	background-size: 120px 361px, 120px 361px;
+	background-repeat: no-repeat;
+	padding-left: 54px;
+	padding-right: 30px;
+	/*width: 235px;*/
+	width:100%;
+}
+form #card_number.visa {
+	background-position: 2px -163px, calc(100% + 95px) -61px;
+}
+form #card_number.visa_electron {
+	background-position: 2px -205px, calc(100% + 95px) -61px;
+}
+form #card_number.mastercard {
+	background-position: 2px -247px, calc(100% + 95px) -61px;
 
 }
+form #card_number.maestro {
+	background-position: 2px -289px, calc(100% + 95px) -61px;
+}
+form #card_number.discover {
+	background-position: 2px -331px, calc(100% + 95px) -61px;
+}
+form #card_number.valid.visa {
+	background-position: 2px -163px, calc(100% + 95px) -87px;
+}
+form #card_number.valid.visa_electron {
+	background-position: 2px -205px, calc(100% + 95px) -87px;
+}
+form #card_number.valid.mastercard {
+	background-position: 2px -247px, calc(100% + 95px) -87px;
+}
+form #card_number.valid.maestro {
+	background-position: 2px -289px, calc(100% + 95px) -87px;
+}
+form #card_number.valid.discover {
+	background-position: 2px -331px, calc(100% + 95px) -87px;
+}
+
+
+form div#mandatory{
+	margin-top: 10px; color: #465664;
+}
+
+
+/*MODALS*/
+@media(min-width:992px) {
+	div.modal#privacy div.modal-dialog,
+	div.modal#terms div.modal-dialog{
+		width: 90%;
+	}
+}
+
+div.modal h4.modal-title,
+div.modal div.modal-body h5,
+div.modal div.modal-body h6 {
+	text-transform: uppercase;
+	color: #465664;
+}
+div.modal h4.modal-title{
+	font-size:22px;
+}
+
+div.modal div.modal-body {
+	margin-left:20px;
+	margin-right:20px;
+}
+div.modal div.modal-body h5 {
+	margin: 20px 0;
+}
+
+div.modal div.modal-body h6 {
+	margin: 15px 0;
+	font-style: italic;
+}
+
+div.modal div.modal-body p{
+	display:block;
+	margin-top: 5px 0;
+}
+
+div.modal-body  li{
+	list-style-type: decimal;
+    margin-left: 30px;
+}
+
+
+div.modal-body  li li{
+	list-style-type: lower-alpha;
+    margin-left: 30px;
+}
+
+div.modal-body  li li li{
+	list-style-type: circle;
+    margin-left: 30px;
+}
+

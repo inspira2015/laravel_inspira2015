@@ -30,6 +30,7 @@ Route::get('cronjob/exchangerate', 'CronJobs\ExchangeRateUpdate@Currentrate');
 Route::get('api/test', 'Api\UsersController@test');
 Route::get('api/users/details', 'Api\UsersController@all');
 Route::get('api/users/exists', 'Api\UsersController@exists');
+Route::post('api/states', 'Api\StatesController@getByCountryCode');
 Route::post('api/user/change-language', 'Api\UsersController@changeLanguage');
 
 

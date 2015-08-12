@@ -7,5 +7,7 @@ return [
 	"continue" => "Continuar",
 	"back" => "Regresar",
 	"required-fields" => "Campos obligatorios",
-	"reset-password" => "Restablecer Contrase&ntilde;a"
+	"reset-password" => "Restablecer Contrase&ntilde;a",
+	"privacy" => "Pol&iacute;ticas de privacidad",
+	"terms" => "T&eacute;rminos y Condiciones"
 ];

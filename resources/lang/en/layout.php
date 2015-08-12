@@ -7,5 +7,7 @@ return [
 	"continue" => "Continue",
 	"back" => "Back",
 	"required-fields" => "Required Fields",
-	"reset-password" => "Reset Password"
+	"reset-password" => "Reset Password",
+	"privacy" => "Privacy Policy", 
+	"terms" => "Terms of Service"
 ];
