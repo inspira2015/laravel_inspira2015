@@ -30,6 +30,7 @@ class CreateToken extends InitializePayUCredentials
 	private $errorArray;
 	private $parameters;
 	private $tokenResponse;
+	private $paymentMethod;
 
 
 	public function __construct()
@@ -64,7 +65,7 @@ class CreateToken extends InitializePayUCredentials
 			return FALSE;
 		}
 
-		$card_type = $this->cardType( $this->userCreditCard['cnumber'] );
+		$this->paymentMethod = $this->cardType( $this->userCreditCard['cnumber'] );
 		$parameters = array(
 			//Ingrese aquí el nombre del pagador.
 			PayUParameters::PAYER_NAME => $this->userCreditCard['name_on_card'],
@@ -77,7 +78,7 @@ class CreateToken extends InitializePayUCredentials
 			//Ingrese aquí la fecha de vencimiento de la tarjeta de crédito
 			PayUParameters::CREDIT_CARD_EXPIRATION_DATE => "{$this->userCreditCard['exp_year']}/{$this->userCreditCard['exp_month']}",
 			//Ingrese aquí el nombre de la tarjeta de crédito
-			PayUParameters::PAYMENT_METHOD => $card_type,
+			PayUParameters::PAYMENT_METHOD => $this->paymentMethod,
 		);
 		$this->parameters = $parameters;
 		return TRUE;
@@ -152,10 +153,14 @@ class CreateToken extends InitializePayUCredentials
 	    }
 	}
 
+	public function getPaymentMethod()
+	{
+		return $this->paymentMethod;
+	}
+
 	private function checkToken()
 	{
 
-	//	print_r($this->parameters);
    		$response = PayUTokens::create($this->parameters);
 		
 		if( $response->code == 'SUCCESS' )

@@ -95,6 +95,22 @@ class PrepareTransacionArray
 	}
 
 
+	public function generateBuyerInfo()
+	{
+		$user = $this->userDao->getUserPhoneType( $this->storeData['userId'], 'cellphone' );
+		if ( empty( $user ) )
+		{
+			throw new \Exception('Invalid User id or User not Found');
+		}
+		return $user;
+	}
+
+	public function generatePayerInfo()
+	{
+		$user = $this->userPaymentInfo->getPaymentByUserId( $this->storeData['userId'] );
+		return $user[0];
+	}
+
 	private function generateSession()
 	{
 
@@ -109,6 +125,8 @@ class PrepareTransacionArray
 
 	private function builtParameters()
 	{
+		$buyerUser = $this->generateBuyerInfo();
+		$payerUser = $this->generatePayerInfo();
 		$parameters = array(
 						//Ingrese aquí el identificador de la cuenta.
 						PayUParameters::ACCOUNT_ID => $this->storeData['accountId'],
@@ -126,24 +144,67 @@ class PrepareTransacionArray
 
 						// -- Comprador 
 						//Ingrese aquí el nombre del comprador.
-						PayUParameters::BUYER_NAME => "First name and second buyer  name",
+						PayUParameters::BUYER_NAME => $buyerUser->name . ' ' . $buyerUser->last_name,
 						//Ingrese aquí el email del comprador.
-						PayUParameters::BUYER_EMAIL => "buyer_test@test.com",
+						PayUParameters::BUYER_EMAIL =>  $buyerUser->email,
 						//Ingrese aquí el teléfono de contacto del comprador.
-						PayUParameters::BUYER_CONTACT_PHONE => "7563126",
+						PayUParameters::BUYER_CONTACT_PHONE => $buyerUser->phones[0]->number,
 						//Ingrese aquí el documento de contacto del comprador.
-						PayUParameters::BUYER_DNI => "5415668464654",
+						PayUParameters::BUYER_DNI => "",
 						//Ingrese aquí la dirección del comprador.
-						PayUParameters::BUYER_STREET => "Calle Salvador Alvarado",
-						PayUParameters::BUYER_STREET_2 => "8 int 103",
-						PayUParameters::BUYER_CITY => "Guadalajara",
-						PayUParameters::BUYER_STATE => "Jalisco",
-						PayUParameters::BUYER_COUNTRY => "MX",
+						PayUParameters::BUYER_STREET => "",
+						PayUParameters::BUYER_STREET_2 => "",
+						PayUParameters::BUYER_CITY => "",
+						PayUParameters::BUYER_STATE => "",
+						PayUParameters::BUYER_COUNTRY => $buyerUser->country,
 						PayUParameters::BUYER_POSTAL_CODE => "000000",
-						PayUParameters::BUYER_PHONE => "7563126",
+						PayUParameters::BUYER_PHONE => "",
 
+						// -- pagador --
+						//Ingrese aquí el nombre del pagador.
+						PayUParameters::PAYER_NAME => $payerUser->name_on_card,
+						//Ingrese aquí el email del pagador.
+						PayUParameters::PAYER_EMAIL => $buyerUser->email,
+						//Ingrese aquí el teléfono de contacto del pagador.
+						PayUParameters::PAYER_CONTACT_PHONE => $buyerUser->phones[0]->number,
+						//Ingrese aquí el documento de contacto del pagador.
+						PayUParameters::PAYER_DNI => "",
+						//OPCIONAL fecha de nacimiento del pagador YYYY-MM-DD, importante para autorización de pagos en México.
+						PayUParameters::PAYER_BIRTHDATE => $payerUser->birthdate,
+
+						//Ingrese aquí la dirección del pagador.
+						PayUParameters::PAYER_STREET => $payerUser->address,
+						PayUParameters::PAYER_STREET_2 => $payerUser->address2,
+						PayUParameters::PAYER_CITY => $payerUser->city,
+						PayUParameters::PAYER_STATE => $payerUser->state,
+						PayUParameters::PAYER_COUNTRY => $payerUser->country,
+						PayUParameters::PAYER_POSTAL_CODE => $payerUser->zip_code,
+						PayUParameters::PAYER_PHONE => $buyerUser->phones[0]->number,
+						
+						// DATOS DEL TOKEN
+						PayUParameters::TOKEN_ID => $payerUser->token,
+						
+						//Ingrese aquí el nombre de la tarjeta de crédito
+						//PaymentMethods::VISA||PaymentMethods::MASTERCARD||PaymentMethods::AMEX    
+						PayUParameters::PAYMENT_METHOD => $payerUser->payment_method,
+						
+						//Ingrese aquí el número de cuotas.
+						PayUParameters::INSTALLMENTS_NUMBER => "1",
+						//Ingrese aquí el nombre del pais.
+						PayUParameters::COUNTRY => $payerUser->country,
+						
+						//Session id del device.
+						PayUParameters::DEVICE_SESSION_ID => "vghs6tvkcle931686k1900o6e1",
+						//IP del pagadador
+						PayUParameters::IP_ADDRESS => "127.0.0.1",
+						//Cookie de la sesión actual.
+						PayUParameters::PAYER_COOKIE=>"",
+						//Cookie de la sesión actual.        
+						PayUParameters::USER_AGENT=>"Mozilla/5.0 (Windows NT 5.1; rv:18.0) Gecko/20100101 Firefox/18.0"
 
 		);
+
+		return $parameters;
 	
 	}
 
@@ -151,7 +212,7 @@ class PrepareTransacionArray
 
 	public function getParameters()
 	{
-
+		return $this->builtParameters();
 	}
 
 

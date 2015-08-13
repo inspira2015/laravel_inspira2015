@@ -2,6 +2,7 @@
 
 namespace App\Model\Entity;
 use App\Model\Dao\UserPaymentInfoDao;
+use carbon;
 
 
 class UserPaymentInfoEntity extends UserPaymentInfoDao
@@ -11,6 +12,7 @@ class UserPaymentInfoEntity extends UserPaymentInfoDao
 	public $transaction_id;
 	public $token;
 	public $name_on_card;
+	public $birthdate;
 	public $payment_method;
 	public $address;
 	public $address2;
@@ -29,6 +31,7 @@ class UserPaymentInfoEntity extends UserPaymentInfoDao
         $this->transaction_id       = (isset($valid_data['transaction_id'])) ? trim($valid_data['transaction_id']) : null;
         $this->token       			= (isset($valid_data['token'])) ? trim($valid_data['token']) : null;
         $this->name_on_card       	= (isset($valid_data['name_on_card'])) ? trim($valid_data['name_on_card']) : null;
+ 		$this->birthdate       		= $this->checkDate($valid_data);
  		$this->payment_method       = (isset($valid_data['payment_method'])) ? trim($valid_data['payment_method']) : null;
         $this->address       		= (isset($valid_data['address'])) ? trim($valid_data['address']) : null;
         $this->address2       		= (isset($valid_data['address2'])) ? trim($valid_data['address2']) : null;
@@ -37,6 +40,14 @@ class UserPaymentInfoEntity extends UserPaymentInfoDao
  		$this->zip_code       		= (isset($valid_data['zip_code'])) ? trim($valid_data['zip_code']) : null;
         $this->country       		= (isset($valid_data['country'])) ? trim($valid_data['country']) : null;
 		$this->created_at           = (isset($valid_data['created_at'])) ? trim($valid_data['created_at']) : date('Y-m-d H:i:s');
+	}
+
+
+	public function checkDate(array $valid_data)
+	{
+		$postBirthDate = (isset($valid_data['birthdate'])) ? trim($valid_data['birthdate']) : null;
+		$birthdate = Carbon::createFromFormat('Y/m/d', $postBirthDate);
+		return $birthdate->toDateString();
 	}
 
 
