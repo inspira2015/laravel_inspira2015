@@ -154,7 +154,7 @@ class PayUBankAccounts{
 	 * @throws InvalidArgumentException
 	 */
 	public static function findListByCustomer($parameters, $lang = null){
-		$request = new stdClass();
+		$request = new \stdClass();
 		$request->customerId = CommonRequestUtil::getParameter($parameters, PayUParameters::CUSTOMER_ID);
 		
 		$urlSegment = PayUSubscriptionsUrlResolver::getInstance()->getUrlSegment(PayUSubscriptionsUrlResolver::BANK_ACCOUNT_ENTITY,

@@ -88,7 +88,7 @@ class PayURecurringBill{
 	 */
 	public static function listRecurringBills($parameters, $lang = null){
 	
-		$request = new stdClass();
+		$request = new \stdClass();
 		$request->customerId = CommonRequestUtil::getParameter($parameters, PayUParameters::CUSTOMER_ID);
 		$request->dateBegin = CommonRequestUtil::getParameter($parameters, PayUParameters::RECURRING_BILL_DATE_BEGIN);
 		$request->dateFinal = CommonRequestUtil::getParameter($parameters, PayUParameters::RECURRING_BILL_DATE_FINAL);

@@ -185,8 +185,9 @@ class PrepareTransacionArray
 						PayUParameters::TOKEN_ID => $payerUser->token,
 						
 						//Ingrese aquí el nombre de la tarjeta de crédito
-						//PaymentMethods::VISA||PaymentMethods::MASTERCARD||PaymentMethods::AMEX    
-						PayUParameters::PAYMENT_METHOD => $payerUser->payment_method,
+						//PaymentMethods::VISA||PaymentMethods::MASTERCARD||PaymentMethods::AMEX
+						PayUParameters::PAYMENT_METHOD => PaymentMethods::MASTERCARD,
+
 						
 						//Ingrese aquí el número de cuotas.
 						PayUParameters::INSTALLMENTS_NUMBER => "1",
@@ -203,6 +204,8 @@ class PrepareTransacionArray
 						PayUParameters::USER_AGENT=>"Mozilla/5.0 (Windows NT 5.1; rv:18.0) Gecko/20100101 Firefox/18.0"
 
 		);
+
+		
 
 		return $parameters;
 	

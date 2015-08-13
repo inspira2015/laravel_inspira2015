@@ -20,7 +20,8 @@ use App\Model\Entity\UserVacFundLog;
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
 use App\Libraries\GeneratePaymentsDates;
-
+use App\Libraries\SystemTransactions\PrepareTransacionArray;
+use App\Libraries\PayU\PayUReports;
 use Input;
 use Session;
 use Request;
@@ -54,13 +55,15 @@ class PaymentController extends Controller {
 	private $userAffiliationDao;
 	private $userVacationalFundLog;
 	private $generatePaymentesDate;
+	private $prepareTransactionLib;
 
 
 	public function __construct( UserTokenRegistration $sysDao,
 								SetBillableDate $billable,
 								ChargeUserAffiliation $chargeUserAff,
 								UserAffiliation $userAff,
-								UserVacFundLog $userVacFundLog)
+								UserVacFundLog $userVacFundLog,
+								PrepareTransacionArray $preparePayUArray)
 	{
 		//echo base_path();
 		$this->middleware('auth');
@@ -71,12 +74,14 @@ class PaymentController extends Controller {
 		$this->userAffiliationDao = $userAff;
 		$this->userVacationalFundLog = $userVacFundLog;
 		$this->generatePaymentesDate = new GeneratePaymentsDates();
+		$this->prepareTransactionLib = $preparePayUArray;
+
 
 		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
 		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
 		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
-		PayU::$isTest = True; //Dejarlo True cuando sean pruebas.
+		PayU::$isTest = TRUE; //Dejarlo True cuando sean pruebas.
 
 		// URL de Pagos
 		Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
@@ -95,6 +100,138 @@ class PaymentController extends Controller {
 	public function Index()
 	{
         $userAuth = Auth::user();
+  	/*	  $hace_ping = PayUPayments::doPing(SupportedLanguages::ES);
+
+ 		print_r( $hace_ping );
+ 		exit;
+
+		$parameters = array(
+			//Ingrese aquí el nombre del pagador.
+			PayUParameters::PAYER_NAME => "APPROVED",
+			//Ingrese aquí el identificador del pagador.
+			PayUParameters::PAYER_ID => "150",
+			//Ingrese aquí el documento de identificación del comprador.
+			PayUParameters::PAYER_DNI => "32144457",
+			//Ingrese aquí el número de la tarjeta de crédito
+			PayUParameters::CREDIT_CARD_NUMBER => "4111111111111111",
+			//Ingrese aquí la fecha de vencimiento de la tarjeta de crédito
+			PayUParameters::CREDIT_CARD_EXPIRATION_DATE => "2019/10",
+			//Ingrese aquí el nombre de la tarjeta de crédito
+			PayUParameters::PAYMENT_METHOD => PaymentMethods::VISA
+		);
+			
+		$response = PayUTokens::create($parameters);   
+		print_r($response);
+		if($response){
+			//podrás obtener el token de la tarjeta
+			$response->creditCardToken->creditCardTokenId;
+		}
+
+		exit;*/
+
+
+
+
+
+
+ /*       $this->prepareTransactionLib->setUserId( $userAuth->id );
+        $this->prepareTransactionLib->setAccountId( 500547 );
+		$this->prepareTransactionLib->setDescription( 'Test API Validations' );
+		$this->prepareTransactionLib->setAmount( 10 );
+		$this->prepareTransactionLib->setCurrency( 'MXN' );
+		$parameters = $this->prepareTransactionLib->getParameters();
+		//print_r($parameters);
+		echo "<br><br>";
+		//$response = PayUPayments::doAuthorizationAndCapture($parameters);
+
+$reference = "payment_test_00001521";
+$value = "100";
+
+		$parameters = array(
+			//Ingrese aquí el identificador de la cuenta.
+			PayUParameters::ACCOUNT_ID => "500547",
+			//Ingrese aquí el código de referencia.
+			PayUParameters::REFERENCE_CODE => $reference,
+			//Ingrese aquí la descripción.
+			PayUParameters::DESCRIPTION => "payment test",
+			
+			// -- Valores --
+			//Ingrese aquí el valor.        
+			PayUParameters::VALUE => $value,
+			//Ingrese aquí la moneda.
+			PayUParameters::CURRENCY => "MXN",
+			
+			// -- Comprador 
+			//Ingrese aquí el nombre del comprador.
+			PayUParameters::BUYER_NAME => "First name and second buyer  name",
+			//Ingrese aquí el email del comprador.
+			PayUParameters::BUYER_EMAIL => "buyer_test@test.com",
+			//Ingrese aquí el teléfono de contacto del comprador.
+			PayUParameters::BUYER_CONTACT_PHONE => "7563126",
+			//Ingrese aquí el documento de contacto del comprador.
+			PayUParameters::BUYER_DNI => "5415668464654",
+			//Ingrese aquí la dirección del comprador.
+			PayUParameters::BUYER_STREET => "Calle Salvador Alvarado",
+			PayUParameters::BUYER_STREET_2 => "8 int 103",
+			PayUParameters::BUYER_CITY => "Guadalajara",
+			PayUParameters::BUYER_STATE => "Jalisco",
+			PayUParameters::BUYER_COUNTRY => "MX",
+			PayUParameters::BUYER_POSTAL_CODE => "000000",
+			PayUParameters::BUYER_PHONE => "7563126",
+			
+			// -- pagador --
+			//Ingrese aquí el nombre del pagador.
+			PayUParameters::PAYER_NAME => "First name and second payer name",
+			//Ingrese aquí el email del pagador.
+			PayUParameters::PAYER_EMAIL => "payer_test@test.com",
+			//Ingrese aquí el teléfono de contacto del pagador.
+			PayUParameters::PAYER_CONTACT_PHONE => "7563126",
+			//Ingrese aquí el documento de contacto del pagador.
+			PayUParameters::PAYER_DNI => "5415668464654",
+			//OPCIONAL fecha de nacimiento del pagador YYYY-MM-DD, importante para autorización de pagos en México.
+			PayUParameters::PAYER_BIRTHDATE => '1980-06-22',
+
+			//Ingrese aquí la dirección del pagador.
+			PayUParameters::PAYER_STREET => "Calle Zaragoza esquina",
+			PayUParameters::PAYER_STREET_2 => "calle 5 de Mayo",
+			PayUParameters::PAYER_CITY => "calle 5 de Mayo",
+			PayUParameters::PAYER_STATE => "Nuevo Leon",
+			PayUParameters::PAYER_COUNTRY => "MX",
+			PayUParameters::PAYER_POSTAL_CODE => "64000",
+			PayUParameters::PAYER_PHONE => "7563126",
+			
+			// DATOS DEL TOKEN
+			PayUParameters::TOKEN_ID => "847b4693-d697-4950-84ca-b2fae9efb2ab",
+			
+			//Ingrese aquí el nombre de la tarjeta de crédito
+			//PaymentMethods::VISA||PaymentMethods::MASTERCARD||PaymentMethods::AMEX    
+			PayUParameters::PAYMENT_METHOD => PaymentMethods::MASTERCARD,
+			
+			//Ingrese aquí el número de cuotas.
+			PayUParameters::INSTALLMENTS_NUMBER => "1",
+			//Ingrese aquí el nombre del pais.
+			PayUParameters::COUNTRY => PayUCountries::MX,
+			
+			//Session id del device.
+			PayUParameters::DEVICE_SESSION_ID => "vghs6tvkcle931686k1900o6e1",
+			//IP del pagadador
+			PayUParameters::IP_ADDRESS => "127.0.0.1",
+			//Cookie de la sesión actual.
+			PayUParameters::PAYER_COOKIE=>"pt1t38347bs6jc9ruv2ecpv7o2",
+			//Cookie de la sesión actual.        
+			PayUParameters::USER_AGENT=>"Mozilla/5.0 (Windows NT 5.1; rv:18.0) Gecko/20100101 Firefox/18.0"
+		);
+	print_r($parameters);
+$response = PayUPayments::doAuthorizationAndCapture($parameters);
+
+
+
+
+
+
+		print_r($response);
+		exit;*/
+
 		$queryUserAffiliation = $this->userAffiliationDao->getByUsersId( $userAuth->id );
 		$userAffiliation = $queryUserAffiliation[0];
 
@@ -132,6 +269,12 @@ class PaymentController extends Controller {
 	{
 		$paymentMethodCC = new PaymentMethodCC();
 		$postData = Request::all();
+
+		print_r($postData );
+		exit;
+
+
+
 		$validator = $paymentMethodCC->validator( $postData, Lang::locale() );
 
 		
@@ -178,8 +321,10 @@ class PaymentController extends Controller {
 
 			$this->sysTransaction->setUserPaymentInfo( array( 'users_id' => $userAuth->id,
 														      'token' => $response_token->creditCardTokenId,
+														      'ccv' => $postData['ccv'],
 														      'name_on_card' => $postData['name_on_card'],
-														      'payment_method' => '',
+														      'birthdate' => $postData['birthdate'],
+														      'payment_method' => $this->createToken->getPaymentMethod(),
 														      'address' => $postData['address'],
 														      'city' => $postData['city'],
 														      'state' => $postData['state'],

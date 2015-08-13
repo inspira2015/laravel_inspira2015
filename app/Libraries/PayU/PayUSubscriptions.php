@@ -171,7 +171,7 @@ class PayUSubscriptions{
 	 * @throws InvalidArgumentException
 	 */
 	public static function findSubscriptionsByPlanOrCustomerOrAccount($parameters, $lang = null){
-		$request = new stdClass();
+		$request = new \stdClass();
 		$request->planId = CommonRequestUtil::getParameter($parameters, PayUParameters::PLAN_ID);
 		$request->planCode = CommonRequestUtil::getParameter($parameters, PayUParameters::PLAN_CODE);
 		$request->state = CommonRequestUtil::getParameter($parameters, PayUParameters::ACCOUNT_STATE);

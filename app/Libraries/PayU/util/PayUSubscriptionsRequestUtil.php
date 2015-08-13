@@ -59,7 +59,7 @@ class PayUSubscriptionsRequestUtil extends CommonRequestUtil{
 	 * @return stdClass with the subscriptionrequest built
 	 */
 	public static function buildSubscription($parameters, $existParamBankAccount=FALSE, $existParamCreditCard=FALSE, $edit = FALSE){
-		$subscription = new stdClass();
+		$subscription = new \stdClass();
 		
 		if ($edit == TRUE){
 			if ($existParamBankAccount == TRUE){
@@ -123,7 +123,7 @@ class PayUSubscriptionsRequestUtil extends CommonRequestUtil{
 			$creditCard = PayUSubscriptionsRequestUtil::buildCreditCard($parameters);
 			$creditCard->customerId = NULL;
 		}else{
-			$creditCard = new stdClass();
+			$creditCard = new \stdClass();
 			$creditCard->token = $tokenId;
 			$creditCard->address = NULL;
 		}
@@ -140,7 +140,7 @@ class PayUSubscriptionsRequestUtil extends CommonRequestUtil{
 			$bankAccount =RequestPaymentsUtil::buildBankAccountRequest($parameters);
 			$bankAccount->customerId = NULL;
 		}else{
-			$bankAccount = new stdClass();
+			$bankAccount = new \stdClass();
 			$bankAccount->id = $bankAccountId;
 		}
 		return $bankAccount;
@@ -153,7 +153,7 @@ class PayUSubscriptionsRequestUtil extends CommonRequestUtil{
 	 */
 	public static function buildSubscriptionPlan($parameters){
 		
-		$subscriptionPlan = new stdClass();
+		$subscriptionPlan = new \stdClass();
 		
 		$subscriptionPlan->accountId = CommonRequestUtil::getParameter($parameters, PayUParameters::ACCOUNT_ID);
 		$subscriptionPlan->planCode = CommonRequestUtil::getParameter($parameters, PayUParameters::PLAN_CODE);
@@ -185,7 +185,7 @@ class PayUSubscriptionsRequestUtil extends CommonRequestUtil{
 	 */
 	public static function buildCustomer($parameters){
 		
-		$customer = new stdClass();
+		$customer = new \stdClass();
 		$customer->fullName = CommonRequestUtil::getParameter($parameters, PayUParameters::CUSTOMER_NAME);
 		$customer->email = CommonRequestUtil::getParameter($parameters, PayUParameters::CUSTOMER_EMAIL);
 		$customer->id= CommonRequestUtil::getParameter($parameters, PayUParameters::CUSTOMER_ID);
@@ -233,7 +233,7 @@ class PayUSubscriptionsRequestUtil extends CommonRequestUtil{
 	 * @return return an address
 	 */
 	private static function buildAddress($parameters){
-		$address = new stdClass();
+		$address = new \stdClass();
 		$address->city = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_CITY);
 		$address->country = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_COUNTRY);
 		$address->phone = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_PHONE);
@@ -309,7 +309,7 @@ class PayUSubscriptionsRequestUtil extends CommonRequestUtil{
 			if(!isset($container)){
 				$container = array();
 			}
-			$additionalValue = new stdClass();
+			$additionalValue = new \stdClass();
 			$additionalValue->name = $txValueName;
 			$additionalValue->value = $value;
 			$additionalValue->currency = $txCurrency;
@@ -347,7 +347,7 @@ class PayUSubscriptionsRequestUtil extends CommonRequestUtil{
 	 * @return stdClass with the recurring bill item request built
 	 */
 	public static function buildRecurringBillItem($parameters){
-		$recurringBillItem = new stdClass();
+		$recurringBillItem = new \stdClass();
 		$recurringBillItem->id = CommonRequestUtil::getParameter($parameters, PayUParameters::RECURRING_BILL_ITEM_ID);
 		$recurringBillItem->description = CommonRequestUtil::getParameter($parameters, PayUParameters::DESCRIPTION);
 		$recurringBillItem->subscriptionId = CommonRequestUtil::getParameter($parameters, PayUParameters::SUBSCRIPTION_ID);

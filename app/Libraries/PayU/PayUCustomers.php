@@ -199,7 +199,7 @@ class PayUCustomers{
 	 * @throws InvalidArgumentException
 	 */
 	public static function findCustomerListByPlanIdOrPlanCode($parameters, $lang = null){
-		$request = new stdClass();
+		$request = new \stdClass();
 		$request->planId = CommonRequestUtil::getParameter($parameters, PayUParameters::PLAN_ID);
 		$request->planCode = CommonRequestUtil::getParameter($parameters, PayUParameters::PLAN_CODE);
 		$request->limit = CommonRequestUtil::getParameter($parameters, PayUParameters::LIMIT);

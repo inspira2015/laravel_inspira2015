@@ -114,7 +114,7 @@ class PayUCreditCards{
 		$required = array(PayUParameters::CUSTOMER_ID);
 		CommonRequestUtil::validateParameters($parameters, $required);
 
-		$request = new stdClass();
+		$request = new \stdClass();
 		$request->customerId = CommonRequestUtil::getParameter($parameters, PayUParameters::CUSTOMER_ID);
 		$creditCard = PayUSubscriptionsRequestUtil::buildCreditCard($parameters);
 		

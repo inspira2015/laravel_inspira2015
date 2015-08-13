@@ -1,5 +1,5 @@
 <?php
-$reference = "payment_test_00000001";
+$reference = "payment_test_00001521";
 $value = "100";
 
 $parameters = array(

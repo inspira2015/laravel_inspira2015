@@ -112,7 +112,7 @@ class PayURecurringBillItem{
 		$subscriptionId = CommonRequestUtil::getParameter($parameters, PayUParameters::SUBSCRIPTION_ID);
 		$description = CommonRequestUtil::getParameter($parameters, PayUParameters::DESCRIPTION);
 		
-		$request = new stdClass();
+		$request = new \stdClass();
 		$request->subscriptionId = $subscriptionId;
 		$request->description = $description;
 		

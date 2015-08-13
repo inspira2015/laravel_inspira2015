@@ -26,9 +26,9 @@ class InitializePayUCredentials
 
 	public function __construct()
 	{
-		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
-		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
-		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
+		PayU::$apiKey = "tq4SDejVi5zKlmlw0L78AM4vLf"; //Ingrese aquí su propio apiKey.
+		PayU::$apiLogin = "W4Cwmrzwp1e87SZ"; //Ingrese aquí su propio apiLogin.
+		PayU::$merchantId = "529182"; //Ingrese aquí su Id de Comercio.
 		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
 		PayU::$isTest = True; //Dejarlo True cuando sean pruebas.
 

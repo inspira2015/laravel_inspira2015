@@ -31,7 +31,7 @@
 			<div class="form-group">
 				<label for="numero">* {{ Lang::get('creditcards.ccv') }} <a data-toggle="modal" class="small" data-target="#what-is-ccv" href="#">{{ Lang::get('creditcards.what-is') }}</a></label>
 				<div class="input-group">
-				  {!! Form::text('codigo', Input::get('codigo') ? Input::get('codigo') : @$codigo, array('class' => 'form-control','id' => 'codigo', 'size' => '4', 'maxlength' => '4' )) !!}                        
+				  {!! Form::text('ccv', Input::get('ccv') ? Input::get('ccv') : @$ccv, array('class' => 'form-control','id' => 'codigo', 'size' => '4', 'maxlength' => '4' )) !!}                        
 				</div>
 			</div>
 		</div>
