@@ -77,7 +77,7 @@
 			<div class="form-group">
 				<label for="pais">* {{ Lang::get('creditcards.country') }}</label>
 				<div class="input-group">
-					{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : 'MX', array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state')) !!}
+					{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : ( Lang::locale() == 'es' ? 'MX' : 'US' ) , array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state')) !!}
 				</div>
 			</div>
 		</div>
@@ -85,7 +85,7 @@
 			<div class="form-group">
                 <label for="state">* {{ Lang::get('creditcards.state') }}</label>
                 <div class="input-group select-state">
-					@if( in_array( Input::get('state') , Config::get('extra.countries') ))
+					@if( in_array( Input::get('country') ? Input::get('country') : 'MX' , Config::get('extra.countries') ))
 					{!! Form::select('state', $states, Input::get('country') ? Input::get('country') : 'MX', array('class' => 'form-control') ) !!}
 					@else
 					{!! Form::text( 'state',  Input::get('country') ? Input::get('country') : 'MX' , array('class' => 'form-control')) !!}
