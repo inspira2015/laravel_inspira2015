@@ -21,6 +21,8 @@ use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
 use App\Libraries\GeneratePaymentsDates;
 use App\Libraries\SystemTransactions\PrepareTransacionArray;
+use App\Libraries\SystemTransactions\CreateLeisureUser;
+
 use App\Libraries\PayU\PayUReports;
 use Input;
 use Session;
@@ -56,6 +58,7 @@ class PaymentController extends Controller {
 	private $userVacationalFundLog;
 	private $generatePaymentesDate;
 	private $prepareTransactionLib;
+	private $createLeisureUser;
 
 
 	public function __construct( UserTokenRegistration $sysDao,
@@ -63,7 +66,8 @@ class PaymentController extends Controller {
 								ChargeUserAffiliation $chargeUserAff,
 								UserAffiliation $userAff,
 								UserVacFundLog $userVacFundLog,
-								PrepareTransacionArray $preparePayUArray)
+								PrepareTransacionArray $preparePayUArray,
+								CreateLeisureUser $createLeisureUser)
 	{
 		//echo base_path();
 		$this->middleware('auth');
@@ -75,6 +79,8 @@ class PaymentController extends Controller {
 		$this->userVacationalFundLog = $userVacFundLog;
 		$this->generatePaymentesDate = new GeneratePaymentsDates();
 		$this->prepareTransactionLib = $preparePayUArray;
+		$this->createLeisureUser = $createLeisureUser;
+		$this->setLanguage();
 
 
 		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
@@ -89,7 +95,6 @@ class PaymentController extends Controller {
 		Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
 		// URL de Suscripciones para Pagos Recurrentes
 		Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");
-		$this->setLanguage();
 	}
 
 	/**
@@ -100,12 +105,51 @@ class PaymentController extends Controller {
 	public function Index()
 	{
         $userAuth = Auth::user();
-  	/*	  $hace_ping = PayUPayments::doPing(SupportedLanguages::ES);
+		
 
- 		print_r( $hace_ping );
- 		exit;
 
-		$parameters = array(
+		/*$postData[0] = array(
+		    "firstName" => 'GERARDO', 
+		 	"lastName" => 'GOMEZ', 
+		 	"email" => 'daniel@creative-mob.com',
+		 	"address1" => 'av Ignacio allende 1572',
+			"languageCode"=> 'ES',
+			"mtierId"=> 81,
+			"memberId"=> "LARAVEL001",
+		);
+
+
+		$context = stream_context_create(array(
+		    'http' => array(
+		        'method' => 'POST',
+		        'header' => "Content-Type: application/json\r\n",
+		        'content' => json_encode($postData)
+		    )
+		));
+
+		$response = file_get_contents('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&', FALSE, $context);
+
+		if($response === FALSE){
+		    die('Error');
+		}*/
+
+		//$responseData = json_decode($response, TRUE);
+			//////////////////////////////////////////	UPDATE leisure ID
+		/*$json = file_get_contents('https://api.leisureloyalty.com/v3/members/LARAVEL001?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
+		$obj = json_decode($json, true);
+		$data= $obj['data'];
+		echo "<pre>";
+		print_r($data);
+		exit;*/
+
+
+
+  	  //$hace_ping = PayUPayments::doPing(SupportedLanguages::ES);
+
+ 	//	print_r( $hace_ping );
+ 	//	exit;
+
+		/*$parameters = array(
 			//Ingrese aquí el nombre del pagador.
 			PayUParameters::PAYER_NAME => "APPROVED",
 			//Ingrese aquí el identificador del pagador.
@@ -113,11 +157,11 @@ class PaymentController extends Controller {
 			//Ingrese aquí el documento de identificación del comprador.
 			PayUParameters::PAYER_DNI => "32144457",
 			//Ingrese aquí el número de la tarjeta de crédito
-			PayUParameters::CREDIT_CARD_NUMBER => "4111111111111111",
+			PayUParameters::CREDIT_CARD_NUMBER => "5323875511207460",
 			//Ingrese aquí la fecha de vencimiento de la tarjeta de crédito
-			PayUParameters::CREDIT_CARD_EXPIRATION_DATE => "2019/10",
+			PayUParameters::CREDIT_CARD_EXPIRATION_DATE => "2018/10",
 			//Ingrese aquí el nombre de la tarjeta de crédito
-			PayUParameters::PAYMENT_METHOD => PaymentMethods::VISA
+			PayUParameters::PAYMENT_METHOD => PaymentMethods::MASTERCARD
 		);
 			
 		$response = PayUTokens::create($parameters);   
@@ -341,6 +385,15 @@ $response = PayUPayments::doAuthorizationAndCapture($parameters);
 															'description' => 'Add Billing Day to User Account',
 															'json_data' => ''));
 			$this->transactionBill->saveData();
+
+
+			$this->createLeisureUser->setUser( $userAuth );
+			$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
+																'type' => 'Create Leisure MemberId',
+																'description' => 'Create Leisure MemberId',
+																'json_data' => ''));
+			$this->createLeisureUser->saveData();
+
 
 
 			$this->chargeUserAffiliation->setUser( $userAuth );

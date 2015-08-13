@@ -71,6 +71,16 @@ class LibrariesServiceProvider extends ServiceProvider
                 return new \App\Libraries\SystemTransactions\PrepareTransacionArray($app->make('\App\Model\Dao\UserDao'),
                 	 $app->make('\App\Model\Entity\UserPaymentInfoEntity'));
         });
+
+ 		$this->app->bind('App\Libraries\SystemTransactions\CreateLeisureUser', function($app) {
+                return new \App\Libraries\SystemTransactions\CreateLeisureUser($app->make('\App\Model\Entity\SystemTransactionEntity'),
+                	$app->make('\App\Model\Dao\UserDao'),
+                	 $app->make('\App\Model\Entity\UserAffiliation'));
+        });
+
+
+
+
 	}
 
 }

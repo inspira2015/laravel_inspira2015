@@ -50,4 +50,13 @@ class UserAffiliationDao implements ICrudOperations
 	}
 
 
+	public function getAffiliationByUsersId($users_id = FALSE)
+	{
+		$queryAff = UserAff::has('affiliation')->where('users_id', $users_id)->get();
+		if ( empty( $queryAff->all() ) )
+		{
+			return FALSE;
+		}
+		return $queryAff;
+	}
 }
