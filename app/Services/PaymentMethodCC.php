@@ -36,7 +36,7 @@ class PaymentMethodCC
 	public function validator(array $data, $lang) {
 		return Validator::make($data, [
 			'cnumber' => 'required|numeric',
-			'codigo' => 'required|numeric',
+			'ccv' => 'required|numeric',
 			'expiration_date' => array('required', 'regex:/([0-9]{4})\/(0[1-9]|1[0-2])/'),
 			'birthdate' => array('required', 'regex:/([0-9]{4})\/(0[1-9]|1[0-2])\/(0[1-9]|1[0-9]|2[0-9]|3[0-1])/'),
 			'name_on_card' => 'required|min:4',

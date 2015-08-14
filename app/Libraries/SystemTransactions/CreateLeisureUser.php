@@ -79,7 +79,7 @@ class CreateLeisureUser extends AbstractTransactions
 		{
 			return 0;
 		}
-		return (int)$codesUsed;
+		return (int)$points;
 	}
 
 

@@ -131,26 +131,26 @@ class PrepareTransacionArray
 						//Ingrese aquí el identificador de la cuenta.
 						PayUParameters::ACCOUNT_ID => $this->storeData['accountId'],
 						//Ingrese aquí el código de referencia.
-						PayUParameters::REFERENCE_CODE => $this->getRerenceCode(),
+						PayUParameters::REFERENCE_CODE => preg_replace('/\s+/', '', $this->getRerenceCode()),
 						//Ingrese aquí la descripción.
 						PayUParameters::DESCRIPTION => $this->storeData['description'],
 
 
 						// -- Valores --
 						//Ingrese aquí el valor.        
-						PayUParameters::VALUE => $this->storeData['amount'],
+						PayUParameters::VALUE => (float)$this->storeData['amount'],
 						//Ingrese aquí la moneda.
 						PayUParameters::CURRENCY => $this->storeData['currency'],
 
 						// -- Comprador 
 						//Ingrese aquí el nombre del comprador.
-						PayUParameters::BUYER_NAME => $buyerUser->name . ' ' . $buyerUser->last_name,
+						PayUParameters::BUYER_NAME => 'APPROVED',
 						//Ingrese aquí el email del comprador.
 						PayUParameters::BUYER_EMAIL =>  $buyerUser->email,
 						//Ingrese aquí el teléfono de contacto del comprador.
 						PayUParameters::BUYER_CONTACT_PHONE => $buyerUser->phones[0]->number,
 						//Ingrese aquí el documento de contacto del comprador.
-						PayUParameters::BUYER_DNI => "",
+						PayUParameters::BUYER_DNI => "5343445",
 						//Ingrese aquí la dirección del comprador.
 						PayUParameters::BUYER_STREET => "",
 						PayUParameters::BUYER_STREET_2 => "",
@@ -158,17 +158,17 @@ class PrepareTransacionArray
 						PayUParameters::BUYER_STATE => "",
 						PayUParameters::BUYER_COUNTRY => $buyerUser->country,
 						PayUParameters::BUYER_POSTAL_CODE => "000000",
-						PayUParameters::BUYER_PHONE => "",
+						PayUParameters::BUYER_PHONE => $buyerUser->phones[0]->number,
 
 						// -- pagador --
 						//Ingrese aquí el nombre del pagador.
-						PayUParameters::PAYER_NAME => $payerUser->name_on_card,
+						PayUParameters::PAYER_NAME => 'APPROVED',
 						//Ingrese aquí el email del pagador.
 						PayUParameters::PAYER_EMAIL => $buyerUser->email,
 						//Ingrese aquí el teléfono de contacto del pagador.
 						PayUParameters::PAYER_CONTACT_PHONE => $buyerUser->phones[0]->number,
 						//Ingrese aquí el documento de contacto del pagador.
-						PayUParameters::PAYER_DNI => "",
+						PayUParameters::PAYER_DNI => "234234234",
 						//OPCIONAL fecha de nacimiento del pagador YYYY-MM-DD, importante para autorización de pagos en México.
 						PayUParameters::PAYER_BIRTHDATE => $payerUser->birthdate,
 
@@ -183,23 +183,24 @@ class PrepareTransacionArray
 						
 						// DATOS DEL TOKEN
 						PayUParameters::TOKEN_ID => $payerUser->token,
-						
+						PayUParameters::CREDIT_CARD_SECURITY_CODE=> $payerUser->ccv, 
+
 						//Ingrese aquí el nombre de la tarjeta de crédito
 						//PaymentMethods::VISA||PaymentMethods::MASTERCARD||PaymentMethods::AMEX
-						PayUParameters::PAYMENT_METHOD => PaymentMethods::MASTERCARD,
+						PayUParameters::PAYMENT_METHOD => $payerUser->payment_method,
 
 						
 						//Ingrese aquí el número de cuotas.
 						PayUParameters::INSTALLMENTS_NUMBER => "1",
 						//Ingrese aquí el nombre del pais.
-						PayUParameters::COUNTRY => $payerUser->country,
+						PayUParameters::COUNTRY => PayUCountries::MX,
 						
 						//Session id del device.
 						PayUParameters::DEVICE_SESSION_ID => "vghs6tvkcle931686k1900o6e1",
 						//IP del pagadador
 						PayUParameters::IP_ADDRESS => "127.0.0.1",
 						//Cookie de la sesión actual.
-						PayUParameters::PAYER_COOKIE=>"",
+						PayUParameters::PAYER_COOKIE=>"vghs6tvkcle",
 						//Cookie de la sesión actual.        
 						PayUParameters::USER_AGENT=>"Mozilla/5.0 (Windows NT 5.1; rv:18.0) Gecko/20100101 Firefox/18.0"
 
