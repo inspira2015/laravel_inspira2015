@@ -35,6 +35,16 @@ class CodesUsedDao implements ICrudOperations
 		return $code->id;
 	}
 
+	public function getCodesUsedByUserId($users_id = FALSE)
+	{
+		$codesUsed = Code::has('code')->where('users_id', $users_id)->get();
+		if ( empty( $codesUsed->all() ) )
+		{
+			return FALSE;
+		}
+		return $codesUsed[0];
+	}
+
 	
 
 }

@@ -6,6 +6,7 @@ use Carbon;
 use App\Model\Entity\SystemTransactionEntity;
 use App\Model\Entity\UserAffiliation;
 use App\Model\Dao\UserDao;
+use App\Model\Entity\CodesUsedEntity;
 use App;
 
 class CreateLeisureUser extends AbstractTransactions 
@@ -15,17 +16,19 @@ class CreateLeisureUser extends AbstractTransactions
 	private $valid;
 	private $userAffiliationDao;
 	private $userDao;
-
+	private $codesUsedDao;
 	private $affiliationPaymentArray;
 
 
 	public function  __construct( SystemTransactionEntity $systemTransactions,
 								  UserDao $userDao,
-								  UserAffiliation $userAffDao )
+								  UserAffiliation $userAffDao,
+								  CodesUsedEntity $codesUsed )
 	{
 		parent::__construct( $systemTransactions );
 		$this->userAffiliationDao = $userAffDao;
 		$this->userDao = $userDao;
+		$this->codesUsedDao = $codesUsed;
 	}
 
 
@@ -68,6 +71,18 @@ class CreateLeisureUser extends AbstractTransactions
 	}
 
 
+	public function getCodePoints()
+	{
+		$codesUsed = $this->codesUsedDao->getCodesUsedByUserId( $this->objUser->id );
+		$points = $codesUsed->code->points;
+		if($points < 0 )
+		{
+			return 0;
+		}
+		return (int)$codesUsed;
+	}
+
+
 
 	public function checkCreateLeisureUser()
 	{
@@ -80,6 +95,7 @@ class CreateLeisureUser extends AbstractTransactions
 			"languageCode"=> strtoupper($this->objUser->language),
 			"mtierId"=> (int)$userAffiliation->affiliation->tier_id,
 			"memberId"=> $this->generateLeisureMemberShip(),
+			"pointsBalance"=> $this->getCodePoints(),
 		);
 
 		$context = stream_context_create(array(

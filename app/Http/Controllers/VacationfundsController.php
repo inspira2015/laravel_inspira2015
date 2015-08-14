@@ -101,6 +101,8 @@ class VacationfundsController extends Controller
 		$this->createUser->setAffiliationPost( Session::get( 'affiliation' ) );
 		$this->createUser->setVacationFundPost( Session::get( 'vacationfund' ) );
 
+
+
 		if ( $this->createUser->saveData()== FALSE )
 		{
 			return Redirect::to('codes');
