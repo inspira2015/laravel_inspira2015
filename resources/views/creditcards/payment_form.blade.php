@@ -41,7 +41,7 @@
 			<div class="form-group">
 				<label for="expiration">* {{ Lang::get('creditcards.expiration') }}</label>
 				<div class="input-group">
-					{!! Form::text('expiration_date', Input::get('expiration_date') ? Input::get('expiration_date') : @$expiration_date, array('class' => 'form-control', 'size' => '7', 'maxlength' => '7', 'placeholder' => Lang::get('creditcards.expiry'))) !!}
+					{!! Form::text('expiration_date', Input::get('expiration_date') ? Input::get('expiration_date') : @$expiration_date, array('class' => 'form-control', 'size' => '7', 'maxlength' => '7', 'data-mask-type' => 'expiration', 'placeholder' => Lang::get('creditcards.expiry'))) !!}
 				</div>
 			</div>
 		</div>
@@ -49,7 +49,7 @@
 			<div class="form-group">
                 <label for="nombre">* {{ Lang::get('creditcards.birthdate') }}</label>
                 <div class="input-group">
-                  {!! Form::text('birthdate', Input::get('birthdate') ? Input::get('birthdate') : @$birthdate, array('class' => 'form-control', 'placeholder' => Lang::get('creditcards.birthdate-format') )) !!}                                                
+                  {!! Form::text('birthdate', Input::get('birthdate') ? Input::get('birthdate') : @$birthdate, array('class' => 'form-control', 'data-mask-type' => 'date', 'placeholder' => Lang::get('creditcards.birthdate-format') )) !!}                                                
                 </div>
 			</div>
 		</div>

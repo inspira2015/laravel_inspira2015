@@ -11,10 +11,13 @@ $(document).ready(function(){
 				var _change_country = _this.find('select.select-country');
 				var _email = _this.find('input[type="email"].validate-email');
 				var _card = _this.find('input#card_number');
+				var _masked = _this.find('input[data-mask-type]');
+				
 				feature._set_change( _buttons );
 				feature._on_change_country( _change_country );
 				feature._on_change_email( _email );
 				feature._apply_card_validation( _card );
+				feature._apply_masked_input( _masked );
 
 				$.ajaxSetup({headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')	}});
 
@@ -123,8 +126,23 @@ $(document).ready(function(){
 					}
 				 });
 			}
+		},
+		_apply_masked_input : function( element ) {
+			$.each(element, function(){
+				var _this = $(this);
+			
+				var _placeholder = _this.attr('placeholder');
+				var _type = _this.data('mask-type');
+				var _mask = '';
+				if(_type == 'expiration'){
+					_mask = "9999/99";
+				}
+				else if(_type == 'date'){
+					_mask = "9999/99/99";
+				}
+				_this.mask( _mask, {placeholder: _placeholder } );
+			});
 		}
-	
 	};
 	
 	$.fn.inspira = function( method ){

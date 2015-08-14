@@ -15,6 +15,7 @@
 	
 	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
 	{!! HTML::script('js/jquery.creditCardValidator.js') !!}
+	{!! HTML::script('js/jquery.maskedinput.js') !!}
 	
 	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
 	{!! HTML::script('js/main.js') !!}
