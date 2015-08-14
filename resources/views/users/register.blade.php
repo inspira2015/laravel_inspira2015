@@ -52,7 +52,7 @@
 	<div class="form-group">
 		<label for="cellphone_number">* {{ Lang::get('registry.celphone') }}</label>
 		<div class="input-group">
-			{!! Form::text('cellphone_number', Input::get('cellphone_number') ? Input::get('cellphone_number') : @$cellphone_number, array('class' => 'form-control','id' => 'cellphone_number')) !!}
+			{!! Form::text('cellphone_number', Input::get('cellphone_number') ? Input::get('cellphone_number') : @$cellphone_number, array('class' => 'form-control','id' => 'cellphone_number', 'data-mask-type' => 'celular' )) !!}
 		</div>
 	</div>
 

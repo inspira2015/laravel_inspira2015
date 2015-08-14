@@ -140,6 +140,9 @@ $(document).ready(function(){
 				else if(_type == 'date'){
 					_mask = "9999/99/99";
 				}
+				else if( _type == 'celular'){
+					_mask = "(999) 999-9999"
+				}
 				_this.mask( _mask, {placeholder: _placeholder } );
 			});
 		}
