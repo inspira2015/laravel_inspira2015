@@ -148,7 +148,7 @@ class UsersController extends Controller {
 		if( empty( $user->all() ) )
 		{
 			//Error page
-			return view('users.erroractivation')->with('title', "Activacion" )->with('background','2.jpg');
+			return view('users.erroractivation')->with('title', Lang::get('activation.title') )->with('background','2.jpg');
 		}
 
 		$this->userDao->load($user->first()->id);
@@ -157,7 +157,7 @@ class UsersController extends Controller {
 		$this->userDao->save();
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 		$data = array('full_name'=> $full_name);
-		return view('users.accountactivation',$data)->with('title', "Activacion" )->with('background','2.jpg');
+		return view('users.accountactivation',$data)->with('title', Lang::get('activation.title') )->with('background','2.jpg');
 	}
 
 

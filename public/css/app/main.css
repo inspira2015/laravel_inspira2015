@@ -167,6 +167,10 @@ footer > .container > div:nth-child(3){
 	font-size: 18px!important;
 }
 
+.btn-extrasmall{
+	font-size: 14px!important;
+}
+
 .btn-blue, .btn-light-blue{
 	color: white;
 	font-size: 24px;
@@ -252,12 +256,24 @@ div.inputs input[name="code"]{
 	background-color:#bec4c9; 
 	color:#465664;
 }
+
 div.bg-gray{
 	background-color: #e5e7e9;
 	padding: 40px;
 	margin-bottom: 175px;
+	color:#465664;
 }
 
+.bg-gray-ghost{
+	padding: 25px;
+    margin-top: 50px;
+    background-color: #F8F8F8;
+    font-family: 'tahoma';
+    font-size: 15px;
+    color: #404040;
+    opacity: 0.4;
+}
+	
 div.bg-gray label{
 	color: #465664;
 }

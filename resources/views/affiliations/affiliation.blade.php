@@ -23,7 +23,7 @@
           	foreach($suscription_array as $key => $obj)
           	{
           		$descriptions = $obj->getAffDescriptionArray();
-				echo '<div class="col-lg-'.(12/$suscription_count).' col-md-'.(12/$suscription_count).'" style="margin-bottom:100px;">
+				echo '<div class="col-lg-'.(12/$suscription_count).' col-md-'.(12/$suscription_count).'">
                   		<h1 style="color:#ffffff; background-color:' . call_user_func(array($colorCodes, $obj->getAffiliationName())) . '; text-align:center;  margin:0px 10px; padding:10px; font-size:26px;">
                   			'. $obj->getAffiliationName() .'
                   		</h1>
