@@ -3,5 +3,8 @@
 return [
 	'reset-password' => 'Reset Password',
 	'password' => 'Password',
-	'confirm-password' => 'Confirm Password'
+	'confirm-password' => 'Confirm Password',
+	'login' => 'Login',
+	'remember-me' => 'Remember Me',
+	'forgot-password' => 'Forgot Password?'
 ];

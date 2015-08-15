@@ -24,7 +24,7 @@
 		<div class="form-group">
 			<label for="name">* {{ Lang::get('registry.name') }}</label>
 			<div class="input-group">
-				{!! Form::text('name',  Input::get('name') ? Input::get('name') : @$name, array('class' => 'form-control','id' => 'name', 'placeholder' => Lang::get('registry.name_place'))) !!}
+				{!! Form::text('name',  Input::get('name') ? Input::get('name') : @$name, array('class' => 'form-control','id' => 'name')) !!}
 			</div>
 		</div>
 		<div class="form-group">

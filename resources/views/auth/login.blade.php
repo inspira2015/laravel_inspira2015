@@ -1,44 +1,67 @@
-@extends('layouts.basic')
+@extends('layouts.basic', array('title' => Lang::get('auth.login') ) )
 
 @section('content')   
 
-    <div class="row"  style="margin-bottom:50px; background-color:#e5e7e9; margin-bottom:500px;">    
-        <div class="col-lg-12 col-md-12">
-			<form style="margin-top: 20px;" class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
+<div class="row" data-role="response">    
+    <div class="col-md-8 col-md-offset-2 bg-gray">
+	    <div class="row">
+		    <h2>{{ Lang::get('auth.login') }}</h2>
+	    </div>
+	    
+	    <div class="row">
+		    <div class="divider"></div>
+	    </div>
+	    
+	    <div class="row">
+	    	<div class="col-md-10 col-md-push-1">
+				@include('errors.messages')
+			</div>
+		</div>
+	    <div class="row">
+			<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	
+				<div class="form-group">
+					<label class="col-md-4 control-label">E-mail</label>
+					<div class="col-md-6">
+						<input type="email" class="form-control" name="email" value="{{ old('email') }}">
+					</div>
+				</div>
+	
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{ Lang::get('auth.password') }}</label>
+					<div class="col-md-6">
+						<input type="password" class="form-control" name="password">
+					</div>
+				</div>
+	
+				<div class="form-group">
+					<div class="col-md-6 col-md-offset-4 nopadding">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="remember">{{ Lang::get('auth.remember-me') }}
+							</label>
 						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
+					</div>
+				</div>
+				<div class="divider"></div>
+				<div class="row">
+					<div class="col-md-4 col-md-offset-4">
+						<div class="row">
+							<button type="submit" class="btn-blue btn-medium">
+								{{ Lang::get('auth.login') }}
+							</button>
 						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="remember"> Remember Me
-									</label>
-								</div>
-							</div>
+						<div class="row">
+							<a class="btn btn-link" href="{{ url('/password/email') }}">
+								{{ Lang::get('auth.forgot-password') }}
+							</a>
 						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">Login</button>
-
-								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
-							</div>
-						</div>
-					</form>
-        </div>
+					</div>
+					
+				</div>
+			</form>
+	    </div>
     </div>
+</div>
 @endsection
