@@ -147,7 +147,8 @@ return [
 		'App\Providers\DaoServiceProvider',
 		'App\Providers\LibrariesServiceProvider',
 		'Laravel\Socialite\SocialiteServiceProvider',
-		'Laracasts\Utilities\JavaScript\JavascriptServiceProvider'
+		'Laracasts\Utilities\JavaScript\JavascriptServiceProvider',
+		'Torann\GeoIP\GeoIPServiceProvider'
 
 	],
 
@@ -200,7 +201,8 @@ return [
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
-		'Javascript'=> 'Laracasts\Utilities\JavaScript\JavaScriptFacade'
+		'Javascript'=> 'Laracasts\Utilities\JavaScript\JavaScriptFacade',
+		'GeoIP' => 'Torann\GeoIP\GeoIPFacade'
 	],
 
 ];

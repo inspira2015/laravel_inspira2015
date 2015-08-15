@@ -23,8 +23,14 @@ class CountryDao
 		return ($array);
 	}
 	
-	public function getNameByCode( $code ){
-		return Country::where('code', $code)->first()->name;	
+	public function getNameByCode( $code )
+	{
+		return $this->getCountryByCode( $code )->name;	
+	}
+	
+	public function getCountryByCode( $code )
+	{
+		return Country::where('code', $code)->first();
 	}
 
 }

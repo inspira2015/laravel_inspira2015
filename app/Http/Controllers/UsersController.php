@@ -19,6 +19,7 @@ use Mail;
 use Session;
 use URL;
 use Response;
+use GeoIP;
 
 
 
@@ -74,12 +75,11 @@ class UsersController extends Controller {
 			return Redirect::to('codes/1');
 		}
 		$locale = Lang::getLocale();
-		$data['country_list'] = $this->getCountryArray($locale);
-		$data['states'] = $this->getStatesArray($locale);
+		$data['country_list'] = $this->getCountryArray();
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
 		$data['locale'] = $locale;
-		
+		$data['location_info'] = $this->getLocationInfo();
 		if ( Session::has('users') )
 		{			
 			return view('users.user')->with('title', Lang::get('registry.title') )->with('background','2.jpg')->with($data)->with( Session::get('users') );
@@ -120,11 +120,13 @@ class UsersController extends Controller {
 
 		}
 
+
 		$locale = Lang::getLocale();
-		$data['country_list'] = $this->getCountryArray($locale);
-		$data['states'] = $this->getStatesArray($locale);
+		$data['country_list'] = $this->getCountryArray();
 		$data['lan_list'] = $this->getLanguaje($locale);
 		$data['currency_list'] = $this->getCurrency();
+		$data['location_info'] = $this->getLocationInfo($post_data['country']);
+
         return view('users.register')->with('title', Lang::get('registry.title') )->with('background','2.jpg')->with($data)->withErrors($validator)->withInput($post_data);
 	}
 	
@@ -176,7 +178,7 @@ class UsersController extends Controller {
 	}
 
 
-	protected function getCountryArray($language = FALSE)
+	protected function getCountryArray()
 	{
 		$country = new CountryDao();
 		return $country->forSelect('name', 'code');
@@ -184,18 +186,35 @@ class UsersController extends Controller {
 	}
 	
 	
-	protected function getStatesArray($language = FALSE)
+	protected function getStatesArray( $country_code )
 	{
 		$states = new StatesDao();
 		//default MX - check if its gonna be changed.
-		if($language== 'es' || $language==FALSE){
-			$country = 'MX';
-		}else{
-			$country = 'US';
+		
+		if( in_array( $country_code, Config::get('extra.countries') ) )
+		{
+			return $states->forSelect('name', 'code', array('country' => $country_code ));
 		}
-		return $states->forSelect('name', 'code', array('country' => $country ));
+		return $states->forSelect('name', 'code');
 	}
 	
+	
+	protected function getLocationInfo( $country_code = FALSE, $state = FALSE )
+	{
+		$countryDao = new CountryDao();
+		if( $country_code == FALSE ) {
+			$location = GeoIP::getLocation();
+			$country_code = $location['isoCode'];
+			$state = $location['state'];
+		}
+		$country = $countryDao->getCountryByCode( $country_code );
+		$data['states'] = $this->getStatesArray( $country_code );
+		$data['state_code'] = $state;
+		$data['country_code'] = $country_code;
+		$data['language'] =  $country['language'];
+		$data['currency'] = $country['currency'];
+		return $data;
+	}
 	
 	protected function getLanguaje($language = FALSE)
 	{
