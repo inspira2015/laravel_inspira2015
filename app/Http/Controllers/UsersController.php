@@ -107,6 +107,7 @@ class UsersController extends Controller {
 
 		$post_data = Request::all();
 		$user_check = new UserRegistration();
+		$post_data['cellphone_number'] = $this->sanitizePhone($post_data['cellphone_number']);
 		$validator = $user_check->validator($post_data, Lang::getLocale());
 
 		if($validator->passes()) 
@@ -130,6 +131,15 @@ class UsersController extends Controller {
         return view('users.register')->with('title', Lang::get('registry.title') )->with('background','2.jpg')->with($data)->withErrors($validator)->withInput($post_data);
 	}
 	
+
+	private function sanitizePhone($phone)
+    {  
+        $phone = trim($phone);      
+        $result = str_replace(array( '(', ')','-',' ' ), '', $phone);
+        return $result;
+    }
+
+
 	/**
 	 * Activates the user account with the email Url
 	 *
