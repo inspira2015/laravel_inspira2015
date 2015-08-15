@@ -1,3 +1,4 @@
+{!! Form::open(array('url' => 'users/registration', 'id' => 'user_data','name' => 'formulario','data-toggle' => 'validator')) !!}
 <div class="row">
 	<div class="col-xs-4 col-sm-3 col-sm-2">  
 		<a href="/codes/1" class="btn-blue-clear btn-medium back">
@@ -5,9 +6,9 @@
 		</a>
 	</div>
 	<div class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8">   
-		<a href="#" onClick="verificar()" class="btn-blue-clear btn-medium">
+		<div data-role="submit" data-route="users/registration" class="btn-blue-clear btn-medium">
 			{{ Lang::get('layout.continue') }}
-		</a>
+		</div>
 	</div>
 	<div class="divider"></div>
 </div>
@@ -16,7 +17,7 @@
 	@include('errors.messages')
 </div>
 
-{!! Form::open(array('url' => 'users/registration', 'id' => 'user_data','name' => 'formulario','data-toggle' => 'validator')) !!}
+
 <div class="col-sm-10-col-sm-push-2">
 	<div class="form-group">
 		<label for="name">* {{ Lang::get('registry.name') }}</label>
@@ -100,8 +101,8 @@
 		</div>
 	</div>
 </div>
-{!! Form::close() !!}
-<div class="col-sm-12" style="padding:20px;">
+
+<div class="col-sm-12">
 	<div class="divider"></div>
 </div>
 <div class="col-xs-4 col-sm-2">  
@@ -113,7 +114,10 @@
 	<div data-role="submit" data-route="users/registration" class="btn-blue btn-medium">
 		{{ Lang::get('layout.continue') }}
 	</div>
-	<div class="col-xs-12 text-right nopadding">
+	<div class="col-xs-12 text-right nopadding" id="mandatory">
 	* {{ Lang::get('layout.required-fields') }}
 	</div>
 </div>
+
+
+{!! Form::close() !!}

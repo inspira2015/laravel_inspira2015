@@ -1,3 +1,4 @@
+{!! Form::open(array('url' => 'users/registration')) !!}
 <div class="row">
 	<div class="col-xs-12">
 		<h2>
@@ -5,9 +6,9 @@
 		</h2>
 	</div>
 	<div class="col-xs-4 col-xs-push-8 col-sm-3 col-sm-push-9 col-md-2 col-md-push-10">   
-		<a data-role="submit" data-route="/payment/addcreditcard" class="btn-blue-clear btn-medium">
+		<div data-role="submit" data-route="/payment/addcreditcard" class="btn-blue-clear btn-medium">
 			{{ Lang::get('layout.continue') }}
-		</a>
+		</div>
 	</div>
 	<div class="divider"></div>
 </div>
@@ -16,7 +17,6 @@
 	@include('errors.messages')
 </div>
 
-{!! Form::open(array('url' => 'users/registration')) !!}
 <div class="col-sm-10-col-sm-push-2">
 	<div class="row">
 		<div class="col-md-6">
