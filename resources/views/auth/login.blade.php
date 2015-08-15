@@ -48,7 +48,7 @@
 				<div class="row">
 					<div class="col-md-4 col-md-offset-4">
 						<div class="row">
-							<button type="submit" class="btn-blue btn-medium">
+							<button type="submit" class="btn-light-blue btn-medium">
 								{{ Lang::get('auth.login') }}
 							</button>
 						</div>
