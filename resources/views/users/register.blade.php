@@ -13,69 +13,72 @@
 	<div class="divider"></div>
 </div>
 
-<div class="col-md-10 col-md-push-1">
-	@include('errors.messages')
+<div class="row">
+	<div class="col-md-10 col-md-push-1">
+		@include('errors.messages')
+	</div>
 </div>
 
-
-<div class="col-sm-10-col-sm-push-2">
-	<div class="form-group">
-		<label for="name">* {{ Lang::get('registry.name') }}</label>
-		<div class="input-group">
-			{!! Form::text('name',  Input::get('name') ? Input::get('name') : @$name, array('class' => 'form-control','id' => 'name', 'placeholder' => Lang::get('registry.name_place'))) !!}
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="last_name">* {{ Lang::get('registry.last_name') }}</label>
+<div class="row">
+	<div class="col-sm-10-col-sm-push-2">
+		<div class="form-group">
+			<label for="name">* {{ Lang::get('registry.name') }}</label>
 			<div class="input-group">
-			{!! Form::text('last_name', Input::get('last_name') ? Input::get('last_name') : @$last_name, array('class' => 'form-control','id' => 'last_name')) !!}
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="email">* E-mail</label>
-		<div class="input-group">
-			{!! Form::email('email', Input::get('email') ? Input::get('email') : @$email, array('class' => 'form-control validate-email','id' => 'email')) !!}
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="password">* {{ Lang::get('registry.password') }}</label>
-		<div class="input-group">
-			{!! Form::password('password',  array('class' => 'form-control')) !!}
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="password_confirmation">* {{ Lang::get('registry.retype_pwd') }}</label>
-		<div class="input-group">
-			{!! Form::password('password_confirmation',  array('class' => 'form-control')) !!}
-		</div>
-	</div>  
-
-	<div class="form-group">
-		<label for="cellphone_number">* {{ Lang::get('registry.celphone') }}</label>
-		<div class="input-group">
-			{!! Form::text('cellphone_number', Input::get('cellphone_number') ? Input::get('cellphone_number') : @$cellphone_number, array('class' => 'form-control','id' => 'cellphone_number', 'data-mask-type' => 'celular' )) !!}
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-lg-6 col-md-6">
-			<div class="form-group">
-				<label for="country">* {{ Lang::get('registry.country') }}</label>
-				<div class="input-group">
-				{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : $location_info['country_code'], array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state')) !!}
-				</div>
+				{!! Form::text('name',  Input::get('name') ? Input::get('name') : @$name, array('class' => 'form-control','id' => 'name', 'placeholder' => Lang::get('registry.name_place'))) !!}
 			</div>
 		</div>
-
-		<div class="col-lg-6 col-md-6">
-			<div class="form-group">
-				<label for="state">* {{ Lang::get('registry.state') }}</label>
-				<div class="input-group select-state">
-					@if( in_array( $location_info['country_code'] , Config::get('extra.countries') ))
-					{!! Form::select('state', $location_info['states'], $location_info['state_code'], array('class' => 'form-control') ) !!}
-					@else
-					{!! Form::text( 'state',  '', array('class' => 'form-control')) !!}
-					@endif
+		<div class="form-group">
+			<label for="last_name">* {{ Lang::get('registry.last_name') }}</label>
+				<div class="input-group">
+				{!! Form::text('last_name', Input::get('last_name') ? Input::get('last_name') : @$last_name, array('class' => 'form-control','id' => 'last_name')) !!}
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="email">* E-mail</label>
+			<div class="input-group">
+				{!! Form::email('email', Input::get('email') ? Input::get('email') : @$email, array('class' => 'form-control validate-email','id' => 'email')) !!}
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="password">* {{ Lang::get('registry.password') }}</label>
+			<div class="input-group">
+				{!! Form::password('password',  array('class' => 'form-control')) !!}
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="password_confirmation">* {{ Lang::get('registry.retype_pwd') }}</label>
+			<div class="input-group">
+				{!! Form::password('password_confirmation',  array('class' => 'form-control')) !!}
+			</div>
+		</div>  
+	
+		<div class="form-group">
+			<label for="cellphone_number">* {{ Lang::get('registry.celphone') }}</label>
+			<div class="input-group">
+				{!! Form::text('cellphone_number', Input::get('cellphone_number') ? Input::get('cellphone_number') : @$cellphone_number, array('class' => 'form-control','id' => 'cellphone_number', 'data-mask-type' => 'celular' )) !!}
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-lg-6 col-md-6">
+				<div class="form-group">
+					<label for="country">* {{ Lang::get('registry.country') }}</label>
+					<div class="input-group">
+					{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : $location_info['country_code'], array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state')) !!}
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-lg-6 col-md-6">
+				<div class="form-group">
+					<label for="state">* {{ Lang::get('registry.state') }}</label>
+					<div class="input-group select-state">
+						@if( in_array( $location_info['country_code'] , Config::get('extra.countries') ))
+						{!! Form::select('state', $location_info['states'], $location_info['state_code'], array('class' => 'form-control') ) !!}
+						@else
+						{!! Form::text( 'state',  '', array('class' => 'form-control')) !!}
+						@endif
+					</div>
 				</div>
 			</div>
 		</div>
