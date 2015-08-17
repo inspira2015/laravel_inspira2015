@@ -150,7 +150,7 @@ class PrepareTransacionArray
 						//Ingrese aquí el teléfono de contacto del comprador.
 						PayUParameters::BUYER_CONTACT_PHONE => $buyerUser->phones[0]->number,
 						//Ingrese aquí el documento de contacto del comprador.
-						PayUParameters::BUYER_DNI => "5343445",
+						PayUParameters::BUYER_DNI => "",
 						//Ingrese aquí la dirección del comprador.
 						PayUParameters::BUYER_STREET => "",
 						PayUParameters::BUYER_STREET_2 => "",
@@ -200,14 +200,13 @@ class PrepareTransacionArray
 						//IP del pagadador
 						PayUParameters::IP_ADDRESS => "127.0.0.1",
 						//Cookie de la sesión actual.
-						PayUParameters::PAYER_COOKIE=>"vghs6tvkcle",
+						PayUParameters::PAYER_COOKIE=>"pt1t38347bs6jc9ruv2ecpv7o2",
 						//Cookie de la sesión actual.        
 						PayUParameters::USER_AGENT=>"Mozilla/5.0 (Windows NT 5.1; rv:18.0) Gecko/20100101 Firefox/18.0"
 
 		);
 
-		
-
+	
 		return $parameters;
 	
 	}

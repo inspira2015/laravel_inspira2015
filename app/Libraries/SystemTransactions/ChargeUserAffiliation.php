@@ -45,15 +45,17 @@ class ChargeUserAffiliation extends AbstractTransactions
 		return FALSE;
 	}
 
+
+
 	public function saveData()
 	{
 		$this->saveTransaction();
 		$userAffiliation = $this->checkUserAffiliation();
 		$this->affiliationPaymentArray['transaction_id'] = $this->transactionId;
 		$this->affiliationPaymentArray['affiliations_id'] = $userAffiliation->affiliations_id;
-		$this->affiliationPaymentArray['amount'] = 0;
+		$this->affiliationPaymentArray['amount'] = $userAffiliation->amount;
 		$this->affiliationPaymentArray['currency'] = $userAffiliation->currency;
-		$this->affiliationPaymentArray['payu_transaction_id'] = '';
+		$this->affiliationPaymentArray['payu_transaction_id'] = $this->transactionInfo->payu_transaction_id;
 
 		$this->userAffiliationDao->exchangeArray( $this->affiliationPaymentArray );
 		$this->userAffiliationDao->save();

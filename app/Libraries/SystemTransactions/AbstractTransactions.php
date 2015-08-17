@@ -29,7 +29,7 @@ abstract class AbstractTransactions
 		$this->objUser = $user;
 	}
 
-	protected function saveTransaction()
+	public function saveTransaction()
 	{
 		$this->sysTransactionDao->exchangeArray( $this->transactionInfo );
 		$this->transactionId = $this->sysTransactionDao->save();

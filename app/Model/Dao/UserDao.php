@@ -1,7 +1,7 @@
 <?php 
 
 namespace App\Model\Dao;
-
+use Carbon;
 use App\Model\User;
 use App\Model\Entity\UserEntity;
 
@@ -127,6 +127,15 @@ class UserDao extends UserEntity implements ICrudOperations
  	public function getUserByEmail($email)
  	{
  		return  User::where( 'email', '=', $email )->first();
+ 	}
+
+
+ 	public function getUserAffiliatonPayment()
+ 	{
+ 		$now = Carbon::now();
+ 		$minimumDay = Carbon::now()->subDays(5);     
+
+ 		return User::has('affiliations')->where( 'billable_day', '>=',$minimumDay->day  )->where( 'billable_day', '<=',$now->day )->get();
  	}
 
 }

@@ -1,7 +1,7 @@
 <?php 
 
 namespace App\Model\Dao;
-
+use DB;
 use App\Model\UserAffiliationPayment;
 
 
@@ -38,6 +38,15 @@ class UserAffiliationPaymentDao  implements ICrudOperations
 		return $user->id;
 	}
 
-
+	public function checkPaymentByUserMonth($user_id, $month)
+	{
+		$tempMont = array($month);
+		$userAff = UserAffiliationPayment::where('users_id',$user_id)->whereRaw('MONTH(charge_at) = ?',$tempMont)->get();
+		if(empty($userAff[0]))
+		{
+			return FALSE;
+		}
+		return TRUE;
+	}
 
 }
