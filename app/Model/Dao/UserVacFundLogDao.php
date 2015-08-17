@@ -50,4 +50,5 @@ class UserVacFundLogDao implements ICrudOperations
 	}
 
 
+
 }

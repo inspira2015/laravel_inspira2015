@@ -28,23 +28,16 @@ class UserVacationalFundsDao implements ICrudOperations
 	
 	public function save() 
 	{
+
 		$id = isset($this->id) ? (int) $this->id : 0;
-
-		if ($id > 0) 
+		$vacLog = UserVac::firstOrNew( array( 'id' => $id ));
+		foreach($this as $key =>$value)
 		{
-			$new_user = UserVac::find($id);
-			$array_data = (array)$this;
-			$new_user->fill($array_data);
-		} else {
-			$new_user = new UserVac;
-			foreach($this as $key =>$value)
-			{
-				$new_user->$key = $value;
-			}
-
+			$vacLog->$key = $value;
 		}
-			$new_user->save();
-			return $new_user->id;
+		$vacLog->save();
+		return $vacLog->id;
+
 	}
 
 	public function getByCode($code = FALSE)
@@ -52,5 +45,9 @@ class UserVacationalFundsDao implements ICrudOperations
 		return UserVac::where('code', $code)->get();
 	}
 
+	public function getLatestByUserId($users_id = FALSE)
+	{
+		return UserVac::where('users_id', $users_id)->orderBy('id','desc')->first();
+	}
 
 }

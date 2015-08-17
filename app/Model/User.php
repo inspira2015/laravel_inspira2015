@@ -17,7 +17,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 						    'confirmation_code','country','state','facebook_id','facebook_link','gender','facebook_avatar'];
 
 	public function funds_log(){
-		return $this->hasMany('App\Model\VacationFundLog', 'users_id', 'id');
+		return $this->hasOne('App\Model\VacationFundLog', 'users_id', 'id');
 	}
 	
 	public function funds(){

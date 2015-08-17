@@ -27,26 +27,34 @@ use App\Model\Entity\UserAffiliationPaymentEntity;
 use App\Libraries\SystemTransactions\PrepareTransacionArray;
 use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
 use App\Libraries\SystemTransactions\ChargeUserAffiliation;
+use App\Model\Entity\UserVacFundLog;
+use App\Libraries\GetLastBalance;
+use App\Model\Entity\UserVacationalFunds;
+use App\Libraries\SystemTransactions\ChargeVacationalFunds;
 
-class AffiliationCharge extends Controller 
+//UserVacationalFunds
+
+
+class VacationalFundCharge extends Controller 
 {
 	private $exchangeDao;
 	protected $auth;
 	private $currentExchangeRate;
 	private $today;
 	private $userDao;
-	private $userAffiliationPayment;
 	private $prepareTransactionArray;
 	private $exchange;
-	private $chargeUserAffiliation;
+	private $userVacFundLogDao;
+	private $lastBalance;
+	private $chargeUserVacationalFunds;
 	
 	public function __construct( 	UserDao $userdao,
 									ExchangeRateEntity $exchange,
-									UserAffiliation $userAffiliation,
-									UserAffiliationPaymentEntity $userAff,
+									UserVacFundLog $userVacFund,
 									PrepareTransacionArray $prepareTrans,
 									ExchangeMXNUSD $exchangeMXNUSD,
-									ChargeUserAffiliation $chargeUserAff )
+									GetLastBalance $getLast,
+									ChargeVacationalFunds $chargeVacationalFunds  )
 	{
 		$this->middleware('guest');		
 		$this->exchangeDao =  $exchange;
@@ -54,11 +62,13 @@ class AffiliationCharge extends Controller
 		$this->today = Carbon::now();
 		$this->exchange = $exchangeMXNUSD;
 		$this->userDao = $userdao;
-		$this->userAffiliationPayment = $userAff;
+		$this->userVacFundLogDao = $userVacFund;
+	//	$this->userAffiliationPayment = $userAff;UserVacFundLog
 		$this->prepareTransactionArray = $prepareTrans;
 		$this->convertHelper = new ConvertCurrencyHelper();
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
-		$this->chargeUserAffiliation = $chargeUserAff;
+		$this->lastBalance = $getLast;
+		$this->chargeUserVacationalFunds = $chargeVacationalFunds;
 
 		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
@@ -77,101 +87,100 @@ class AffiliationCharge extends Controller
 
 	public function Montlypayment()
 	{
-		$users = $this->userDao->getUserAffiliatonPayment();
+		$users = $this->userDao->getVacationFundPayment();
 		$this->convertHelper->setCurrencyShow( 'MXN' );
 
-		foreach($users as $user)
+		foreach( $users as $user )
 		{
-			print_r($user->affiliations->amount);
+			print_r($user->id);
 			echo "<br><br>";
+			$queryUserVac = $this->userVacFundLogDao->getByUsersId( $user->id );
+			$userVacationalFund = $queryUserVac[0];
 
-			echo $user->id;
-			if( $this->userAffiliationPayment->checkPaymentByUserMonth( $user->id, $this->today->month ) )
-			{
-				continue;
-			}
 
 			$this->prepareTransactionArray->setUserId( $user->id );
-			$this->convertHelper->setCost( $user->affiliations->amount );
-			$this->convertHelper->setCurrencyOfCost( $user->affiliations->currency );
+			$this->convertHelper->setCost( $userVacationalFund->amount );
+			$this->convertHelper->setCurrencyOfCost( $userVacationalFund->currency );
 			$this->prepareTransactionArray->setAccountId( 500547 );
-			$this->prepareTransactionArray->setDescription( 'Monthly Affiliation Payment' );
+			$this->prepareTransactionArray->setDescription( 'Monthly Vacational Fund Payment' );
 			$this->prepareTransactionArray->setAmount( $this->convertHelper->getFomattedAmount() );
 			$this->prepareTransactionArray->setCurrency( 'MXN' );
 			$parameters = $this->prepareTransactionArray->getParameters();
-
-			$this->chargeUserAffiliation->setUser( $user );
+			echo "<pre>";
+			print_r( $parameters );
+			$this->chargeUserVacationalFunds->setUser( $user );
 
 			$response = PayUPayments::doAuthorizationAndCapture($parameters);
 
 			print_r($response);
 			echo "<br><br>";
 
-
 			if( empty($response) )
 			{
-				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
+				$this->chargeUserVacationalFunds->setTransactionInfo( array(  'users_id' => $user->id,
 																		  'code' => 'Error',
-																		'type' => 'Charge Affiliation',
+																		  'type' => 'Charge Vacational Fund',
 																		  'description' => 'Unexpected Error',
 																		  'json_data' => '' ));
-				$this->chargeUserAffiliation->saveTransaction();
+				$this->chargeUserVacationalFunds->saveTransaction();
 				continue;
 			}
 
 
 			if ($response->code == 'ERROR') 
 			{
-				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
+				$this->chargeUserVacationalFunds->setTransactionInfo( array(  'users_id' => $user->id,
 																		  'code' => 'Error',
-																		'type' => 'Charge Affiliation',
+																		  'type' => 'Charge Vacational Fund',
 																		  'description' => $response->error,
 																		  'json_data' => json_encode($response) ));
-				$this->chargeUserAffiliation->saveTransaction();
+				$this->chargeUserVacationalFunds->saveTransaction();
 				continue;
 			}
 
 
 			if ( $response->transactionResponse->state=="PENDING" ) 
 			{
-				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
+				$this->chargeUserVacationalFunds->setTransactionInfo( array(  'users_id' => $user->id,
 																		  'code' => 'PENDING',
-																		'type' => 'Charge Affiliation',
+																		  'type' => 'Charge Vacational Fund',
 																		  'description' => $response->transactionResponse->responseCode,
 																		  'json_data' => json_encode($response),
 																		  'payu_transaction_id' =>$response->transactionResponse->transactionId ));
-				$this->chargeUserAffiliation->saveTransaction();
+				$this->chargeUserVacationalFunds->saveTransaction();
 				continue;
 			}
 
 
 			if ( $response->transactionResponse->state=="DECLINED" ) 
 			{
-				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
+				$this->chargeUserVacationalFunds->setTransactionInfo( array(  'users_id' => $user->id,
 																		  'code' => 'DECLINED',
-																		'type' => 'Charge Affiliation',
+																		  'type' => 'Charge Vacational Fund',
 																		  'description' => $response->transactionResponse->responseCode,
 																		  'json_data' => json_encode($response),
 																		  'payu_transaction_id' =>$response->transactionResponse->transactionId ));
-				$this->chargeUserAffiliation->saveTransaction();
+				$this->chargeUserVacationalFunds->saveTransaction();
 				continue;
 			}
 
-
-			$this->chargeUserAffiliation->setTransactionInfo( array(	'users_id' => $userAuth->id,
+			$this->chargeUserVacationalFunds->setTransactionInfo( array(	'users_id' => $userAuth->id,
 																		'code' => 'Success',
-																		'type' => 'Charge Affiliation',
-																		'description' => 'Monthly Affiliation Charge',
+																		'type' => 'Charge Vacational Fund',
+																		'description' => 'Monthly Vacational Fund Charge',
 																		'json_data' => json_encode($response),
 																		'payu_transaction_id' =>$response->transactionResponse->transactionId ));
 
-			$this->chargeUserAffiliation->setAffiliationPayment( array( 'users_id' => $user->id,
+			$this->chargeUserVacationalFunds->setAffiliationPayment( array( 'users_id' => $user->id,
 																		'charge_at' => date('Y-m-d')));
 			
-			$this->chargeUserAffiliation->saveData();
+			$this->chargeUserVacationalFunds->saveData();
+
 
 		}
 
+
+		
 	
 	}
 }

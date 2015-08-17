@@ -138,4 +138,14 @@ class UserDao extends UserEntity implements ICrudOperations
  		return User::has('affiliations')->where( 'billable_day', '>=',$minimumDay->day  )->where( 'billable_day', '<=',$now->day )->get();
  	}
 
+
+ 	public function getVacationFundPayment()
+ 	{
+ 		return User::whereHas('funds_log', function($funds)
+	 	{
+	 		$funds->where('amount','>',0 )->where('active',1);
+	 	})->get();
+
+ 	}
+
 }

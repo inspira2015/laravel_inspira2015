@@ -25,6 +25,8 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 
 
 Route::get('cronjob/exchangerate', 'CronJobs\ExchangeRateUpdate@Currentrate');
+Route::get('cronjob/affiliationcharge', 'CronJobs\AffiliationCharge@Montlypayment');
+Route::get('cronjob/vacationalfunds', 'CronJobs\VacationalFundCharge@Montlypayment');
 
 
 Route::get('api/test', 'Api\UsersController@test');

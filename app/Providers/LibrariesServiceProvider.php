@@ -79,7 +79,9 @@ class LibrariesServiceProvider extends ServiceProvider
                         $app->make('\App\Model\Entity\CodesUsedEntity'));
         });
 
-
+                $this->app->bind('App\Libraries\GetLastBalance', function($app) {
+                return new \App\Libraries\GetLastBalance($app->make('\App\Model\Entity\UserVacationalFunds'));
+        });
 
 
 	}
