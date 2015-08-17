@@ -5,7 +5,7 @@ return [
 	"error" => [
 		"ready" => "¡Tu cuenta ya ha sido activada!",
 		"contact" => "Si no puedes entrar reinicia tu contrase&ntilde;a o contáctanos por email",
-		"reset-password" => "Reinciar Contraseña",
+		"reset-password" => "Reiniciar Contraseña",
 		"support" => "Enviar correo a Soporte"
 	],
 	"welcome" => [
