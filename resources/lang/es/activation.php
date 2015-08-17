@@ -4,7 +4,7 @@ return [
 	"title" => "Activaci&oacute;n de Usuario",
 	"error" => [
 		"ready" => "¡Tu cuenta ya ha sido activada!",
-		"contact" => "Si no puedes entrar reinicia tu password o contáctanos por email",
+		"contact" => "Si no puedes entrar reinicia tu contrase&ntilde;a o contáctanos por email",
 		"reset-password" => "Reinciar Contraseña",
 		"support" => "Enviar correo a Soporte"
 	],

@@ -20,6 +20,7 @@ class CodesController extends Controller {
 		$this->middleware('guest');
 		$this->codeDao = $dao;
 		$this->check = new CodeValidator();
+		$this->setLanguage();
 	}
 
 	public function Index($reset = FALSE) 
