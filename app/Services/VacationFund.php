@@ -5,7 +5,9 @@ use Validator;
 class VacationFund
 {
 	private $messages = array(
-		'en' => [],
+		'en' => [
+			'fondo.required' => 'The fund field is required'
+		],
 		'es' => [
 			'amount.numeric' => 'El monto debe ser numérico.',
 			'fondo.required' => 'El campo de fondo es requerido.',

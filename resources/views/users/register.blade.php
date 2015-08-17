@@ -14,7 +14,7 @@
 </div>
 
 <div class="row">
-	<div class="col-md-10 col-md-push-1">
+	<div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2">
 		@include('errors.messages')
 	</div>
 </div>

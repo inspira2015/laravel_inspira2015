@@ -32,11 +32,17 @@ $(document).ready(function(){
 			element.bind('click', function(){
 				var _this = $(this);
 				var _response = _this.closest('div[data-role=response]');
-				var _form = _response.find('form:first');
+				var _form = _this.parents('form');
 				var _route = _this.data('route');
 
 				var _data = {};
 				
+				
+				if(typeof _route == 'undefined'){
+					_form.submit();
+					return;
+				}
+								
 				if(typeof _form[0] == 'object'){
 					_data = _form.serialize();
 				}

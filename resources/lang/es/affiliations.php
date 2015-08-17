@@ -17,6 +17,6 @@ return [
 	"monthfee" => "CUOTA MENSUAL",
 	"promotion" => "PRIMER MES GRATIS",
 	"affconfirm" => "DESEO SER AFILIADO :affiliation",
-
-
+	"title" => "Afiliaciones",
+	"today-rate" => 'Cobro actual en pesos. Tomando en cuenta que el tipo de cambio del d&iacute;a:'
 ];

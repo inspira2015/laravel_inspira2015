@@ -6,5 +6,6 @@ return [
 	'confirm-password' => 'Confirm Password',
 	'login' => 'Login',
 	'remember-me' => 'Remember Me',
-	'forgot-password' => 'Forgot Password?'
+	'forgot-password' => 'Forgot Password?',
+	'sign-in' => 'Sign In'
 ];

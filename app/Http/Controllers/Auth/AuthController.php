@@ -44,6 +44,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
         $this->socialite = $socialite;
         $this->checkAccountSetup = $checkUser;
         $this->userDao = $userdao;
+        $this->setLanguage();
     }
 
     /**

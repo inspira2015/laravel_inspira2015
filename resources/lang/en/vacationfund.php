@@ -25,5 +25,6 @@ return [
 	"savingamount" => "Amount you would like to save monthly",
 	"termsconditions" => 'The amount you decide to save, will be charged to your credit card at the end of each month. 
 						  The amount saved can be used at the moment you decide, For cancelations please reed our  
-						  <a style="color:#818c95;">Terms of cancelation</a>.'
+						  <a style="color:#818c95;">Terms of cancelation</a>.',
+	"title" => "Vacational Fund Program"
 ];

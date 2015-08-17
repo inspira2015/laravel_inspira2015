@@ -59,6 +59,7 @@ class UsersController extends Controller {
 		$this->codeDao = $codeDao;
 		$this->check = new CodeValidator();
 		$this->checkReferer = new CheckReferer();
+		$this->setLanguage();
 	}
 
 	/**

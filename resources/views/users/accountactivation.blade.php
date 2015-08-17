@@ -1,36 +1,31 @@
 @extends('layouts.basic')
 
 @section('content')
-<div class="description">
-	<i class="fa fa-user" style="border: 3px solid grey; border-radius:50%; width:25px; height:25px;"></i>
-	<p><?php echo $full_name; ?></p>
-	<br/>
-	<p>Su correo ha sido confirmado</p>
-	
-	<p class="account_conf">BIENVENIDO Y<br/>
-		FELICES VIAJES!
-	</p>
-</div>
 
 <div class="row">
-	<div class="col-xs-10 col-xs-push-1 col-sm-6 col-sm-push-3">
-		<div class="description">
+	<div class="col-xs-10 col-xs-push-1 col-sm-8 col-sm-push-2 col-md-8 col-md-push-2 bg-gray">	
+		<div class="row">
 			<i class="fa fa-user"></i>
 			<p><?php echo $full_name; ?></p>
-			<br/>
-			<p class="account_conf">{{ Lang::get('emails.confirm-message') }}</p>
+		</div>
+		<div class="row">
+			<p>{{ Lang::get('activation.welcome.email-confirmed') }}</p>
+		</div>
+		
+		<div class="row">
+			<p class="account_conf">
+				{{ Lang::get('activation.welcome.message') }}
+			</p>
+		</div>
+		<div class="divider"></div>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<a href="{{ url('auth/login') }}" class="btn-light-blue btn-medium">
+					{{ Lang::get('auth.sign-in') }}
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
-
-<style>
-	.fa-user {
-		border: 3px solid grey; border-radius:50%; width:25px; height:25px;
-	}
-	.description {
-		margin-bottom: 350px;
-	}
-</style>
-
 @stop
   

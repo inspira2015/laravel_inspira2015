@@ -14,7 +14,7 @@
 			<div class="divider"></div>
 		</div>
 		<div class="row">
-			<div class="col-md-4 ">
+			<div class="col-md-4">
 				<a href="mailto:{{ Config::get('extra.email.support') }}" class="btn-blue-clear btn-extrasmall">{{ Lang::get('activation.error.support') }}</a>
 			</div>
 			<div class="col-md-4 col-md-push-4">

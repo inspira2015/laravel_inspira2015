@@ -1,119 +1,117 @@
 @extends('layouts.basic')
 
 @section('content')
-    <style type="text/css">
-      .container li{
-        margin-bottom: 8px;
-      }
-    </style>
-<div style="background-color:#e5e7e9;padding-left:40px; padding-right:40px;">
-	<div class="row" style="background-color:#e5e7e9; margin-bottom:0px; padding-top:50px;">
-        <h2 style="float:left; text-transform:uppercase; margin-bottom:25px; text-align:left; 40px;display:inline;">
-          @lang('affiliations.select')
-        </h2>
+<div class="row bg-gray">
+	{!! Form::open(array('url' => 'affiliation/add')) !!}
+	<div class="col-xs-12">
+		<div class="row nopadding">
+			<div class="col-xs-4 col-sm-3 col-sm-2">  
+				<a href="/users" class="btn-blue-clear btn-medium back">
+					{{ Lang::get('layout.back') }}
+				</a>
+			</div>
+			<div class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8">   
+				<div data-role="submit" class="btn-blue-clear btn-medium">
+					{{ Lang::get('layout.continue') }}
+				</div>
+			</div>
+			<div class="divider"></div>		
+		</div>
 	</div>
-	<div class="row" style="padding: 0 20px;">
+	<div class="col-xs-12 text-left" style="text-transform: uppercase; font-size: 16px;">
+		<p>{{ Lang::get('affiliations.select') }} </p><br>
+	</div>
+	<div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2">
 		@include('errors.messages')
 	</div>
-	<div class="row"  style="margin-bottom:50px; background-color:#e5e7e9; margin-bottom:50px; padding-top:50px;">
-        <?php echo Form::open(array('url' => 'affiliation/add', 'id' => 'affiliation','name' => 'formulario' )) ?>
+	@foreach($suscription_array as $key => $obj)
+	<?php  $descriptions = $obj->getAffDescriptionArray(); ?>
+	<div class="col-md-{{ (12/$suscription_count) }} {{ strtolower($obj->getAffiliationName()) }}">
+		<div class="row margin">
+			<h2 class="affiliation-header">
+  			{{ $obj->getAffiliationName() }}
+  			</h2>
+		</div>
+		<div class="bg-light-gray margin row nopadding">
+			<div class="col-xs-12">
+				<p>{{ $obj->getAffiliationSmallDesc() }} </p>
+			</div>
+			<div class="col-xs-12 nopadding">
+				<div class="divider"></div>
+			</div>
+			<div class="col-xs-12 text-left">
+				<ul style="list-style-type:disc;">
+				@foreach($descriptions as $k => $descArray)
+					<li> {{ $descArray['description'] }} </li>
+				@endforeach
+				</ul>
+			</div>
+			<div class="col-xs-12 nopadding">
+				<div class="divider"></div>
+			</div>
+			<div class="col-xs-12">
+				<h2>@lang('affiliations.monthfee'): <br>
+				<?php
+				$convertHelper->setCost($obj->getAffiliationPrice());
+				$convertHelper->setCurrencyOfCost($obj->getCurrency());
+				?>
+				
+				${{ $obj->getAffiliationPrice() }} USD
+				
+				@if($convertHelper->getCurrencyShow() == "MXN")
+					({{ $convertHelper->getFomattedAmount()}}
+					{{$convertHelper->getCurrencyShow() }}* )
+				@endif
 
-<?php
+				{!! Form::hidden('currency_' . $obj->getAffiliationId(), $convertHelper->getCurrencyShow()) !!}
+        		{!! Form::hidden('amount_' . $obj->getAffiliationId(), $convertHelper->getFomattedAmount()) !!}
+				</h2>
+			</div>
+			<div class="col-xs-12 nopadding">
+				<div class="divider"></div>
+			</div>
+			<div class="col-xs-12 nopadding">
+				{{ Lang::get('affiliations.promotion') }}
+				<?php  
+                    $affiliation = ( int )$affiliation;
+                    $radio_select = FALSE;
+                    if ( $affiliation != 0 )
+                    {
+                      $temp =  $obj->getAffiliationId();
+                      if ( $temp == $affiliation )
+                      {
+                        $radio_select = TRUE;
+                      }
+                    }
+                ?>
+                <div class="form-group text-left">
+                	{!! Form::radio('affiliation', $obj->getAffiliationId(), $radio_select, array('style' => 'display:table-cell')) !!}
+                	<div style="display:table-cell;padding-left:10px;">{{ Lang::get('affiliations.affconfirm', array('affiliation' => $obj->getAffiliationName())) }}</div>
+                </div>
 
-          	foreach($suscription_array as $key => $obj)
-          	{
-          		$descriptions = $obj->getAffDescriptionArray();
-				echo '<div class="col-lg-'.(12/$suscription_count).' col-md-'.(12/$suscription_count).'">
-                  		<h1 style="color:#ffffff; background-color:' . call_user_func(array($colorCodes, $obj->getAffiliationName())) . '; text-align:center;  margin:0px 10px; padding:10px; font-size:26px;">
-                  			'. $obj->getAffiliationName() .'
-                  		</h1>
-                 		
-                 		<div class="content" style="margin-top:0px; background-color:#eef0f0; margin-bottom:0px; padding-bottom:0px;">
-                    		<div class="informacion">
-								<p style="text-align:center">'. $obj->getAffiliationSmallDesc() .'</p>
-                        	</div>
-                          	<div class="divider content" style="padding-top:0px; padding-bottom:0px; margin: 0px 0px; bottom:0px;" ></div>
-                        </div>
-						<div class="content" style="margin-top:0px; margin-bottom:0px;">
-                        	<div class="informacion">
-
-                          	<ul style="list-style-type:disc;">
-                        ';
-    		    foreach($descriptions as $k => $descArray)
-    			{
-					echo '<li>'.$descArray['description'].'</li>';
-				}		
-?>
-					</ul>
-          				</div>
-            			</div>
-          				<div class="content" style="margin-top:0px; background-color:#eef0f0; margin-bottom:0px; padding-bottom:0px; padding-top:0px;">
-          				<div class="divider content" style="padding-top:0px; padding-bottom:0px; margin: 0px 0px; bottom:0px;" ></div>  
-            			<div class="informacion">
-            			<h2 style="text-align:center">@lang('affiliations.monthfee'): <br>
-                  <?php
-                    $convertHelper->setCost($obj->getAffiliationPrice());
-                    $convertHelper->setCurrencyOfCost($obj->getCurrency());
-
-
-                   ?>
-						<?php echo $convertHelper->getFomattedAmount(); ?>
-						<?php echo $convertHelper->getCurrencyShow(); ?>
-            <?php  echo Form::hidden('currency_' . $obj->getAffiliationId(), $convertHelper->getCurrencyShow()); ?>
-            <?php  echo Form::hidden('amount_' . $obj->getAffiliationId(), $convertHelper->getFomattedAmount()); ?>
-
-
-						</h2>
-				          </div>
-				            <div class="divider content" style="padding-top:0px; padding-bottom:0px; margin: 0px 0px; bottom:0px;" ></div>
-				          </div>
-				          <div class="content" style="margin-top:0px; margin-bottom:0px;">
-				            <div class="informacion" style="min-height:130px;">
-
-            				<h2>@lang('affiliations.promotion')</h2>
-            
-          					<div style="display:inline; float:left; text-align:left;">
-
-                      <?php  
-                        $affiliation = ( int )$affiliation;
-                        $radio_select = FALSE;
-                        if ( $affiliation != 0 )
-                        {
-                          $temp =  $obj->getAffiliationId();
-                          if ( $temp == $affiliation )
-                          {
-                            $radio_select = TRUE;
-                          }
-                        }
-                        echo Form::radio('affiliation', $obj->getAffiliationId(), $radio_select,array('style' => 'width: 30px')); 
-                      ?>
-
-          					</div>
-         				 	<h2  style="display:inline;color:<?php echo call_user_func(array($colorCodes, $obj->getAffiliationName()));?>; float:left; width:60%;">
-            					<?php echo Lang::get('affiliations.affconfirm', array('affiliation' => $obj->getAffiliationName())); ?>
-            				</h2> 
-            
-					          </div>
-					            
-					          </div>
-
-					        </div>
-<?php
-}
-?>
-        <?php echo Form::close() ?>
-
-  <div class="col-lg-12 col-md-12" style="padding:20px;">
-          <div class="divider"></div></div>
-       <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;">  
-            <a href="/users">
-              <img style="width:50%; height:auto;"src="<?php echo url();?>/images/regresartransparente.png"/>
-            </a>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">&nbsp;</div>
-          <div class="col-lg-4 col-md-4 col-sm-4" style="margin-bottom:50px;"> 
-           <a href="#" onClick="formulario.submit()"><img style="width:50%; height:auto;"src="images/continuar.png"/></a></div>
-    </div>
-  </div>
-
+			</div>
+		</div>
+	</div>
+	@endforeach
+	<div class="col-xs-12">
+		@if($convertHelper->getCurrencyShow() == "MXN")
+		<div class="divider"></div>
+		<div class="row">
+			*{{ Lang::get('affiliations.today-rate') }} ${{ round($exchangeMXN,2) }} MXN
+		</div>
+		@endif
+		<div class="divider"></div>
+	</div>
+	<div class="col-xs-4 col-sm-2">  
+		<a href="/users" class="btn-blue-clear btn-medium back">
+			{{ Lang::get('layout.back') }}
+		</a>
+	</div>
+	<div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-7">   
+		<div data-role="submit" class="btn-blue btn-medium">
+			{{ Lang::get('layout.continue') }}
+		</div>
+	</div>
+{!! Form::close() !!}
+</div>
 @endsection

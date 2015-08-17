@@ -27,4 +27,5 @@ return [
 	"termsconditions" => 'La cantidad que decida abonar sera cargada a su tarjeta al final de cada mes. 
 						  El monto ahorrado podra utilizarse en cualquier momento que usted lo decida. 
 						  Para cancelaciones favor de leer nuestros <a style="color:#818c95;">Terminos de cancelación</a>.',
+	"title" => "Programa Fondo Vacacional"
 ];

@@ -18,8 +18,8 @@ div.container {
 	height: 100%;
 }
 
-div[data-role="response"] a[data-role="change"], 
-div[data-role="response"] div[data-role="submit"] {
+a[data-role="change"], 
+div[data-role="submit"] {
 	cursor: pointer;
 	padding-left: 0px;
 	display: inline-block;
@@ -264,6 +264,11 @@ div.bg-gray{
 	color:#465664;
 }
 
+div.bg-light-gray{
+	background-color: #F6F7F7;
+	padding: 15px;
+}
+
 .bg-gray-ghost{
 	padding: 25px;
     margin-top: 50px;
@@ -424,4 +429,85 @@ div.modal-body  li li li{
 	list-style-type: circle;
     margin-left: 30px;
 }
+
+.affiliation-header{
+	color:#ffffff; text-align:center; padding:10px; font-size:26px;
+}
+
+.diamond .form-group,
+.diamante .form-group,
+.platinum .form-group,
+.platino .form-group,
+.discover .form-group,
+.descubre .form-group{
+	text-transform: uppercase;
+	display:table!important;
+	margin-top: 5px;
+
+}
+
+.discover .affiliation-header,
+.descubre .affiliation-header{
+	background-color:#529ad3;
+}
+
+.platinum .affiliation-header,
+.platino .affiliation-header{
+	background-color:#a4ce3a;
+}
+
+.platinum .form-group,
+.platino .form-group{
+	color: #a4ce3a;;
+}
+
+.diamond .affiliation-header,
+.diamante .affiliation-header{
+	background-color:#cc4b9b;
+}
+
+.diamond .form-group,
+.diamante .form-group{
+	color: #cc4b9b;
+}
+
+.discover .form-group,
+.descubre .form-group{
+	color: #529ad3;
+}
+.margin{
+	margin: 0 10px;
+}
+
+.margin .divider{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
+	.vacational h3{
+	text-transform: uppercase;
+	font-size: 16px!important;
+	margin-top: 20px;
+}
+
+.vacational {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left:20px;
+	padding-right: 20px;
+}
+
+.vacational p:not(:last-child){
+	margin-bottom:10px;
+}
+.vacational h2{
+	padding-bottom:10px;text-transform: uppercase;font-size:18px;
+}
+
+.fa-user {
+	border: 3px solid grey!important; border-radius:50%; width:25px; height:25px;
+}
+
+
 

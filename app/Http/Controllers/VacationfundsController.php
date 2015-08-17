@@ -65,7 +65,7 @@ class VacationfundsController extends Controller
 		$userData = Session::get('users');
 
 
-		return view('vacationfunds.vacationfund')->with(array('title' =>'Fondo Vacacional',
+		return view('vacationfunds.vacationfund')->with(array('title' => Lang::get('vacationfund.title') ,
 															  'background' =>'4.jpg',
 															   'userCurrency' => $userData['currency'],
 															   'name' => $users['name'],
@@ -118,7 +118,7 @@ class VacationfundsController extends Controller
 
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 		$data = array('full_name'=> $full_name);
-		return view('users.emailconfirmation',$data)->with('title', "Confirmacion de email" )->with('background','2.jpg');
+		return view('users.emailconfirmation',$data)->with('title', Lang::get('emails.email-confirmation') )->with('background','2.jpg');
 	}
 
 

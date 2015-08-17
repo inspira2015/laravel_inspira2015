@@ -17,4 +17,6 @@ return [
 	"monthfee" => "MONTHLY FEE",
 	"promotion" => "FIRST MONTH FREE",
 	"affconfirm" => "make me a :affiliation affiliate",
+	"title" => "Affiliations",
+	"today-rate" => 'Current price in pesos. Considering that the exchange rate of the day:'
 ];

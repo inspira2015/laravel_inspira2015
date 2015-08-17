@@ -77,12 +77,13 @@ class AffiliationController extends Controller
 			$affiliation = $aff['affiliation'];
 		}
 
-		return view('affiliations.affiliation')->with( array( 'title' =>'Affiliaciones',
+		return view('affiliations.affiliation')->with( array( 'title' => Lang::get('affiliations.title'),
 															  'background' =>'3.jpg',
 															  'affiliation' => $affiliation,
 															  'suscription_array' => $suscription_array,
 															  'suscription_count' => $suscription_count,
 															  'convertHelper' => $this->convertHelper,
+															  'exchangeMXN' => $this->exchange->getTodayRate(),
 															  'colorCodes' => new AffiliationsColorCodes() ) );
 	}
 
