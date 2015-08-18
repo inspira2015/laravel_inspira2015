@@ -21,6 +21,7 @@ class CreateLeisureUser extends AbstractTransactions
 	private $codesUsedDao;
 	private $affiliationPaymentArray;
 	private $inspiraPoints;
+	private $leisureLoyaltyResponse;
 
 
 	public function  __construct( SystemTransactionEntity $systemTransactions,
@@ -34,6 +35,7 @@ class CreateLeisureUser extends AbstractTransactions
 		$this->userDao = $userDao;
 		$this->codesUsedDao = $codesUsed;
 		$this->inspiraPoints = $inspiraPoints;
+
 	}
 
 
@@ -64,7 +66,7 @@ class CreateLeisureUser extends AbstractTransactions
 		}
 		else
 		{
-    		$prefixForMembership = 'TESTUS';
+    		$prefixForMembership = 'TESTUS0';
 		}
 		return $prefixForMembership;
 	}
@@ -113,6 +115,14 @@ class CreateLeisureUser extends AbstractTransactions
 		$response = file_get_contents('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&', FALSE, $context);
 
 		$stdResponse = json_decode($response);
+
+
+		print_r($postData[0]);
+
+		echo "<br><br><pre>";
+
+		print_r($stdResponse);
+		$this->leisureLoyaltyResponse = $response;
 		if ($stdResponse->success == 'OK' )
 		{
 			return TRUE;
@@ -140,24 +150,23 @@ class CreateLeisureUser extends AbstractTransactions
 		$checkCreateLeisureUser = $this->checkCreateLeisureUser();
 		$points = $this->getCodePoints();
 
+		$this->transactionInfo['code'] = $checkCreateLeisureUser  ? "Success" : "Error";
+		$this->transactionInfo['json_data'] = $this->leisureLoyaltyResponse;
+		$this->saveTransaction();
+
 		if ($checkCreateLeisureUser == TRUE )
 		{
-			$this->transactionInfo['code'] = $checkCreateLeisureUser  ? "Success" : "Error";
-			$this->saveTransaction();
-
 			if($points > 0)
 			{
 				$this->AddPoints( $this->transactionId );
 			}
 		}
-
-
 		
 		
 		if ( $checkCreateLeisureUser )
 		{
-			$this->userDao->exchangeArray( array( 'id' 		=> $this->objUser->id,
-												 'leisure_id' =>	$this->generateLeisureMemberShip() ) );
+			$this->userDao->load( $this->objUser->id ); 
+			$this->userDao->leisure_id  = $this->generateLeisureMemberShip();
 			$this->userDao->save();
 		}
 
