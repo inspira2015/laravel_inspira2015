@@ -31,6 +31,7 @@ return array(
     'AddNewTableTransactions' => $baseDir . '/database/migrations/2015_08_09_221833_add_new_table_transactions.php',
     'AddNewTableUserPaymentInfo' => $baseDir . '/database/migrations/2015_08_07_221130_add_new_table_user_payment_info.php',
     'AddTransactionFiels' => $baseDir . '/database/migrations/2015_08_16_202536_add_transaction_fiels.php',
+    'AddTransactionUserPoints' => $baseDir . '/database/migrations/2015_08_17_193325_add_transaction_user_points.php',
     'AddUpdateUsers' => $baseDir . '/database/migrations/2015_08_07_231721_add_update_users.php',
     'AffiliationsDescriptionSeeder' => $baseDir . '/database/seeds/AffiliationsDescriptionSeeder.php',
     'AffiliationsSeeder' => $baseDir . '/database/seeds/AffiliationsSeeder.php',
