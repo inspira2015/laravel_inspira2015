@@ -84,7 +84,9 @@ class LibrariesServiceProvider extends ServiceProvider
         });
 
                 $this->app->bind('App\Libraries\AddInspiraPoints', function($app) {
-                return new \App\Libraries\AddInspiraPoints( $app->make('\App\Model\Dao\UserDao'), $app->make('\App\Model\Entity\UserAffiliation') );
+                return new \App\Libraries\AddInspiraPoints( $app->make('\App\Model\Dao\UserDao'), 
+                        $app->make('\App\Model\Entity\UserAffiliation'),
+                        $app->make('\App\Model\Entity\UsersPointsEntity'));
         });
 
 

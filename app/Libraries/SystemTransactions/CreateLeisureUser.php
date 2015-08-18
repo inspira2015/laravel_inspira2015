@@ -7,6 +7,8 @@ use App\Model\Entity\SystemTransactionEntity;
 use App\Model\Entity\UserAffiliation;
 use App\Model\Dao\UserDao;
 use App\Model\Entity\CodesUsedEntity;
+use App\Libraries\AddInspiraPoints;
+
 use App;
 
 class CreateLeisureUser extends AbstractTransactions 
@@ -18,17 +20,20 @@ class CreateLeisureUser extends AbstractTransactions
 	private $userDao;
 	private $codesUsedDao;
 	private $affiliationPaymentArray;
+	private $inspiraPoints;
 
 
 	public function  __construct( SystemTransactionEntity $systemTransactions,
 								  UserDao $userDao,
 								  UserAffiliation $userAffDao,
-								  CodesUsedEntity $codesUsed )
+								  CodesUsedEntity $codesUsed,
+								  AddInspiraPoints $inspiraPoints )
 	{
 		parent::__construct( $systemTransactions );
 		$this->userAffiliationDao = $userAffDao;
 		$this->userDao = $userDao;
 		$this->codesUsedDao = $codesUsed;
+		$this->inspiraPoints = $inspiraPoints;
 	}
 
 
@@ -95,7 +100,6 @@ class CreateLeisureUser extends AbstractTransactions
 			"languageCode"=> strtoupper($this->objUser->language),
 			"mtierId"=> (int)$userAffiliation->affiliation->tier_id,
 			"memberId"=> $this->generateLeisureMemberShip(),
-			"pointsBalance"=> $this->getCodePoints(),
 		);
 
 		$context = stream_context_create(array(
@@ -118,9 +122,27 @@ class CreateLeisureUser extends AbstractTransactions
 	} 
 
 
+	private function AddPoints()
+	{
+		$this->inspiraPoints->setDate( date('Y-m-d') );
+		$this->inspiraPoints->setUserId( $this->objUser->id );
+		$this->inspiraPoints->setPoints( $this->getCodePoints() );
+		$this->inspiraPoints->setReferenceNumber( 'CREATEUSER' . $this->objUser->id );
+		$this->inspiraPoints->setDescription('Points Added From Registration Code');
+        return $this->inspiraPoints->AddUserPoints();
+	}
+
+
 	public function saveData()
 	{
 		$checkCreateLeisureUser = $this->checkCreateLeisureUser();
+		$points = $this->getCodePoints();
+		if ($checkCreateLeisureUser == TRUE && $points > 0 )
+		{
+			$this->AddPoints();
+		}
+
+
 		$this->transactionInfo['code'] = $checkCreateLeisureUser  ? "Success" : "Error";
 		$this->saveTransaction();
 		

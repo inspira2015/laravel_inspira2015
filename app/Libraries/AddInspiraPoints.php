@@ -3,6 +3,7 @@ namespace App\Libraries;
 use Carbon; 
 use App\Model\Dao\UserDao;
 use App\Model\Entity\UserAffiliation;
+use App\Model\Entity\UsersPointsEntity;
 
 class AddInspiraPoints 
 {
@@ -17,13 +18,18 @@ class AddInspiraPoints
 	private $userDao;
 	private $UserAffiliationDao;
 	private $inspiraOfferArray;
+	private $userPointsDao;
+	private $transactionId;
 
 
-	public function  __construct( UserDao $userDao, UserAffiliation $userAffiliation )
+	public function  __construct( UserDao $userDao, 
+								  UserAffiliation $userAffiliation,
+								  UsersPointsEntity $usersPoints )
 	{
 		$this->error_array = FALSE;
 		$this->userDao = $userDao;
 		$this->UserAffiliationDao = $userAffiliation;
+		$this->userPointsDao =  $usersPoints;
 		$this->inspiraOfferArray = array( 1 => 561, 
 										  2 => 562,
 										  3 => 563,
@@ -33,6 +39,11 @@ class AddInspiraPoints
 										  7 => 0 );
 	}
 
+
+	public function setTransactionId($transactionId)
+	{
+		$this->transactionId = $transactionId;
+	}
 
 
 	public function setDate($date)
@@ -129,6 +140,10 @@ class AddInspiraPoints
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 		$result = curl_exec($ch);
 		curl_close($ch);
+
+
+
+
 		return $result;
 	}
 
@@ -138,6 +153,13 @@ class AddInspiraPoints
 		$response = json_decode( $responseToCheck );
 		if($response->success == 'OK')
 		{
+			$this->userPointsDao->exchangeArray( array( 'users_id' => $this->userId,
+														'transaction_id' => $this->transactionId,
+														'description' => $this->description,
+														'added_points' => $this->pointsToBeAdded,
+														'substracted_points' => 0,
+														'balance' => $this->pointsToBeAdded ) );
+			$this->userPointsDao->save();
 			return TRUE;
 		}
 		return FALSE;
@@ -153,7 +175,7 @@ class AddInspiraPoints
 
 	public function getResponse()
 	{
-		
+
 	}
 
 

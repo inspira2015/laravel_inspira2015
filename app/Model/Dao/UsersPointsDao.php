@@ -34,4 +34,9 @@ class UsersPointsDao implements ICrudOperations
 		return $code->id;
 	}
 
+	public function getLatestByUserId($users_id = FALSE)
+	{
+		return UserVac::where('users_id', $users_id)->orderBy('id','desc')->first();
+	}
+
 }
