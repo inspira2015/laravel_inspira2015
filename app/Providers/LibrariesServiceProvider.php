@@ -83,6 +83,13 @@ class LibrariesServiceProvider extends ServiceProvider
                 return new \App\Libraries\GetLastBalance($app->make('\App\Model\Entity\UserVacationalFunds'));
         });
 
+                $this->app->bind('App\Libraries\AddInspiraPoints', function($app) {
+                return new \App\Libraries\AddInspiraPoints( $app->make('\App\Model\Dao\UserDao'), $app->make('\App\Model\Entity\UserAffiliation') );
+        });
+
+
+
+
 
 	}
 

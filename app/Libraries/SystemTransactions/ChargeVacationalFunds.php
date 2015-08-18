@@ -61,15 +61,12 @@ class ChargeVacationalFunds extends AbstractTransactions
 		$this->lastUserBalance->setUserId($this->objUser->id );
 		$lastBalance = $this->lastUserBalance->getCurrentBalance();
 		$total = $lastBalance + $userVacationalLog->amount;
-
 		$this->userVacationlArray['transaction_id'] = $this->transactionId;
 		$this->userVacationlArray['description'] = 'New Monthly Fund';
 		$this->userVacationlArray['added_amount'] = $userVacationalLog->amount;
-		$this->userVacationlArray['substracted_amount'] = 0;
+		$this->userVacationlArray['substracted_amount'] = 0; 
 		$this->userVacationlArray['currency'] = $userVacationalLog->currency;
 		$this->userVacationlArray['balance'] = $total;
-
-
 		$this->userVacationFundDao->exchangeArray( $this->userVacationlArray );
 		$this->userVacationFundDao->save();
 		return TRUE;
