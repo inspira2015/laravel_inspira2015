@@ -22,6 +22,8 @@ use App\Model\Dao\StatesDao;
 use App\Libraries\GeneratePaymentsDates;
 use App\Libraries\SystemTransactions\PrepareTransacionArray;
 use App\Libraries\SystemTransactions\CreateLeisureUser;
+use App\Libraries\AddInspiraPoints;
+
 
 use App\Libraries\PayU\PayUReports;
 use Input;
@@ -59,6 +61,7 @@ class PaymentController extends Controller {
 	private $generatePaymentesDate;
 	private $prepareTransactionLib;
 	private $createLeisureUser;
+	private $inspiraPoints;
 
 
 	public function __construct( UserTokenRegistration $sysDao,
@@ -67,7 +70,8 @@ class PaymentController extends Controller {
 								UserAffiliation $userAff,
 								UserVacFundLog $userVacFundLog,
 								PrepareTransacionArray $preparePayUArray,
-								CreateLeisureUser $createLeisureUser)
+								CreateLeisureUser $createLeisureUser,
+								AddInspiraPoints $inspiraPoints)
 	{
 		//echo base_path();
 		$this->middleware('auth');
@@ -80,6 +84,7 @@ class PaymentController extends Controller {
 		$this->generatePaymentesDate = new GeneratePaymentsDates();
 		$this->prepareTransactionLib = $preparePayUArray;
 		$this->createLeisureUser = $createLeisureUser;
+		$this->inspiraPoints = $inspiraPoints;
 		$this->setLanguage();
 
 
@@ -105,12 +110,24 @@ class PaymentController extends Controller {
 	public function Index()
 	{
         $userAuth = Auth::user();
+		/*$this->inspiraPoints->setDate( date('Y-m-d') );
+		$this->inspiraPoints->setUserId( $userAuth->id );
+		$this->inspiraPoints->setPoints( 15 );
+		$this->inspiraPoints->setReferenceNumber( 'AXTEST25' );
+		$this->inspiraPoints->setDescription('TEST');
+        $user = $this->inspiraPoints->doPostToApi();
+        echo "<pre>";
+        $temp = json_decode($user,true);
+        print_r($temp);
+        exit;*/
+
 		/*$postData[0] = array(
+			"id" =>558,
 			"memberId" =>'TEST005',
-			"memberPoints" => 3500,
-			"memberAmt" => 3500,
-			"txDateFormat" => "08‐16‐2015",
+			"memberPoints" => 10,
+			"txDateFormat" => "08‐17‐2015",
 			"txRefNo" => "ACB123",
+			"txNotes" => "TEST ADDING POINTS TO THE USER",
 
 		);
 		$json = json_encode($postData);
@@ -122,8 +139,8 @@ class PaymentController extends Controller {
 
 		// Set the url, number of GET vars, GET data
 		curl_setopt($ch, CURLOPT_URL, $url);
-		//curl_setopt($ch, CURLOPT_POST, true);
-		//curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
  		curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
@@ -137,8 +154,8 @@ class PaymentController extends Controller {
 		$obj = json_decode($json, true);
 	$data= $obj['data'];
 		echo "<pre>";
-		print_r($data);
-		exit;*/
+		print_r($data);*/
+		//exit;
 
 /*$this->prepareTransactionLib->setUserId( $userAuth->id );
         $this->prepareTransactionLib->setAccountId( 500547 );
@@ -180,9 +197,9 @@ class PaymentController extends Controller {
 //$json = file_get_contents('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
 //$obj = json_decode($json, true);
 //$data= $obj['data'];
-		/*$json = file_get_contents('https://api.leisureloyalty.com/v3/members/TEST005?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
+	/*	$json = file_get_contents('https://api.leisureloyalty.com/v3/members/TEST005?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
 		$obj = json_decode($json, true);
-	$data= $obj['data'];
+		$data= $obj['data'];
 		echo "<pre>";
 		print_r($data);
 		exit;

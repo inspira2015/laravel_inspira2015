@@ -76,7 +76,9 @@ class LibrariesServiceProvider extends ServiceProvider
                 return new \App\Libraries\SystemTransactions\CreateLeisureUser($app->make('\App\Model\Entity\SystemTransactionEntity'),
                 	$app->make('\App\Model\Dao\UserDao'),
                 	$app->make('\App\Model\Entity\UserAffiliation'),
-                        $app->make('\App\Model\Entity\CodesUsedEntity'));
+                        $app->make('\App\Model\Entity\CodesUsedEntity'),
+                        $app->make('\App\Libraries\AddInspiraPoints')
+                        );
         });
 
                 $this->app->bind('App\Libraries\GetLastBalance', function($app) {

@@ -99,7 +99,7 @@ class CreateLeisureUser extends AbstractTransactions
 		 	"email" => $this->objUser->email,
 			"languageCode"=> strtoupper($this->objUser->language),
 			"mtierId"=> (int)$userAffiliation->affiliation->tier_id,
-			"memberId"=> $this->generateLeisureMemberShip(),
+			"memberId"=> $this->generateLeisureMemberShip()
 		);
 
 		$context = stream_context_create(array(
@@ -122,13 +122,15 @@ class CreateLeisureUser extends AbstractTransactions
 	} 
 
 
-	private function AddPoints()
+	private function AddPoints( $transaction_id )
 	{
 		$this->inspiraPoints->setDate( date('Y-m-d') );
 		$this->inspiraPoints->setUserId( $this->objUser->id );
 		$this->inspiraPoints->setPoints( $this->getCodePoints() );
 		$this->inspiraPoints->setReferenceNumber( 'CREATEUSER' . $this->objUser->id );
 		$this->inspiraPoints->setDescription('Points Added From Registration Code');
+		$this->inspiraPoints->setTransactionId( $transaction_id );
+
         return $this->inspiraPoints->AddUserPoints();
 	}
 
@@ -137,14 +139,20 @@ class CreateLeisureUser extends AbstractTransactions
 	{
 		$checkCreateLeisureUser = $this->checkCreateLeisureUser();
 		$points = $this->getCodePoints();
-		if ($checkCreateLeisureUser == TRUE && $points > 0 )
+
+		if ($checkCreateLeisureUser == TRUE )
 		{
-			$this->AddPoints();
+			$this->transactionInfo['code'] = $checkCreateLeisureUser  ? "Success" : "Error";
+			$this->saveTransaction();
+
+			if($points > 0)
+			{
+				$this->AddPoints( $this->transactionId );
+			}
 		}
 
 
-		$this->transactionInfo['code'] = $checkCreateLeisureUser  ? "Success" : "Error";
-		$this->saveTransaction();
+		
 		
 		if ( $checkCreateLeisureUser )
 		{

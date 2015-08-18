@@ -63,8 +63,8 @@
 					{{$convertHelper->getCurrencyShow() }}* )
 				@endif
 
-				{!! Form::hidden('currency_' . $obj->getAffiliationId(), $convertHelper->getCurrencyShow()) !!}
-        		{!! Form::hidden('amount_' . $obj->getAffiliationId(), $convertHelper->getFomattedAmount()) !!}
+				{!! Form::hidden('currency_' . $obj->getAffiliationId(), $obj->getCurrency() ) !!}
+        		{!! Form::hidden('amount_' . $obj->getAffiliationId(), $obj->getAffiliationPrice()  ) !!}
 				</h2>
 			</div>
 			<div class="col-xs-12 nopadding">
