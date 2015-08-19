@@ -1,277 +1,194 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="csrf-token" content={!! csrf_token() !!}>
+@extends('layouts.basic')
 
-	{!! HTML::style('css/bootstrap/css/style.css') !!}
-	{!! HTML::style('css/bootstrap/css/menu.css') !!}
-	{!! HTML::style('css/bootstrap/css/bootstrap.min.css') !!}
-	{!! HTML::style('css/font-awesome/css/font-awesome.min.css') !!}
-	
-	{!! HTML::style('css/app/main.css') !!}
-	
-	<link rel="icon" href="/images/inspira.ico" type="image/ico" />
-	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
-	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
-	
-	{!!  HTML::script('js/main.js') !!}
-<!--
-	{!! HTML::script('js/datos.js') !!}
-	{!! HTML::script('js/datos_cuenta.js') !!}
-	{!! HTML::script('js/datos_fondo.js') !!}
--->
-	{!! HTML::style('css/bootstrap/css/slide.css') !!}
-	{!! HTML::style('css/bootstrap/css/slidestyle.css') !!}
-	
-	
-</head>
-
-<body id="page" style="background-image:url('images/1.png'); background-repeat:no-repeat; background-position: center center fixed; 
--webkit-background-size: cover;
--moz-background-size: cover;
--o-background-size: cover;
-background-size: cover;">
-
-@include('layouts.__common.header')
-
-<div class="container">
-	<div class="container">
-		<div class="row"  style="margin-bottom:50px; background-color:#e5e7e9;">
-
-			<div class="col-lg-12 col-md-12 col-sm-12" style="background-color:#e5e7e9; z-index:1000; margin-bottom:70px; margin-top: 50px;">
-				<div class="col-lg-6">
-					<h1 style="font-size:32px;  color:#818c95; ">
-						<i class="fa fa-user" style="border: 3px solid grey; border-radius:50%; width:35px; height:35px;"></i>&nbsp;
-						{{ Str::upper($user->details->name) }} {{ Str::upper($user->details->last_name) }}
-					</h1>
-				</div>
-				<div class="col-lg-3"> </div>
-
-				<div class="col-lg-3"><a href="<?php echo url(); ?>/auth/logout">Logout</a> </div>
-
+@section('content')
+<div class="row bg-gray-transparent" id="user">
+	<div class="col-xs-12">
+		<div class="row">
+			<div class="col-md-6 nopadding">
+				<h2 class="text-left">
+					<div class="display:table-cell;">
+						<i class="fa fa-user"></i>
+					</div>
+					<span style="display:table-cell;">{{ Str::upper($user->details->name) }} {{ Str::upper($user->details->last_name) }}</span>
+				</h2>
 			</div>
-
-			<div class="col-lg-6" style="margin-top:35px;">
-				<div class="col-lg-12">
-					<div class="content" style="padding-top:10px;">
-						<div class="informacion">
-							<h2>{{ Lang::get('userdata.information') }}</h2>
-							<div data-role="response">
-								@include('useraccount.contact')
-							</div>
-						</div>
-					</div>
+	
+			<div class="col-sm-5 col-sm-push-7 col-md-4 col-md-push-2">
+				<div class="row text-right">
+					<a href="<?php echo url(); ?>/auth/logout">Logout</a><br><br>
 				</div>
-				<div class="col-lg-12">
-					<div class="content">
-						<div class="informacion">
-							<h2>{{ Lang::get('userdata.account-details') }}</h2>
-							<div data-role="response">
-								@include('useraccount.password')
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-12">
-					<div class="content">
-						<div class="informacion-2" style="padding-top:10px; padding-bottom:10px;">
-							<div data-role="response">
-								@include('useraccount.choose-language')
-							</div>
-							<?php //Remove this line. Get currency method.
-							$currency = 'MXN';
-							 ?>
-							 
-							<p style="display:inline-block; width:40%;">{{ Lang::get('userdata.currency') }}: {{ $currency }}</p>
-							@if( $currency == 'MXN' )
-							<a onclick="confirmeMXN()" style="color:#cc4b9b;">
-								<img src="images/cambiar.png" style="vertical-align:text-top;"/>
-							</a>
-							@else
-							<a onclick="confirmeUSD()" style="color:#cc4b9b;">
-								<img src="images/cambiarENG.png" style="vertical-align:text-top;"/>
-							</a>          
-							@endif
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-12">
-					<div class="content">
-						<div class="informacion-2" style="padding-top:30px; padding-bottom:30px;">
-							<h1 style="text-align:center;">{{ Lang::get('userdata.inspira-points') }} 0  {{ Lang::get('userdata.points') }}</h1>
-						</div>
-					</div>
+				<div class="row">
+					<a href="{{ url('reservations') }}" class="btn-blue btn-small">{{ Lang::get('userdata.go-reservations') }}</a>
 				</div>
 			</div>
-			<div class="col-lg-6" style="margin-top:35px;">
-				<div class="col-lg-12">
-					<div class="content">
-					@if( $accountSetup->checkValidAccount() !==FALSE )
-						<div class="informacion">
-							<?php 
-								//Change this
-								$affiliation = 1; $code = 2; $amount = 2;?>
-							<h2>a {{ Lang::get('userdata.affiliation-type') }}<br/>
-							@if( $affiliation == 1 )
-								{{ Lang::get('userdata.discover') }}
-							@elseif ($affiliation == 2 )
-								{{ Lang::get('userdata.platinium') }}
-							@elseif ($affiliation == 3 )
-								{{ Lang::get('userdata.diamond') }}
-							@endif
-							</h2>
-						</div>
-						@if( ( $code - $affiliation) > 0 )
-						<a style="text-align:center;" href="?route=users/gotoAfiliacion_single">
-							@if( $user->details->language )
-							<img src="images/categoria.png" style="width:80%;"/>
-							@else
-							<img src="images/categoriaENG.png" style="width:80%;"/>
-							@endif
-						</a>
-						@endif
-						<div class="informacion-2">
-							<p>{{ Lang::get('userdata.expiration-date') }}:</p>
-							<p>00-00-0000</p>
-						</div>
-					@else
-						<div class="informacion">
-							<h2>a {{ Lang::get('userdata.affiliation-type') }}<br/>
-						</h2>
-							<a href="/accountsetup">Continuar la configuracion de tu Cuenta</a>
-						</div>
-					@endif
-					</div>
-				
-				</div>
-				<div class="col-lg-12">
-					<div class="content">
-						@if( $accountSetup->checkValidAccount() !==FALSE )
-						<div class="informacion">
-							<h2>{{ Lang::get('userdata.vacation-fund') }}</h2>
-							<p> {{ Lang::get('userdata.monthly-fee') }}: 
-								$ amount currency
-							</p>
-							<p>{{ Lang::get('userdata.total-saved') }}: 
-								$ total_amount currency
-								<?php //echo $user_data['total_saved'];?> <?php //echo $user_data['currency'];?>
-							</p>
-						</div>
-						<div style="display:inline-block;">
-
-							<form action="https://mexico.dineromail.com/Shop/Shop_Ingreso.asp" method="post"> 
-								<input type="hidden" name="NombreItem" value="Agregar a fondo"> 
-							<!--<input type="hidden" name="TipoMoneda" value="{{ 'MXN'  == 'MXN' ? 1: 2 }}"> -->
-								<input type="hidden" name="E_Comercio" value="1534470"> 
-								<input type="hidden" name="NroItem" value="12"> 
-								<input type="hidden" name="DireccionExito" value="http://inspiramexico.mx/payments/dineromail"> 
-								<input type="hidden" name="DireccionFracaso" value="http://inspiramexico.mx/payments/dineromail/error"> 
-								<input type="hidden" name="DireccionEnvio" value="0"> 
-								<input type="hidden" name="Mensaje" value="1"> 
-								<input type='hidden' name='MediosPago' value='4,5,6,17,19,20,21,22,13,14,7'>
-								
-								@if( $amount > 0 )
-								<a style="text-align:center; display:inline-block; width:40%; vertical-align:top;" href="?route=users/gotoFondosingle">
-									<img src="images/cambiar.png"/>
-								</a>
-									<div id="agregarfondo" style="display:inline-block;" width:100%;="" class="informacion-2;">
-										<a id="cambiar3" style="display:inline-block; width:50%;">
-											@if( $user->details->language == 'es' )
-												<img src="images/abonoadicional.png" style="width:80%;">
-											@else
-												<img src="images/abonoadicionalENG.png" style="width:80%;">
-											@endif
-											<img src="images/visa_master_american_oxxo_7.png" style="margin-bottom:0px; display:inline-block;/">
-										</a>
-							  		</div>
-
-								<div style="width:80%; margin:0 auto; padding-top:20px;">
-									<div id="formularioabono">
-																	
-									</div>
-									<p style="text-align:center;">Fecha de sig. abono: {{ date("d-m-Y", strtotime("+1 month")) }}</p>
-								</div>
-								@else
-									<a style="text-align:center; display:inline-block; width:100%;" href="?route=users/gotoFondosingle">
-										@if( $user->details->language == 'es' )
-											<img src="images/fondo.png" style="width:80%; height:auto;">
-										@else
-											<img src="images/fondoENG.png" style="width:80%; height:auto;">
-										@endif
-									</a>
-									<div id="agregarfondo" style="display:inline-block;" width:100%;="" class="informacion-2;">
-										<a id="cambiar3" style="display:inline-block; width:50%;">
-											@if( $user->details->language == 'es' )
-												<img src="images/abonoadicional.png" style="width:80%;">
-											@else
-												<img src="images/abonoadicionalENG.png" style="width:80%;">
-											@endif
-											<img src="images/visa_master_american_oxxo_7.png" style="margin-bottom:0px; display:inline-block;/">
-										</a>
-							  		</div>
-							  		<div style="width:80%; margin:0 auto; padding-top:20px;">
-										<p style="color:#529ad3;">More information</p>
-									</div>
-								@endif
-							</form>
-						</div>
-						@else
-							<div class="informacion-2" style="margin-bottom:20px;">
-								<h2>{{ Lang::get('userdata.vacation-fund') }}</h2>
-							</div>
-								<a href="/accountsetup">Continuar la configuracion de tu Cuenta</a>
-
-						@endif
-						<?PHP ?>
-					</div>
-
-
-					<div class="row">
-						<h2 class="content" style="background-color:transparent;">Promociones del mes</h2>
-						<div class="col-xs-3 col-md-6 promo" style="padding:1px; margin:0 0;">
-							<img src="images/manzanillo.png" style="width:100%;"/>
-							<p>Manzanillo</p>
-						</div>
-						<div class="col-xs-3 col-md-6 promo"  style="padding:1px; margin:0 0;">
-							<img src="images/mazatlan.png" style="width:100%;"/><p>Mazatlan</p>
-						</div>
-						<div class="col-xs-3 col-md-6 promo"  style="padding:1px; margin:0 0;">
-							<img src="images/lasvegas.png" style="width:100%;"/><p>Las Vegas</p>
-						</div>
-						<div class="col-xs-3 col-md-6 promo"  style="padding:1px; margin:0 0;">
-							<img src="images/malaga.png" style="width:100%;"/><p>Malaga</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-12 col-md-12">
-				<div class="divider"></div>
-			</div>
-
-			@if( $accountSetup->checkValidAccount() !==FALSE )
-			<div class="col-lg-12 col-md-12" style="padding:20px;">
-				<?php
-				//echo '<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user_data["leisure_id"].'">';
-				?>
-				@if( $user->details->language == 'es' )
-					<img style="width:50%; height:auto;"src="images/irareservacion.png"/></a>
-				@else
-					<img style="width:50%; height:auto;"src="images/irareservacionENG.png"/></a>
-				@endif
-			</div>
-			@endif
 		</div>
-	</div>	
+		
+		<div class="row">
+			<div class="divider"></div>
+		</div>
+	
+		<div class="row text-left">
+			<div class="col-md-6">
+				<div class="row bg-light-gray-transparent">
+					<div class="row">
+						<h3 class="col-xs-10">{{ Lang::get('userdata.information') }}</h3>
+						<div class="col-xs-2">
+							icono
+						</div>
+					</div>
+					<div class="row" data-role="response">
+						@include('useraccount.contact')
+					</div>
+				</div>
+				<div class="row bg-light-gray-transparent">
+					<div class="row">
+						<h3 class="col-xs-10">{{ Lang::get('userdata.account-details') }}</h3>
+						<div class="col-xs-2">
+							icono
+						</div>
+					</div>
+					<div class="row" data-role="response">
+						@include('useraccount.password')
+					</div>
+				</div>
+				<div class="row bg-light-gray-transparent">
+					<div class="row">
+						<div class="col-xs-2 col-xs-push-10">
+							icono
+						</div>
+					</div>
+					<div class="row form-data" data-role="response">
+						<div class="col-xs-6">
+							<strong>{{ Lang::get('userdata.language') }}</strong>: &nbsp; {{ Str::upper($user->details->language) }}
+						</div>
+						<div class="col-sm-4 col-sm-push-2 text-center">
+							<a data-role="change" data-route="api/user/change-language" class="btn-blue btn-small">
+								{{ Lang::get('userdata.change') }}
+							</a>
+						</div>					
+					</div>
+					<div class="row form-data" data-role="response">
+						<div class="col-xs-6">
+<!-- 							Cambiar esta parte con el currency y funcion que debe de ir -->
+							{{ Lang::get('userdata.currency') }}: MXN							
+						</div>
+						<div class="col-sm-4 col-sm-push-2 text-center">
+							<div data-role="change" data-route="useraccount/edit-contact" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</div>
+						</div>
+					</div>
+				</div>
+				<div class="row bg-light-gray-transparent text-center">
+					{{ Lang::get('userdata.inspira-points') }} 
+					<span class="pink">0  {{ Lang::get('userdata.points') }}</span>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row bg-light-gray-transparent">
+					<div class="row">
+						<h3 class="col-xs-10">{{ Lang::get('userdata.affiliation-type') }}:<br>
+							- Tipo -
+						</h3>
+						<div class="col-xs-2">
+							icono
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-10 col-xs-offset-1" id="promotion-box">							
+							<div class="promotion">
+								<a href="#"> 
+									Eleva de Categor&iacute;a<br>
+									25% de Ahorros adicionales
+								</a>
+							</div>
+							<div class="arrow"></div>
+						</div>
+					</div>
+					<div class="row" data-role="response">
+						<div class="col-xs-12">
+							{{ Lang::get('userdata.expiration-date') }}:<br>
+							00-00-0000
+						</div>
+					</div>
+				</div>
+				<div class="row bg-light-gray-transparent">
+					<div class="row">
+						<h3 class="col-xs-10">
+							{{ Lang::get('userdata.vacation-fund') }}
+						</h3>
+						<div class="col-xs-2">
+							icono
+						</div>
+					</div>
+					<div class="row" data-role="response">
+						<div class="col-xs-12  form-data">
+							<div class="row">
+								<strong>{{ Lang::get('subtotal.total-fund') }}:</strong> $ {{ round(0.00) }} MXN
+							</div>
+							<div class="row">
+								<strong>{{ Lang::get('subtotal.vacational-fund-fee') }}:</strong> $ {{ number_format($vacational_fund_amount, 2, '.', '') . ' ' . $vacational_fund_currency }} <br><br>
+							</div>
+							<div class="row">
+								<strong>{{ Lang::get('subtotal.next-payment-date') }}: </strong>{{ $next_payment_date }}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row bg-light-gray-transparent">
+					<div class="row">
+						<h3 class="col-xs-10">
+							{{ Lang::get('userdata.additional-bonus') }}
+						</h3>
+						<div class="col-xs-2">
+							icono
+						</div>
+					</div>
+					<div class="row form-data">
+						<div class="col-xs-8">
+							Tarjetas
+						</div>
+						<div class="col-xs-4 text-center">
+							<a data-role="change" data-route="useraccount/edit-contact" class="btn-blue btn-small">{{ Lang::get('userdata.pay') }}</a>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="margin-top:30px;">
+					
+					<div class="col-xs-10 col-xs-offset-1">
+						<h3 class="row">Promociones del mes</h3>
+						<div class="row">
+							<div class="col-xs-3 col-md-6 promo">
+								<img src="images/manzanillo.png"/>
+								<span>Manzanillo</span>
+							</div>
+							<div class="col-xs-3 col-md-6 promo">
+								<img src="images/mazatlan.png"/>
+								<span>Mazatlan</span>
+							</div>
+							<div class="col-xs-3 col-md-6 promo">
+								<img src="images/lasvegas.png"/>
+								<span>Las Vegas</span>
+							</div>
+							<div class="col-xs-3 col-md-6 promo">
+								<img src="images/malaga.png"/>
+								<span>Malaga</span>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		@if( $accountSetup->checkValidAccount() !==FALSE )
+		<div class="row">
+			<div class="divider"></div><br>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<a href="{{ url('reservations') }}" class="btn-blue">{{ Lang::get('userdata.go-reservations') }}</a>
+			</div>
+		</div>
+		@endif
+	</div>
 </div>
-
-@include('layouts.__common.footer')
-
-@include('layouts.__common.tawk')
-@include('layouts.__common.analytics')
-</body>
-</html>
+@stop

@@ -14,6 +14,7 @@ use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
 use App\Libraries\CodeValidator as CodeValidator;
 use App\Libraries\Referer\CheckReferer;
+
 use Input;
 use Mail;
 use Session;
@@ -40,6 +41,7 @@ class UsersController extends Controller {
 	private $codesUsed;
 	private $codesDao;
 	private $checkReferer;
+	private $userAffiliation;
 
 
 	/**
@@ -56,6 +58,7 @@ class UsersController extends Controller {
 		$this->userDao = $userDao;
 		$this->userPhone = $userphone;
 		$this->codesUsed = $codesUsed;
+		
 		$this->codeDao = $codeDao;
 		$this->check = new CodeValidator();
 		$this->checkReferer = new CheckReferer();
@@ -76,16 +79,29 @@ class UsersController extends Controller {
 			return Redirect::to('codes/1');
 		}
 		$locale = Lang::getLocale();
-		$data['country_list'] = $this->getCountryArray();
-		$data['lan_list'] = $this->getLanguaje($locale);
-		$data['currency_list'] = $this->getCurrency();
-		$data['locale'] = $locale;
-		$data['location_info'] = $this->getLocationInfo();
+		
+
+		$data = array(	'title' =>'Resumen',
+						'background' =>'2.jpg',
+						'country_list' => $this->getCountryArray(),
+						'lan_list' => $this->getLanguaje($locale),
+						'currency_list' => $this->getCurrency(),
+						'locale' => $locale,
+						'location_info' => $this->getLocationInfo()
+			);
+
 		if ( Session::has('users') )
 		{			
-			return view('users.user')->with('title', Lang::get('registry.title') )->with('background','2.jpg')->with($data)->with( Session::get('users') );
+			return view('users.user')
+					->with('title', Lang::get('registry.title') )
+					->with('background','2.jpg')
+					->with($data)
+					->with( Session::get('users') );
+					
 		}
-		return view('users.user',$data)->with('title', Lang::get('registry.title') )->with('background','2.jpg');
+		return view('users.user',$data)
+					->with('title', Lang::get('registry.title') )
+					->with('background','2.jpg');
 	}
 
 

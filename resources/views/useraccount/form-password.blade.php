@@ -1,17 +1,23 @@
-{!! Form::open(array('url' => 'useraccount/update-password' )) !!}
+{!! Form::open(array('url' => 'useraccount/update-password' , 'class' => 'form-data' )) !!}
 	{!! Form::hidden('current_password',  Crypt::encrypt($user->details->password) ) !!}
 	<div class="form-group">
 		<label for="password">{{ Lang::get('userdata.password') }}: </label>
 		<div class="input-group">
-			<input type="password" name="password">
+			<input type="password" name="password" class="form-control">
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="confirm">{{ Lang::get('userdata.confirm-password') }}: </label>
 		<div class="input-group">
-			<input type="password" name="password_confirmation">
+			<input type="password" name="password_confirmation"  class="form-control">
 		</div>
 	</div>
+	<div class="form-group">
 	@include('errors.messages')
-	<div data-role="submit" data-route="useraccount/update-password"><img src="images/guardar.png"/></div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-6 col-md-push-6 text-center nopadding">
+			<div data-role="submit" data-route="useraccount/update-password" class="btn-blue btn-small">{{ Lang::get('userdata.save') }}</div>
+		</div>
+	</div>
 {!! Form::close() !!}

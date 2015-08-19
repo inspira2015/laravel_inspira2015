@@ -3,12 +3,12 @@
 return [
 	"information" => "Datos de Contacto",
 	"cell" => "Cel",
-	"phone" => "Tel",
-	"office" => "Of",
-	"address" => "Dir",
-	"city" => "Cd",
+	"phone" => "Tel. Casa",
+	"office" => "Tel. Oficina",
+	"address" => "Direcci&oacute;n",
+	"city" => "Ciudad",
 	"country" => "Pa&iacute;s", 
-	"state" => "Edo",
+	"state" => "Estado",
 	"account-details" => "Datos de Cuenta",
 	"password" => "Contrase&ntilde;a",
 	"confirm-password" => "Confirmar",
@@ -24,5 +24,10 @@ return [
 	"vacation-fund" => "Fondo vacacional",
 	"monthly-fee" => "Abono mensual",
 	"total-saved" => "Ahorros totales",
-	"promotions" => "Promociones del mes"
+	"promotions" => "Promociones del mes",
+	"change" => "Cambiar",
+	"save" => "Guardar",
+	"go-reservations" => "Ir a secci&oacute;n de reservaciones",
+	"additional-bonus" => "Abono Adicional",
+	"pay" => "Abonar"
 ];

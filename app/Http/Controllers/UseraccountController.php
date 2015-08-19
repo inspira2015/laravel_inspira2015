@@ -15,9 +15,13 @@ use App\Model\Dao\UserRegisteredPhoneDao;
 use App\Services\UserPassword;
 use App\Services\UserDetails;
 use App\Model\Entity\UserAffiliation;
+
 use App\Libraries\AccountValidation\CompleteAccountSetup;
+use App\Libraries\GeneratePaymentsDates;
+
 use App\Model\Entity\UserVacationalFunds;
 use App\Model\Entity\UserVacFundLog;
+
 
 class UseraccountController extends Controller {
 	
@@ -26,6 +30,9 @@ class UseraccountController extends Controller {
 	private $accountSetup;
 	private $statesDao;
 	private $phonesDao;
+	private $userAffiliationDao;
+	private $userAuth;
+	private $userVacationalFundLog;
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -47,6 +54,8 @@ class UseraccountController extends Controller {
 	public function __construct( UserDao $userDao, 
 								 CompleteAccountSetup $accountSetup,
 								 StatesDao $statesDao,
+								 UserAffiliation $userAff,
+								 UserVacFundLog $userVacFundLog,
 								 UserRegisteredPhoneDao $phoneDao,
 								 CountryDao $countryDao
 								 )
@@ -54,9 +63,13 @@ class UseraccountController extends Controller {
 		$this->middleware('auth');
 		$this->userDao = $userDao;
 		$this->countryDao = $countryDao;
+		$this->userAffiliationDao = $userAff;
+		$this->generatePaymentesDate = new GeneratePaymentsDates();
 		$this->statesDao = $statesDao;
 		$this->phoneDao = $phoneDao;
 		$this->accountSetup = $accountSetup;
+		$this->userAuth = Auth::user();
+		$this->userVacationalFundLog = $userVacFundLog;
 		$this->setLanguage();
 	}
 	
@@ -71,9 +84,29 @@ class UseraccountController extends Controller {
 
 		$this->accountSetup->setUsersID(Auth::user()->id );
 		$this->accountSetup->checkValidAccount();
+		$userAuth = Auth::user();
+		$queryUserAffiliation = $this->userAffiliationDao->getByUsersId( $userAuth->id );
+		
+		$userAffiliation = $queryUserAffiliation[0];
+
+		$queryUserVac = $this->userVacationalFundLog->getByUsersId( $userAuth->id );
+		$userVacationalFundLog = $queryUserVac[0];
+
+		$this->generatePaymentesDate->setDate( \date('Y-m-d') );
+		
+		$data = array(
+			'affiliation_cost' => $userAffiliation->amount,
+			'affiliation_currency' => $userAffiliation->currency,
+			'vacational_fund_amount' => $userVacationalFundLog->amount,
+			'vacational_fund_currency' => $userVacationalFundLog->currency,
+			'next_payment_date' => $this->generatePaymentesDate->getNextPaymentDateHumanRead()
+		);
 		return view('useraccount.userdata')
+			->with( 'title' ,  'Profile' )
+			->with( 'background' , '1.png')
 			->with( 'user' , $this->details() )
-			->with( 'accountSetup' , $this->accountSetup );
+			->with( 'accountSetup' , $this->accountSetup )
+			->with( $data );
 	}
 
 	/**
@@ -101,7 +134,8 @@ class UseraccountController extends Controller {
 		$data = Input::except('_token');
 
 		//Validar esta parte
-		$validator = UserDetails::validator($data);
+		$userDetails = new UserDetails();
+		$validator = $userDetails->validator($data, Auth::user()->language);
 		if( $validator->passes() ){
 			$this->phoneDao->exchangeArray(  array ( 'users_id' => Auth::user()->id , 'type' => 'cell', 'number' => $data['cell'] ) );
 			$this->phoneDao->save();
@@ -137,8 +171,9 @@ class UseraccountController extends Controller {
 	
 	public function updatePassword()
 	{
+		$userPassword = new UserPassword();
 		$data = Input::except('_token');
-		$validator = UserPassword::validator( $data );
+		$validator = $userPassword->validator( $data, Lang::locale() );
 		if( $validator->passes() ){
 			$this->userDao->load( Auth::user()->id );
 			$this->userDao->password = Hash::make($data['password']);

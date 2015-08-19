@@ -25,7 +25,9 @@ class CountryDao
 	
 	public function getNameByCode( $code )
 	{
-		return $this->getCountryByCode( $code )->name;	
+		if( !empty( $this->getCountryByCode( $code )) )
+			return $this->getCountryByCode( $code )->name;	
+		return null;
 	}
 	
 	public function getCountryByCode( $code )

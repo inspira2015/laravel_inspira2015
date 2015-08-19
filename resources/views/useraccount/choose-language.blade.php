@@ -1,6 +1,8 @@
-<p style="display:inline-block; width:40%;">
-	{{ Lang::get('userdata.language') }}: &nbsp; {{ Str::upper($user->details->language) }}
-</p> 
-<a style="color:#cc4b9b;" data-role="change" data-route="api/user/change-language"> 
-	<img src="images/cambiar.png" style="vertical-align:text-top;"/>
-</a>
+<div class="col-xs-7">
+	<strong>{{ Lang::get('userdata.language') }}</strong>: &nbsp; {{ Str::upper($user->details->language) }}
+</div>
+<div class="col-sm-4 col-sm-push-8 text-center">
+	<a data-role="change" data-route="api/user/change-language" class="btn-blue btn-small">
+		{{ Lang::get('userdata.change') }}
+	</a>
+</div>

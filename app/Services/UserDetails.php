@@ -17,7 +17,7 @@ class UserDetails
 		]
 	];
 		
-	public static function validator(array $user_data) 
+	public function validator(array $user_data, $lang) 
 	{
 	
 		return Validator::make($user_data, [
@@ -27,7 +27,7 @@ class UserDetails
 			'city' => 'alpha',
 			'country' => 'required',
 			'state' => 'required'
-		]);
+		], $this->messages[$lang]);
 	}
 
 }

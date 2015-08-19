@@ -509,5 +509,115 @@ div.modal-body  li li li{
 	border: 3px solid grey!important; border-radius:50%; width:25px; height:25px;
 }
 
+.bg-gray-transparent{
+	margin-top:0px!important;
+	margin-bottom: 100px;
+}
+
+.bg-light-gray-transparent{
+	background-color: white;
+	margin-left: 5px;
+	margin-top: 15px;
+	margin-right: 5px;
+	padding: 15px;
+}
+#user .bg-light-gray-transparent{
+	padding: 30px;
+}
+#user h2{
+	 font-size:32px;  color:#818c95; display:table;
+}
+
+#user h3{
+	text-transform: uppercase;
+	margin-bottom: 20px;
+}
+
+#user .fa.fa-user{
+	width: 50px; 
+	height:50px;
+	font-size: 40px;
+	text-align:center;
+	margin-right:20px;
+}
+
+
+.form-data{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.form-data > div {
+	padding-left: 15px;
+	padding-right:15px;
+}
+.form-data div:not(:last-child){
+	margin-bottom: 5px;
+}
+
+
+.form-data .input-group{
+	width: 70%;
+}
+.form-data input,
+.form-data select{
+	width: calc(100% - 20px)!important;
+	margin-left: 20px;
+}
+
+.form-data .form-control{
+	background-color: #EBEDEE!important;
+}
+
+#user  div.promo {
+	padding:1px; margin:0 0;
+}
+
+#user  div.promo img{
+	width:100%;
+}
+
+#user div.promo span{
+	color: white;
+    position: absolute;
+    top: calc(100% - 30px);
+    left: 20px;
+}
+
+#user .btn-blue.btn-small{
+	line-height: 25px;
+	font-size: 16px!important;
+}
+
+#promotion-box div.promotion{
+	background-color: hotpink;
+    color: white;
+    height: 60px;
+    padding: 8px 10px;
+    margin-bottom: 20px;
+    display: inline-block;
+    border-right: 1px solid hotpink;
+    text-transform: uppercase;
+    line-height: 1.5;
+}
+
+#promotion-box div.arrow{
+	width: 0; 
+	height: 0; 
+	border-top: 30px solid transparent; 
+	border-bottom: 30px solid transparent; 
+	border-left: 30px solid hotpink; 
+	display: inline-block; 
+	position: absolute;
+}
+#promotion-box a,
+#promotion-box a:hover{
+	color: inherit;
+	text-transform: inherit;
+	text-decoration: inherit;
+}
+
+span.pink{
+	color: hotpink;
+}
 
 

@@ -1,15 +1,27 @@
-<div id = "campos">
-	<input type = "hidden" id = "leisure" value ="<?php //echo $user_data['leisure_id'] ?>">
-	<input type = "hidden" id = "afiliacion" name="afiliacion" value ="<?php //echo $afiliacion['tier_id'] ?>">
-	<p id = "cel" class="">{{ Lang::get('userdata.cell') }}: {{ $user->phones->cell['number'] }}</p>
-	<p id = "hmt" class="">{{ Lang::get('userdata.phone') }}: {{ $user->phones->phone['number'] }}</p>
-	<p id = "wkt" class="">{{ Lang::get('userdata.office') }}: {{ $user->phones->office['number'] }}</p>
-	<p id = "address" class="">{{ Lang::get('userdata.address') }}: {{ $user->details->address }}</p>
-
-	<p id = "city" class="">{{ Lang::get('userdata.city') }}: {{ $user->details->city }}</p>
-
-	<p id = "country" class="">{{ Lang::get('userdata.country') }}: {{ $user->details->country }}</p>
-
-	<p id = "state" class="">{{ Lang::get('userdata.state') }}: {{ $user->details->state }} </p>
+<div class="col-xs-12 form-data">
+	<div class="row">
+		<strong>{{ Lang::get('userdata.cell') }}</strong>: {{ $user->phones->cell['number'] }}
+	</div>
+	<div class="row">
+		<strong>{{ Lang::get('userdata.phone') }}</strong>: {{ $user->phones->phone['number'] }}
+	</div>
+	<div class="row">
+		<strong>{{ Lang::get('userdata.office') }}</strong>: {{ $user->phones->office['number'] }}
+	</div>
+	<div class="row">
+		<strong>{{ Lang::get('userdata.address') }}</strong>: {{ $user->details->address }}
+	</div>
+	<div class="row">
+		<strong>{{ Lang::get('userdata.city') }}</strong>: {{ $user->details->city }}
+	</div>
+	<div class="row">
+		<strong>{{ Lang::get('userdata.country') }}</strong>: {{ $user->details->country }}
+	</div>
+	<div class="row">
+		<strong>{{ Lang::get('userdata.state') }}</strong>: {{ $user->details->state }} </p>
+	</div>
 </div>
-<a id ="cambiar" data-role="change" data-route="useraccount/edit-contact"> <img src="images/cambiar.png"/></a>
+
+<div class="col-sm-4 col-sm-push-8 text-center">
+	<a data-role="change" data-route="useraccount/edit-contact" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
+</div>

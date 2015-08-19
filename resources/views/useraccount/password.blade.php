@@ -1,5 +1,12 @@
-<div id = "campos2">
-	<p id = "correo" class=""> Email: {{ $user->details->email }}</p>
-	<p id = "contrasena" class="">{{ Lang::get('userdata.password') }}: *********</p>
+<div class="col-xs-12 form-data">
+	<div class="row">
+		<strong>Email</strong>: {{ $user->details->email }}
+	</div>
+	<div class="row">
+		<strong>{{ Lang::get('userdata.password') }}</strong>: *********
+	</div>
 </div>
-<a id= "cambiar2" data-role="change" data-route="useraccount/edit-password"><img src="images/cambiar.png"/></a>
+
+<div class="col-sm-4 col-sm-push-8 text-center">
+	<a data-role="change" data-route="useraccount/edit-password" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
+</div>

@@ -3,7 +3,7 @@
 @section('content')   
 
 <div class="row" data-role="response">    
-    <div class="col-md-8 col-md-offset-2 bg-gray">
+    <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 bg-gray">
 	    <div class="row">
 		    <h2>{{ Lang::get('auth.login') }}</h2>
 	    </div>
@@ -22,21 +22,21 @@
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	
 				<div class="form-group">
-					<label class="col-md-4 control-label">E-mail</label>
-					<div class="col-md-6">
+					<label for="email">E-mail</label>
+					<div class="input-group">
 						<input type="email" class="form-control" name="email" value="{{ old('email') }}">
 					</div>
 				</div>
 	
 				<div class="form-group">
-					<label class="col-md-4 control-label">{{ Lang::get('auth.password') }}</label>
-					<div class="col-md-6">
+					<label for="password">{{ Lang::get('auth.password') }}</label>
+					<div class="input-group">
 						<input type="password" class="form-control" name="password">
 					</div>
 				</div>
 	
 				<div class="form-group">
-					<div class="col-md-6 col-md-offset-4 nopadding">
+					<div class="col-xs-8 col-xs-push-4 col-md-6 col-md-offset-4 nopadding">
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" name="remember">{{ Lang::get('auth.remember-me') }}
@@ -46,7 +46,7 @@
 				</div>
 				<div class="divider"></div>
 				<div class="row">
-					<div class="col-md-4 col-md-offset-4">
+					<div class="col-xs-4 col-xs-offset-4">
 						<div class="row">
 							<button type="submit" class="btn-light-blue btn-medium">
 								{{ Lang::get('auth.login') }}

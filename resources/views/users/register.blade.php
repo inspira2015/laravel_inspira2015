@@ -82,24 +82,23 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-lg-6 col-md-6">
-		<div class="form-group">
-			<label for="estado">* {{ Lang::get('registry.lang') }}</label>
-			<div class="input-group">
-				{!! Form::select('language', $lan_list,Input::get('language')  ? Input::get('language') : $location_info['language'], array('class' => 'form-control','id' => 'language')) !!}
+		<div class="row">
+			<div class="col-lg-6 col-md-6">
+				<div class="form-group">
+					<label for="lang">* {{ Lang::get('registry.lang') }}</label>
+					<div class="input-group">
+						{!! Form::select('language', $lan_list,Input::get('language')  ? Input::get('language') : $location_info['language'], array('class' => 'form-control','id' => 'language')) !!}
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-6 col-md-6">
-		<div class="form-group">
-			<label for="currency">* {{ Lang::get('registry.currency') }}</label>
-			<div class="input-group">
-				{!! Form::select('currency', $currency_list,Input::get('currency')   ? Input::get('currency') : $location_info['currency'], array('class' => 'form-control','id' => 'currency')) !!}
+		
+			<div class="col-lg-6 col-md-6">
+				<div class="form-group">
+					<label for="currency">* {{ Lang::get('registry.currency') }}</label>
+					<div class="input-group">
+						{!! Form::select('currency', $currency_list,Input::get('currency')   ? Input::get('currency') : $location_info['currency'], array('class' => 'form-control','id' => 'currency')) !!}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

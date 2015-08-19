@@ -24,5 +24,10 @@ return [
 	"vacation-fund" => "Vacation Fund",
 	"monthly-fee" => "Monthly Fee",
 	"total-saved" => "Total Saved",
-	"promotions" => "This month's promotions"
+	"promotions" => "This month's promotions",
+	"change" => "Change",
+	"save" => "Save",
+	"go-reservations" => "Go to reservations section",
+	"additional-bonus" => "Additional Bonus",
+	"pay" => "Pay"
 ];
