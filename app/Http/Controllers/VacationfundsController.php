@@ -62,7 +62,7 @@ class VacationfundsController extends Controller
 		return view('vacationfunds.vacationfund')->with(array('title' => Lang::get('vacationfund.title') ,
 															  'background' =>'4.jpg',
 															   'userCurrency' => $userData['currency'],
-															   'name' => $users['name'],
+															   'name' => $userData['name'],
 															   'currency' => $this->parseAff->getCurrency(),
 															   ));
 	}
@@ -73,7 +73,7 @@ class VacationfundsController extends Controller
 	{
 		if ( $this->checkSession() == FALSE )
 		{
-			return Redirect::to('codes/1');
+			return Redirect::to('codes');
 		}
 		$post_data = Request::all();
 		Session::put('vacationfund',  $post_data );

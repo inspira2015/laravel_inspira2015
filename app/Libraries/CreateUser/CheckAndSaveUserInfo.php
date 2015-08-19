@@ -84,7 +84,12 @@ class CheckAndSaveUserInfo
 
 	private function checkingCode()
 	{
-		$code = $this->codeDao->getByCode( $this->storeData['Code'] )->first();
+		$userCode = 'default';
+		if(!empty($this->storeData['Code']))
+		{
+			$userCode = $this->storeData['Code'];
+		}
+		$code = $this->codeDao->getByCode( $userCode )->first();
 		$this->codeOperations->setCode( $code );
 		return $this->codeOperations->checkValid();
 	}
