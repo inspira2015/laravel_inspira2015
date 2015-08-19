@@ -31,7 +31,9 @@ use App\Model\Entity\UserVacFundLog;
 use App\Libraries\GetLastBalance;
 use App\Model\Entity\UserVacationalFunds;
 use App\Libraries\SystemTransactions\ChargeVacationalFunds;
-
+use App\Libraries\SystemTransactions\ChargePoints;
+use App\Libraries\ConvertMoneyAmountToPoints;
+use App\Libraries\AddInspiraPoints;
 //UserVacationalFunds
 
 
@@ -47,6 +49,8 @@ class VacationalFundCharge extends Controller
 	private $userVacFundLogDao;
 	private $lastBalance;
 	private $chargeUserVacationalFunds;
+	private $inspiraPoints;
+	private $systemChargePoints;
 	
 	public function __construct( 	UserDao $userdao,
 									ExchangeRateEntity $exchange,
@@ -54,7 +58,9 @@ class VacationalFundCharge extends Controller
 									PrepareTransacionArray $prepareTrans,
 									ExchangeMXNUSD $exchangeMXNUSD,
 									GetLastBalance $getLast,
-									ChargeVacationalFunds $chargeVacationalFunds  )
+									ChargeVacationalFunds $chargeVacationalFunds,
+									AddInspiraPoints $inspiraPoints,
+									ChargePoints $sysCharge   )
 	{
 		$this->middleware('guest');		
 		$this->exchangeDao =  $exchange;
@@ -69,6 +75,11 @@ class VacationalFundCharge extends Controller
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
 		$this->lastBalance = $getLast;
 		$this->chargeUserVacationalFunds = $chargeVacationalFunds;
+		$this->inspiraPoints = $inspiraPoints;
+		$this->systemChargePoints = $sysCharge;
+		$this->convertMoneyToPoints = new ConvertMoneyAmountToPoints();
+
+
 
 		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
@@ -175,6 +186,27 @@ class VacationalFundCharge extends Controller
 																		'charge_at' => date('Y-m-d')));
 			
 			$this->chargeUserVacationalFunds->saveData();
+
+			$this->convertMoneyToPoints->setAmount( $this->convertHelper->getFomattedAmount() );
+			$this->convertMoneyToPoints->setCurrency( $userVacationalFund->currency );
+			$inspiraPoints = $this->convertMoneyToPoints->getPoints();
+
+
+			$this->inspiraPoints->setDate( date('Y-m-d') );
+			$this->inspiraPoints->setUserId( $user->id );
+			$this->inspiraPoints->setPoints( $inspiraPoints  );
+			$this->inspiraPoints->setReferenceNumber( 'VacationalFundPoints' );
+			$this->inspiraPoints->setDescription('Points Awarded for monthly Vacational Fund Payment');
+
+			$this->systemChargePoints->setUser( $user );
+			$this->systemChargePoints->setTransactionInfo( array(	'users_id' => $user->id,
+																	'code' => 'Success',
+																	'type' => 'Charge Vacational Funds Points',
+																	'description' => 'Points Awarded for monthly Vacational Fund Payment' ));
+
+			$this->systemChargePoints->setAddInspiraPoints( $this->inspiraPoints );
+			$this->systemChargePoints->saveData();
+
 
 
 		}

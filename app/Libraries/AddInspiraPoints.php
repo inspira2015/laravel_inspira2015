@@ -4,6 +4,7 @@ use Carbon;
 use App\Model\Dao\UserDao;
 use App\Model\Entity\UserAffiliation;
 use App\Model\Entity\UsersPointsEntity;
+use App\Libraries\GetPointsLastBalance;
 
 class AddInspiraPoints 
 {
@@ -22,16 +23,19 @@ class AddInspiraPoints
 	private $transactionId;
 	private $apiResponse;
 	private $apiResponseJson;
+	private $pointsBalance;
 
 
 	public function  __construct( UserDao $userDao, 
 								  UserAffiliation $userAffiliation,
-								  UsersPointsEntity $usersPoints )
+								  UsersPointsEntity $usersPoints,
+								  GetPointsLastBalance $pointsBalance )
 	{
 		$this->error_array = FALSE;
 		$this->userDao = $userDao;
 		$this->UserAffiliationDao = $userAffiliation;
 		$this->userPointsDao =  $usersPoints;
+		$this->pointsBalance = $pointsBalance;
 		$this->inspiraOfferArray = array( 1 => 561, 
 										  2 => 562,
 										  3 => 563,
@@ -179,12 +183,15 @@ class AddInspiraPoints
 
 		if($this->apiResponse)
 		{
+			$this->pointsBalance->setUserId( $this->userId );
+			$previousBalance = $this->pointsBalance->getCurrentBalance();
+			$balanceNow = $previousBalance + $this->pointsToBeAdded;
 			$this->userPointsDao->exchangeArray( array( 'users_id' => $this->userId,
 														'transaction_id' => $transactionId,
 														'description' => $this->description,
 														'added_points' => $this->pointsToBeAdded,
 														'substracted_points' => 0,
-														'balance' => $this->pointsToBeAdded ) );
+														'balance' => $balanceNow ) );
 			$this->userPointsDao->save();
 			return TRUE;
 		}

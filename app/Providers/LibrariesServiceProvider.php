@@ -67,6 +67,12 @@ class LibrariesServiceProvider extends ServiceProvider
                 	$app->make('\App\Model\Entity\UserAffiliationPaymentEntity'), $app->make('\App\Model\Entity\UserAffiliation'));
         });
 
+                $this->app->bind('App\Libraries\SystemTransactions\ChargePoints', function($app) {
+                return new \App\Libraries\SystemTransactions\ChargePoints($app->make('\App\Model\Entity\SystemTransactionEntity'),
+                        $app->make('\App\Model\Entity\UserAffiliationPaymentEntity'));
+        });
+
+
  		$this->app->bind('App\Libraries\SystemTransactions\PrepareTransacionArray', function($app) {
                 return new \App\Libraries\SystemTransactions\PrepareTransacionArray($app->make('\App\Model\Dao\UserDao'),
                 	 $app->make('\App\Model\Entity\UserPaymentInfoEntity'));
@@ -84,6 +90,12 @@ class LibrariesServiceProvider extends ServiceProvider
                 $this->app->bind('App\Libraries\GetLastBalance', function($app) {
                 return new \App\Libraries\GetLastBalance($app->make('\App\Model\Entity\UserVacationalFunds'));
         });
+
+                $this->app->bind('App\Libraries\GetPointsLastBalance', function($app) {
+                return new \App\Libraries\GetPointsLastBalance($app->make('\App\Model\Entity\UsersPointsEntity'));
+        });
+
+
 
                 $this->app->bind('App\Libraries\AddInspiraPoints', function($app) {
                 return new \App\Libraries\AddInspiraPoints( $app->make('\App\Model\Dao\UserDao'), 

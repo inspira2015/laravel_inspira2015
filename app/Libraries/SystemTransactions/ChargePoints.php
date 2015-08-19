@@ -58,5 +58,9 @@ class ChargePoints extends AbstractTransactions
 		return $this->checkAddInspiraPoints();
 	}
 
+	public function getErrors()
+	{
+		return TRUE;
+	}
 
 }

@@ -27,6 +27,13 @@ use App\Model\Entity\UserAffiliationPaymentEntity;
 use App\Libraries\SystemTransactions\PrepareTransacionArray;
 use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
 use App\Libraries\SystemTransactions\ChargeUserAffiliation;
+use App\Libraries\SystemTransactions\ChargePoints;
+
+
+use App\Libraries\ConvertMoneyAmountToPoints;
+use App\Libraries\AddInspiraPoints;
+
+
 
 class AffiliationCharge extends Controller 
 {
@@ -39,6 +46,9 @@ class AffiliationCharge extends Controller
 	private $prepareTransactionArray;
 	private $exchange;
 	private $chargeUserAffiliation;
+	private $convertMoneyToPoints;
+	private $inspiraPoints;
+	private $systemChargePoints;
 	
 	public function __construct( 	UserDao $userdao,
 									ExchangeRateEntity $exchange,
@@ -46,7 +56,9 @@ class AffiliationCharge extends Controller
 									UserAffiliationPaymentEntity $userAff,
 									PrepareTransacionArray $prepareTrans,
 									ExchangeMXNUSD $exchangeMXNUSD,
-									ChargeUserAffiliation $chargeUserAff )
+									ChargeUserAffiliation $chargeUserAff,
+									AddInspiraPoints $inspiraPoints,
+									ChargePoints $sysCharge )
 	{
 		$this->middleware('guest');		
 		$this->exchangeDao =  $exchange;
@@ -59,6 +71,12 @@ class AffiliationCharge extends Controller
 		$this->convertHelper = new ConvertCurrencyHelper();
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
 		$this->chargeUserAffiliation = $chargeUserAff;
+		$this->convertMoneyToPoints = new ConvertMoneyAmountToPoints();
+		$this->inspiraPoints = $inspiraPoints;
+		$this->systemChargePoints = $sysCharge;
+
+
+
 
 		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
@@ -158,7 +176,7 @@ class AffiliationCharge extends Controller
 			}
 
 
-			$this->chargeUserAffiliation->setTransactionInfo( array(	'users_id' => $userAuth->id,
+			$this->chargeUserAffiliation->setTransactionInfo( array(	'users_id' => $user->id,
 																		'code' => 'Success',
 																		'type' => 'Charge Affiliation',
 																		'description' => 'Monthly Affiliation Charge',
@@ -170,7 +188,26 @@ class AffiliationCharge extends Controller
 			$this->chargeUserAffiliation->saveData();
 
 
-			
+			$this->convertMoneyToPoints->setAmount( $user->affiliations->amount );
+			$this->convertMoneyToPoints->setCurrency( $user->affiliations->currency );
+			$inspiraPoints = $this->convertMoneyToPoints->getPoints();
+
+
+			$this->inspiraPoints->setDate( date('Y-m-d') );
+			$this->inspiraPoints->setUserId( $user->id );
+			$this->inspiraPoints->setPoints( $inspiraPoints  );
+			$this->inspiraPoints->setReferenceNumber( 'AffiliationPoints' );
+			$this->inspiraPoints->setDescription('Points Awarded for monthly Affiliation Payment');
+
+			$this->systemChargePoints->setUser( $user );
+			$this->systemChargePoints->setTransactionInfo( array(	'users_id' => $user->id,
+																	'code' => 'Success',
+																	'type' => 'Charge Affiliation Points',
+																	'description' => 'Points Awarded for monthly Affiliation Payment' ));
+
+			$this->systemChargePoints->setAddInspiraPoints( $this->inspiraPoints );
+			$this->systemChargePoints->saveData();
+
 
 		}
 
