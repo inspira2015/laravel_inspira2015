@@ -17,9 +17,11 @@
 				<div class="row text-right">
 					<a href="<?php echo url(); ?>/auth/logout">Logout</a><br><br>
 				</div>
+				@if( $accountSetup->checkValidAccount() !==FALSE )
 				<div class="row">
 					<a href="{{ url('reservations') }}" class="btn-blue btn-small">{{ Lang::get('userdata.go-reservations') }}</a>
 				</div>
+				@endif
 			</div>
 		</div>
 		

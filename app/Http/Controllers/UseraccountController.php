@@ -6,6 +6,7 @@ use Input;
 use Javascript;
 use Config;
 use Hash;
+use Lang;
 use App\Model\User;
 
 use App\Model\Dao\UserDao;
