@@ -167,8 +167,10 @@ class AffiliationCharge extends Controller
 
 			$this->chargeUserAffiliation->setAffiliationPayment( array( 'users_id' => $user->id,
 																		'charge_at' => date('Y-m-d')));
-			
 			$this->chargeUserAffiliation->saveData();
+
+
+			
 
 		}
 

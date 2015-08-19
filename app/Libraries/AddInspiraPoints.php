@@ -20,6 +20,8 @@ class AddInspiraPoints
 	private $inspiraOfferArray;
 	private $userPointsDao;
 	private $transactionId;
+	private $apiResponse;
+	private $apiResponseJson;
 
 
 	public function  __construct( UserDao $userDao, 
@@ -141,20 +143,44 @@ class AddInspiraPoints
 		$result = curl_exec($ch);
 		curl_close($ch);
 
-
-
-
 		return $result;
 	}
 
-	private function checkApiCall()
+
+	private function checkAPiCall()
 	{
-		$responseToCheck = $this->doPostToApi();
-		$response = json_decode( $responseToCheck );
+		$this->apiResponseJson = $this->doPostToApi();
+		$response = json_decode( $this->apiResponseJson);
 		if($response->success == 'OK')
 		{
+			$this->apiResponse = TRUE;
+		}
+		$this->apiResponse = FALSE;
+
+	}
+
+
+
+	public function getApiResponse()
+	{
+		return $this->apiResponse;
+	}
+
+
+	public function getApiResponseJson()
+	{
+		return $this->apiResponseJson;
+	}
+
+
+
+	public function saveToDatabase( $transactionId )
+	{
+
+		if($this->apiResponse)
+		{
 			$this->userPointsDao->exchangeArray( array( 'users_id' => $this->userId,
-														'transaction_id' => $this->transactionId,
+														'transaction_id' => $transactionId,
 														'description' => $this->description,
 														'added_points' => $this->pointsToBeAdded,
 														'substracted_points' => 0,

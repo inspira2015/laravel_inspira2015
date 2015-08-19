@@ -139,9 +139,9 @@ class CreateLeisureUser extends AbstractTransactions
 		$this->inspiraPoints->setPoints( $this->getCodePoints() );
 		$this->inspiraPoints->setReferenceNumber( 'CREATEUSER' . $this->objUser->id );
 		$this->inspiraPoints->setDescription('Points Added From Registration Code');
-		$this->inspiraPoints->setTransactionId( $transaction_id );
-
-        return $this->inspiraPoints->AddUserPoints();
+		$this->inspiraPoints->AddUserPoints();
+		$this->inspiraPoints->saveToDatabase( $transaction_id );
+        return $this->inspiraPoints->getApiResponse();
 	}
 
 
