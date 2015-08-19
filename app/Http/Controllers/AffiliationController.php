@@ -66,7 +66,10 @@ class AffiliationController extends Controller
 	 */
 	public function Index()
 	{	
-		//$user = $this->userDao->getUsersCode( Auth::user()->id );
+		if ( $this->checkSession() == FALSE )
+		{
+			return Redirect::to('codes/1');
+		}
 		$this->checkAff->setCode( Session::get('code') );
 		$suscription_array = $this->checkAff->getAffiliationObjectArray();
 		$suscription_count = count( $suscription_array );
@@ -90,6 +93,10 @@ class AffiliationController extends Controller
 
 	public function create()
 	{
+		if ( $this->checkSession() == FALSE )
+		{
+			return Redirect::to('codes/1');
+		}
 		$post_data = Request::all();
 		
 		if( !isset($post_data['affiliation']) ){
@@ -105,7 +112,15 @@ class AffiliationController extends Controller
 		}
 	}
 	
-
+	private function checkSession()
+	{
+		$registrySession = Session::get('registrySession');
+		if( empty($registrySession) )
+		{
+			return FALSE;
+		}
+		return TRUE;
+	}
 	
 
 }

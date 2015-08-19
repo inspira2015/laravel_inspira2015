@@ -50,14 +50,8 @@ class VacationfundsController extends Controller
 	 */
 	public function Index()
 	{
-		if ( !Session::has('users') )
-		{			
-			return Redirect::to('codes/1');
-		}
-		$users = Session::get('users');
-
-		if ( !Session::has('affiliation') )
-		{			
+		if ( $this->checkSession() == FALSE )
+		{
 			return Redirect::to('codes/1');
 		}
 
@@ -77,6 +71,10 @@ class VacationfundsController extends Controller
 
 	public function create()
 	{
+		if ( $this->checkSession() == FALSE )
+		{
+			return Redirect::to('codes/1');
+		}
 		$post_data = Request::all();
 		Session::put('vacationfund',  $post_data );
 		$user = Session::get( 'users' );
@@ -119,6 +117,17 @@ class VacationfundsController extends Controller
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 		$data = array('full_name'=> $full_name);
 		return view('users.emailconfirmation',$data)->with('title', Lang::get('emails.email-confirmation') )->with('background','2.jpg');
+	}
+
+
+	private function checkSession()
+	{
+		$registrySession = Session::get('registrySession');
+		if( empty($registrySession) )
+		{
+			return FALSE;
+		}
+		return TRUE;
 	}
 
 
