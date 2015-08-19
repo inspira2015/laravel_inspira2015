@@ -92,7 +92,7 @@ class PaymentController extends Controller {
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
 		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
 		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
-		PayU::$isTest = TRUE; //Dejarlo True cuando sean pruebas.
+		PayU::$isTest = FALSE; //Dejarlo True cuando sean pruebas.
 
 		// URL de Pagos
 		Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");

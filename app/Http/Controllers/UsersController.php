@@ -72,12 +72,12 @@ class UsersController extends Controller {
 	 */
 	public function Index()
 	{
-		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
-		
 		if ( $this->checkSession() == FALSE )
 		{
 			return Redirect::to('codes/1');
 		}
+
+		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
 		$locale = Lang::getLocale();
 		
 
@@ -107,10 +107,12 @@ class UsersController extends Controller {
 
 	public function checkSession()
 	{
-		$this->checkReferer->setRefererUrl( URL::previous() );
-		$this->checkReferer->setValidUrl( 'codes' );
-		$this->checkReferer->setValidUrl( 'affiliation' );
-		return $this->checkReferer->checkValid();
+		$registrySession = Session::get('registrySession');
+		if( empty($registrySession) )
+		{
+			return FALSE;
+		}
+		return TRUE;
 	}
 
 	/**

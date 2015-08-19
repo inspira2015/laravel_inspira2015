@@ -29,15 +29,18 @@ class CodesController extends Controller {
 		{
 			$this->deleteSessionData();
 			Session::regenerate();
+			Session::put('registrySession', $this->rand_string( 8 ) );
 		}
+		$code = '';
 		if ( Session::has('code') )
 		{			
 			$code = Session::get('code');
+		}
 			return view('codes.view')->with('title', 'Ingresa tu c&oacute;digo' )
 									 ->with('background','codigo-background.jpg')
 									 ->with('code',$code);
 
-		}
+		
 
 		return view('codes.view')->with('title', 'Ingresa tu c&oacute;digo' )->with('background','codigo-background.jpg');
 	}
@@ -72,10 +75,21 @@ class CodesController extends Controller {
 		}
 		return false;
 	}
-	
-	public function getError()
-	{
-		
-	}
 
+
+	private  function rand_string( $length ) 
+	{
+		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";	
+
+		$size = strlen( $chars );
+		$str = '';
+		for( $i = 0; $i < $length; $i++ ) 
+		{
+			$str .= $chars[ rand( 0, $size - 1 ) ];
+		}
+
+		return $str;
+	}
+	
+	
 }
