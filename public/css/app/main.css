@@ -620,4 +620,45 @@ span.pink{
 	color: hotpink;
 }
 
+div#inspira-points,
+div#account-convert,
+div#account-details,
+div#contact-info,
+div#account-affiliation,
+div#account-funds,
+div#account-bonus{
+	background-size: 35px 35px;
+	background-repeat: no-repeat;
+	background-position:  calc(100% - 20px) 20px;
 
+}
+
+div#inspira-points{
+	background-image: url('images/info.png');	
+}
+
+
+div#account-convert{
+	background-image: url('images/convert.png');	
+}
+
+div#account-details{
+	background-image: url('images/secure.png');	
+}
+
+
+div#contact-info{
+	background-image: url('images/content.png');	
+}
+
+div#account-affiliation{
+	background-image: url('images/affiliation.png');	
+}
+
+div#account-funds{
+	background-image: url('images/fund.png');	
+}
+
+div#account-bonus{
+	background-image: url('images/bonus.png');	
+}

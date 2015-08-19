@@ -31,35 +31,27 @@
 	
 		<div class="row text-left">
 			<div class="col-md-6">
-				<div class="row bg-light-gray-transparent">
+				<div class="row bg-light-gray-transparent" id="contact-info">
 					<div class="row">
-						<h3 class="col-xs-10">{{ Lang::get('userdata.information') }}</h3>
-						<div class="col-xs-2">
-							icono
-						</div>
+						<h3>{{ Lang::get('userdata.information') }}</h3>
 					</div>
 					<div class="row" data-role="response">
 						@include('useraccount.contact')
 					</div>
 				</div>
-				<div class="row bg-light-gray-transparent">
+				<div class="row bg-light-gray-transparent" id="account-details">
 					<div class="row">
-						<h3 class="col-xs-10">{{ Lang::get('userdata.account-details') }}</h3>
-						<div class="col-xs-2">
-							icono
-						</div>
+						<h3>{{ Lang::get('userdata.account-details') }}</h3>
+						
 					</div>
 					<div class="row" data-role="response">
 						@include('useraccount.password')
 					</div>
 				</div>
-				<div class="row bg-light-gray-transparent">
-					<div class="row">
-						<div class="col-xs-2 col-xs-push-10">
-							icono
-						</div>
-					</div>
+				<div class="row bg-light-gray-transparent" id="account-convert">
+					
 					<div class="row form-data" data-role="response">
+						<br><br>
 						<div class="col-xs-6">
 							<strong>{{ Lang::get('userdata.language') }}</strong>: &nbsp; {{ Str::upper($user->details->language) }}
 						</div>
@@ -72,27 +64,24 @@
 					<div class="row form-data" data-role="response">
 						<div class="col-xs-6">
 <!-- 							Cambiar esta parte con el currency y funcion que debe de ir -->
-							{{ Lang::get('userdata.currency') }}: MXN							
+							<strong>{{ Lang::get('userdata.currency') }}</strong>: MXN							
 						</div>
 						<div class="col-sm-4 col-sm-push-2 text-center">
 							<div data-role="change" data-route="useraccount/edit-contact" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</div>
 						</div>
 					</div>
 				</div>
-				<div class="row bg-light-gray-transparent text-center">
+				<div class="row bg-light-gray-transparent text-center" id="inspira-points">
 					{{ Lang::get('userdata.inspira-points') }} 
 					<span class="pink">0  {{ Lang::get('userdata.points') }}</span>
 				</div>
 			</div>
 			<div class="col-md-6">
-				<div class="row bg-light-gray-transparent">
+				<div class="row bg-light-gray-transparent" id="account-affiliation">
 					<div class="row">
-						<h3 class="col-xs-10">{{ Lang::get('userdata.affiliation-type') }}:<br>
+						<h3>{{ Lang::get('userdata.affiliation-type') }}:<br>
 							- Tipo -
 						</h3>
-						<div class="col-xs-2">
-							icono
-						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-10 col-xs-offset-1" id="promotion-box">							
@@ -112,14 +101,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="row bg-light-gray-transparent">
+				<div class="row bg-light-gray-transparent" id="account-funds">
 					<div class="row">
-						<h3 class="col-xs-10">
+						<h3>
 							{{ Lang::get('userdata.vacation-fund') }}
 						</h3>
-						<div class="col-xs-2">
-							icono
-						</div>
 					</div>
 					<div class="row" data-role="response">
 						<div class="col-xs-12  form-data">
@@ -135,14 +121,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="row bg-light-gray-transparent">
+				<div class="row bg-light-gray-transparent" id="account-bonus">
 					<div class="row">
-						<h3 class="col-xs-10">
+						<h3>
 							{{ Lang::get('userdata.additional-bonus') }}
 						</h3>
-						<div class="col-xs-2">
-							icono
-						</div>
 					</div>
 					<div class="row form-data">
 						<div class="col-xs-8">
