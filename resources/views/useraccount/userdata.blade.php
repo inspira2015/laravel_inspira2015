@@ -13,7 +13,7 @@
 				</h2>
 			</div>
 	
-			<div class="col-sm-5 col-sm-push-7 col-md-4 col-md-push-2">
+			<div class="col-xs-5 col-xs-push-7 col-md-4 col-md-push-2">
 				<div class="row text-right">
 					<a href="<?php echo url(); ?>/auth/logout">Logout</a><br><br>
 				</div>
@@ -55,7 +55,7 @@
 						<div class="col-xs-6">
 							<strong>{{ Lang::get('userdata.language') }}</strong>: &nbsp; {{ Str::upper($user->details->language) }}
 						</div>
-						<div class="col-sm-4 col-sm-push-2 text-center">
+						<div class="col-xs-4 col-xs-push-2 text-center">
 							<a data-role="change" data-route="api/user/change-language" class="btn-blue btn-small">
 								{{ Lang::get('userdata.change') }}
 							</a>
@@ -66,7 +66,7 @@
 <!-- 							Cambiar esta parte con el currency y funcion que debe de ir -->
 							<strong>{{ Lang::get('userdata.currency') }}</strong>: MXN							
 						</div>
-						<div class="col-sm-4 col-sm-push-2 text-center">
+						<div class="col-xs-4 col-xs-push-2 text-center">
 							<div data-role="change" data-route="useraccount/edit-contact" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</div>
 						</div>
 					</div>
@@ -80,7 +80,11 @@
 				<div class="row bg-light-gray-transparent" id="account-affiliation">
 					<div class="row">
 						<h3>{{ Lang::get('userdata.affiliation-type') }}:<br>
-							- Tipo -
+							@if(Lang::locale() == 'es')
+								{{ $affiliation->name_es }}
+							@else
+								{{ $affiliation->name_eng }}
+							@endif 
 						</h3>
 					</div>
 					<div class="row">
@@ -129,7 +133,7 @@
 					</div>
 					<div class="row form-data">
 						<div class="col-xs-8">
-							Tarjetas
+							<img src="images/bonus-logos.png">
 						</div>
 						<div class="col-xs-4 text-center">
 							<a data-role="change" data-route="useraccount/edit-contact" class="btn-blue btn-small">{{ Lang::get('userdata.pay') }}</a>

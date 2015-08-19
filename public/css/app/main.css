@@ -529,8 +529,10 @@ div.modal-body  li li li{
 }
 
 #user h3{
-	text-transform: uppercase;
-	margin-bottom: 20px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 #user .fa.fa-user{

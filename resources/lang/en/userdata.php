@@ -4,7 +4,7 @@ return [
 	"information" => "Contact Information",
 	"cell" => "Cell",
 	"phone" => "Phone",
-	"office" => "Office phn",
+	"office" => "Office phone",
 	"address" => "Address",
 	"city" => "City",
 	"country" => "Country", 

@@ -59,4 +59,5 @@ class UserAffiliationDao implements ICrudOperations
 		}
 		return $queryAff;
 	}
+
 }

