@@ -147,14 +147,19 @@ class AddInspiraPoints
 		$result = curl_exec($ch);
 		curl_close($ch);
 
+		print_r($result);
+
 		return $result;
 	}
 
 
-	private function checkAPiCall()
+	private function checkApiCall()
 	{
 		$this->apiResponseJson = $this->doPostToApi();
 		$response = json_decode( $this->apiResponseJson);
+
+		print_r($response );
+
 		if($response->success == 'OK')
 		{
 			$this->apiResponse = TRUE;
@@ -181,20 +186,23 @@ class AddInspiraPoints
 	public function saveToDatabase( $transactionId )
 	{
 
-		if($this->apiResponse)
-		{
+		//if($this->apiResponse)
+		//{
 			$this->pointsBalance->setUserId( $this->userId );
 			$previousBalance = $this->pointsBalance->getCurrentBalance();
 			$balanceNow = $previousBalance + $this->pointsToBeAdded;
-			$this->userPointsDao->exchangeArray( array( 'users_id' => $this->userId,
+			$userpoints = array( 'users_id' => $this->userId,
 														'transaction_id' => $transactionId,
 														'description' => $this->description,
 														'added_points' => $this->pointsToBeAdded,
 														'substracted_points' => 0,
-														'balance' => $balanceNow ) );
+														'balance' => $balanceNow );
+
+
+			$this->userPointsDao->exchangeArray( $userpoints );
 			$this->userPointsDao->save();
 			return TRUE;
-		}
+		//}
 		return FALSE;
 	}
 

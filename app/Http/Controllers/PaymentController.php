@@ -110,6 +110,15 @@ class PaymentController extends Controller {
 	public function Index()
 	{
         $userAuth = Auth::user();
+
+		/*$this->createLeisureUser->setUser( $userAuth );
+		$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
+																'type' => 'Create Leisure MemberId',
+																'description' => 'Create Leisure MemberId',
+																'json_data' => ''));
+		$this->createLeisureUser->saveData();
+		exit;*/
+
 		/*$this->inspiraPoints->setDate( date('Y-m-d') );
 		$this->inspiraPoints->setUserId( $userAuth->id );
 		$this->inspiraPoints->setPoints( 15 );
@@ -196,8 +205,8 @@ class PaymentController extends Controller {
 			//////////////////////////////////////////	UPDATE leisure ID
 /*$json = file_get_contents('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
 $obj = json_decode($json, true);
-$data= $obj['data'];
-		$json = file_get_contents('https://api.leisureloyalty.com/v3/members/TEST005?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
+$data= $obj['data'];*/
+	/*	$json = file_get_contents('https://api.leisureloyalty.com/v3/members/TESTUS01?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
 		$obj = json_decode($json, true);
 		$data= $obj['data'];
 		echo "<pre>";

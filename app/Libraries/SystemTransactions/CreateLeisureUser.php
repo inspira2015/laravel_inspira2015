@@ -81,12 +81,12 @@ class CreateLeisureUser extends AbstractTransactions
 	public function getCodePoints()
 	{
 		$codesUsed = $this->codesUsedDao->getCodesUsedByUserId( $this->objUser->id );
-		$points = $codesUsed->code->points;
+		$points = (int)$codesUsed->code->points;
 		if($points < 0 )
 		{
 			return 0;
 		}
-		return (int)$points;
+		return $points;
 	}
 
 
@@ -154,15 +154,6 @@ class CreateLeisureUser extends AbstractTransactions
 		$this->transactionInfo['json_data'] = $this->leisureLoyaltyResponse;
 		$this->saveTransaction();
 
-		if ($checkCreateLeisureUser == TRUE )
-		{
-			if($points > 0)
-			{
-				$this->AddPoints( $this->transactionId );
-			}
-		}
-		
-		
 		if ( $checkCreateLeisureUser )
 		{
 			$this->userDao->load( $this->objUser->id ); 
@@ -170,6 +161,14 @@ class CreateLeisureUser extends AbstractTransactions
 			$this->userDao->save();
 		}
 
+
+		//if ( $checkCreateLeisureUser )
+		//{
+			$this->AddPoints( $this->transactionId );
+			//$this->AddPoints( $this->transactionId );
+			//saveToDatabase( $transactionId );
+		//}
+			
 		return TRUE;
 	}
 
