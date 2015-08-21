@@ -23,6 +23,9 @@ use App\Libraries\GeneratePaymentsDates;
 use App\Libraries\SystemTransactions\PrepareTransacionArray;
 use App\Libraries\SystemTransactions\CreateLeisureUser;
 use App\Libraries\AddInspiraPoints;
+use App\Libraries\UpdateDataBaseLeisureMember;
+use App\Libraries\CreateLeisureLoyaltyUser;
+
 
 
 use App\Libraries\PayU\PayUReports;
@@ -62,6 +65,7 @@ class PaymentController extends Controller {
 	private $prepareTransactionLib;
 	private $createLeisureUser;
 	private $inspiraPoints;
+	private $createLeisureUser2;
 
 
 	public function __construct( UserTokenRegistration $sysDao,
@@ -110,7 +114,7 @@ class PaymentController extends Controller {
 	public function Index()
 	{
         $userAuth = Auth::user();
-
+        
 		/*$this->createLeisureUser->setUser( $userAuth );
 		$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
 																'type' => 'Create Leisure MemberId',
@@ -205,7 +209,20 @@ class PaymentController extends Controller {
 			//////////////////////////////////////////	UPDATE leisure ID
 /*$json = file_get_contents('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
 $obj = json_decode($json, true);
-$data= $obj['data'];*/
+$data= $obj['data'];
+
+echo "<pre>";
+foreach($data as $user)
+{
+
+	print_r($user);
+	echo "<br><br>";
+
+
+}
+
+exit;*/
+
 	/*	$json = file_get_contents('https://api.leisureloyalty.com/v3/members/TESTUS01?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
 		$obj = json_decode($json, true);
 		$data= $obj['data'];
@@ -214,10 +231,10 @@ $data= $obj['data'];*/
 		exit;*/
 
 
-/*
-  	  $hace_ping = PayUPayments::doPing(SupportedLanguages::ES);
 
- 		print_r( $hace_ping );*/
+  	 // $hace_ping = PayUPayments::doPing(SupportedLanguages::ES);
+
+ 		//print_r( $hace_ping );
  	
 
 		/*$parameters = array(

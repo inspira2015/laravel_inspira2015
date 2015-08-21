@@ -16,7 +16,7 @@ class UpdateDataBaseLeisureMember extends CreateLeisureLoyaltyUser
 
 	protected function checkLeisure()
 	{
-		$memberId = parent::createOrRetriveMemberId();
+		$memberId = $this->createOrRetriveMemberId();
 		if( $memberId == FALSE )
 		{
 			return FALSE;

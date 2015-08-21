@@ -8,6 +8,7 @@ use App\Model\Entity\UserAffiliation;
 use App\Model\Dao\UserDao;
 use App\Model\Entity\CodesUsedEntity;
 use App\Libraries\AddInspiraPoints;
+use App\Libraries\UpdateDataBaseLeisureMember;
 
 use App;
 
@@ -22,59 +23,28 @@ class CreateLeisureUser extends AbstractTransactions
 	private $affiliationPaymentArray;
 	private $inspiraPoints;
 	private $leisureLoyaltyResponse;
+	private $updateDBLeisuerMember;
 
 
 	public function  __construct( SystemTransactionEntity $systemTransactions,
 								  UserDao $userDao,
 								  UserAffiliation $userAffDao,
 								  CodesUsedEntity $codesUsed,
-								  AddInspiraPoints $inspiraPoints )
+								  AddInspiraPoints $inspiraPoints,
+								  UpdateDataBaseLeisureMember $updateDbLeisure )
 	{
 		parent::__construct( $systemTransactions );
 		$this->userAffiliationDao = $userAffDao;
 		$this->userDao = $userDao;
 		$this->codesUsedDao = $codesUsed;
 		$this->inspiraPoints = $inspiraPoints;
-
+		$this->updateDBLeisuerMembere = $updateDbLeisure;
 	}
 
 
 	public function setAffiliationPayment( Array $affiliationPayment )
 	{
 		$this->affiliationPaymentArray = $affiliationPayment;
-	}
-
-
-	public function checkUserAffiliation()
-	{
-		$userAffiliation = $this->userAffiliationDao->getAffiliationByUsersId( $this->objUser->id );
-		if( $userAffiliation !=FALSE )
-		{
-			return $userAffiliation[0];
-		}
-		return FALSE;
-	}
-
-	
-
-	private function getPrefix()
-	{
-		$prefixForMembership = "";
-		if (App::environment('production', 'staging'))
-		{
-    		$prefixForMembership = 'INSPIRA';
-		}
-		else
-		{
-    		$prefixForMembership = 'TESTUS0';
-		}
-		return $prefixForMembership;
-	}
-
-	public function generateLeisureMemberShip()
-	{
-		$temp = $this->getPrefix();
-		return (string)$temp . $this->objUser->id;
 	}
 
 
@@ -89,47 +59,6 @@ class CreateLeisureUser extends AbstractTransactions
 		return $points;
 	}
 
-
-
-	public function checkCreateLeisureUser()
-	{
-		$userAffiliation = $this->checkUserAffiliation();
-
-		$postData[0] = array(
-		    "firstName" => $this->objUser->name, 
-		 	"lastName" => $this->objUser->last_name, 
-		 	"email" => $this->objUser->email,
-			"languageCode"=> strtoupper($this->objUser->language),
-			"mtierId"=> (int)$userAffiliation->affiliation->tier_id,
-			"memberId"=> $this->generateLeisureMemberShip()
-		);
-
-		$context = stream_context_create(array(
-		    'http' => array(
-		        'method' => 'POST',
-		        'header' => "Content-Type: application/json\r\n",
-		        'content' => json_encode($postData)
-		    )
-		));
-
-		$response = file_get_contents('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&', FALSE, $context);
-
-		$stdResponse = json_decode($response);
-
-
-		print_r($postData[0]);
-
-		echo "<br><br><pre>";
-
-		print_r($stdResponse);
-		$this->leisureLoyaltyResponse = $response;
-		if ($stdResponse->success == 'OK' )
-		{
-			return TRUE;
-		}
-		return FALSE;
-
-	} 
 
 
 	private function AddPoints( $transaction_id )
@@ -147,27 +76,39 @@ class CreateLeisureUser extends AbstractTransactions
 
 	public function saveData()
 	{
-		$checkCreateLeisureUser = $this->checkCreateLeisureUser();
-		$points = $this->getCodePoints();
+		$this->updateDBLeisuerMembere->setUserId( $this->objUser );
+		$responseLeisure = $this->updateDBLeisuerMembere->saveMemberId();
 
-		$this->transactionInfo['code'] = $checkCreateLeisureUser  ? "Success" : "Error";
-		$this->transactionInfo['json_data'] = $this->leisureLoyaltyResponse;
-		$this->saveTransaction();
-
-		if ( $checkCreateLeisureUser )
+		/**
+		 * Show the application welcome screen to the user.
+		 *
+		 * @return Response
+		 */
+		if ( $responseLeisure == TRUE )
 		{
-			$this->userDao->load( $this->objUser->id ); 
-			$this->userDao->leisure_id  = $this->generateLeisureMemberShip();
-			$this->userDao->save();
+			$newMember = $this->updateDBLeisuerMembere->getNewMemberCheck();
+			if($newMember)
+			{
+				$this->transactionInfo['description'] = 'Create Leisure MemberId';
+			}
+			else
+			{
+				$this->transactionInfo['description'] = 'Retrive Existing Leisure MemberId';
+			}
 		}
 
+		$this->transactionInfo['code'] = $responseLeisure  ? "Success" : "Error";
+		//$this->transactionInfo['json_data'] = $this->leisureLoyaltyResponse;
+		$this->saveTransaction();
 
-		//if ( $checkCreateLeisureUser )
-		//{
+
+		$points = $this->getCodePoints();
+
+		if ( $newMember )
+		{
 			$this->AddPoints( $this->transactionId );
-			//$this->AddPoints( $this->transactionId );
-			//saveToDatabase( $transactionId );
-		//}
+		}
+
 			
 		return TRUE;
 	}

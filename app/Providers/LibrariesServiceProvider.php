@@ -83,7 +83,8 @@ class LibrariesServiceProvider extends ServiceProvider
                 	$app->make('\App\Model\Dao\UserDao'),
                 	$app->make('\App\Model\Entity\UserAffiliation'),
                         $app->make('\App\Model\Entity\CodesUsedEntity'),
-                        $app->make('\App\Libraries\AddInspiraPoints')
+                        $app->make('\App\Libraries\AddInspiraPoints'),
+                        $app->make('\App\Libraries\UpdateDataBaseLeisureMember')
                         );
         });
 
