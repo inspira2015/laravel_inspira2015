@@ -27,7 +27,7 @@ class GetPointsLastBalance
 	}
 
 
-	public function setUserId($users_id)
+	public function setUserId( $users_id )
 	{
 		$this->users_id= $users_id;
 	}
@@ -35,26 +35,28 @@ class GetPointsLastBalance
 
 	public function checkBalance()
 	{
-		$this->last_row =  $this->usersPointsDao->getLatestByUserId( $this->users_id );
+		$this->lastRow =  $this->usersPointsDao->getLatestByUserId( $this->users_id );
 
 	}
 
 	public function getLastTransaction()
 	{
-		if( empty( $this->last_row ) )
+		$this->checkBalance();
+		if( empty( $this->lastRow ) )
 		{
 			return FALSE;
 		}
-		return $this->last_row;
+		return $this->lastRow;
 	}
 
 	public function getCurrentBalance()
 	{
-		if( empty( $this->last_row ) )
+		$this->checkBalance();
+		if( empty( $this->lastRow ) )
 		{
 			return 0;
 		}
-		return $this->last_row->balance;
+		return $this->lastRow->balance;
 	}
 
 }
