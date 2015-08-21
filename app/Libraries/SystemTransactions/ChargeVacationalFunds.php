@@ -38,7 +38,7 @@ class ChargeVacationalFunds extends AbstractTransactions
 
 	public function setVacationalFund( Array $userVacationalFund )
 	{
-		$this->userVacationalFund = $userVacationalFund;
+		$this->userVacationlArray = $userVacationalFund;
 	}
 
 
