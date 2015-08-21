@@ -35,7 +35,6 @@ class ChargePoints extends AbstractTransactions
 
 		if ( $this->addInspiraPoints->getApiResponse() )
 		{
-			echo "success";
 			$this->transactionInfo['code'] = 'Success';
 		}
 		$this->transactionInfo['json_data'] = $this->addInspiraPoints->getApiResponseJson();
