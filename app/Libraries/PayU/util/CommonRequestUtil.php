@@ -116,9 +116,9 @@ class CommonRequestUtil{
 		$isError = false;
 				
 		if (empty($parameters)) {
-			throw new InvalidArgumentException("Parameters can not be null or empty.");
+			throw new \InvalidArgumentException("Parameters can not be null or empty.");
 		}else if(empty($required) && empty($invalid)){
-			throw new InvalidArgumentException(" both the required and invalid parameter are null");
+			throw new \InvalidArgumentException(" both the required and invalid parameter are null");
 		}else {
 			
 			if(isset($required)){
@@ -143,7 +143,7 @@ class CommonRequestUtil{
 		}
 	
 		if ($isError) {
-			throw new InvalidArgumentException($errorMessage);
+			throw new \InvalidArgumentException($errorMessage);
 		}
 	
 	}
@@ -221,7 +221,7 @@ class CommonRequestUtil{
 	protected static function isValidDate( $dateString, $dateFormat, $parameterName){
 		if (\DateTime::createFromFormat($dateFormat, $dateString) == FALSE) {
 			throw new
-			InvalidArgumentException(
+			\InvalidArgumentException(
 					sprintf("The [%s] format is invalid. Use [%s] ",
 							$parameterName,
 							$dateFormat));

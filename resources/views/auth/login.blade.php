@@ -36,7 +36,7 @@
 				</div>
 	
 				<div class="form-group">
-					<div class="col-xs-8 col-xs-push-4 col-md-6 col-md-offset-4 nopadding">
+					<div class="col-xs-8 col-xs-push-4 col-md-6 nopadding">
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" name="remember">{{ Lang::get('auth.remember-me') }}

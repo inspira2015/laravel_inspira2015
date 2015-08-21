@@ -71,6 +71,9 @@ Route::post('useraccount/update-contact', 'UseraccountController@updateAccount')
 Route::post('useraccount/edit-contact', 'UseraccountController@editAccount');
 Route::post('useraccount/edit-password', 'UseraccountController@editPassword');
 Route::post('useraccount/update-password', 'UseraccountController@updatePassword');
+Route::post('useraccount/edit-payment', 'UseraccountController@editPayment');
+Route::post('useraccount/update-payment', 'UseraccountController@updatePayment');
+
 
 Route::post('codes/check', 'CodesController@check');
 

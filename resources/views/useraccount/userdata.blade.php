@@ -64,7 +64,7 @@
 					<div class="row form-data" data-role="response">
 						<div class="col-xs-6">
 <!-- 							Cambiar esta parte con el currency y funcion que debe de ir -->
-							<strong>{{ Lang::get('userdata.currency') }}</strong>: MXN							
+							<strong>{{ Lang::get('userdata.currency') }}</strong>: {{ $user->details->currency }}						
 						</div>
 						<div class="col-xs-4 col-xs-push-2 text-center">
 							<div data-role="change" data-route="useraccount/edit-contact" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</div>
@@ -131,19 +131,14 @@
 							{{ Lang::get('userdata.additional-bonus') }}
 						</h3>
 					</div>
-					<div class="row form-data">
-						<div class="col-xs-8">
-							<img src="images/bonus-logos.png">
-						</div>
-						<div class="col-xs-4 text-center">
-							<a data-role="change" data-route="useraccount/edit-contact" class="btn-blue btn-small">{{ Lang::get('userdata.pay') }}</a>
-						</div>
+					<div class="row form-data" data-role="response">
+						@include('useraccount.payment')
 					</div>
 				</div>
 				<div class="row" style="margin-top:30px;">
 					
 					<div class="col-xs-10 col-xs-offset-1">
-						<h3 class="row">Promociones del mes</h3>
+						<h3 class="row">{{ Lang::get('userdata.monthly-promotions')}}</h3>
 						<div class="row">
 							<div class="col-xs-3 col-md-6 promo">
 								<img src="images/manzanillo.png"/>

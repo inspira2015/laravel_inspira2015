@@ -56,6 +56,7 @@ class UsersController extends Controller
 			'error' => false,
 			'redirect' => '/useraccount'
 		), 200);
+		
 	}
 	
 	public function exists()

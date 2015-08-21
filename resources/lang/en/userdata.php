@@ -29,5 +29,8 @@ return [
 	"save" => "Save",
 	"go-reservations" => "Go to reservations section",
 	"additional-bonus" => "Additional Bonus",
-	"pay" => "Pay"
+	"pay" => "Pay",
+	"amount" => "Amount",
+	"monthly-promotions" => "Monthly Promotions",
+	"view-receipt" => "View Receipt"
 ];

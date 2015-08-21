@@ -29,5 +29,8 @@ return [
 	"save" => "Guardar",
 	"go-reservations" => "Ir a secci&oacute;n de reservaciones",
 	"additional-bonus" => "Abono Adicional",
-	"pay" => "Abonar"
+	"pay" => "Abonar",
+	"amount" => "Cantidad",
+	"monthly-promotions" => "Promociones del mes",
+	"view-receipt" => "Ver Recibo"
 ];

@@ -7,6 +7,8 @@ use Javascript;
 use Config;
 use Hash;
 use Lang;
+use GeoIP;
+use Response;
 use App\Model\User;
 
 use App\Model\Dao\UserDao;
@@ -16,6 +18,8 @@ use App\Model\Dao\AffiliationsDao;
 use App\Model\Dao\UserRegisteredPhoneDao;
 use App\Services\UserPassword;
 use App\Services\UserDetails;
+use App\Services\Payment as PaymentValidator;
+
 use App\Model\Entity\UserAffiliation;
 
 use App\Libraries\AccountValidation\CompleteAccountSetup;
@@ -23,6 +27,9 @@ use App\Libraries\GeneratePaymentsDates;
 
 use App\Model\Entity\UserVacationalFunds;
 use App\Model\Entity\UserVacFundLog;
+
+
+use App\Libraries\CashPayment;
 
 
 class UseraccountController extends Controller {
@@ -36,6 +43,7 @@ class UseraccountController extends Controller {
 	private $userAuth;
 	private $userVacationalFundLog;
 	private $affiliationsDao;
+	private $cashPayment;
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -61,6 +69,7 @@ class UseraccountController extends Controller {
 								 UserVacFundLog $userVacFundLog,
 								 UserRegisteredPhoneDao $phoneDao,
 								 AffiliationsDao $affiliationsDao,
+								 CashPayment $cashPayment,
 								 CountryDao $countryDao
 								 )
 	{
@@ -75,6 +84,7 @@ class UseraccountController extends Controller {
 		$this->affiliationsDao = $affiliationsDao;
 		$this->userAuth = Auth::user();
 		$this->userVacationalFundLog = $userVacFundLog;
+		$this->chashPayment = $cashPayment;
 		$this->setLanguage();
 	}
 	
@@ -170,6 +180,61 @@ class UseraccountController extends Controller {
 				->withErrors($validator);
 
 	}
+	
+	public function editPayment(){
+		return view('useraccount.form-payment')->with('user', Auth::user() );
+	}
+	
+	public function updatePayment(){
+		$data = Input::except('_token');
+		$amountValidator = new PaymentValidator();
+		//return Auth::user()->currency.' '.Lang::locale();
+		if(Auth::user()->currency == "MXN"){
+			$validator = $amountValidator->validatorMXN($data, Lang::locale() );
+		}else{
+			$validator = $amountValidator->validatorUSD($data, Lang::locale() );
+		}
+
+		if($validator->fails()){
+			return view('useraccount.form-payment')->withErrors($validator)->with('user', Auth::user() );
+		}
+		
+		$location = GeoIP::getLocation();
+		$cashPayment = new CashPayment();
+		$cashPayment->setUserData([
+							'full_name' => Auth::user()->name. ' '.Auth::user()->last_name,
+							'id' => Auth::user()->id,
+							'email' => Auth::user()->email,
+							'location' => $location['ip']
+						]);
+		
+		
+		$cashPayment->setAmountData([
+							'value' => $data['amount'],
+							'currency' => $data['currency']
+						]);
+		$cashPayment->setItem([
+				'reference' => 'Item-test-'.time(),
+				'description' => 'Test dresciption'
+			]);
+	
+		if( $cashPayment->checkPaymentData() ){
+			//dependiendo de lo que tenga el response
+			$response = $cashPayment->capture();
+			if($response->code == 'SUCCESS'){
+
+				return view('useraccount.payment')
+						->with('user', Auth::user() )
+						->with('receipt', $response->transactionResponse->extraParameters->URL_PAYMENT_RECEIPT_HTML);
+			}
+			else{
+				return view('useraccount.payment')->withErrors(array('message' => 'There was an error while processing' ))->with('user', Auth::user() );
+			}
+			
+		}
+		return "buuu error (n)";
+	}
+	
 	
 	public function editPassword()
 	{
