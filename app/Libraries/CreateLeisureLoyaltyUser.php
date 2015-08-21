@@ -119,4 +119,10 @@ class CreateLeisureLoyaltyUser
 	}
 
 
+	public function getResponseJson()
+	{
+		return (string)$this->leisureLoyaltyResponse;
+	}
+
+
 }

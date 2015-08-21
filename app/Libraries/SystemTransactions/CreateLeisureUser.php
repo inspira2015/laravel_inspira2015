@@ -84,9 +84,9 @@ class CreateLeisureUser extends AbstractTransactions
 		 *
 		 * @return Response
 		 */
+		$newMember = $this->updateDBLeisuerMembere->getNewMemberCheck();
 		if ( $responseLeisure == TRUE )
 		{
-			$newMember = $this->updateDBLeisuerMembere->getNewMemberCheck();
 			if($newMember)
 			{
 				$this->transactionInfo['description'] = 'Create Leisure MemberId';
@@ -98,7 +98,7 @@ class CreateLeisureUser extends AbstractTransactions
 		}
 
 		$this->transactionInfo['code'] = $responseLeisure  ? "Success" : "Error";
-		//$this->transactionInfo['json_data'] = $this->leisureLoyaltyResponse;
+		$this->transactionInfo['json_data'] = $this->updateDBLeisuerMembere->getResponseJson();
 		$this->saveTransaction();
 
 

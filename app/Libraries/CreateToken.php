@@ -122,7 +122,7 @@ class CreateToken extends InitializePayUCredentials
 	    if (preg_match('/^3[47][0-9]{13}$/',$number))
 	    {
 	        //return 'American Express';
-	        return FALSE;
+	        return 'AMEX';
 	    }
 	    elseif (preg_match('/^3(?:0[0-5]|[68][0-9])[0-9]{11}$/',$number))
 	    {
@@ -160,9 +160,6 @@ class CreateToken extends InitializePayUCredentials
 
 	private function checkToken()
 	{
-
-		print_r($this->parameters);
-
    		$response = PayUTokens::create($this->parameters);
 		
 		if( $response->code == 'SUCCESS' )
