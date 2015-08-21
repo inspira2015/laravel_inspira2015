@@ -95,8 +95,6 @@ class LibrariesServiceProvider extends ServiceProvider
                 return new \App\Libraries\GetPointsLastBalance($app->make('\App\Model\Entity\UsersPointsEntity'));
         });
 
-
-
                 $this->app->bind('App\Libraries\AddInspiraPoints', function($app) {
                 return new \App\Libraries\AddInspiraPoints( $app->make('\App\Model\Dao\UserDao'), 
                         $app->make('\App\Model\Entity\UserAffiliation'),
@@ -104,6 +102,17 @@ class LibrariesServiceProvider extends ServiceProvider
                         $app->make('\App\Libraries\GetPointsLastBalance'));
         });
 
+
+                $this->app->bind('App\Libraries\CreateLeisureLoyaltyUser', function($app) {
+                return new \App\Libraries\CreateLeisureLoyaltyUser( $app->make('\App\Model\Entity\UserAffiliation') );
+        });
+
+
+
+                $this->app->bind('App\Libraries\UpdateDataBaseLeisureMember', function($app) {
+                return new \App\Libraries\UpdateDataBaseLeisureMember( $app->make('\App\Model\Dao\UserDao'),
+                $app->make('\App\Model\Entity\UserAffiliation') );
+        });
 
 
 
