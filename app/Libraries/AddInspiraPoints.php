@@ -146,7 +146,7 @@ class AddInspiraPoints
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 		$result = curl_exec($ch);
 		curl_close($ch);
-		//print_r($result);
+		print_r($result);
 		return $result;
 	}
 
@@ -155,10 +155,11 @@ class AddInspiraPoints
 	{
 		$this->apiResponseJson = $this->doPostToApi();
 		$response = json_decode( $this->apiResponseJson);
-		//print_r($response );
-		if($response->success == 'OK')
+		$stringResponse = (string)$response->success;
+		if(strcasecmp($stringResponse, 'OK')==0)
 		{
 			$this->apiResponse = TRUE;
+			return;
 		}
 		$this->apiResponse = FALSE;
 

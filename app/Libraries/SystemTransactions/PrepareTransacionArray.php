@@ -150,7 +150,7 @@ class PrepareTransacionArray
 						//Ingrese aquí el teléfono de contacto del comprador.
 						PayUParameters::BUYER_CONTACT_PHONE => $buyerUser->phones[0]->number,
 						//Ingrese aquí el documento de contacto del comprador.
-						PayUParameters::BUYER_DNI => "",
+						PayUParameters::BUYER_DNI => "5415668464654",
 						//Ingrese aquí la dirección del comprador.
 						PayUParameters::BUYER_STREET => "",
 						PayUParameters::BUYER_STREET_2 => "",
@@ -183,7 +183,7 @@ class PrepareTransacionArray
 						
 						// DATOS DEL TOKEN
 						PayUParameters::TOKEN_ID => $payerUser->token,
-						PayUParameters::CREDIT_CARD_SECURITY_CODE=> $payerUser->ccv, 
+						//PayUParameters::CREDIT_CARD_SECURITY_CODE=> $payerUser->ccv, 
 
 						//Ingrese aquí el nombre de la tarjeta de crédito
 						//PaymentMethods::VISA||PaymentMethods::MASTERCARD||PaymentMethods::AMEX

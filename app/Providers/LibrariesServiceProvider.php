@@ -68,8 +68,7 @@ class LibrariesServiceProvider extends ServiceProvider
         });
 
                 $this->app->bind('App\Libraries\SystemTransactions\ChargePoints', function($app) {
-                return new \App\Libraries\SystemTransactions\ChargePoints($app->make('\App\Model\Entity\SystemTransactionEntity'),
-                        $app->make('\App\Model\Entity\UserAffiliationPaymentEntity'));
+                return new \App\Libraries\SystemTransactions\ChargePoints($app->make('\App\Model\Entity\SystemTransactionEntity'));
         });
 
 

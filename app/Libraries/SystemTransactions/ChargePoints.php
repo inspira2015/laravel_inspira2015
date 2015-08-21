@@ -13,16 +13,12 @@ class ChargePoints extends AbstractTransactions
 	private $error_array;
 	private $valid;
 	private $addInspiraPoints;
-	private $lastUserBalance;
 	private $points;
-	private $transactionId;
 
 
-	public function  __construct( SystemTransactionEntity $systemTransactions,
-								  GetPointsLastBalance $lastBalance )
+	public function  __construct( SystemTransactionEntity $systemTransactions)
 	{
 		parent::__construct( $systemTransactions );
-		$this->lastUserBalance = $lastBalance;
 	}
 
 
@@ -32,24 +28,23 @@ class ChargePoints extends AbstractTransactions
 	}
 
 
-
 	private function checkAddInspiraPoints()
 	{
 		$this->addInspiraPoints->AddUserPoints();
 		$this->transactionInfo['code'] = 'Error';
-		if ( $this->inspiraPoints->getApiResponse() )
+
+		if ( $this->addInspiraPoints->getApiResponse() )
 		{
+			echo "success";
 			$this->transactionInfo['code'] = 'Success';
 		}
-		$this->transactionInfo['json_data'] = $this->inspiraPoints->getApiResponseJson();
+		$this->transactionInfo['json_data'] = $this->addInspiraPoints->getApiResponseJson();
 		$this->saveTransaction();
 
-		if ( $this->inspiraPoints->getApiResponse() )
-		{
-			$this->inspiraPoints->saveToDatabase( $this->transactionId );
-		}
-		
-        return $this->inspiraPoints->getApiResponse();
+
+		$this->addInspiraPoints->saveToDatabase( $this->transactionId );
+				
+        return $this->addInspiraPoints->getApiResponse();
 	}
 
 

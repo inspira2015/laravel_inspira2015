@@ -139,6 +139,15 @@ class UserDao extends UserEntity implements ICrudOperations
  	}
 
 
+ 	public function getUserAffiliatonPaymentTEST()
+ 	{
+ 		$now = Carbon::now();
+ 		$minimumDay = Carbon::now()->subDays(5);     
+
+ 		return User::has('affiliations')->where( 'id', '=',14  )->first();
+ 	}
+
+
  	public function getVacationFundPayment()
  	{
  		return User::whereHas('funds_log', function($funds)

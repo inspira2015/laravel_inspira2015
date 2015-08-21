@@ -82,7 +82,7 @@ class AffiliationCharge extends Controller
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
 		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
 		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
-		PayU::$isTest = false; //Dejarlo True cuando sean pruebas.
+		PayU::$isTest = FALSE; //Dejarlo True cuando sean pruebas.
 
 		// URL de Pagos
 		Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
@@ -95,20 +95,20 @@ class AffiliationCharge extends Controller
 
 	public function Montlypayment()
 	{
-		$users = $this->userDao->getUserAffiliatonPayment();
+		$user = $this->userDao->getUserAffiliatonPaymentTEST();
 		$this->convertHelper->setCurrencyShow( 'MXN' );
 
-		foreach($users as $user)
-		{
-			print_r($user->affiliations->amount);
-			echo "<br><br>";
 
-			echo $user->id;
-			if( $this->userAffiliationPayment->checkPaymentByUserMonth( $user->id, $this->today->month ) )
-			{
-				continue;
-			}
 
+		//foreach($users as $user)
+		//{
+
+
+			//if( $this->userAffiliationPayment->checkPaymentByUserMonth( $user->id, $this->today->month ) )
+		//	{
+		//		continue;
+		//	}
+			
 			$this->prepareTransactionArray->setUserId( $user->id );
 			$this->convertHelper->setCost( $user->affiliations->amount );
 			$this->convertHelper->setCurrencyOfCost( $user->affiliations->currency );
@@ -118,12 +118,19 @@ class AffiliationCharge extends Controller
 			$this->prepareTransactionArray->setCurrency( 'MXN' );
 			$parameters = $this->prepareTransactionArray->getParameters();
 
+			echo "<pre>";
+			print_r($parameters);
+			echo "<br><br><pre>";
+
+			echo $user->id;
+			
 			$this->chargeUserAffiliation->setUser( $user );
 
 			$response = PayUPayments::doAuthorizationAndCapture($parameters);
 
 			print_r($response);
 			echo "<br><br>";
+
 
 
 			if( empty($response) )
@@ -149,8 +156,15 @@ class AffiliationCharge extends Controller
 				continue;
 			}
 
+$json = file_get_contents('https://api.leisureloyalty.com/v3/members/TESTUS014?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
+		$obj = json_decode($json, true);
+		$data= $obj['data'];
+		echo "<pre>";
+		print_r($data);
 
-			if ( $response->transactionResponse->state=="PENDING" ) 
+
+
+		/*	if ( $response->transactionResponse->state=="PENDING" ) 
 			{
 				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
 																		  'code' => 'PENDING',
@@ -173,7 +187,8 @@ class AffiliationCharge extends Controller
 																		  'payu_transaction_id' =>$response->transactionResponse->transactionId ));
 				$this->chargeUserAffiliation->saveTransaction();
 				continue;
-			}
+			}*/
+			echo "<br><br>";
 
 
 			$this->chargeUserAffiliation->setTransactionInfo( array(	'users_id' => $user->id,
@@ -181,6 +196,8 @@ class AffiliationCharge extends Controller
 																		'type' => 'Charge Affiliation',
 																		'description' => 'Monthly Affiliation Charge',
 																		'json_data' => json_encode($response),
+																		'amount' => $user->affiliations->amount,
+																		'currency' => $user->affiliations->currency,
 																		'payu_transaction_id' =>$response->transactionResponse->transactionId ));
 
 			$this->chargeUserAffiliation->setAffiliationPayment( array( 'users_id' => $user->id,
@@ -188,9 +205,17 @@ class AffiliationCharge extends Controller
 			$this->chargeUserAffiliation->saveData();
 
 
+
 			$this->convertMoneyToPoints->setAmount( $user->affiliations->amount );
 			$this->convertMoneyToPoints->setCurrency( $user->affiliations->currency );
 			$inspiraPoints = $this->convertMoneyToPoints->getPoints();
+
+			print_r($inspiraPoints);
+			echo "<br><br>";
+
+
+
+
 
 
 			$this->inspiraPoints->setDate( date('Y-m-d') );
@@ -198,6 +223,8 @@ class AffiliationCharge extends Controller
 			$this->inspiraPoints->setPoints( $inspiraPoints  );
 			$this->inspiraPoints->setReferenceNumber( 'AffiliationPoints' );
 			$this->inspiraPoints->setDescription('Points Awarded for monthly Affiliation Payment');
+
+
 
 			$this->systemChargePoints->setUser( $user );
 			$this->systemChargePoints->setTransactionInfo( array(	'users_id' => $user->id,
@@ -209,7 +236,7 @@ class AffiliationCharge extends Controller
 			$this->systemChargePoints->saveData();
 
 
-		}
+		//}
 
 	
 	}
