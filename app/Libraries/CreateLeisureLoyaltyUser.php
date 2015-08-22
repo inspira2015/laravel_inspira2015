@@ -4,16 +4,19 @@ namespace App\Libraries;
 use App\Model\Entity\UserAffiliation;
 use App\Model\User;
 use App;
+use App\Libraries\GeneratePaymentsDates;
 
 class CreateLeisureLoyaltyUser 
 {
 	protected $objUser;
 	private $userAffiliationDao;
 	protected $newMemberFlag;
+	protected $generatePaymentDate;
 
 	public function __construct(UserAffiliation $userAffiliationDao)
 	{
 		$this->userAffiliationDao = $userAffiliationDao;
+		$this->generatePaymentDate = new GeneratePaymentsDates( date('Y-m-d') );
 
 	}
 
@@ -34,7 +37,8 @@ class CreateLeisureLoyaltyUser
 		 	"email" => $this->objUser->email,
 			"languageCode"=> strtoupper($this->objUser->language),
 			"mtierId"=> (int)$userAffiliation->affiliation->tier_id,
-			"memberId"=> $memberId 
+			"memberId"=> $memberId,
+			"memberDays" => $this->generatePaymentDate->getDaysNumberOfNextPaymentDate()
 		);
 
 		$context = stream_context_create(array(
