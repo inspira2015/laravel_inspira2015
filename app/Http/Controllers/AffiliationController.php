@@ -115,7 +115,9 @@ class AffiliationController extends Controller
 	private function checkSession()
 	{
 		$registrySession = Session::get('registrySession');
-		if( empty($registrySession) )
+		$users = Session::get('users');
+
+		if( empty($registrySession) || empty($users) )
 		{
 			return FALSE;
 		}

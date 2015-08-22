@@ -36,6 +36,11 @@ class Handler extends ExceptionHandler {
 	 */
 	public function render($request, Exception $e)
 	{
+		if ($e instanceof \Illuminate\Session\TokenMismatchException) 
+		{
+		        return response()->view('errors.custom', [], 500);
+		}
+
 		return parent::render($request, $e);
 	}
 

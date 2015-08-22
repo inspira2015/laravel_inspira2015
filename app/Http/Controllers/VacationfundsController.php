@@ -123,7 +123,9 @@ class VacationfundsController extends Controller
 	private function checkSession()
 	{
 		$registrySession = Session::get('registrySession');
-		if( empty($registrySession) )
+		$users = Session::get('users');
+		$affiliation = Session::get('affiliation');
+		if( empty($registrySession) || empty($users)  || empty($affiliation)  )
 		{
 			return FALSE;
 		}

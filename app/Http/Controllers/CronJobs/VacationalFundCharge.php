@@ -85,7 +85,7 @@ class VacationalFundCharge extends Controller
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
 		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
 		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
-		PayU::$isTest = false; //Dejarlo True cuando sean pruebas.
+		PayU::$isTest = FALSE; //Dejarlo True cuando sean pruebas.
 
 		// URL de Pagos
 		Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
@@ -98,11 +98,11 @@ class VacationalFundCharge extends Controller
 
 	public function Montlypayment()
 	{
-		$users = $this->userDao->getVacationFundPayment();
+		$user = $this->userDao->getUserAffiliatonPaymentTEST();
 		$this->convertHelper->setCurrencyShow( 'MXN' );
 
-		foreach( $users as $user )
-		{
+		//foreach( $users as $user )
+		//{
 			print_r($user->id);
 			echo "<br><br>";
 			$queryUserVac = $this->userVacFundLogDao->getByUsersId( $user->id );
@@ -125,8 +125,8 @@ class VacationalFundCharge extends Controller
 
 			print_r($response);
 			echo "<br><br>";
-
-			if( empty($response) )
+		
+			/*if( empty($response) )
 			{
 				$this->chargeUserVacationalFunds->setTransactionInfo( array(  'users_id' => $user->id,
 																		  'code' => 'Error',
@@ -148,9 +148,9 @@ class VacationalFundCharge extends Controller
 				$this->chargeUserVacationalFunds->saveTransaction();
 				continue;
 			}
+*/
 
-
-			if ( $response->transactionResponse->state=="PENDING" ) 
+			/*if ( $response->transactionResponse->state=="PENDING" ) 
 			{
 				$this->chargeUserVacationalFunds->setTransactionInfo( array(  'users_id' => $user->id,
 																		  'code' => 'PENDING',
@@ -173,16 +173,16 @@ class VacationalFundCharge extends Controller
 																		  'payu_transaction_id' =>$response->transactionResponse->transactionId ));
 				$this->chargeUserVacationalFunds->saveTransaction();
 				continue;
-			}
+			}*/
 
-			$this->chargeUserVacationalFunds->setTransactionInfo( array(	'users_id' => $userAuth->id,
+			$this->chargeUserVacationalFunds->setTransactionInfo( array(	'users_id' => $user->id,
 																		'code' => 'Success',
 																		'type' => 'Charge Vacational Fund',
 																		'description' => 'Monthly Vacational Fund Charge',
 																		'json_data' => json_encode($response),
 																		'payu_transaction_id' =>$response->transactionResponse->transactionId ));
 
-			$this->chargeUserVacationalFunds->setAffiliationPayment( array( 'users_id' => $user->id,
+			$this->chargeUserVacationalFunds->setVacationalFund( array( 'users_id' => $user->id,
 																		'charge_at' => date('Y-m-d')));
 			
 			$this->chargeUserVacationalFunds->saveData();
@@ -209,7 +209,7 @@ class VacationalFundCharge extends Controller
 
 
 
-		}
+		//}
 
 
 		

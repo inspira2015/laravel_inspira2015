@@ -28,7 +28,7 @@ use App\Libraries\SystemTransactions\PrepareTransacionArray;
 use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
 use App\Libraries\SystemTransactions\ChargeUserAffiliation;
 use App\Libraries\SystemTransactions\ChargePoints;
-
+use App\Libraries\GetPointsLastBalance;
 
 use App\Libraries\ConvertMoneyAmountToPoints;
 use App\Libraries\AddInspiraPoints;
@@ -49,6 +49,8 @@ class AffiliationCharge extends Controller
 	private $convertMoneyToPoints;
 	private $inspiraPoints;
 	private $systemChargePoints;
+
+	private $debugPointsBalance;
 	
 	public function __construct( 	UserDao $userdao,
 									ExchangeRateEntity $exchange,
@@ -58,7 +60,8 @@ class AffiliationCharge extends Controller
 									ExchangeMXNUSD $exchangeMXNUSD,
 									ChargeUserAffiliation $chargeUserAff,
 									AddInspiraPoints $inspiraPoints,
-									ChargePoints $sysCharge )
+									ChargePoints $sysCharge,
+									GetPointsLastBalance $pointsBalance )
 	{
 		$this->middleware('guest');		
 		$this->exchangeDao =  $exchange;
@@ -74,6 +77,7 @@ class AffiliationCharge extends Controller
 		$this->convertMoneyToPoints = new ConvertMoneyAmountToPoints();
 		$this->inspiraPoints = $inspiraPoints;
 		$this->systemChargePoints = $sysCharge;
+		$this->debugPointsBalance = $pointsBalance;
 
 
 
@@ -108,6 +112,12 @@ class AffiliationCharge extends Controller
 		//	{
 		//		continue;
 		//	}
+
+		//$this->debugPointsBalance->setUserId($user->id);
+		//$points = $this->debugPointsBalance->getCurrentBalance();
+
+		//print_r($points);
+		//exit;
 			
 			$this->prepareTransactionArray->setUserId( $user->id );
 			$this->convertHelper->setCost( $user->affiliations->amount );
@@ -156,7 +166,7 @@ class AffiliationCharge extends Controller
 				continue;
 			}
 
-$json = file_get_contents('https://api.leisureloyalty.com/v3/members/TESTUS014?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
+$json = file_get_contents('https://api.leisureloyalty.com/v3/members/TESTUS013?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
 		$obj = json_decode($json, true);
 		$data= $obj['data'];
 		echo "<pre>";
