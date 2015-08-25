@@ -46,7 +46,8 @@ $(document).ready(function(){
 				if(typeof _form[0] == 'object'){
 					_data = _form.serialize();
 				}
-
+				_this.addClass('loading');
+				_this.removeAttr('data-role');
 				$.ajax({url:_route, data: _data, type: 'POST'}).done(function(_ajax_response){
 					if(_ajax_response.redirect){
 						window.location.href = _ajax_response.redirect;
@@ -71,7 +72,7 @@ $(document).ready(function(){
 				var _select_state = _this.data('change');
 				
 				if( _countries.indexOf(_value) > -1 ){
-					$.ajax({url: '/api/states', data: { country: _value }, type: 'POST'}).done(function(_response){
+					$.ajax({url: 'api/states', data: { country: _value }, type: 'POST'}).done(function(_response){
 						var _states = _response.data;
 						var _option = '';
 						$.each(_states, function( index, value ){
