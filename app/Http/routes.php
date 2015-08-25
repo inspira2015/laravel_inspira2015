@@ -52,6 +52,9 @@ Route::get('users/activation/{code}', 'UsersController@activation');
 
 Route::get('affiliation', 'AffiliationController@index');
 Route::post('affiliation/add', 'AffiliationController@create');
+Route::get('affiliation/update/{affiliation?}', 'AffiliationController@changeaffiliation');
+Route::post('affiliation/modify', 'AffiliationController@dochange');
+
 
 Route::get('vacationfund', 'VacationfundsController@index');
 Route::post('vacationfund/add', 'VacationfundsController@create');

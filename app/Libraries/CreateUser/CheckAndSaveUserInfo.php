@@ -23,15 +23,15 @@ use App\Model\Dao\UserRegisteredPhoneDao;
 class CheckAndSaveUserInfo
 {
 
-	private $storeData;
-	private $userDao;
-	private $codeDao;
-	private $affDao;
-	private $vacDao;
-	private $userPhone;
-	private $codesUsed;
-	private $codeOperations;
-	private $errorArray;
+	protected $storeData;
+	protected $userDao;
+	protected $codeDao;
+	protected $affDao;
+	protected $vacDao;
+	protected $userPhone;
+	protected $codesUsed;
+	protected $codeOperations;
+	protected $errorArray;
 
 	public function __construct(UserDao $userDao,CodeDao $codeDao, 
 								UserAffiliation $affiliationDao,UserVacFundLog $vacationDao, 
@@ -71,7 +71,7 @@ class CheckAndSaveUserInfo
 	}
 
 
-	private function checkPost($method,$data)
+	protected function checkPost($method,$data)
 	{
 		if ( $data == FALSE || empty($data) )
 		{
@@ -82,7 +82,7 @@ class CheckAndSaveUserInfo
 	}
 
 
-	private function checkingCode()
+	protected function checkingCode()
 	{
 		$userCode = 'default';
 		if(!empty($this->storeData['Code']))
@@ -100,7 +100,7 @@ class CheckAndSaveUserInfo
 	}
 
 
-	private function cleanAffiliationPost()
+	protected function cleanAffiliationPost()
 	{
 		$temp_id = $this->storeData['Affiliation']['affiliation'];
 		return array( 'affiliations_id' => $temp_id,

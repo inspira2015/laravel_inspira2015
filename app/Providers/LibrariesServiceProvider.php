@@ -47,6 +47,15 @@ class LibrariesServiceProvider extends ServiceProvider
                 	);
         });
 
+                $this->app->bind('App\Libraries\CreateUser\UpdateUserAffiliation', function($app) {
+                return new \App\Libraries\CreateUser\UpdateUserAffiliation($app->make('\App\Model\Dao\UserDao'),
+                                        $app->make('\App\Model\Dao\CodeDao'),$app->make('\App\Model\Entity\UserAffiliation'),
+                                        $app->make('\App\Model\Entity\UserVacFundLog'),$app->make('\App\Model\Dao\UserRegisteredPhoneDao'),
+                                        $app->make('\App\Model\Entity\CodesUsedEntity')
+                        );
+        });
+
+
 
         $this->app->bind('App\Libraries\ExchangeRate\ExchangeMXNUSD', function($app) {
                 return new \App\Libraries\ExchangeRate\ExchangeMXNUSD($app->make('\App\Model\Entity\ExchangeRateEntity'));

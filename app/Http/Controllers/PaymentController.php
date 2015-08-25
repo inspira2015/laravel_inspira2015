@@ -24,7 +24,6 @@ use App\Libraries\SystemTransactions\PrepareTransacionArray;
 use App\Libraries\SystemTransactions\CreateLeisureUser;
 use App\Libraries\AddInspiraPoints;
 use App\Libraries\UpdateDataBaseLeisureMember;
-use App\Libraries\CreateLeisureLoyaltyUser;
 
 
 
@@ -114,6 +113,7 @@ class PaymentController extends Controller {
 	public function Index()
 	{
         $userAuth = Auth::user();
+
         
 		/*$this->createLeisureUser->setUser( $userAuth );
 		$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
@@ -400,7 +400,7 @@ exit;*/
 
 
 
-
+			//exit;
 			return Response::json(array(
 				'error' => false,
 				'redirect' => '/useraccount'

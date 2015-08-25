@@ -26,6 +26,20 @@ class UserAffiliationDao implements ICrudOperations
 		}
 	}
 	
+	public function load( $id )
+	{
+
+		$this->populate( $this->getById( $id ) );
+	}
+
+	private function populate( $row )
+ 	{
+ 		foreach($row->toArray() as $key => $value)
+ 		{
+ 			$this->$key = $value;
+ 		}
+ 	}
+	
 	public function save() 
 	{
 		$id = isset($this->id) ? (int) $this->id : 0;
@@ -47,6 +61,18 @@ class UserAffiliationDao implements ICrudOperations
 			return FALSE;
 		}
 		return $queryAff;
+	}
+
+
+	public function getCurrentUserAffiliationByUserId($users_id = FALSE)
+	{
+		$queryAff = UserAff::where('users_id', $users_id)->where('active',1)->orderBy('id','desc')->first();
+		if ( empty( $queryAff->all() ) )
+		{
+			return FALSE;
+		}
+		return $queryAff;
+
 	}
 
 
