@@ -32,10 +32,9 @@ IN THE SOFTWARE.
 
   $.fn.validateCreditCard = function(callback, options) {
     var bind, card, card_type, card_types, get_card_type, is_valid_length, is_valid_luhn, normalize, validate, validate_number, _i, _len, _ref;
-    card_types = [
-      {
+    card_types = [{
         name: 'amex',
-        pattern: /^3[47]/,
+        pattern: /^(34|37)[0-9]/,
         valid_length: [15]
       }, {
         name: 'diners_club_carte_blanche',
