@@ -1,8 +1,10 @@
-<div class="col-xs-8">
-	<img src="images/bonus-logos.png">
+<div class="col-xs-8 oxxo">
+	<img src="images/oxxo.png">
 </div>
 <div class="col-xs-4 text-center">
-	<a data-role="change" data-route="useraccount/edit-payment" class="btn-blue btn-small">{{ Lang::get('userdata.pay') }}</a>
+	<a data-role="change" data-route="useraccount/edit-payment" class="btn-blue btn-small">
+		{{ Lang::get('userdata.pay') }}
+	</a>
 </div>
 
 <div class="col-xs-12">

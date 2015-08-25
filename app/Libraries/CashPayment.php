@@ -101,25 +101,40 @@ class CashPayment extends InitializePayUCredentials
 		return $this->validatePayment();
 	}
 	
-	public function capture(){
-		$response = PayUPayments::doAuthorizationAndCapture($this->parameters);
+	private function checkToken()
+	{
+   		$response = PayUPayments::doAuthorizationAndCapture($this->parameters);
 		
+		if( $response->code == 'SUCCESS' )
+		{
+			$this->tokenResponse = $response;
+			return TRUE;
+		}
+		else
+		{
+			$this->errorArray[] = $response->error;
+			return FALSE;
+		}
+	}
 
-		if($response){
-			if(@$response->transactionResponse){
-				$response->transactionResponse->orderId;
-				$response->transactionResponse->transactionId;
-				$response->transactionResponse->state;
-				if($response->transactionResponse->state=="PENDING"){
-					$response->transactionResponse->pendingReason;
-					$response->transactionResponse->extraParameters->URL_PAYMENT_RECEIPT_HTML;
-					$response->transactionResponse->extraParameters->REFERENCE;
-				}
-				$response->transactionResponse->responseCode;
-			}		  
-		}   
+	public function getTransactionResponse()
+	{
+		return $this->getToken()->transactionResponse;
+	}
 
-		return $response;
+	public function getErrors()
+	{
+		return $this->errorArray;
+	}
+
+	public function doToken()
+	{
+		return $this->checkToken();
+	}
+
+	public function getToken()
+	{
+		return $this->tokenResponse;
 	}
 
 }

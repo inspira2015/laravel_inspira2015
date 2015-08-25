@@ -32,5 +32,8 @@ return [
 	"pay" => "Abonar",
 	"amount" => "Cantidad",
 	"monthly-promotions" => "Promociones del mes",
-	"view-receipt" => "Ver Recibo"
+	"view-receipt" => "Ver Recibo",
+	"error" => [
+		"transaction" => "Hubo un error al procesar"
+	]
 ];

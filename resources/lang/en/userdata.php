@@ -32,5 +32,8 @@ return [
 	"pay" => "Pay",
 	"amount" => "Amount",
 	"monthly-promotions" => "Monthly Promotions",
-	"view-receipt" => "View Receipt"
+	"view-receipt" => "View Receipt",
+	"error" => [
+		"transaction" => "There was an error while processing"
+	]
 ];

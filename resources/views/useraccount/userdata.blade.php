@@ -1,6 +1,11 @@
 @extends('layouts.basic')
 
 @section('content')
+<?php
+	//Quitar IP de esta parte para que funcione validacion de location
+	 $location = GeoIP::getLocation('201.174.63.6'); 
+?>
+
 <div class="row bg-gray-transparent" id="user">
 	<div class="col-xs-12">
 		<div class="row">
@@ -125,6 +130,7 @@
 						</div>
 					</div>
 				</div>
+				@if( $location['isoCode'] == "MX")
 				<div class="row bg-light-gray-transparent" id="account-bonus">
 					<div class="row">
 						<h3>
@@ -135,6 +141,7 @@
 						@include('useraccount.payment')
 					</div>
 				</div>
+				@endif
 				<div class="row" style="margin-top:30px;">
 					
 					<div class="col-xs-10 col-xs-offset-1">

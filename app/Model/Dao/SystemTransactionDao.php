@@ -35,6 +35,11 @@ class SystemTransactionDao implements ICrudOperations
 		$user->save();
 		return $user->id;
 	}
+	
+	public function getLastTransaction( $users_id ){
+		return SystemTransaction::orderBy('updated_at', 'desc')->where('users_id', $users_id)->first();
+		
+	}
 
 
 }
