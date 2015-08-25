@@ -107,6 +107,11 @@ class VacationfundsController extends Controller
 
 		}
 
+		Session::forget('code');
+		Session::forget('users');
+		Session::forget('affiliation');
+		Session::forget('vacationfund');
+
 		$this->userDao = $this->createUser->getUserDao();
 		$sent =Mail::send('emails.user_registration', array('user' => $this->userDao), function($message)
 			{
