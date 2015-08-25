@@ -8,7 +8,7 @@ use App\Libraries\Affiliations\CheckCodeAffiliations;
 use App\Libraries\Affiliations\AffiliationsColorCodes;
 use App\Libraries\ExchangeRate\ExchangeMXNUSD;
 use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
-
+use App\Model\Entity\CodesUsedEntity;
 use App\Model\Entity\Affiliations;
 use Lang;
 use Session;
@@ -35,6 +35,7 @@ class AffiliationController extends Controller
 	private $affiDao;
 	private $exchange;
 	private $convertHelper;
+	private $codesUsedDao;
 
 	/**
 	 * Create a new controller instance.
@@ -44,10 +45,12 @@ class AffiliationController extends Controller
 	public function __construct( UserDao $userDao, 
 								 CheckCodeAffiliations $checkAff,
 								 Affiliations $affil,
-								 ExchangeMXNUSD $exchange
-								 )
+								 ExchangeMXNUSD $exchange,
+								 CodesUsedEntity $codesUsed)
 	{
-		$this->middleware('guest');
+		//$this->middleware('guest');
+        $this->middleware('auth', ['only' => ['changeaffiliation', 'postcreate']]);
+
 		$this->userDao = $userDao;
 		$this->checkAff = $checkAff;
 		$this->affiDao = $affil;
@@ -56,6 +59,7 @@ class AffiliationController extends Controller
 		$this->convertHelper = new ConvertCurrencyHelper();
 		$this->convertHelper->setCurrencyShow( $userData['currency'] );
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
+		$this->codesUsedDao =  $codesUsed;
 		$this->setLanguage();
 	}
 
@@ -88,6 +92,34 @@ class AffiliationController extends Controller
 															  'convertHelper' => $this->convertHelper,
 															  'exchangeMXN' => $this->exchange->getTodayRate(),
 															  'colorCodes' => new AffiliationsColorCodes() ) );
+	}
+
+
+	public function changeaffiliation($affiliation = FALSE)
+	{
+        $userAuth = Auth::user();
+        $usedCodes = $this->codesUsedDao->getCodesUsedByUserId( $userAuth->id );
+		$this->checkAff->setCode( $usedCodes->code->code );
+		$suscription_array = $this->checkAff->getAffiliationObjectArray();
+		$suscription_count = count( $suscription_array );
+		return view('affiliations.affiliationchange')->with( array( 'title' => Lang::get('affiliations.title'),
+															  'background' =>'3.jpg',
+															  'affiliation' => $affiliation,
+															  'suscription_array' => $suscription_array,
+															  'suscription_count' => $suscription_count,
+															  'convertHelper' => $this->convertHelper,
+															  'exchangeMXN' => $this->exchange->getTodayRate(),
+															  'colorCodes' => new AffiliationsColorCodes() ) );
+	}
+
+
+	public function dochange()
+	{
+		$post_data = Request::all();
+
+		print_r($post_data );
+
+		exit;
 	}
 
 

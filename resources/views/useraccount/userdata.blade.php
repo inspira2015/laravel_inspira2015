@@ -90,7 +90,7 @@
 					<div class="row">
 						<div class="col-xs-10 col-xs-offset-1" id="promotion-box">							
 							<div class="promotion">
-								<a href="#"> 
+								<a href="affiliation/update/<?php echo $affiliation->id; ?>"> 
 									Eleva de Categor&iacute;a<br>
 									25% de Ahorros adicionales
 								</a>
@@ -101,7 +101,7 @@
 					<div class="row" data-role="response">
 						<div class="col-xs-12">
 							{{ Lang::get('userdata.expiration-date') }}:<br>
-							00-00-0000
+							{{ $next_payment_date }}
 						</div>
 					</div>
 				</div>
