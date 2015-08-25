@@ -90,7 +90,7 @@
 					<div class="row">
 						<div class="col-xs-10 col-xs-offset-1" id="promotion-box">							
 							<div class="promotion">
-								<a href="affiliation/update/<?php echo $affiliation->id; ?>"> 
+								<a href="affiliation/update/<?php echo $userAffiliation->id; ?>"> 
 									Eleva de Categor&iacute;a<br>
 									25% de Ahorros adicionales
 								</a>

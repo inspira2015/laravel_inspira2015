@@ -144,7 +144,7 @@ class UserDao extends UserEntity implements ICrudOperations
  		$now = Carbon::now();
  		$minimumDay = Carbon::now()->subDays(5);     
 
- 		return User::has('affiliations')->where( 'id', '=',14  )->first();
+ 		return User::has('affiliations')->where( 'id', '=',13  )->first();
  	}
 
 

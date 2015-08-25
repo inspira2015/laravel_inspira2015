@@ -100,9 +100,7 @@ class UseraccountController extends Controller {
 		$this->accountSetup->setUsersID(Auth::user()->id );
 		$this->accountSetup->checkValidAccount();
 		$userAuth = Auth::user();
-		$queryUserAffiliation = $this->userAffiliationDao->getByUsersId( $userAuth->id );
-		
-		$userAffiliation = $queryUserAffiliation[0];
+		$userAffiliation = $this->userAffiliationDao->getCurrentUserAffiliationByUserId( $userAuth->id );
 
 		$queryUserVac = $this->userVacationalFundLog->getByUsersId( $userAuth->id );
 		$userVacationalFundLog = $queryUserVac[0];
@@ -116,6 +114,7 @@ class UseraccountController extends Controller {
 			'vacational_fund_amount' => $userVacationalFundLog->amount,
 			'vacational_fund_currency' => $userVacationalFundLog->currency,
 			'affiliation' => $affiliation,
+			'userAffiliation' => $userAffiliation,
 			'next_payment_date' => $this->generatePaymentesDate->getNextPaymentDateHumanRead()
 		);
 				

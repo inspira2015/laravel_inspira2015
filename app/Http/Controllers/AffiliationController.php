@@ -13,7 +13,8 @@ use App\Model\Entity\Affiliations;
 use Lang;
 use Session;
 use Redirect;
-
+use App\Libraries\CreateUser\UpdateUserAffiliation;
+use App\Model\Entity\UserAffiliation;
 
 class AffiliationController extends Controller 
 {
@@ -36,6 +37,8 @@ class AffiliationController extends Controller
 	private $exchange;
 	private $convertHelper;
 	private $codesUsedDao;
+	private $updateUserAffiliation;
+	private $userAffiliationDao;
 
 	/**
 	 * Create a new controller instance.
@@ -46,7 +49,9 @@ class AffiliationController extends Controller
 								 CheckCodeAffiliations $checkAff,
 								 Affiliations $affil,
 								 ExchangeMXNUSD $exchange,
-								 CodesUsedEntity $codesUsed)
+								 CodesUsedEntity $codesUsed,
+								 UpdateUserAffiliation $updateUser,
+								 UserAffiliation $userAff)
 	{
 		//$this->middleware('guest');
         $this->middleware('auth', ['only' => ['changeaffiliation', 'postcreate']]);
@@ -60,6 +65,8 @@ class AffiliationController extends Controller
 		$this->convertHelper->setCurrencyShow( $userData['currency'] );
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
 		$this->codesUsedDao =  $codesUsed;
+		$this->updateUserAffiliation = $updateUser;
+		$this->userAffiliationDao = $userAff;
 		$this->setLanguage();
 	}
 
@@ -95,16 +102,18 @@ class AffiliationController extends Controller
 	}
 
 
-	public function changeaffiliation($affiliation = FALSE)
+	public function changeaffiliation($userCurrentAffiliation = FALSE)
 	{
         $userAuth = Auth::user();
+       	Session::put('currentAffiliation',  $userCurrentAffiliation );
+        $userAffiliation = $this->userAffiliationDao->getById( $userCurrentAffiliation );
         $usedCodes = $this->codesUsedDao->getCodesUsedByUserId( $userAuth->id );
 		$this->checkAff->setCode( $usedCodes->code->code );
 		$suscription_array = $this->checkAff->getAffiliationObjectArray();
 		$suscription_count = count( $suscription_array );
 		return view('affiliations.affiliationchange')->with( array( 'title' => Lang::get('affiliations.title'),
 															  'background' =>'3.jpg',
-															  'affiliation' => $affiliation,
+															  'affiliation' => $userAffiliation->affiliations_id,
 															  'suscription_array' => $suscription_array,
 															  'suscription_count' => $suscription_count,
 															  'convertHelper' => $this->convertHelper,
@@ -115,11 +124,22 @@ class AffiliationController extends Controller
 
 	public function dochange()
 	{
+		$userAuth = Auth::user();
 		$post_data = Request::all();
+		$userCurrentAffiliation = Session::get('currentAffiliation');
+		if( !is_numeric( $userCurrentAffiliation ) )
+		{
+			return Redirect::to('/useraccount');
+		}
 
-		print_r($post_data );
 
-		exit;
+		$this->updateUserAffiliation->setUserId( $userAuth->id );
+		$this->updateUserAffiliation->setAffiliationPost( $post_data );
+		$this->updateUserAffiliation->setCurrentAffiliation( $userCurrentAffiliation );
+		$this->updateUserAffiliation->changeAffilition();
+
+		return Redirect::to('/useraccount');
+
 	}
 
 

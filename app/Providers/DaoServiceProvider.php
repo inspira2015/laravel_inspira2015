@@ -37,6 +37,7 @@ class DaoServiceProvider extends ServiceProvider {
 		$this->app->bind('App\Model\Entity\SystemTransactionEntity');
 		$this->app->bind('App\Model\Entity\UserAffiliationPaymentEntity');
 		$this->app->bind('App\Model\Entity\UsersPointsEntity');
+		$this->app->bind('App\Model\Entity\CodesUsedEntity');
 
 
 	}
