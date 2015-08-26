@@ -41,6 +41,9 @@ class CreateLeisureLoyaltyUser
 			"memberDays" => $this->generatePaymentDate->getDaysNumberOfNextPaymentDate()
 		);
 
+
+		//print_r($postData[0]);
+
 		$context = stream_context_create(array(
 		    'http' => array(
 		        'method' => 'POST',

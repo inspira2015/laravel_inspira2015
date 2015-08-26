@@ -18,7 +18,7 @@ class GeneratePaymentsDates
 			$this->setDate( $date );
 		}
 		$this->error_array = FALSE;
-		$this->toleranceDays = 5;
+		$this->toleranceDays = 0;
 	}
 
 	public function setDate($date)
