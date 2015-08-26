@@ -137,7 +137,7 @@ class AffiliationController extends Controller
 		$this->updateUserAffiliation->setAffiliationPost( $post_data );
 		$this->updateUserAffiliation->setCurrentAffiliation( $userCurrentAffiliation );
 		$this->updateUserAffiliation->changeAffilition();
-
+		Session::forget('currentAffiliation');
 		return Redirect::to('/useraccount');
 
 	}

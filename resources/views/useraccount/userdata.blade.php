@@ -112,9 +112,11 @@
 				</div>
 				<div class="row bg-light-gray-transparent" id="account-funds">
 					<div class="row">
+					<a href="/vacationfund/update/<?php echo $vacational_fund->id;?>">
 						<h3>
 							{{ Lang::get('userdata.vacation-fund') }}
 						</h3>
+					</a>
 					</div>
 					<div class="row" data-role="response">
 						<div class="col-xs-12  form-data">

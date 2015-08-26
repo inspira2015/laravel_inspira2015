@@ -11,6 +11,9 @@ use App\Libraries\Affiliations\ParseCurrencyFromPost;
 use App\Libraries\CreateUser\CheckAndSaveUserInfo;
 use App\Services\UserRegistration;
 use App\Services\VacationFund;
+use App\Model\Entity\UserVacFundLog;
+use Auth;
+use App\Libraries\CreateUser\UpdateVacationalFund;
 
 
 class VacationfundsController extends Controller 
@@ -29,17 +32,23 @@ class VacationfundsController extends Controller
 	private $parseAff;
 	private $createUser;
 	private $userDao;
+	private $userVacationalFundLog;
+	private $updateVacationalFund;
 
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct(CheckAndSaveUserInfo $checkUser)
+	public function __construct( CheckAndSaveUserInfo $checkUser,
+								 UserVacFundLog $userVac,
+								 UpdateVacationalFund $updateVacational )
 	{
-		$this->middleware('guest');
+        $this->middleware('auth', ['only' => ['changevacationalfund', 'postdochange']]);
 		$this->parseAff = new ParseCurrencyFromPost();
 		$this->createUser = $checkUser;
+		$this->userVacationalFundLog = $userVac;
+		$this->updateVacationalFund = $updateVacational;
 		$this->setLanguage();
 	}
 
@@ -63,7 +72,6 @@ class VacationfundsController extends Controller
 															  'background' =>'4.jpg',
 															   'userCurrency' => $userData['currency'],
 															   'name' => $userData['name'],
-															   'currency' => $this->parseAff->getCurrency(),
 															   ));
 	}
 
@@ -122,6 +130,45 @@ class VacationfundsController extends Controller
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 		$data = array('full_name'=> $full_name);
 		return view('users.emailconfirmation',$data)->with('title', Lang::get('emails.email-confirmation') )->with('background','2.jpg');
+	}
+
+	public function changevacationalfund($vacationfund = FALSE)
+	{
+		$userAuth = Auth::user();
+		Session::put('currentVacationalFund',  $vacationfund );
+		$vacFund = $this->userVacationalFundLog->getById( $vacationfund);
+
+
+
+
+		return view('vacationfunds.vacationfundchange')->with(array('title' => Lang::get('vacationfund.title') ,
+															  'background' =>'4.jpg',
+															  'amount' => $vacFund->amount,
+															   'userCurrency' => $userAuth->currency,
+															   'name' => $userAuth->name,
+															   ));		
+	}
+
+
+	public function dochange()
+	{
+		$userAuth = Auth::user();
+		$post_data = Request::all();
+
+		$userCurrentVacationalFund = Session::get('currentVacationalFund');
+		if( !is_numeric( $userCurrentVacationalFund ) )
+		{
+			return Redirect::to('/useraccount');
+		}
+
+		$this->updateVacationalFund->setUserId( $userAuth->id );
+		$this->updateVacationalFund->setVacationFundPost( $post_data );
+		$this->updateVacationalFund->setCurrentVacationalFund( $userCurrentVacationalFund );
+		$this->updateVacationalFund->changeVacationalFund();
+		Session::forget('currentVacationalFund');
+		return Redirect::to('/useraccount');
+
+
 	}
 
 

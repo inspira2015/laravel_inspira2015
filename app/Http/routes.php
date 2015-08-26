@@ -58,6 +58,8 @@ Route::post('affiliation/modify', 'AffiliationController@dochange');
 
 Route::get('vacationfund', 'VacationfundsController@index');
 Route::post('vacationfund/add', 'VacationfundsController@create');
+Route::get('vacationfund/update/{vacationfund?}', 'VacationfundsController@changevacationalfund');
+Route::post('vacationfund/modify', 'VacationfundsController@dochange');
 
 
 
