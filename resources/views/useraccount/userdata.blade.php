@@ -96,8 +96,8 @@
 						<div class="col-xs-10 col-xs-offset-1" id="promotion-box">							
 							<div class="promotion">
 								<a href="affiliation/update/<?php echo $userAffiliation->id; ?>"> 
-									Eleva de Categor&iacute;a<br>
-									25% de Ahorros adicionales
+									{{ Lang::get('userdata.upgrade') }}<br>
+									{{ Lang::get('userdata.additional-savings') }}
 								</a>
 							</div>
 							<div class="arrow"></div>

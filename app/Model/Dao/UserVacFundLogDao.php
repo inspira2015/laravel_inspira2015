@@ -53,7 +53,7 @@ class UserVacFundLogDao implements ICrudOperations
 	public function getCurrentUserVacFundLogByUserId($users_id = FALSE)
 	{
 		$query = UserVacLog::where('users_id', $users_id)->where('active',1)->orderBy('id','desc')->first();
-		if ( empty( $query->all() ) )
+		if ( empty( $query ) )
 		{
 			return FALSE;
 		}

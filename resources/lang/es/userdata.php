@@ -33,6 +33,8 @@ return [
 	"amount" => "Cantidad",
 	"monthly-promotions" => "Promociones del mes",
 	"view-receipt" => "Ver Recibo",
+	"upgrade" => "Eleva de Categor&iacute;a",
+	"additional-savings" => "25% de ahorros adicionales",
 	"error" => [
 		"transaction" => "Hubo un error al procesar"
 	]

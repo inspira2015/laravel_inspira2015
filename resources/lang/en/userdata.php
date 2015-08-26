@@ -33,6 +33,8 @@ return [
 	"amount" => "Amount",
 	"monthly-promotions" => "Monthly Promotions",
 	"view-receipt" => "View Receipt",
+	"upgrade" => "Upgrade category",
+	"additional-savings" => "25% in additional savings",
 	"error" => [
 		"transaction" => "There was an error while processing"
 	]
