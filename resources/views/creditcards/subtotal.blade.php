@@ -26,7 +26,7 @@
 			{!! HTML::image('images/visa_master_american.png', 'credit card allowed') !!}
 		</div>
 		<div class="col-xs-6 col-xs-push-0 col-sm-3 col-sm-push-5 col-md-3 col-md-push-6 nopadding">   
-			<a href="/payment/creditcardinfo" class="btn-blue btn-medium">
+			<a href="payment/creditcardinfo" class="btn-blue btn-medium">
 				{{ Lang::get('layout.continue') }}
 			</a>
 		</div>
