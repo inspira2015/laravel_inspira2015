@@ -102,7 +102,7 @@ class UseraccountController extends Controller {
 		$this->chargeUserVacationalFunds = $chargeVacationalFunds;
 		$this->cashOrder = $cashOrder;
 		$this->setLanguage();
-		$this->checkCashPayment();
+		//$this->checkCashPayment();
 	}
 	
 	/**
