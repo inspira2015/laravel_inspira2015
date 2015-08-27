@@ -67,7 +67,20 @@ class CodesController extends Controller {
         Session::put('code', 'default');
         return Redirect::back()->with('title', 'Ingresa tu c&oacute;digo' )->with('background','codigo-background.jpg')->withErrors($validator);
 	}
+
+
+	public function Continuenocode()
+	{
+
+
+		Session::put('code', 'default');
+		return Response::json(array(
+				'error' => false,
+				'redirect' => 'users'
+			), 200);
+	}
 	
+
 	public function GetValid( $code ){
 		if( $code->end_date >= Carbon::today() )
 		{

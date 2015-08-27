@@ -6,7 +6,7 @@
 	<div class="col-sm-12 col-sm-pull-1 col-sm-offset-1 text-justify" style="font-size:24px;">
 		<div class="row">
 			<div class="col-xs-6 col-xs-push-6 col-sm-4 col-sm-push-8 col-md-3 col-md-push-9 nopadding">
-				<a href="{{ url('/users') }}" class="btn-blue-clear btn-medium">
+				<a href="{{ url('users') }}" class="btn-blue-clear btn-medium">
 					{{ Lang::get('code.continue-without-code') }}
 				</a>
 			</div>

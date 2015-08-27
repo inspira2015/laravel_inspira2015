@@ -68,6 +68,7 @@ Route::post('payment/addcreditcard', 'PaymentController@Addcreditcard');
 Route::get('payment/creditcardinfo', 'PaymentController@Creditcardinfo');
 
 Route::get('codes/{reset?}', 'CodesController@index');
+Route::any('codes/nocode', 'CodesController@Continuenocode');
 
 Route::get('useraccount', 'UseraccountController@index');
 

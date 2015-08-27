@@ -38,7 +38,7 @@ class CreateLeisureLoyaltyUser
 			"languageCode"=> strtoupper($this->objUser->language),
 			"mtierId"=> (int)$userAffiliation->affiliation->tier_id,
 			"memberId"=> $memberId,
-			"memberDays" => $this->generatePaymentDate->getDaysNumberOfNextPaymentDate()
+			"memberDays" => 30
 		);
 
 

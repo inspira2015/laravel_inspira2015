@@ -108,6 +108,11 @@ class UsersController extends Controller {
 	public function checkSession()
 	{
 		$registrySession = Session::get('registrySession');
+		$code = Session::get('code');
+		if(empty($code))
+		{
+			Session::put('code','default');
+		}
 		if( empty($registrySession) )
 		{
 			return FALSE;

@@ -101,7 +101,9 @@ class VacationfundsController extends Controller
 		}
 
 
-		$affiliation = Session::get( 'affiliation' );		
+
+
+		$affiliation = Session::get( 'affiliation' );	
 		$this->createUser->setUserPost( $user );
 		$this->createUser->setCodePost( Session::get( 'code' ) );
 		$this->createUser->setAffiliationPost( Session::get( 'affiliation' ) );
