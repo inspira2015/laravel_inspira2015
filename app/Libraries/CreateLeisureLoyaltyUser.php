@@ -12,6 +12,7 @@ class CreateLeisureLoyaltyUser
 	private $userAffiliationDao;
 	protected $newMemberFlag;
 	protected $generatePaymentDate;
+	protected $membersDays;
 
 	public function __construct(UserAffiliation $userAffiliationDao)
 	{
@@ -25,11 +26,22 @@ class CreateLeisureLoyaltyUser
 		$this->objUser = $objUser;
 	}
 
+	protected function setupTimes( $tier_id )
+	{
+		$tier_id = (int)$tier_id;
+		$this->membersDays = 30;
+		if ( $tier_id  == 81 )
+		{
+			$this->membersDays = 365;
+		}
+	}
+
 
 	protected function checkCreateLeisureUser()
 	{
 		$userAffiliation = $this->checkUserAffiliation();
 		$memberId = $this->generateLeisureMemberShip();
+		$this->setupTimes( $userAffiliation->affiliation->tier_id );
 
 		$postData[0] = array(
 		    "firstName" => $this->objUser->name, 
@@ -38,11 +50,11 @@ class CreateLeisureLoyaltyUser
 			"languageCode"=> strtoupper($this->objUser->language),
 			"mtierId"=> (int)$userAffiliation->affiliation->tier_id,
 			"memberId"=> $memberId,
-			"memberDays" => 30
+			"memberDays" => $this->membersDays,
 		);
 
 
-		//print_r($postData[0]);
+		print_r($postData[0]);
 
 		$context = stream_context_create(array(
 		    'http' => array(

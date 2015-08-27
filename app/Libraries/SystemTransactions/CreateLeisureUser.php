@@ -104,10 +104,10 @@ class CreateLeisureUser extends AbstractTransactions
 
 		$points = $this->getCodePoints();
 
-		if ( $newMember )
-		{
+		//if ( $newMember )
+	//	{
 			$this->AddPoints( $this->transactionId );
-		}
+		//}
 
 			
 		return TRUE;

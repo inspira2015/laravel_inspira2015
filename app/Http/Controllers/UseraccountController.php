@@ -31,7 +31,7 @@ use App\Model\Entity\UserVacFundLog;
 
 use App\Libraries\CashOrder;
 use App\Libraries\CashPayment;
-
+use App\Model\Entity\UsersPointsEntity;
 use App\Libraries\SystemTransactions\ChargeCashOnVacationalFunds;
 use App\Libraries\SystemTransactions\CreateCashReceipt;
 
@@ -51,6 +51,7 @@ class UseraccountController extends Controller {
 	private $chargeUserVacationalFunds;
 	private $cashOrder;
 	private $sysTransaction;
+	private $userPointsDao;
 
 	
 	/*
@@ -82,8 +83,8 @@ class UseraccountController extends Controller {
 								 SystemTransactionDao $sysDao,
 								 ChargeCashOnVacationalFunds $chargeVacationalFunds,
 								 CashOrder $cashOrder,
-								 CreateCashReceipt $sysCashReceipt
-								 )
+								 CreateCashReceipt $sysCashReceipt,
+								 UsersPointsEntity $userPoints)
 	{
 		$this->middleware('auth');
 		$this->userDao = $userDao;
@@ -101,6 +102,7 @@ class UseraccountController extends Controller {
 		$this->sysTransaction = $sysCashReceipt;
 		$this->chargeUserVacationalFunds = $chargeVacationalFunds;
 		$this->cashOrder = $cashOrder;
+		$this->userPointsDao = $userPoints;
 		$this->setLanguage();
 		//$this->checkCashPayment();
 	}
@@ -124,14 +126,24 @@ class UseraccountController extends Controller {
 		
 		$affiliation = $this->affiliationsDao->getById($userAffiliation->affiliations_id);
 		$this->generatePaymentesDate->setDate( \date('Y-m-d') );
+		$userPoints = $this->userPointsDao->getLatestByUserId( $userAuth->id );
+		$pointBalance = 0;
+
+		if(!empty( $userPoints ))
+		{
+			$pointBalance = (int)$userPoints->balance;
+
+		}
+
 		
+
 		$data = array(
 			'affiliation_cost' => $userAffiliation->amount,
 			'affiliation_currency' => $userAffiliation->currency,
 			'vacational_fund_amount' => $userVacationalFundLog->amount,
 			'vacational_fund_currency' => $userVacationalFundLog->currency,
 			'vacational_fund' => $userVacationalFundLog,
-
+			'inspiraPointsBalance' => $pointBalance,
 			'affiliation' => $affiliation,
 			'userAffiliation' => $userAffiliation,
 			'next_payment_date' => $this->generatePaymentesDate->getNextPaymentDateHumanRead()

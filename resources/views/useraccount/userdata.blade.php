@@ -78,7 +78,7 @@
 				</div>
 				<div class="row bg-light-gray-transparent text-center" id="inspira-points">
 					{{ Lang::get('userdata.inspira-points') }} 
-					<span class="pink">0  {{ Lang::get('userdata.points') }}</span>
+					<span class="pink">{{ $inspiraPointsBalance }}  {{ Lang::get('userdata.points') }}</span>
 				</div>
 			</div>
 			<div class="col-md-6">

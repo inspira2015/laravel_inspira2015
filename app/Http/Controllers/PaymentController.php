@@ -24,7 +24,7 @@ use App\Libraries\SystemTransactions\PrepareTransacionArray;
 use App\Libraries\SystemTransactions\CreateLeisureUser;
 use App\Libraries\AddInspiraPoints;
 use App\Libraries\UpdateDataBaseLeisureMember;
-
+use App\Model\Entity\CodesUsedEntity;
 
 
 use App\Libraries\PayU\PayUReports;
@@ -65,6 +65,7 @@ class PaymentController extends Controller {
 	private $createLeisureUser;
 	private $inspiraPoints;
 	private $createLeisureUser2;
+	private $codesUsedDao;
 
 
 	public function __construct( UserTokenRegistration $sysDao,
@@ -74,7 +75,8 @@ class PaymentController extends Controller {
 								UserVacFundLog $userVacFundLog,
 								PrepareTransacionArray $preparePayUArray,
 								CreateLeisureUser $createLeisureUser,
-								AddInspiraPoints $inspiraPoints)
+								AddInspiraPoints $inspiraPoints,
+								CodesUsedEntity $codesUsed)
 	{
 		//echo base_path();
 		$this->middleware('auth');
@@ -88,6 +90,7 @@ class PaymentController extends Controller {
 		$this->prepareTransactionLib = $preparePayUArray;
 		$this->createLeisureUser = $createLeisureUser;
 		$this->inspiraPoints = $inspiraPoints;
+		$this->codesUsedDao = $codesUsed;
 		$this->setLanguage();
 
 
@@ -232,9 +235,14 @@ exit;*/
 
 
 
-  	 // $hace_ping = PayUPayments::doPing(SupportedLanguages::ES);
+  	 /* $hace_ping = PayUPayments::doPing(SupportedLanguages::ES);
 
- 		//print_r( $hace_ping );
+ 		print_r( $hace_ping );
+ 		$user_codes = $this->codesUsedDao->getCodesUsedByUserId( $userAuth->id );
+
+ 		 print_r( $user_codes->code->points );
+
+ 		exit;*/
  	
 
 		/*$parameters = array(
@@ -384,6 +392,7 @@ exit;*/
 
 
 
+
 			$this->chargeUserAffiliation->setUser( $userAuth );
 			$this->chargeUserAffiliation->setTransactionInfo( array(	'users_id' => $userAuth->id,
 																'code' => 'Success',
@@ -400,7 +409,7 @@ exit;*/
 
 
 
-			//exit;
+			exit;
 			return Response::json(array(
 				'error' => false,
 				'redirect' => '/useraccount'
@@ -410,7 +419,10 @@ exit;*/
 	}
 
 
-	
+	private function getMemberPoints()
+	{
+
+	}
 
 
 	private function getCCData()
