@@ -1,5 +1,6 @@
 <?php
 namespace App\Libraries\PayU\api;
+use App\Libraries\PayU\util\PayUParameters;
 
 /**
  * Contains the attribute name for the differents operation against api
@@ -9,7 +10,7 @@ namespace App\Libraries\PayU\api;
  * @version 1.0.0, 17/10/2013
  *
  */
-class PayUKeyMapName{
+class PayUKeyMapName {
 	
 	/** property name to the the transaction  value */ 
 	const TX_VALUE = "TX_VALUE";

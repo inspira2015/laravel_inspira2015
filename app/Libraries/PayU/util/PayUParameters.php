@@ -19,7 +19,7 @@ use App\Libraries\PayU\api\RequestMethod;
 use App\Libraries\PayU\util\SignatureUtil;
 use App\Libraries\PayU\api\TransactionType;
 use App\Libraries\PayU\util\PayURequestObjectUtil;
-use App\Libraries\PayU\util\PayUParameters;
+//use App\Libraries\PayU\util\PayUParameters;
 use App\Libraries\PayU\util\CommonRequestUtil;
 use App\Libraries\PayU\util\RequestPaymentsUtil;
 use App\Libraries\PayU\util\UrlResolver;

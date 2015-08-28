@@ -57,21 +57,23 @@ class ChargeCashOnVacationalFunds extends AbstractTransactions
 	public function saveData()
 	{
 		$this->saveTransaction();
-
-		$userVacationalLog = $this->checkUserVacationalLog();
-		$this->lastUserBalance->setUserId($this->objUser->id );
-		$lastBalance = $this->lastUserBalance->getCurrentBalance();
-		$total = $lastBalance + $userVacationalLog->amount;
-		
-		$this->userVacationlArray['transaction_id'] = $this->transactionId;
-		$this->userVacationlArray['description'] = 'Cash Settled';
-		$this->userVacationlArray['added_amount'] = $userVacationalLog->amount;
-		$this->userVacationlArray['substracted_amount'] = 0; 
-		$this->userVacationlArray['currency'] = $userVacationalLog->currency;
-		$this->userVacationlArray['balance'] = $total;
-		$this->userVacationFundDao->exchangeArray( $this->userVacationlArray );
-		$this->userVacationFundDao->save();
-
+		if ( $this->transactionInfo['code'] == 'Success' )
+		{
+			$userVacationalLog = $this->checkUserVacationalLog();
+			$this->lastUserBalance->setUserId($this->objUser->id );
+			$lastBalance = $this->lastUserBalance->getCurrentBalance();
+			$total = $lastBalance + $this->transactionInfo['amount'];
+			
+			$this->userVacationlArray['transaction_id'] = $this->transactionId;
+			$this->userVacationlArray['description'] = 'Cash Settled';
+			$this->userVacationlArray['added_amount'] = $this->transactionInfo['amount'];
+			$this->userVacationlArray['substracted_amount'] = 0; 
+			$this->userVacationlArray['currency'] = $this->transactionInfo['currency'];
+			$this->userVacationlArray['balance'] = $total;
+			$this->userVacationFundDao->exchangeArray( $this->userVacationlArray );
+			$this->userVacationFundDao->save();
+		}
+			
 		return TRUE;
 	}
 

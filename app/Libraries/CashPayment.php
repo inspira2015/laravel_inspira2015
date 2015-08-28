@@ -34,6 +34,7 @@ class CashPayment extends InitializePayUCredentials
 	private $paymentMethod;
 	private $amountData;
 	private $itemData;
+	private $apiResponse;
 
 	public function __construct()
 	{
@@ -103,18 +104,23 @@ class CashPayment extends InitializePayUCredentials
 	
 	private function checkToken()
 	{
-   		$response = PayUPayments::doAuthorizationAndCapture($this->parameters);
+   		$this->apiResponse = PayUPayments::doAuthorizationAndCapture($this->parameters);
 		
-		if( $response->code == 'SUCCESS' )
+		if( $this->apiResponse->code == 'SUCCESS' )
 		{
-			$this->tokenResponse = $response;
+			$this->tokenResponse = $this->apiResponse;
 			return TRUE;
 		}
 		else
 		{
-			$this->errorArray[] = $response->error;
+			$this->errorArray[] = $this->apiResponse->error;
 			return FALSE;
 		}
+	}
+
+	public function getTransactionId()
+	{
+		return $this->apiResponse->transactionResponse->transactionId;
 	}
 
 	public function getTransactionResponse()

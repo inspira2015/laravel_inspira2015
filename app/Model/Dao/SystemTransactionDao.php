@@ -41,5 +41,10 @@ class SystemTransactionDao implements ICrudOperations
 		
 	}
 
+	public function getCashTransaction()
+	{
+		return SystemTransaction::orderBy('created_at', 'desc')->where('code', 'Pending')->get();
+		
+	}
 
 }

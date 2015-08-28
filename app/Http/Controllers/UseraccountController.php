@@ -252,16 +252,21 @@ class UseraccountController extends Controller {
 		{
 			if( $cashPayment->doToken() ){
 				$response = $cashPayment->getToken();
+
 				$responseArray = (array) $response;
+
 				if( @$cashPayment->getTransactionResponse()->extraParameters )
 				{
 					
 					$this->sysTransaction->setUser( $userAuth );
 					$this->sysTransaction->setTransactionInfo( array('users_id' => $userAuth->id,
-															'code' => 'Success',
+															'code' => 'Pending',
 															'type' => 'Register Cash Transaction',
 															'description' => 'Cash Receipt Generated',
-															'json_data' => json_encode($responseArray) ) );
+															'json_data' => json_encode($responseArray),
+															'amount' => $data['amount'],
+															'currency' => $data['currency'],
+															'payu_transaction_id' => $cashPayment->getTransactionId() ) );
 					$this->sysTransaction->saveData();		
 				
 					return view( 'useraccount.payment' )
