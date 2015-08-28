@@ -9,31 +9,27 @@ use Hash;
 use Lang;
 use GeoIP;
 use Response;
-use App\Model\User;
 
+use App\Model\User;
 use App\Model\Dao\UserDao;
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
 use App\Model\Dao\AffiliationsDao;
 use App\Model\Dao\UserRegisteredPhoneDao;
-use App\Model\Dao\SystemTransactionDao;
+
+use App\Model\Entity\UserAffiliation;
+use App\Model\Entity\UserVacFundLog;
+use App\Model\Entity\UsersPointsEntity;
+
 use App\Services\UserPassword;
 use App\Services\UserDetails;
 use App\Services\Payment as PaymentValidator;
 
-use App\Model\Entity\UserAffiliation;
-
 use App\Libraries\AccountValidation\CompleteAccountSetup;
 use App\Libraries\GeneratePaymentsDates;
-
-use App\Model\Entity\UserVacationalFunds;
-use App\Model\Entity\UserVacFundLog;
-
-use App\Libraries\CashOrder;
 use App\Libraries\CashPayment;
-use App\Model\Entity\UsersPointsEntity;
-use App\Libraries\SystemTransactions\ChargeCashOnVacationalFunds;
 use App\Libraries\SystemTransactions\CreateCashReceipt;
+
 
 class UseraccountController extends Controller {
 	
@@ -42,14 +38,7 @@ class UseraccountController extends Controller {
 	private $accountSetup;
 	private $statesDao;
 	private $phonesDao;
-	private $userAffiliationDao;
 	private $userAuth;
-	private $userVacationalFundLog;
-	private $affiliationsDao;
-	private $cashPayment;
-	private $sysDao;	
-	private $chargeUserVacationalFunds;
-	private $cashOrder;
 	private $sysTransaction;
 	private $userPointsDao;
 
@@ -72,39 +61,23 @@ class UseraccountController extends Controller {
 	*/
 	 
 	public function __construct( UserDao $userDao, 
-								 CompleteAccountSetup $accountSetup,
-								 StatesDao $statesDao,
-								 UserAffiliation $userAff,
-								 UserVacFundLog $userVacFundLog,
-								 UserRegisteredPhoneDao $phoneDao,
-								 AffiliationsDao $affiliationsDao,
-								 CashPayment $cashPayment,
 								 CountryDao $countryDao,
-								 SystemTransactionDao $sysDao,
-								 ChargeCashOnVacationalFunds $chargeVacationalFunds,
-								 CashOrder $cashOrder,
+								 StatesDao $statesDao,
+								 UserRegisteredPhoneDao $phoneDao,
+								 CompleteAccountSetup $accountSetup,
 								 CreateCashReceipt $sysCashReceipt,
 								 UsersPointsEntity $userPoints)
 	{
 		$this->middleware('auth');
 		$this->userDao = $userDao;
 		$this->countryDao = $countryDao;
-		$this->userAffiliationDao = $userAff;
-		$this->generatePaymentesDate = new GeneratePaymentsDates();
 		$this->statesDao = $statesDao;
 		$this->phoneDao = $phoneDao;
 		$this->accountSetup = $accountSetup;
-		$this->affiliationsDao = $affiliationsDao;
 		$this->userAuth = Auth::user();
-		$this->userVacationalFundLog = $userVacFundLog;
-		$this->chashPayment = $cashPayment;
-		$this->sysDao = $sysDao;
 		$this->sysTransaction = $sysCashReceipt;
-		$this->chargeUserVacationalFunds = $chargeVacationalFunds;
-		$this->cashOrder = $cashOrder;
 		$this->userPointsDao = $userPoints;
 		$this->setLanguage();
-		//$this->checkCashPayment();
 	}
 	
 	/**
@@ -115,18 +88,21 @@ class UseraccountController extends Controller {
 	public function index()
 	{
 		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
-
-		$this->accountSetup->setUsersID(Auth::user()->id );
+		$paymentDate = new GeneratePaymentsDates();
+		$vacationalFundLog = new UserVacFundLog();
+		$userAff = new UserAffiliation();
+		$affiliationsDao = new AffiliationsDao();
+		
+		$this->accountSetup->setUsersID( $this->userAuth->id );
 		$this->accountSetup->checkValidAccount();
-		$userAuth = Auth::user();
-		$userAffiliation = $this->userAffiliationDao->getCurrentUserAffiliationByUserId( $userAuth->id );
-
-		$userVacationalFundLog = $this->userVacationalFundLog->getCurrentUserVacFundLogByUserId( $userAuth->id );
+		
+		$userAffiliation = $userAff->getCurrentUserAffiliationByUserId( $this->userAuth->id );
+		$userVacationalFundLog = $vacationalFundLog->getCurrentUserVacFundLogByUserId( $this->userAuth->id );
 		//$userVacationalFundLog = $queryUserVac[0];
 		
-		$affiliation = $this->affiliationsDao->getById($userAffiliation->affiliations_id);
-		$this->generatePaymentesDate->setDate( \date('Y-m-d') );
-		$userPoints = $this->userPointsDao->getLatestByUserId( $userAuth->id );
+		$affiliation = $affiliationsDao->getById( $userAffiliation->affiliations_id );
+		$paymentDate->setDate( \date('Y-m-d') );
+		$userPoints = $this->userPointsDao->getLatestByUserId( $this->userAuth->id );
 		$pointBalance = 0;
 
 		if(!empty( $userPoints ))
@@ -134,8 +110,6 @@ class UseraccountController extends Controller {
 			$pointBalance = (int)$userPoints->balance;
 
 		}
-
-		
 
 		$data = array(
 			'affiliation_cost' => $userAffiliation->amount,
@@ -146,7 +120,7 @@ class UseraccountController extends Controller {
 			'inspiraPointsBalance' => $pointBalance,
 			'affiliation' => $affiliation,
 			'userAffiliation' => $userAffiliation,
-			'next_payment_date' => $this->generatePaymentesDate->getNextPaymentDateHumanRead()
+			'next_payment_date' => $paymentDate->getNextPaymentDateHumanRead()
 		);
 				
 		return view('useraccount.userdata')
@@ -164,7 +138,7 @@ class UseraccountController extends Controller {
 	*/
 	public function accountSetup()
 	{
-		$this->accountSetup->setUsersID(Auth::user()->id );
+		$this->accountSetup->setUsersID( $this->userAuth->id );
 		return $this->accountSetup->getRedirect();
 	}
 	
@@ -183,16 +157,16 @@ class UseraccountController extends Controller {
 
 		//Validar esta parte
 		$userDetails = new UserDetails();
-		$validator = $userDetails->validator($data, Auth::user()->language);
+		$validator = $userDetails->validator($data, $this->userAuth->language);
 		if( $validator->passes() ){
-			$this->phoneDao->exchangeArray(  array ( 'users_id' => Auth::user()->id , 'type' => 'cell', 'number' => $data['cell'] ) );
+			$this->phoneDao->exchangeArray(  array ( 'users_id' => $this->userAuth->id , 'type' => 'cell', 'number' => $data['cell'] ) );
 			$this->phoneDao->save();
-			$this->phoneDao->exchangeArray(  array ( 'users_id' => Auth::user()->id , 'type' => 'phone', 'number' => $data['phone'] ) );
+			$this->phoneDao->exchangeArray(  array ( 'users_id' => $this->userAuth->id , 'type' => 'phone', 'number' => $data['phone'] ) );
 			$this->phoneDao->save();
-			$this->phoneDao->exchangeArray(  array ( 'users_id' => Auth::user()->id , 'type' => 'office', 'number' => $data['office'] ) );
+			$this->phoneDao->exchangeArray(  array ( 'users_id' => $this->userAuth->id , 'type' => 'office', 'number' => $data['office'] ) );
 			$this->phoneDao->save();
 		
-			$this->userDao->load( Auth::user()->id );
+			$this->userDao->load( $this->userAuth->id );
 			$this->userDao->address = $data['address'];
 			$this->userDao->city = $data['city'];		
 			$this->userDao->country = $data['country'];
@@ -212,31 +186,30 @@ class UseraccountController extends Controller {
 	}
 	
 	public function editPayment(){
-		return view('useraccount.form-payment')->with('user', Auth::user() );
+		return view('useraccount.form-payment')->with('user', $this->userAuth );
 	}
 	
 	public function updatePayment()
 	{
 		$data = Input::except('_token');
-		$userAuth = Auth::user();
 		$amountValidator = new PaymentValidator();
 
-		if($userAuth->currency == "MXN"){
+		if($this->userAuth->currency == "MXN"){
 			$validator = $amountValidator->validatorMXN($data, Lang::locale() );
 		}else{
 			$validator = $amountValidator->validatorUSD($data, Lang::locale() );
 		}
 
 		if($validator->fails()){
-			return view('useraccount.form-payment')->withErrors($validator)->with('user', $userAuth );
+			return view('useraccount.form-payment')->withErrors($validator)->with('user', $this->userAuth );
 		}
 		
 		$location = GeoIP::getLocation();
 		$cashPayment = new CashPayment();
 		$cashPayment->setUserData([
-							'full_name' => $userAuth->name. ' '.$userAuth->last_name,
-							'id' => $userAuth->id,
-							'email' => $userAuth->email,
+							'full_name' => $this->userAuth->name. ' '.$this->userAuth->last_name,
+							'id' => $this->userAuth->id,
+							'email' => $this->userAuth->email,
 							'location' => $location['ip']
 						]);
 		$cashPayment->setAmountData([
@@ -258,8 +231,8 @@ class UseraccountController extends Controller {
 				if( @$cashPayment->getTransactionResponse()->extraParameters )
 				{
 					
-					$this->sysTransaction->setUser( $userAuth );
-					$this->sysTransaction->setTransactionInfo( array('users_id' => $userAuth->id,
+					$this->sysTransaction->setUser( $this->userAuth );
+					$this->sysTransaction->setTransactionInfo( array('users_id' => $this->userAuth->id,
 															'code' => 'Pending',
 															'type' => 'Register Cash Transaction',
 															'description' => 'Cash Receipt Generated',
@@ -270,13 +243,13 @@ class UseraccountController extends Controller {
 					$this->sysTransaction->saveData();		
 				
 					return view( 'useraccount.payment' )
-						->with( 'user', $userAuth )
+						->with( 'user', $this->userAuth )
 						->with( 'receipt', $response->transactionResponse->extraParameters->URL_PAYMENT_RECEIPT_HTML );
 				}
 			}
 				
-			$this->sysTransaction->setUser( $userAuth );
-			$this->sysTransaction->setTransactionInfo( array('users_id' => $userAuth->id,
+			$this->sysTransaction->setUser( $this->userAuth );
+			$this->sysTransaction->setTransactionInfo( array('users_id' => $this->userAuth->id,
 															'code' => 'ERROR',
 															'type' => 'Register Cash Transaction',
 															'description' => 'Couldn\'t make transaction',
@@ -284,7 +257,7 @@ class UseraccountController extends Controller {
 			$this->sysTransaction->saveData();		
 			return view( 'useraccount.payment' )
 				->withErrors( [ 'message' => Lang::get('userdata.error.transaction') ] )
-				->with( 'user', $userAuth );
+				->with( 'user', $this->userAuth );
 		}
 	}
 	
@@ -301,7 +274,7 @@ class UseraccountController extends Controller {
 		$data = Input::except('_token');
 		$validator = $userPassword->validator( $data, Lang::locale() );
 		if( $validator->passes() ){
-			$this->userDao->load( Auth::user()->id );
+			$this->userDao->load( $this->userAuth->id );
 			$this->userDao->password = Hash::make($data['password']);
 			$this->userDao->save();
 			return view('useraccount.password')
@@ -313,48 +286,10 @@ class UseraccountController extends Controller {
 	}
 		
 	private function details(){
-		$user = $this->userDao->getDetails( Auth::user()->id );
+		$user = $this->userDao->getDetails( $this->userAuth->id );
 		$user->details->country_code = $user->details->country;
 		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
 		return $user;
-	}
-
-	//Change this part to other controller - ask?
-	private function checkCashPayment()
-	{
-		$userAuth = Auth::user();
-		$currency = 'MXN';
-		$amount = 10;
-		
-		
-		/*Verifies if it has extraParameters - html receipt*/
-		$lastTransaction = $this->sysDao->getLastTransaction( $userAuth->id );
-		$transactionData = @$lastTransaction->json_data ? (object) json_decode($lastTransaction->json_data):null;
-		
-		if($transactionData)
-			$this->cashOrder->setOrderData( array( 'orderId' => $transactionData->transactionResponse->orderId ) );
-		
-		if( $this->cashOrder->checkOrderData() ){
-			$this->cashOrder->doRequest();
-			print_r($this->cashOrder->getResponse());
-			//Si ya se gurado entonces se puede guuardar la transaccion 
-
-			/*$this->chargeUserVacationalFunds->setTransactionInfo( array(
-											'users_id' => $userAuth->id,
-											'code' => 'Success',
-											'type' => 'Payment Settled',
-											'amount' => $amount,
-											'currency' => $currency,
-											'description' => 'The Cash payment has been settled',
-											'json_data' => '' )
-			);
-			$this->chargeUserVacationalFunds->setUser( $userAuth );
-			$this->chargeUserVacationalFunds->setVacationalFund( array( 'users_id' => $userAuth->id,
-																		'charge_at' => date('Y-m-d') ) );
-			$this->chargeUserVacationalFunds->saveData();	*/		
-		}
-		
-		
 	}
 	
 }
