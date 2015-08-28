@@ -1,12 +1,12 @@
 {!! Form::open(array('url' => 'users/registration', 'id' => 'user_data','name' => 'formulario','data-toggle' => 'validator')) !!}
 <div class="row">
 	<div class="col-xs-4 col-sm-3 col-sm-2">  
-		<a href="/codes/1" class="btn-blue-clear btn-medium back">
+		<a href="{{ URL::previous() }}" class="btn-blue-clear btn-medium back">
 			{{ Lang::get('layout.back') }}
 		</a>
 	</div>
 	<div class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8">   
-		<div data-role="submit" data-route="users/registration" class="btn-blue-clear btn-medium">
+		<div data-role="submit" class="btn-blue-clear btn-medium">
 			{{ Lang::get('layout.continue') }}
 		</div>
 	</div>
@@ -108,12 +108,12 @@
 	<div class="divider"></div>
 </div>
 <div class="col-xs-4 col-sm-2">  
-	<a href="/codes/1" class="btn-blue-clear btn-medium back">
+	<a href="{{ URL::previous() }}" class="btn-blue-clear btn-medium back">
 		{{ Lang::get('layout.back') }}
 	</a>
 </div>
 <div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-7">   
-	<div data-role="submit" data-route="users/registration" class="btn-blue btn-medium">
+	<div data-role="submit" class="btn-blue btn-medium">
 		{{ Lang::get('layout.continue') }}
 	</div>
 	<div class="col-xs-12 text-right nopadding" id="mandatory">
