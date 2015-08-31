@@ -76,7 +76,7 @@ class CodesController extends Controller {
 		Session::put('code', 'default');
 		return Response::json(array(
 				'error' => false,
-				'redirect' => 'users'
+				'redirect' => url('users')
 			), 200);
 	}
 	

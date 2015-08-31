@@ -54,7 +54,7 @@ class UsersController extends Controller
 		
 		return Response::json(array(
 			'error' => false,
-			'redirect' => '/useraccount'
+			'redirect' => url('useraccount')
 		), 200);
 		
 	}
