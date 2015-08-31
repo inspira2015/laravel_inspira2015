@@ -137,12 +137,6 @@ class UsersController extends Controller {
 		if($validator->passes()) 
 		{
 			Session::put('users',  $post_data );
-/*
-			return Response::json(array(
-				'error' => false,
-				'redirect' => url('affiliation')
-			), 200);
-*/
 			return Redirect::to('affiliation');
 		}
 

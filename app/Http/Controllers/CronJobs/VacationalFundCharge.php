@@ -103,10 +103,12 @@ class VacationalFundCharge extends Controller
 
 		//foreach( $users as $user )
 		//{
-			print_r($user->id);
-			echo "<br><br>";
-			$queryUserVac = $this->userVacFundLogDao->getByUsersId( $user->id );
-			$userVacationalFund = $queryUserVac[0];
+			
+			$userVacationalFund = $this->userVacFundLogDao->getCurrentUserVacFundLogByUserId( $user->id );
+
+
+			
+
 
 
 			$this->prepareTransactionArray->setUserId( $user->id );
@@ -175,12 +177,16 @@ class VacationalFundCharge extends Controller
 				continue;
 			}*/
 
+
+			$transactionResponse  = "testVac";      //$response->transactionResponse->transactionId 
+
+
 			$this->chargeUserVacationalFunds->setTransactionInfo( array(	'users_id' => $user->id,
 																		'code' => 'Success',
 																		'type' => 'Charge Vacational Fund',
 																		'description' => 'Monthly Vacational Fund Charge',
 																		'json_data' => json_encode($response),
-																		'payu_transaction_id' =>$response->transactionResponse->transactionId ));
+																		'payu_transaction_id' =>$transactionResponse ));
 
 			$this->chargeUserVacationalFunds->setVacationalFund( array( 'users_id' => $user->id,
 																		'charge_at' => date('Y-m-d')));

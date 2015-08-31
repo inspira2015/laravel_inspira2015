@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Auth;
+use Redirect;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -89,17 +90,26 @@ class AuthController extends Controller implements AuthenticateUserListener {
             $this->session->flash('message', "Ha iniciado sesión con éxito");
             $this->session->flash('alert-class', 'alert-success');
 
-           // $this->checkAccountSetup->setUsersID
+          // $this->checkAccountSetup->setUsersID
             //$data = $this->session->all();
             $user = $this->userDao->getUserByEmail( $credentials['email'] );
             $this->checkAccountSetup->setUsersID( $user->id );
+            $userpayment = $this->checkAccountSetup->checkCreditCard();
 
-            if( !$this->checkAccountSetup->checkCreditCard() )
+      
+
+
+
+            if( empty( $userpayment ) )
             {
-                return redirect()->intended($this->redirectPaymentInfoPath());
-            }
+                //return redirect()->intended($this->redirectPaymentInfoPath());
+                return Redirect::to('payment');
+                
 
+            }
+           
             return redirect()->intended($this->redirectUserAccountPath());
+
         }
 
         return redirect('/auth/login')
@@ -136,7 +146,8 @@ class AuthController extends Controller implements AuthenticateUserListener {
      * @return string
      */
     public function redirectPaymentInfoPath() {
-        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/payment';
+        $this->redirectTo = '/payment';
+        return  $this->redirectTo;
     }
 
 
