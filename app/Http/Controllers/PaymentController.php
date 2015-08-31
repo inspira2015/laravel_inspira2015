@@ -412,13 +412,7 @@ exit;*/
 			
 			$this->chargeUserAffiliation->saveData();
 
-
-
-
-			return Response::json(array(
-				'error' => false,
-				'redirect' => '/useraccount'
-			), 200);
+			return Redirect::to('useraccount');
         }     
         return view('creditcards.payment_form')->with( $this->getCCData() )->withErrors($validator)->withInput( $postData );
 	}
