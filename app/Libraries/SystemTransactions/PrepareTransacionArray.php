@@ -127,6 +127,7 @@ class PrepareTransacionArray
 	{
 		$buyerUser = $this->generateBuyerInfo();
 		$payerUser = $this->generatePayerInfo();
+		$buyerFormattedName = $buyerUser->name. ' ' . $buyerUser->last_name;
 		$parameters = array(
 						//Ingrese aquí el identificador de la cuenta.
 						PayUParameters::ACCOUNT_ID => $this->storeData['accountId'],
@@ -144,25 +145,25 @@ class PrepareTransacionArray
 
 						// -- Comprador 
 						//Ingrese aquí el nombre del comprador.
-						PayUParameters::BUYER_NAME => 'APPROVED',
+						PayUParameters::BUYER_NAME => $buyerFormattedName,
 						//Ingrese aquí el email del comprador.
 						PayUParameters::BUYER_EMAIL =>  $buyerUser->email,
 						//Ingrese aquí el teléfono de contacto del comprador.
 						PayUParameters::BUYER_CONTACT_PHONE => $buyerUser->phones[0]->number,
 						//Ingrese aquí el documento de contacto del comprador.
-						PayUParameters::BUYER_DNI => "5415668464654",
+						PayUParameters::BUYER_DNI => "",
 						//Ingrese aquí la dirección del comprador.
-						PayUParameters::BUYER_STREET => "",
+						PayUParameters::BUYER_STREET => "PRIVADA SAN DIEGO",
 						PayUParameters::BUYER_STREET_2 => "",
-						PayUParameters::BUYER_CITY => "",
-						PayUParameters::BUYER_STATE => "",
+						PayUParameters::BUYER_CITY => "TIJUANA",
+						PayUParameters::BUYER_STATE => "BAJA CALIFORNIA",
 						PayUParameters::BUYER_COUNTRY => $buyerUser->country,
 						PayUParameters::BUYER_POSTAL_CODE => "000000",
 						PayUParameters::BUYER_PHONE => $buyerUser->phones[0]->number,
 
 						// -- pagador --
 						//Ingrese aquí el nombre del pagador.
-						PayUParameters::PAYER_NAME => 'APPROVED',
+						PayUParameters::PAYER_NAME => $payerUser->name_on_card,
 						//Ingrese aquí el email del pagador.
 						PayUParameters::PAYER_EMAIL => $buyerUser->email,
 						//Ingrese aquí el teléfono de contacto del pagador.
@@ -183,7 +184,7 @@ class PrepareTransacionArray
 						
 						// DATOS DEL TOKEN
 						PayUParameters::TOKEN_ID => $payerUser->token,
-						//PayUParameters::CREDIT_CARD_SECURITY_CODE=> $payerUser->ccv, 
+						PayUParameters::CREDIT_CARD_SECURITY_CODE=> $payerUser->ccv, 
 
 						//Ingrese aquí el nombre de la tarjeta de crédito
 						//PaymentMethods::VISA||PaymentMethods::MASTERCARD||PaymentMethods::AMEX
@@ -193,7 +194,7 @@ class PrepareTransacionArray
 						//Ingrese aquí el número de cuotas.
 						PayUParameters::INSTALLMENTS_NUMBER => "1",
 						//Ingrese aquí el nombre del pais.
-						PayUParameters::COUNTRY => PayUCountries::MX,
+						PayUParameters::COUNTRY => $payerUser->country,
 						
 						//Session id del device.
 						PayUParameters::DEVICE_SESSION_ID => "vghs6tvkcle931686k1900o6e1",

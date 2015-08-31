@@ -29,7 +29,6 @@ use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
 use App\Libraries\SystemTransactions\ChargeUserAffiliation;
 use App\Libraries\SystemTransactions\ChargePoints;
 use App\Libraries\GetPointsLastBalance;
-
 use App\Libraries\ConvertMoneyAmountToPoints;
 use App\Libraries\AddInspiraPoints;
 
@@ -49,7 +48,7 @@ class AffiliationCharge extends Controller
 	private $convertMoneyToPoints;
 	private $inspiraPoints;
 	private $systemChargePoints;
-
+	private $userAffiliationDao;
 	private $debugPointsBalance;
 	
 	public function __construct( 	UserDao $userdao,
@@ -78,22 +77,29 @@ class AffiliationCharge extends Controller
 		$this->inspiraPoints = $inspiraPoints;
 		$this->systemChargePoints = $sysCharge;
 		$this->debugPointsBalance = $pointsBalance;
+		$this->userAffiliationDao = $userAffiliation;
 
 
 
-
-		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
-		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
-		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
+		//PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
+		PayU::$apiKey = "tq4SDejVi5zKlmlw0L78AM4vLf"; // LIVE
+		//PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
+		PayU::$apiLogin = "W4Cwmrzwp1e87SZ"; 
+		//PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
+		PayU::$merchantId = "529182"; 
 		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
 		PayU::$isTest = FALSE; //Dejarlo True cuando sean pruebas.
 
 		// URL de Pagos
-		Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
+		//Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
+		Environment::setPaymentsCustomUrl("https://api.payulatam.com/payments-api/4.0/service.cgi");
+
 		// URL de Consultas
-		Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
+		//Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
+		Environment::setReportsCustomUrl("https://api.payulatam.com/reports-api/4.0/service.cgi");
+
 		// URL de Suscripciones para Pagos Recurrentes
-		Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");
+		//Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");
 	}
 	
 
@@ -116,13 +122,16 @@ class AffiliationCharge extends Controller
 		//$this->debugPointsBalance->setUserId($user->id);
 		//$points = $this->debugPointsBalance->getCurrentBalance();
 
-		//print_r($points);
-		//exit;
+
+
+		$userCurrentAffiliation = $this->userAffiliationDao->getCurrentUserAffiliationByUserId( $user->id );
+
+
 			
 			$this->prepareTransactionArray->setUserId( $user->id );
-			$this->convertHelper->setCost( $user->affiliations->amount );
-			$this->convertHelper->setCurrencyOfCost( $user->affiliations->currency );
-			$this->prepareTransactionArray->setAccountId( 500547 );
+			$this->convertHelper->setCost( $userCurrentAffiliation->amount );
+			$this->convertHelper->setCurrencyOfCost( $userCurrentAffiliation->currency );
+			$this->prepareTransactionArray->setAccountId( 529182 );
 			$this->prepareTransactionArray->setDescription( 'Monthly Affiliation Payment' );
 			$this->prepareTransactionArray->setAmount( $this->convertHelper->getFomattedAmount() );
 			$this->prepareTransactionArray->setCurrency( 'MXN' );
@@ -151,7 +160,7 @@ class AffiliationCharge extends Controller
 																		  'description' => 'Unexpected Error',
 																		  'json_data' => '' ));
 				$this->chargeUserAffiliation->saveTransaction();
-				continue;
+				exit;
 			}
 
 
@@ -163,18 +172,14 @@ class AffiliationCharge extends Controller
 																		  'description' => $response->error,
 																		  'json_data' => json_encode($response) ));
 				$this->chargeUserAffiliation->saveTransaction();
-				continue;
+				exit;
 			}
 
-$json = file_get_contents('https://api.leisureloyalty.com/v3/members/TESTUS013?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');
-		$obj = json_decode($json, true);
-		$data= $obj['data'];
-		echo "<pre>";
-		print_r($data);
 
 
 
-		/*	if ( $response->transactionResponse->state=="PENDING" ) 
+
+			if ( $response->transactionResponse->state=="PENDING" ) 
 			{
 				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
 																		  'code' => 'PENDING',
@@ -183,7 +188,7 @@ $json = file_get_contents('https://api.leisureloyalty.com/v3/members/TESTUS013?a
 																		  'json_data' => json_encode($response),
 																		  'payu_transaction_id' =>$response->transactionResponse->transactionId ));
 				$this->chargeUserAffiliation->saveTransaction();
-				continue;
+				exit;
 			}
 
 
@@ -196,19 +201,19 @@ $json = file_get_contents('https://api.leisureloyalty.com/v3/members/TESTUS013?a
 																		  'json_data' => json_encode($response),
 																		  'payu_transaction_id' =>$response->transactionResponse->transactionId ));
 				$this->chargeUserAffiliation->saveTransaction();
-				continue;
-			}*/
+				exit;
+			}
 			echo "<br><br>";
-
+			$transactionResponse  = $response->transactionResponse->transactionId;
 
 			$this->chargeUserAffiliation->setTransactionInfo( array(	'users_id' => $user->id,
 																		'code' => 'Success',
 																		'type' => 'Charge Affiliation',
 																		'description' => 'Monthly Affiliation Charge',
 																		'json_data' => json_encode($response),
-																		'amount' => $user->affiliations->amount,
-																		'currency' => $user->affiliations->currency,
-																		'payu_transaction_id' =>$response->transactionResponse->transactionId ));
+																		'amount' => $userCurrentAffiliation->amount,
+																		'currency' => $userCurrentAffiliation->currency,
+																		'payu_transaction_id' => $transactionResponse ));
 
 			$this->chargeUserAffiliation->setAffiliationPayment( array( 'users_id' => $user->id,
 																		'charge_at' => date('Y-m-d')));
@@ -216,8 +221,8 @@ $json = file_get_contents('https://api.leisureloyalty.com/v3/members/TESTUS013?a
 
 
 
-			$this->convertMoneyToPoints->setAmount( $user->affiliations->amount );
-			$this->convertMoneyToPoints->setCurrency( $user->affiliations->currency );
+			$this->convertMoneyToPoints->setAmount( $userCurrentAffiliation->amount );
+			$this->convertMoneyToPoints->setCurrency( $userCurrentAffiliation->currency );
 			$inspiraPoints = $this->convertMoneyToPoints->getPoints();
 
 			print_r($inspiraPoints);

@@ -54,7 +54,7 @@ class CreateLeisureLoyaltyUser
 		);
 
 
-		print_r($postData[0]);
+		//print_r($postData[0]);
 
 		$context = stream_context_create(array(
 		    'http' => array(
