@@ -45,7 +45,11 @@ Route::post('api/states', 'Api\StatesController@getByCountryCode');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
-Route::get('/', 'WelcomeController@index');
+
+Route::get('/', 'UseraccountController@index');
+Route::get('/home', 'UseraccountController@index');
+
+//Route::get('/', 'WelcomeController@index');
 
 Route::get('users', 'UsersController@index');		
 Route::post('users/registration', 'UsersController@registration');
