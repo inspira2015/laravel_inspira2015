@@ -6,7 +6,7 @@
 	{!! Form::open(array('url' => 'vacationfund/add', 'class' => 'margin')) !!}
 		<div class="row">
 			<div class="col-xs-4 col-sm-3 col-sm-2">  
-				<a href="{{ URL::previous() }}" class="btn-blue-clear btn-medium back">
+				<a href="{{ url('affiliation') }}" class="btn-blue-clear btn-medium back">
 					{{ Lang::get('layout.back') }}
 				</a>
 			</div>
@@ -73,7 +73,7 @@
 		<div class="row nopadding">
 			<div class="divider"></div>
 			<div class="col-xs-4 col-sm-2 nopadding">  
-				<a href="{{ URL::previous() }}" class="btn-blue-clear btn-medium back">
+				<a href="{{ url('affiliation') }}" class="btn-blue-clear btn-medium back">
 					{{ Lang::get('layout.back') }}
 				</a>
 			</div>

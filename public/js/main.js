@@ -12,12 +12,14 @@ $(document).ready(function(){
 				var _email = _this.find('input[type="email"].validate-email');
 				var _card = _this.find('input#card_number');
 				var _masked = _this.find('input[data-mask-type]');
+				var _fund = _this.find('input[name="fondo"]');
 				
 				feature._set_change( _buttons );
 				feature._on_change_country( _change_country );
 				feature._on_change_email( _email );
 				feature._apply_card_validation( _card );
 				feature._apply_masked_input( _masked );
+				feature._enable_fund( _fund );
 
 				$.ajaxSetup({headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')	}});
 
@@ -27,6 +29,9 @@ $(document).ready(function(){
 			feature._set_change(element.find('div[data-role=submit],a[data-role=change]'));
 			feature._on_change_country( element.find('select.select-country') );
 			feature._apply_card_validation( element.find('input#card_number') );
+			feature._on_change_email( _this.find('input[type="email"].validate-email') );
+			feature._apply_masked_input( _this.find('input[data-mask-type]') );
+			feature._enable_fund( _this.find('input[name="fondo"]') );
 		},
 		_set_change: function( element ) {
 			element.bind('click', function(){
@@ -151,6 +156,17 @@ $(document).ready(function(){
 					_mask = "(999) 999-9999"
 				}
 				_this.mask( _mask, {placeholder: _placeholder } );
+			});
+		},
+		_enable_fund : function ( element ) {
+			element.on('change', function(){
+				var _this = $(this);
+				var _amount_input = $('input[name="amount"]');
+				var _disabled = _this.val() == 0 ? false : true;
+				var _value = _disabled == true ? '' : 0;
+				
+				_amount_input.val( _value );
+				_amount_input.prop('disabled', _disabled );
 			});
 		}
 	};

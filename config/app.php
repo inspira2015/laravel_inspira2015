@@ -202,7 +202,9 @@ return [
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 		'Javascript'=> 'Laracasts\Utilities\JavaScript\JavaScriptFacade',
-		'GeoIP' => 'Torann\GeoIP\GeoIPFacade'
+		'GeoIP' => 'Torann\GeoIP\GeoIPFacade', 
+		'MinifyCSS' => 'MatthiasMullie\Minify\CSS',
+		'MinifyJs' => 'MatthiasMullie\Minify\JS'
 	],
 
 ];

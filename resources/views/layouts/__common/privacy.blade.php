@@ -11,7 +11,7 @@
 		<div class="row text-justify">
 			@if(Lang::locale() == 'es')
 			<h5>A. Declaración de privacidad de Inspira Mexico</h5>
-			<p>De conformidad con la Ley Federal de Protección de Datos Personales en Posesión de Particulares, se pone a su disposición el aviso de privacidad siguiente:<br />
+			De conformidad con la Ley Federal de >rotección de Datos Personales en Posesión de Particulares, se pone a su disposición el aviso de privacidad siguiente:<br />
 			Inspira Mexico, con domicilio en Calle Alta Tension #228, Ampliación Ejido Mazatlan, Playas de Rosarito CP 22710 es una empresa comprometida en proteger su privacidad. Nuestro responsable de protección de datos es <strong>Socorro Romero Heredia</strong>  y se ubica en el mismo domicilio, usted podrá contactarla en el correo electrónico: contralor@inspiramexico.mx<br />
 			<h5>B. Finalidad y Tratamiento de la Información Personal</h5>
 			1. La información personal que nos proporciona será utilizada por Inspira Mexico para prestar los servicios que usted le solicita como: reservaciones, compra de paquetes vacacionales o cualquier otro programa y cualquier otra transacción relacionada con la prestación de servicios turísticos y comerciales en general.<br />
@@ -26,7 +26,7 @@
 			3. Cuando usted utiliza los servicios ofrecidos por Inspira Mexico, en línea. <br/>
 			4. Cuando usted utiliza nuestros servicios de call center <br />
 			5. Cuando obtenemos información a través de otros medios distintos a los antes señalados y que están permitidos por las leyes aplicables.<br />
-			Los datos personales obtenidos por los medios antes indicados, pueden ser: nombre, domicilio, correo electrónico, número telefónico, datos de tarjeta de crédito (en caso de transacciones en línea) y cualquier otro que se requiera conforme a las finalidades establecidas en el presente Aviso de Privacidad.<br /></p>
+			Los datos personales obtenidos por los medios antes indicados, pueden ser: nombre, domicilio, correo electrónico, número telefónico, datos de tarjeta de crédito (en caso de transacciones en línea) y cualquier otro que se requiera conforme a las finalidades establecidas en el presente Aviso de Privacidad.<br />
 			<h5>D. Uso de Datos Personales Sensibles</h5>
 			Se consideran datos personales sensibles aquellos datos personales que afecten a la esfera más intima de su titular, o cuya utilización indebida pueda dar origen a discriminación o con lleve un riesgo grave para éste. En particular, se consideran sensibles aquellos que puedan revelar aspectos como origen racial o étnico, estado de salud presente y futuro, información genética, creencias religiosas, filosóficas y morales, afiliación sindical, opiniones políticas, preferencias sexuales y dicha información sólo es recopilada por Inspira Mexico de los clientes y podrá ser utilizada para mejorar o satisfacer las necesidades de los clientes y los servicios que se les proporcionan a los mismos.<br />
 			<h5>E. Limitación al Uso o Divulgación de Información Personal</h5>
@@ -35,10 +35,10 @@
 			<h5>F. Del Ejercicio de los Derechos de Acceso, Rectificación, Cancelación y Oposición</h5>
 			El acceso, rectificación, cancelación u oposición respecto a la información que proporcione a Inspira Mexico  señalados en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, lo podrá hacer mediante entrega de la solicitud que dirija a Inspira Mexico, en términos de lo establecido en el inciso E) anterior, misma que se le responderá en los términos ahí señalados.<br />
 			<h5>G. Control y Seguridad de información personal</h5>
-			Inspira Mexico se compromete a tomar las medidas necesarias para proteger la información recopilada, utilizando tecnologías de seguridad y procedimientos de control en el acceso, uso o divulgación de su información personal sin autorización, por ejemplo, almacenando la información personal proporcionada en servidores ubicados en centros de datos que cuentan con controles de acceso limitado.</p>
+			Inspira Mexico se compromete a tomar las medidas necesarias para proteger la información recopilada, utilizando tecnologías de seguridad y procedimientos de control en el acceso, uso o divulgación de su información personal sin autorización, por ejemplo, almacenando la información personal proporcionada en servidores ubicados en centros de datos que cuentan con controles de acceso limitado.
 			<h5>H. Cambios a esta declaración de privacidad</h5>
-			Inspira Mexico podrá en cualquier momento actualizar esta declaración de privacidad. En el caso de que se produzcan cambios sustanciales a esta declaración, lo comunicaremos a través de la siguiente página de internet: http://www.inspiramexico.mx/privacypolicy. Por lo anterior, le sugerimos visitar periódicamente esta declaración de privacidad para estar enterado de cualquier actualización.</p>
-			<p>Este aviso de privacidad fue redactado en cumplimiento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares y de su Reglamento. La presente versión de este aviso de privacidad entro en vigor a partir del día 15 de abril de 2013.</p>
+			Inspira Mexico podrá en cualquier momento actualizar esta declaración de privacidad. En el caso de que se produzcan cambios sustanciales a esta declaración, lo comunicaremos a través de la siguiente página de internet: http://www.inspiramexico.mx/privacypolicy. Por lo anterior, le sugerimos visitar periódicamente esta declaración de privacidad para estar enterado de cualquier actualización.
+			Este aviso de privacidad fue redactado en cumplimiento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares y de su Reglamento. La presente versión de este aviso de privacidad entro en vigor a partir del día 15 de abril de 2013.
 			@else
 			
 			@endif

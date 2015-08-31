@@ -137,14 +137,14 @@ class UsersController extends Controller {
 		if($validator->passes()) 
 		{
 			Session::put('users',  $post_data );
-			//return Redirect::to('affiliation');
+/*
 			return Response::json(array(
 				'error' => false,
-				'redirect' => 'affiliation'
+				'redirect' => url('affiliation')
 			), 200);
-
+*/
+			return Redirect::to('affiliation');
 		}
-
 
 		$locale = Lang::getLocale();
 		$data['country_list'] = $this->getCountryArray();
@@ -152,7 +152,12 @@ class UsersController extends Controller {
 		$data['currency_list'] = $this->getCurrency();
 		$data['location_info'] = $this->getLocationInfo($post_data['country']);
 
-        return view('users.register')->with('title', Lang::get('registry.title') )->with('background','2.jpg')->with($data)->withErrors($validator)->withInput($post_data);
+        return view('users.user')
+		        ->with('title', Lang::get('registry.title') )
+		        ->with('background','2.jpg')
+		        ->with($data)
+		        ->withErrors($validator)
+		        ->withInput($post_data);
 	}
 	
 
