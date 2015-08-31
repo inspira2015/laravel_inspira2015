@@ -6,7 +6,7 @@
 		</h2>
 	</div>
 	<div class="col-xs-4 col-xs-push-8 col-sm-3 col-sm-push-9 col-md-2 col-md-push-10">   
-		<div data-role="submit" data-route="/payment/addcreditcard" class="btn-blue-clear btn-medium">
+		<div data-role="submit" data-route="payment/addcreditcard" class="btn-blue-clear btn-medium">
 			{{ Lang::get('layout.continue') }}
 		</div>
 	</div>
@@ -137,7 +137,7 @@
 	</div>
 
 	<div class="col-xs-6 col-xs-push-0 col-sm-3 col-sm-push-3 col-md-3 col-md-push-5">   
-		<div data-role="submit" data-route="/payment/addcreditcard" class="btn-blue btn-medium">
+		<div data-role="submit" data-route="payment/addcreditcard" class="btn-blue btn-medium">
 			{{ Lang::get('layout.continue') }}
 		</div>
 		<div class="col-xs-12 text-right nopadding" id="mandatory">
