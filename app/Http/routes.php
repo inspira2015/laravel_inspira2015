@@ -37,6 +37,11 @@ Route::post('api/states', 'Api\StatesController@getByCountryCode');
 Route::post('api/user/change-language', 'Api\UsersController@changeLanguage');
 
 
+Route::get('apisearchloadging/', 'ApiForLLoyalty\SearchforloadgingController@index');
+Route::post('apisearchloadging/create', 'ApiForLLoyalty\SearchforloadgingController@create');
+
+
+
 Route::post('api/users/edit-account', 'Api\UsersController@editAccount');
 Route::post('api/states', 'Api\StatesController@getByCountryCode');
 
