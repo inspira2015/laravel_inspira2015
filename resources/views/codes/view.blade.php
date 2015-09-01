@@ -42,6 +42,11 @@
 					{{ Lang::get('code.promo-invalid') }}
 				</p>
 			</div>
+			<div class="row">
+				<a href="{{ url('users') }}" class="btn-light-blue btn-medium">
+					{{ Lang::get('code.continue-without-code') }}
+				</a>
+			</div>
 		@endif
 	</div>
 </div>

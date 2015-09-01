@@ -124,7 +124,7 @@ class UseraccountController extends Controller {
 		);
 				
 		return view('useraccount.userdata')
-			->with( 'title' ,  'Profile' )
+			->with( 'title' ,  Lang::get('userdata.title') )
 			->with( 'background' , '1.png')
 			->with( 'user' , $this->details() )
 			->with( 'accountSetup' , $this->accountSetup )

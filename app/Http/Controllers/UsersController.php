@@ -80,12 +80,11 @@ class UsersController extends Controller {
 		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
 		$locale = Lang::getLocale();
 		
-
 		$data = array(	'title' =>'Resumen',
 						'background' =>'2.jpg',
 						'country_list' => $this->getCountryArray(),
 						'lan_list' => $this->getLanguaje($locale),
-						'currency_list' => $this->getCurrency(),
+						'currency_list' => $this->getCurrency( Session::get('code', null) ),
 						'locale' => $locale,
 						'location_info' => $this->getLocationInfo()
 			);
@@ -266,9 +265,15 @@ class UsersController extends Controller {
 		return $lan;
 	}
 
-	protected function getCurrency()
-	{
-		return array('MXN' => 'PESO','USD' => 'DOLLAR');
+	protected function getCurrency( $code = FALSE )
+	{	
+		if( in_array($code, ['intel']) )
+		{
+			return array('USD' => 'DOLLAR');
+		}
+		else{
+			return array('MXN' => 'PESO','USD' => 'DOLLAR');			
+		}
 	}
 
 }

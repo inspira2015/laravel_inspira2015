@@ -182,7 +182,7 @@ footer > .container > div:nth-child(3){
 	text-decoration: none;
 	background-image: url('images/arrow.png');
 	background-repeat: no-repeat;
-	background-position: right center;
+	background-position: calc(100% - 10px) center;
 	background-position-x: 95%;
 	background-size: 7px;
 	border:none;
@@ -528,7 +528,7 @@ div.modal-body  li li li{
 }
 
 
-	.vacational h3{
+.vacational h3{
 	text-transform: uppercase;
 	font-size: 16px!important;
 	margin-top: 20px;
@@ -554,7 +554,7 @@ div.modal-body  li li li{
 
 .bg-gray-transparent{
 	margin-top:0px!important;
-	margin-bottom: 100px;
+	margin-bottom: 10px;
 }
 
 .bg-light-gray-transparent{
@@ -566,6 +566,10 @@ div.modal-body  li li li{
 }
 #user .bg-light-gray-transparent{
 	padding: 30px;
+}
+
+#user.bg-gray-transparent{
+	margin-bottom: 100px;
 }
 #user h2{
 	 font-size:32px;  color:#818c95; display:table;
@@ -595,9 +599,11 @@ div.modal-body  li li li{
 	padding-left: 15px;
 	padding-right:15px;
 }
+/*
 .form-data div:not(:last-child){
 	margin-bottom: 5px;
 }
+*/
 
 
 .form-data .input-group{
@@ -631,29 +637,61 @@ div.modal-body  li li li{
 #user .btn-blue.btn-small{
 	line-height: 25px;
 	font-size: 16px!important;
+	padding: 3px 15px 3px 10px;
 }
 
 #promotion-box div.promotion{
-	background-color: hotpink;
-    color: white;
-    height: 60px;
-    padding: 8px 10px;
+	color: white;
     margin-bottom: 20px;
     display: inline-block;
-    border-right: 1px solid hotpink;
     text-transform: uppercase;
     line-height: 1.5;
+    width:100%;
 }
 
-#promotion-box div.arrow{
+#promotion-box div.promotion span{
+	font-size: 18px;
+}
+
+#promotion-box.subscribe div.promotion{
+	background-color: #529AD3;
+	padding: 5px 15px;
+	font-size: 14px;
+	height: 60px;
+	margin-left: 20px;
+	max-width: calc(100% - 70px);
+
+}
+#promotion-box.upgrade div.promotion{
+    background-color: #CC4B9B;
+    border-right: 1px solid #CC4B9B;
+    padding: 10px 15px;
+    font-size: 16px;
+    height: 65px;
+    max-width: calc(100% - 50px);
+}
+
+#promotion-box.upgrade div.arrow{
+	width: 0; 
+	height: 0; 
+	border-top: 33px solid transparent; 
+	border-bottom: 32px solid transparent; 
+	border-left: 33px solid #CC4B9B; 
+	display: inline-block; 
+	position: absolute;
+}
+
+#promotion-box.subscribe div.arrow{
 	width: 0; 
 	height: 0; 
 	border-top: 30px solid transparent; 
 	border-bottom: 30px solid transparent; 
-	border-left: 30px solid hotpink; 
+	border-left: 30px solid #529AD3; 
 	display: inline-block; 
 	position: absolute;
 }
+
+
 #promotion-box a,
 #promotion-box a:hover{
 	color: inherit;

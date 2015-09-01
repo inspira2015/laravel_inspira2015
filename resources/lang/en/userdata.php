@@ -1,6 +1,7 @@
 <?php
 
 return [
+	"title" => "Profile",
 	"information" => "Contact Information",
 	"cell" => "Cell",
 	"phone" => "Phone",
@@ -35,6 +36,8 @@ return [
 	"view-receipt" => "View Receipt",
 	"upgrade" => "Upgrade category",
 	"additional-savings" => "25% in additional savings",
+	"subscribe" => "Subscribe Now",
+	"additional-savings-fifty" => "50% in additional savings",
 	"error" => [
 		"transaction" => "There was an error while processing"
 	]

@@ -595,7 +595,7 @@ footer > .container > div:nth-child(3){
 	text-decoration: none;
 	background-image: url('images/arrow.png');
 	background-repeat: no-repeat;
-	background-position: right center;
+	background-position: calc(100% - 10px) center;
 	background-position-x: 95%;
 	background-size: 7px;
 	border:none;

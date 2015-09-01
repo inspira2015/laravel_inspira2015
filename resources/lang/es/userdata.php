@@ -1,6 +1,7 @@
 <?php
 
 return [
+	"title" => "Perfil",
 	"information" => "Datos de Contacto",
 	"cell" => "Cel",
 	"phone" => "Tel. Casa",
@@ -35,6 +36,8 @@ return [
 	"view-receipt" => "Ver Recibo",
 	"upgrade" => "Eleva de Categor&iacute;a",
 	"additional-savings" => "25% de ahorros adicionales",
+	"subscribe" => "Inscr&iacute;bete ahora",
+	"additional-savings-fifty" => "50% de ahorros adicionales",
 	"error" => [
 		"transaction" => "Hubo un error al procesar"
 	]

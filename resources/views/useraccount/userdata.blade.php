@@ -1,10 +1,7 @@
 @extends('layouts.basic')
 
 @section('content')
-<?php
-	//Quitar IP de esta parte para que funcione validacion de location
-	 $location = GeoIP::getLocation('201.174.63.6'); 
-?>
+<?php $location = GeoIP::getLocation(); ?>
 
 <div class="row bg-gray-transparent" id="user">
 	<div class="col-xs-12">
@@ -22,9 +19,9 @@
 				<div class="row text-right">
 					<a href="<?php echo url(); ?>/auth/logout">Logout</a><br><br>
 				</div>
-				@if( $accountSetup->checkValidAccount() !==FALSE )
+				@if( $accountSetup->checkValidAccount() !==FALSE &&  $user->details->leisure_id !== null)
 				<div class="row">
-					<a href="{{ url('reservations') }}" class="btn-blue btn-small">{{ Lang::get('userdata.go-reservations') }}</a>
+					<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={{ $user->details->leisure_id }}" class="btn-blue btn-small">{{ Lang::get('userdata.go-reservations') }}</a>
 				</div>
 				@endif
 			</div>
@@ -93,10 +90,10 @@
 						</h3>
 					</div>
 					<div class="row">
-						<div class="col-xs-10 col-xs-offset-1" id="promotion-box">							
+						<div class="col-xs-10 col-xs-offset-1 col-md-12  col-md-offset-0 upgrade" id="promotion-box">							
 							<div class="promotion">
 								<a href="affiliation/update/<?php echo $userAffiliation->id; ?>"> 
-									{{ Lang::get('userdata.upgrade') }}<br>
+									<span>{{ Lang::get('userdata.upgrade') }}</span><br>
 									{{ Lang::get('userdata.additional-savings') }}
 								</a>
 							</div>
@@ -112,13 +109,22 @@
 				</div>
 				<div class="row bg-light-gray-transparent" id="account-funds">
 					<div class="row">
-					<a href="/vacationfund/update/<?php echo $vacational_fund->id;?>">
 						<h3>
 							{{ Lang::get('userdata.vacation-fund') }}
 						</h3>
-					</a>
 					</div>
 					<div class="row" data-role="response">
+						@if( $vacational_fund->amount < '1' )
+						<div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0 subscribe" id="promotion-box">		
+							<div class="promotion">
+								<a href="/vacationfund/update/<?php echo $vacational_fund->id;?>">
+									<span>{{ Lang::get('userdata.subscribe') }}</span><br>
+									{{ Lang::get('userdata.additional-savings-fifty') }}
+								</a>
+							</div>
+							<div class="arrow"></div>
+						</div>
+						@endif
 						<div class="col-xs-12  form-data">
 							<div class="row">
 								<strong>{{ Lang::get('subtotal.total-fund') }}:</strong> $ {{ round(0.00) }} MXN
@@ -172,13 +178,13 @@
 			</div>
 		</div>
 		
-		@if( $accountSetup->checkValidAccount() !==FALSE )
+		@if( $accountSetup->checkValidAccount() !==FALSE && $user->details->leisure_id !== null )
 		<div class="row">
 			<div class="divider"></div><br>
 		</div>
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
-				<a href="{{ url('reservations') }}" class="btn-blue">{{ Lang::get('userdata.go-reservations') }}</a>
+				<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={{ $user->details->leisure_id }}" class="btn-blue">{{ Lang::get('userdata.go-reservations') }}</a>
 			</div>
 		</div>
 		@endif

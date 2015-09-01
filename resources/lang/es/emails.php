@@ -11,5 +11,6 @@ return [
 	"welcome-to" => "Bienvenido a",
 	"reset-password" => "Restablecer contraseña",
 	"password-message" => "Favor de dar clic en el siguiente enlace para restablecer contrase&ntilde;a.",
-	"confirm-message" => "Por Favor revisa tu correo para confirmar tu cuenta"
+	"confirm-message" => "Por Favor revisa tu correo para confirmar tu cuenta",
+	"password" => "Contraseña"
 ];

@@ -20,7 +20,7 @@
 		<div class="divider"></div>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
-				<a href="{{ url('auth/login') }}" class="btn-light-blue btn-medium">
+				<a href="{{ url('useraccount') }}" class="btn-light-blue btn-medium">
 					{{ Lang::get('auth.sign-in') }}
 				</a>
 			</div>
