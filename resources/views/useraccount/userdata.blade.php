@@ -92,7 +92,7 @@
 					<div class="row">
 						<div class="col-xs-10 col-xs-offset-1 col-md-12  col-md-offset-0 upgrade" id="promotion-box">							
 							<div class="promotion">
-								<a href="affiliation/update/<?php echo $userAffiliation->id; ?>"> 
+								<a href="{{ url('affiliation/update', ['affiliation' => $userAffiliation->id]) }}"> 
 									<span>{{ Lang::get('userdata.upgrade') }}</span><br>
 									{{ Lang::get('userdata.additional-savings') }}
 								</a>
@@ -117,7 +117,7 @@
 						@if( $vacational_fund->amount < '1' )
 						<div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0 subscribe" id="promotion-box">		
 							<div class="promotion">
-								<a href="/vacationfund/update/<?php echo $vacational_fund->id;?>">
+								<a href="{{ url('vacationfund/update', ['vacationfund' => $vacational_fund->id ]) }}">
 									<span>{{ Lang::get('userdata.subscribe') }}</span><br>
 									{{ Lang::get('userdata.additional-savings-fifty') }}
 								</a>

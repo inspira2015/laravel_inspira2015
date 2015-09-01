@@ -5,7 +5,7 @@
 			&nbsp; {{ Lang::get('layout.copyright') }}
 		</div>
 		<div class="hidden-xs hidden-sm col-md-2">
-			<a href="/terms"  onclick="window.open(this.href, 'mywin',
+			<a href="{{ url('terms') }}"  onclick="window.open(this.href, 'mywin',
 			'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">
 			{{ Lang::get('layout.privacy-policy') }} 
 			</a>
