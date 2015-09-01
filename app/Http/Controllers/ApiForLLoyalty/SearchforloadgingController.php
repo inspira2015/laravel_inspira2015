@@ -28,16 +28,6 @@ class SearchforloadgingController extends Controller
 	}
 
 
-	public function show($id)
-	{
-		$searches = ApiSearchLoadging::all();
-
-		return 	Response::json([
-				'data' => $searches->toArray()
-			], 200);
-	}
-
-
 
 	public function create()
 	{
@@ -89,22 +79,8 @@ class SearchforloadgingController extends Controller
 						'success' => 'OK',
 					]
 				],201);
-		print_r($searches);
-
-
-
 		
 	}
-
-
-	/*public function create($id)
-	{
-		$searches = ApiSearchLoadging::all();
-
-		return 	Response::json([
-				'data' => $searches->toArray()
-			], 200);
-	}*/
 
 
 }

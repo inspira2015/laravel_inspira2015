@@ -80,13 +80,18 @@ class AuthController extends Controller implements AuthenticateUserListener {
      * @return \Illuminate\Http\Response
      */
     public function postLogin(Request $request) {
+
+       
         $this->validate($request, [
             'email' => 'required', 'password' => 'required',
         ]);
 
         $credentials = $request->only('email', 'password');
+        $credentials2['email'] =  trim($credentials['email']);
+        $credentials2['password'] =  trim($credentials['password']);
 
-        if ($this->auth->attempt($credentials, $request->has('remember'))) {
+
+        if ($this->auth->attempt($credentials2, $request->has('remember'))) {
             $this->session->flash('message', "Ha iniciado sesión con éxito");
             $this->session->flash('alert-class', 'alert-success');
 
