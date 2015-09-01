@@ -37,8 +37,12 @@ Route::post('api/states', 'Api\StatesController@getByCountryCode');
 Route::post('api/user/change-language', 'Api\UsersController@changeLanguage');
 
 
-Route::get('apisearchloadging/', 'ApiForLLoyalty\SearchforloadgingController@index');
-Route::post('apisearchloadging/create', 'ApiForLLoyalty\SearchforloadgingController@create');
+Route::group(['middleware' => 'auth.very_basic'], function() {
+	Route::get('apisearchloadging/', 'ApiForLLoyalty\SearchforloadgingController@index');
+	Route::post('apisearchloadging/create', 'ApiForLLoyalty\SearchforloadgingController@create');
+});
+
+
 
 
 

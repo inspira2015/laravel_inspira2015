@@ -12,8 +12,10 @@ class SearchforloadgingController extends Controller
 {
 	
 	
-	public function __construct(  )
+	public function __construct()
 	{
+
+
 	}
 	
 	public function index()
@@ -71,7 +73,6 @@ class SearchforloadgingController extends Controller
 								'key_words' => $search['key_words'],
 				));
 		}
-
 
 		if($flag_partial == 1)
 		{

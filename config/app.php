@@ -148,8 +148,8 @@ return [
 		'App\Providers\LibrariesServiceProvider',
 		'Laravel\Socialite\SocialiteServiceProvider',
 		'Laracasts\Utilities\JavaScript\JavascriptServiceProvider',
-		'Torann\GeoIP\GeoIPServiceProvider'
-
+		'Torann\GeoIP\GeoIPServiceProvider',
+		 Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider::class
 	],
 
 	/*
