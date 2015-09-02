@@ -90,18 +90,20 @@ class ApiaffiliationController extends Controller
 		$queryAff = UserAff::has('affiliation')->where('users_id', $inspiraUser->id)
 		 			->where('active',1)->orderBy('id','desc')->first();
 
-		if( empty( $queryAff->affiliation->tier_id ) )
+		if( empty( $queryAff->amount ) )
 		{
 			return Response::json([
 					'response'=> [
 						'success' => 'Error',
-						'message' => 'The Leisure user was found but did not have affiliation id'
+						'message' => 'The Leisure user was found but did not have affiliation amount'
 					]
 				],404);	
 		}
 
+		$amount = number_format($queryAff->amount, 2, '.', '');
 		return 	Response::json([
-				'data' => array('tier_id' => $queryAff->affiliation->tier_id )
+				'data' => array( 'amount' => $amount,
+								 'currency' => $queryAff->currency )
 			], 200);
 	}
 
