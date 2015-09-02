@@ -9,8 +9,9 @@
 		<div style="padding: 10px 20px 20px 20px;">
 			{{ Lang::get('emails.confirm') }}
 		</div>
-		<div style="padding: 20px 20px 30px 20px;">
-			<a href="{{ url() }}/users/activation/{{  $user->confirmation_code }} " style="padding: 10px 35px 10px 40px; background-color: #4D9AD4; color:white; text-decoration: none;"> {{ Lang::get('emails.confirm-now') }}			 <img src="https://inspiramexico.mx/mailcontent/arrow.png" style="margin-left: 10px;width: 9px;height:13px;"></a>
+		<div style="padding: 20px 20px 30px 20px;">			
+			<a href="{{ $url }}" style="padding: 10px 35px 10px 40px; background-color: #4D9AD4; color:white; text-decoration: none;"> {{ Lang::get('emails.confirm-now') }}			 <img src="https://inspiramexico.mx/mailcontent/arrow.png" style="margin-left: 10px;width: 9px;height:13px;"></a>
+			
 		</div>
 		<div style="padding: 0 10%;">
 			<hr style="border: 0;height: 0;border-bottom: 1px solid #465664">

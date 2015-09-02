@@ -31,6 +31,9 @@
 			<div class="divider"></div>
 		</div>
 	
+		<div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2">
+			@include('errors.messages', array('success' => true ))
+		</div>
 		<div class="row text-left">
 			<div class="col-md-6">
 				<div class="row bg-light-gray-transparent" id="contact-info">

@@ -93,7 +93,7 @@ Route::post('useraccount/edit-password', 'UseraccountController@editPassword');
 Route::post('useraccount/update-password', 'UseraccountController@updatePassword');
 Route::post('useraccount/edit-payment', 'UseraccountController@editPayment');
 Route::post('useraccount/update-payment', 'UseraccountController@updatePayment');
-
+Route::get('useraccount/activation/{code}', 'UseraccountController@activation');
 
 Route::post('codes/check', 'CodesController@check');
 

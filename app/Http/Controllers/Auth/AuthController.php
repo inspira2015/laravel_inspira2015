@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers\Auth;
 use Redirect;
+use Session as UserSession;
+use Crypt; 
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -154,8 +156,19 @@ class AuthController extends Controller implements AuthenticateUserListener {
         $this->redirectTo = '/payment';
         return  $this->redirectTo;
     }
-
-
-
+	
+	public function getAutologin(Request $request,  $email , $encryptedPassword) {
+		$password = Crypt::decrypt($encryptedPassword);
+		$credentials = ['email' => $email, 'password' => $password];
+        if ($this->auth->attempt( $credentials )) {
+	        UserSession::put( 'confirmation_code', $this->auth->user()->confirmation_code );
+			return Redirect::to('useraccount');
+		}else {
+			return redirect('/auth/login')
+                ->withInput( [ 'email' => $email ])
+                ->withErrors([ 'email' => 'Estas credenciales no coinciden con nuestros registros.' ]);
+       	}
+        
+	}
 
 }

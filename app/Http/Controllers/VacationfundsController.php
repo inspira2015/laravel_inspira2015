@@ -6,6 +6,7 @@ use Input;
 use Mail;
 use Session;
 use URL;
+use Crypt;
 use Lang;
 use App\Libraries\Affiliations\ParseCurrencyFromPost;
 use App\Libraries\CreateUser\CheckAndSaveUserInfo;
@@ -116,16 +117,21 @@ class VacationfundsController extends Controller
 			return Redirect::to('codes');
 
 		}
-
+		$credentials = array();
+		$sessionUser = Session::get('users');
+		
+		$url = url( 'auth/autologin', array( 'email' => $user['email'], 'encryptedPassword' => Crypt::encrypt($user['password']) ));
+	
 		Session::forget('code');
 		Session::forget('users');
 		Session::forget('affiliation');
 		Session::forget('vacationfund');
 
 		$this->userDao = $this->createUser->getUserDao();
-		$sent =Mail::send('emails.user_registration', array('user' => $this->userDao), function($message)
+		$sent =Mail::send('emails.user_registration', array('user' => $this->userDao, 'url' => $url ), function($message)
 			{
 				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
+				
 		    	$message->to( $this->userDao->email, $full_name )->to( 'hp_tanya@hotmail.com' , $full_name)->subject( Lang::get('emails.welcome-to')." InspiraMexico, {$full_name}!" );
 			});
 

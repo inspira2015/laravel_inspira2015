@@ -8,6 +8,7 @@ use Config;
 use Hash;
 use Lang;
 use GeoIP;
+use Session;
 use Response;
 
 use App\Model\User;
@@ -88,6 +89,22 @@ class UseraccountController extends Controller {
 	public function index()
 	{
 		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
+		$errors = '';
+		if(Session::has('confirmation_code')){
+			$errors = array ('message' => $this->activation( Session::get('confirmation_code') ) );
+			Session::forget('confirmation_code');
+		}
+		
+		return view('useraccount.userdata')
+			->with( 'title' ,  Lang::get('userdata.title') )
+			->with( 'background' , '1.png')
+			->with( 'user' , $this->details() )
+			->with( 'accountSetup' , $this->accountSetup )
+			->withErrors( $errors )
+			->with( $this->getData() );
+	}
+	
+	private function getData(){
 		$paymentDate = new GeneratePaymentsDates();
 		$vacationalFundLog = new UserVacFundLog();
 		$userAff = new UserAffiliation();
@@ -122,13 +139,8 @@ class UseraccountController extends Controller {
 			'userAffiliation' => $userAffiliation,
 			'next_payment_date' => $paymentDate->getNextPaymentDateHumanRead()
 		);
-				
-		return view('useraccount.userdata')
-			->with( 'title' ,  Lang::get('userdata.title') )
-			->with( 'background' , '1.png')
-			->with( 'user' , $this->details() )
-			->with( 'accountSetup' , $this->accountSetup )
-			->with( $data );
+
+		return $data;
 	}
 
 	/**
@@ -291,6 +303,29 @@ class UseraccountController extends Controller {
 		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
 		return $user;
 	}
+	
+		/**
+	 * Activates the user account with the email Url
+	 *
+	 * @return Response
+	 */
+	public function activation($code = FALSE)
+	{		
+		$user = $this->userDao->getUserByEmailCode( $code );
+
+		if( empty( $user->all() ) )
+		{
+			return "This account has already been confirmed";
+		}else{
+			$this->userDao->load( $user->first()->id );
+			$this->userDao->confirmed =1;
+			$this->userDao->confirmation_code ='';
+			$this->userDao->save();
+			return "Congratulations your account has been confirmed.";
+		}
+	}
+	
+	
 	
 }
 

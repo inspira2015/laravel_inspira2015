@@ -1,3 +1,12 @@
+<?php
+	$minifierCss = new MinifyCSS();
+	$minifierCss->add('css/app/main.css');
+	$minifierCss->minify('css/minify/main.css');
+	
+	$minifierJs = new MinifyJs();
+	$minifierJs->add('js/jquery.creditCardValidator.min.js');
+	$minifierJs->minify('js/minify/jquery.creditCardValidator.min.js');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +21,7 @@
 	{!! HTML::style('css/font-awesome/css/font-awesome.min.css') !!}
 	{!! HTML::style('css/bootstrap/css/slide.css') !!}
 	{!! HTML::style('css/bootstrap/css/slidestyle.css') !!}
-	{!! HTML::style('css/app/main.css') !!}
-	
+	{!! HTML::style('css/minify/main.css') !!}
 </head>
 
 <body id="page" style="background-image:url('<?php echo url();?>/images/<?php echo $background; ?>'); background-repeat:no-repeat; background-position: center center fixed; 
@@ -36,7 +44,7 @@
 	@include('layouts.__common.terms')
 	
 	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
-	{!! HTML::script('js/jquery.creditCardValidator.min.js') !!}
+	{!! HTML::script('js/minify/jquery.creditCardValidator.min.js') !!}
 	{!! HTML::script('js/jquery.maskedinput.min.js') !!}
 	
 	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}

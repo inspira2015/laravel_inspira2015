@@ -29,9 +29,9 @@ $(document).ready(function(){
 			feature._set_change(element.find('div[data-role=submit],a[data-role=change]'));
 			feature._on_change_country( element.find('select.select-country') );
 			feature._apply_card_validation( element.find('input#card_number') );
-			feature._on_change_email( _this.find('input[type="email"].validate-email') );
-			feature._apply_masked_input( _this.find('input[data-mask-type]') );
-			feature._enable_fund( _this.find('input[name="fondo"]') );
+			feature._on_change_email( element.find('input[type="email"].validate-email') );
+			feature._apply_masked_input( element.find('input[data-mask-type]') );
+			feature._enable_fund( element.find('input[name="fondo"]') );
 		},
 		_set_change: function( element ) {
 			element.bind('click', function(){
