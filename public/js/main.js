@@ -162,9 +162,9 @@ $(document).ready(function(){
 			element.on('change', function(){
 				var _this = $(this);
 				var _amount_input = $('input[name="amount"]');
-				var _disabled = _this.val() == 0 ? false : true;
-				var _value = _disabled == true ? '' : 0;
-				
+				var _disabled = _this.val() == 1 ? false : true;
+				var _value = _disabled == true ? '0.00' : '0.00';
+
 				_amount_input.val( _value );
 				_amount_input.prop('disabled', _disabled );
 			});

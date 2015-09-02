@@ -776,3 +776,14 @@ div.oxxo img{
 		width: 1.25em;    
 	}
 }
+label.error-db{
+	width: 100%!important;
+    display: block;
+    padding-top: 5px;
+    color: #cc4b9b!important;
+}
+@media (min-width: 992px) { 
+	form#user_data > div.row > div.form-group{
+		    width: calc(100% + 50px);
+	}
+}
