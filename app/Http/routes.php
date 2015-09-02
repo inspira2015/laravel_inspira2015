@@ -36,9 +36,10 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 	Route::get('api/v1/tours/', 'ApiForLLoyalty\SearchforatourController@index');
 	Route::post('api/v1/tours/create', 'ApiForLLoyalty\SearchforatourController@create');
 
-
-
 });
+
+	Route::put('api/v1/affiliation/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@getUseraffiliation');
+	Routes::put('api/v1/affiliation/payment/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@putUseraffpayment');
 
 
 
