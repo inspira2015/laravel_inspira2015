@@ -17,6 +17,23 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::group(['middleware' => 'auth.very_basic'], function() {
+	Route::get('api/v1/loadging/', 'ApiForLLoyalty\SearchforloadgingController@index');
+	Route::post('api/v1/loadging/create', 'ApiForLLoyalty\SearchforloadgingController@create');
+
+	Route::get('api/v1/flights/', 'ApiForLLoyalty\SearchforflightsController@index');
+	Route::post('api/v1/flights/create', 'ApiForLLoyalty\SearchforflightsController@create');
+
+	Route::get('api/v1/cars/', 'ApiForLLoyalty\SearchforcarsController@index');
+	Route::post('api/v1/cars/create', 'ApiForLLoyalty\SearchforcarsController@create');
+
+	Route::get('api/v1/cruise/', 'ApiForLLoyalty\SearchforcruiseController@index');
+	Route::post('api/v1/cruise/create', 'ApiForLLoyalty\SearchforcruiseController@create');
+
+});
+
+
+
 Route::get('terms', 'WelcomeController@terms');
 
 // Password reset link request routes...
@@ -35,13 +52,6 @@ Route::get('api/users/details', 'Api\UsersController@all');
 Route::get('api/users/exists', 'Api\UsersController@exists');
 Route::post('api/states', 'Api\StatesController@getByCountryCode');
 Route::post('api/user/change-language', 'Api\UsersController@changeLanguage');
-
-
-Route::group(['middleware' => 'auth.very_basic'], function() {
-	Route::get('apisearchloadging/', 'ApiForLLoyalty\SearchforloadgingController@index');
-	Route::post('apisearchloadging/create', 'ApiForLLoyalty\SearchforloadgingController@create');
-});
-
 
 
 
