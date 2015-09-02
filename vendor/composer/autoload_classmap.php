@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddActivities' => $baseDir . '/database/migrations/2015_09_01_195007_add_activities.php',
     'AddApiSearchLodging' => $baseDir . '/database/migrations/2015_08_30_230421_add_api_search_lodging.php',
     'AddBalanceUservacationalfunds' => $baseDir . '/database/migrations/2015_07_13_205145_add_balance_uservacationalfunds.php',
     'AddBirthdateFieldUserpayments' => $baseDir . '/database/migrations/2015_08_12_172750_add_birthdate_field_userpayments.php',
@@ -36,6 +37,7 @@ return array(
     'AddNullable' => $baseDir . '/database/migrations/2015_08_31_201409_add_nullable.php',
     'AddSearchCars' => $baseDir . '/database/migrations/2015_09_01_163955_add_search_cars.php',
     'AddSearchFlightTable' => $baseDir . '/database/migrations/2015_09_01_105044_add_search_flight_table.php',
+    'AddTours' => $baseDir . '/database/migrations/2015_09_01_195155_add_tours.php',
     'AddTransactionFiels' => $baseDir . '/database/migrations/2015_08_16_202536_add_transaction_fiels.php',
     'AddTransactionUserPoints' => $baseDir . '/database/migrations/2015_08_17_193325_add_transaction_user_points.php',
     'AddUpdateUsers' => $baseDir . '/database/migrations/2015_08_07_231721_add_update_users.php',
