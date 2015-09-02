@@ -30,6 +30,14 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 	Route::get('api/v1/cruise/', 'ApiForLLoyalty\SearchforcruiseController@index');
 	Route::post('api/v1/cruise/create', 'ApiForLLoyalty\SearchforcruiseController@create');
 
+	Route::get('api/v1/activities/', 'ApiForLLoyalty\SearchforactivitiesController@index');
+	Route::post('api/v1/activities/create', 'ApiForLLoyalty\SearchforactivitiesController@create');
+
+	Route::get('api/v1/tours/', 'ApiForLLoyalty\SearchforatourController@index');
+	Route::post('api/v1/tours/create', 'ApiForLLoyalty\SearchforatourController@create');
+
+
+
 });
 
 
