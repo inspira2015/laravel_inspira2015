@@ -6,7 +6,7 @@
 	<div class="col-xs-12">
 		<div class="row nopadding">
 			<div class="col-xs-4 col-sm-3 col-sm-2">  
-				<a href="{{ url('users') }}" class="btn-blue-clear btn-medium back">
+				<a href="{{ url('useraccount') }}" class="btn-blue-clear btn-medium back">
 					{{ Lang::get('layout.back') }}
 				</a>
 			</div>
@@ -56,11 +56,12 @@
 				$convertHelper->setCurrencyOfCost($obj->getCurrency());
 				?>
 				
-				${{ $obj->getAffiliationPrice() }} USD
+				{{ $convertHelper->getFomattedAmount()}}
+				{{$convertHelper->getCurrencyShow() }}
+					
 				
-				@if($convertHelper->getCurrencyShow() == "MXN")
-					({{ $convertHelper->getFomattedAmount()}}
-					{{$convertHelper->getCurrencyShow() }}* )
+				@if($convertHelper->getCurrencyShow() == "USD")
+					(${{ $obj->getAffiliationPrice() }} MXN*)
 				@endif
 
 				{!! Form::hidden('currency_' . $obj->getAffiliationId(), $obj->getCurrency() ) !!}
@@ -103,7 +104,7 @@
 		<div class="divider"></div>
 	</div>
 	<div class="col-xs-4 col-sm-2">  
-		<a href="{{ url('users') }}" class="btn-blue-clear btn-medium back">
+		<a href="{{ url('useraccount') }}" class="btn-blue-clear btn-medium back">
 			{{ Lang::get('layout.back') }}
 		</a>
 	</div>

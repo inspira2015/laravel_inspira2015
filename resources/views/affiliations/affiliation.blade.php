@@ -56,11 +56,12 @@
 				$convertHelper->setCurrencyOfCost($obj->getCurrency());
 				?>
 				
-				@if($convertHelper->getCurrencyShow() == "MXN")
-					{{ $convertHelper->getFomattedAmount()}}
-					{{$convertHelper->getCurrencyShow() }}
-				@else
-					${{ $obj->getAffiliationPrice() }} USD
+				{{ $convertHelper->getFomattedAmount()}}
+				{{$convertHelper->getCurrencyShow() }}
+					
+				
+				@if($convertHelper->getCurrencyShow() == "USD")
+					(${{ $obj->getAffiliationPrice() }} MXN*)
 				@endif
 
 
