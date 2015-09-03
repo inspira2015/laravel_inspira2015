@@ -40,6 +40,9 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 
 	Route::put('api/v1/affiliation/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@getUseraffiliation');
 	Route::put('api/v1/affiliation/payment/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@putUseraffpayment');
+	Route::put('api/v1/affiliation/lastpayment/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@putUserafflastpayment');
+	Route::put('api/v1/affiliation/nextpayment/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@putUseraffnextpayment');
+	Route::put('api/v1/affiliation/duepayments/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@putUseraffduepayment');
 
 
 

@@ -21,7 +21,7 @@ class GeneratePaymentsDates
 		$this->toleranceDays = 0;
 	}
 
-	public function setDate($date)
+	public function setDate( $date )
 	{
 		
 		$this->inputDate = Carbon::createFromFormat('Y-m-d', $date);
@@ -56,6 +56,20 @@ class GeneratePaymentsDates
 	public function getNextPaymentDateHumanRead()
 	{
 		return $this->checkNextPaymentDate();
+	}
+
+
+	private function carbonNextPayment()
+	{
+		$date = $this->getNextPaymentDate();
+		return Carbon::createFromFormat('Y-m-d', $date);
+	}
+
+
+
+	public function getNextPaymentCarbonDate()
+	{
+		return $this->carbonNextPayment();
 	}
 
 
