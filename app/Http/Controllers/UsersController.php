@@ -52,13 +52,12 @@ class UsersController extends Controller {
 	public function __construct(UserDao $userDao, 
 								UserRegisteredPhone $userphone, 
 								CodesUsedEntity $codesUsed,
-								CodeDao $codeDao )
+								CodeDao $codeDao)
 	{
 		$this->middleware('guest');
 		$this->userDao = $userDao;
 		$this->userPhone = $userphone;
 		$this->codesUsed = $codesUsed;
-		
 		$this->codeDao = $codeDao;
 		$this->check = new CodeValidator();
 		$this->checkReferer = new CheckReferer();
@@ -130,6 +129,8 @@ class UsersController extends Controller {
 
 		$post_data = Request::all();
 		$user_check = new UserRegistration();
+		
+				
 		$post_data['cellphone_number'] = $this->sanitizePhone($post_data['cellphone_number']);
 		$validator = $user_check->validator($post_data, Lang::getLocale());
 
@@ -138,7 +139,7 @@ class UsersController extends Controller {
 			Session::put('users',  $post_data );
 			return Redirect::to('affiliation');
 		}
-
+		
 		$locale = Lang::getLocale();
 		$data['country_list'] = $this->getCountryArray();
 		$data['lan_list'] = $this->getLanguaje($locale);

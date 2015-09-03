@@ -68,7 +68,7 @@ class UserDao extends UserEntity implements ICrudOperations
 	 	$user = new \stdClass();
 	 	$phones = new \stdClass();
 		
-		$phones->cell = $this->getPhoneType( $id, 'cell');
+		$phones->cell = $this->getPhoneType( $id, 'cellphone');
 		$phones->phone = $this->getPhoneType( $id, 'phone');
 		$phones->office = $this->getPhoneType( $id, 'office');
 		

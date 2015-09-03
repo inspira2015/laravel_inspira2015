@@ -104,7 +104,8 @@ class AffiliationController extends Controller
 
 	public function changeaffiliation($userCurrentAffiliation = FALSE)
 	{
-        $userAuth = Auth::user();
+        $userAuth = Auth::user();   
+        $this->convertHelper->setCurrencyShow( $userAuth['currency'] );
        	Session::put('currentAffiliation',  $userCurrentAffiliation );
         $userAffiliation = $this->userAffiliationDao->getById( $userCurrentAffiliation );
         $usedCodes = $this->codesUsedDao->getCodesUsedByUserId( $userAuth->id );
@@ -138,7 +139,7 @@ class AffiliationController extends Controller
 		$this->updateUserAffiliation->setCurrentAffiliation( $userCurrentAffiliation );
 		$this->updateUserAffiliation->changeAffilition();
 		Session::forget('currentAffiliation');
-		return Redirect::to('/useraccount');
+		return Redirect::to('useraccount');
 
 	}
 

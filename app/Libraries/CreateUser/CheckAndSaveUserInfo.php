@@ -135,7 +135,7 @@ class CheckAndSaveUserInfo
 											 'amount' => $affiliationData['amount'],
 											 'currency' => $affiliationData['currency'] ) );
 		$this->affDao->save();
-		$this->vacDao->exchangeArray( array('users_id' => $users_id,'amount' => $this->storeData['VacationFund']['amount'],
+		$this->vacDao->exchangeArray( array('users_id' => $users_id,'amount' => @$this->storeData['VacationFund']['amount'] ? $this->storeData['VacationFund']['amount']: 0,
 											'active' =>1,'currency' => $this->storeData['VacationFund']['currency']) );
 		$this->vacDao->save();
 		return TRUE;
