@@ -222,7 +222,6 @@ footer > .container > div:nth-child(3){
 	color: #cc4b9b;
 	padding-top: 5px;
 	padding-bottom: 5px;
-	text-decoration: underline;
 	background-position-x: 92%;
 	background-image: url('images/arrow-pink.png');
 }
@@ -792,7 +791,14 @@ label.error-db{
     background-color: #f4dbeb;
     border-color: #cc4b9b;
     color: #9e2d73;
-    
-     opacity: 0.8;
+    opacity: 0.8;
     filter: alpha(opacity=80);
+}
+
+.alert-info {
+    background-color: #d0e4f3;
+    border-color: #6ba9d8;
+    color: #5587ac;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
 }

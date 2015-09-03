@@ -38,6 +38,7 @@ return [
 	"additional-savings" => "25% in additional savings",
 	"subscribe" => "Subscribe Now",
 	"additional-savings-fifty" => "50% in additional savings",
+	"activation-msg" => "To finish your profile Please continue to fill your credit card information.",
 	"error" => [
 		"transaction" => "There was an error while processing"
 	]

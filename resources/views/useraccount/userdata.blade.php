@@ -1,8 +1,6 @@
 @extends('layouts.basic')
 
 @section('content')
-<?php $location = GeoIP::getLocation(); ?>
-
 <div class="row bg-gray-transparent" id="user">
 	<div class="col-xs-12">
 		<div class="row">
@@ -17,9 +15,10 @@
 	
 			<div class="col-xs-5 col-xs-push-7 col-md-4 col-md-push-2">
 				<div class="row text-right">
-					<a href="<?php echo url(); ?>/auth/logout">Logout</a><br><br>
+					<a href="{{ url('auth/logout') }} " style="color:#818c95;">Logout <i class="glyphicon glyphicon-log-out"></i></a>
+					<br><br>
 				</div>
-				@if( $accountSetup->checkValidAccount() !==FALSE &&  $user->details->leisure_id !== null)
+				@if( $accountSetup->checkValidAccount() !==FALSE )
 				<div class="row">
 					<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={{ $user->details->leisure_id }}" class="btn-blue btn-small">{{ Lang::get('userdata.go-reservations') }}</a>
 				</div>
@@ -32,8 +31,25 @@
 		</div>
 	
 		<div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2">
-			@include('errors.messages', array('success' => true ))
+			<div class="row">
+				@include('errors.messages', array('success' => true ))
+			</div>
+			<div class="row">
+				@if(empty( $accountSetup->checkCreditCard() ))
+				<div class="alert alert-info" role="alert">
+					<div class="row">
+						<div class="col-md-8">
+							{{ Lang::get('userdata.activation-msg') }}
+						</div>
+						<div class="col-md-4">
+							<a href="{{ url('payment/creditcardinfo') }}" class="btn-small btn-pink-clear">{{ Lang::get('layout.continue') }}</a>
+						</div>
+					</div>
+				</div>
+				@endif
+			</div>
 		</div>
+	
 		<div class="row text-left">
 			<div class="col-md-6">
 				<div class="row bg-light-gray-transparent" id="contact-info">
@@ -159,19 +175,19 @@
 						<h3 class="row">{{ Lang::get('userdata.monthly-promotions')}}</h3>
 						<div class="row">
 							<div class="col-xs-3 col-md-6 promo">
-								<img src="images/manzanillo.png"/>
+								{!! HTML::image('images/manzanillo.png', 'Manzanillo - InspiraMexico') !!}
 								<span>Manzanillo</span>
 							</div>
 							<div class="col-xs-3 col-md-6 promo">
-								<img src="images/mazatlan.png"/>
+								{!! HTML::image('images/mazatlan.png', 'Mazatlan - InspiraMexico') !!}
 								<span>Mazatlan</span>
 							</div>
 							<div class="col-xs-3 col-md-6 promo">
-								<img src="images/lasvegas.png"/>
+								{!! HTML::image('images/lasvegas.png', 'Las Vegas - InspiraMexico') !!}
 								<span>Las Vegas</span>
 							</div>
 							<div class="col-xs-3 col-md-6 promo">
-								<img src="images/malaga.png"/>
+								{!! HTML::image('images/malaga.png', 'Malaga - InspiraMexico') !!}
 								<span>Malaga</span>
 							</div>
 						</div>
@@ -181,7 +197,7 @@
 			</div>
 		</div>
 		
-		@if( $accountSetup->checkValidAccount() !==FALSE && $user->details->leisure_id !== null )
+		@if( $accountSetup->checkValidAccount() !==FALSE )
 		<div class="row">
 			<div class="divider"></div><br>
 		</div>

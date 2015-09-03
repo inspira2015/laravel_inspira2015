@@ -38,6 +38,7 @@ return [
 	"additional-savings" => "25% de ahorros adicionales",
 	"subscribe" => "Inscr&iacute;bete ahora",
 	"additional-savings-fifty" => "50% de ahorros adicionales",
+	"activation-msg" => "Para terminar su perfil, favor de dar clic en continuar para llenar la información de su tarjeta crédito.",
 	"error" => [
 		"transaction" => "Hubo un error al procesar"
 	]

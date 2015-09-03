@@ -95,11 +95,14 @@ class UseraccountController extends Controller {
 			Session::forget('confirmation_code');
 		}
 		
+		$this->accountSetup->setUsersID( $this->userAuth->id );
+
 		return view('useraccount.userdata')
 			->with( 'title' ,  Lang::get('userdata.title') )
 			->with( 'background' , '1.png')
 			->with( 'user' , $this->details() )
 			->with( 'accountSetup' , $this->accountSetup )
+			->with( 'location', GeoIP::getLocation() )
 			->withErrors( $errors )
 			->with( $this->getData() );
 	}
