@@ -49,7 +49,9 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 	Route::put('api/v1/vacationalfund/lastpayment/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@Getlastpayment');
 	Route::put('api/v1/vacationalfund/nextpayment/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@Getnextpayment');
 	Route::put('api/v1/vacationalfund/duepayments/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@Getuservacduepayments');
-
+	Route::put('api/v1/vacationalfund/withdraw/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@Withdraw');
+	Route::put('api/v1/vacationalfund/lastwithdraw/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@GetLastWithdrawDate');
+	Route::put('api/v1/vacationalfund/currentbalance/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@GetCurrentBalance');
 
 
 

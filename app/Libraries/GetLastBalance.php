@@ -36,11 +36,13 @@ class GetLastBalance
 	public function checkBalance()
 	{
 		$this->last_row =  $this->userVacationalFundsDao->getLatestByUserId( $this->users_id );
-
+	
 	}
 
 	public function getLastTransaction()
 	{
+		$this->checkBalance();
+
 		if( empty( $this->last_row ) )
 		{
 			return FALSE;
@@ -50,6 +52,7 @@ class GetLastBalance
 
 	public function getCurrentBalance()
 	{
+		$this->checkBalance();
 		if( empty( $this->last_row ) )
 		{
 			return 0;

@@ -44,7 +44,7 @@ class ChargeCashOnVacationalFunds extends AbstractTransactions
 
 	public function checkUserVacationalLog()
 	{
-		$userVacFund = $this->userVacFundLogDao->getByUsersId( $this->objUser->id );
+		$userVacFund = $this->userVacFundLogDao->getCurrentUserVacFundLogByUserId( $this->objUser->id );
 		if( $userVacFund !=FALSE )
 		{
 			return $userVacFund[0];
