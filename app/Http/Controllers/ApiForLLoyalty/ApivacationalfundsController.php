@@ -4,17 +4,15 @@ use App\Http\Controllers\Controller;
 use Request;
 use Redirect;
 use Response;
-use Session;
-use Auth;
 use App\Model\User;
-use App\Model\Affiliations;
-use App\Model\UserAffiliations as UserAff;
-use App\Model\UserAffiliationPayment as UserAffPayments;
+use App\Model\VacationFundLog as UserVacLog;
+use App\Model\UserVacationalFunds as UserVacFunds;
+
 use App\Libraries\GeneratePaymentsDates;
 use App\Libraries\CheckDuePayments;
 
 
-class ApiaffiliationController extends Controller 
+class ApivacationalfundsController extends Controller 
 {
 
 	public function __construct()
@@ -23,11 +21,11 @@ class ApiaffiliationController extends Controller
 	}
 
 	/**
-	 * Get Affiliation type tier_id
+	 * Get Monthly Vacational Fund Payment
 	 *
 	 * @return Json tier_id
 	 */
-	public function getUseraffiliation($leisure_id = FALSE)
+	public function Getmonthlyamount($leisure_id = FALSE)
 	{
 		if ( $leisure_id == FALSE || empty( $leisure_id ) )
 		{
@@ -51,81 +49,33 @@ class ApiaffiliationController extends Controller
 				],404);	
 		}
 
-		$queryAff = UserAff::has('affiliation')->where('users_id', $inspiraUser->id)
-		 			->where('active',1)->orderBy('id','desc')->first();
+		$queryVacLog = UserVacLog::where('users_id', $inspiraUser->id )->where('active',1)->orderBy('id','desc')->first();
 
-		if( empty( $queryAff->affiliation->tier_id ) )
+
+		if( $queryVacLog->amount == 0 )
 		{
 			return Response::json([
 					'response'=> [
 						'success' => 'Error',
-						'message' => 'The Leisure user was found but did not have affiliation id'
+						'message' => 'The Leisure user was found but did not have Vacational Fund Set'
 					]
 				], 404 );	
 		}
 
-		return 	Response::json([
-				'data' => array('tier_id' => $queryAff->affiliation->tier_id )
-			], 200 );
-	}
-
-
-	/**
-	 * Get Monthly Payment $$
-	 *
-	 * @return Json 
-	 */
-	public function putUseraffpayment($leisure_id = FALSE)
-	{
-		if ( $leisure_id == FALSE || empty( $leisure_id ) )
-		{
-			return Response::json([
-					'response'=> [
-						'success' => 'Error',
-						'message' => 'There is no valid leisure User'
-					]
-				],400);
-		}
-
-		$inspiraUser = User::where( 'leisure_id', $leisure_id )->first();
-
-		if ( empty( $inspiraUser ) )
-		{
-			return Response::json([
-					'response'=> [
-						'success' => 'Error',
-						'message' => 'The Leisure user was not found'
-					]
-				],404);	
-		}
-
-		$queryAff = UserAff::has('affiliation')->where('users_id', $inspiraUser->id)
-		 			->where('active',1)->orderBy('id','desc')->first();
-
-		if( empty( $queryAff->amount ) )
-		{
-			return Response::json([
-					'response'=> [
-						'success' => 'Error',
-						'message' => 'The Leisure user was found but did not have affiliation amount'
-					]
-				],404);	
-		}
-
-		$amount = number_format($queryAff->amount, 2, '.', '');
+		$amount = number_format($queryVacLog->amount, 2, '.', '');
 		return 	Response::json([
 				'data' => array( 'amount' => $amount,
-								 'currency' => $queryAff->currency )
+								 'currency' => $queryVacLog->currency )
 			], 200);
 	}
 
 
 	/**
-	 * Get Last Payment Date
+	 * Get Monthly Vacational Fund Payment
 	 *
-	 * @return Json 
+	 * @return Json tier_id
 	 */
-	public function putUserafflastpayment($leisure_id = FALSE)
+	public function Getlastpayment($leisure_id = FALSE)
 	{
 		if ( $leisure_id == FALSE || empty( $leisure_id ) )
 		{
@@ -149,31 +99,84 @@ class ApiaffiliationController extends Controller
 				],404);	
 		}
 
-		$queryAff = UserAffPayments::where('users_id', $inspiraUser->id)->orderBy('id','desc')->first();
+		$queryVacFund = UserVacFunds::where('users_id', $inspiraUser->id )->orderBy('id','desc')->first();
 
 
-		if( empty( $queryAff->charge_at ) )
+		if( empty( $queryVacFund ) )
 		{
 			return Response::json([
 					'response'=> [
 						'success' => 'Error',
-						'message' => 'The Leisure user was found but did not have affiliation date'
+						'message' => 'The Leisure user was found but did not have Vacational Fund Set'
+					]
+				], 404 );	
+		}
+
+		list($date, $time) = explode( ' ', $queryVacFund->created_at );
+		return 	Response::json([
+				'data' => array( 'last_payment' => $date )
+			], 200);
+	}
+
+	/**
+	 * Get Next Monthly Vacational Fund Payment
+	 *
+	 * @return Json tier_id
+	 */
+	public function Getnextpayment($leisure_id = FALSE)
+	{
+		if ( $leisure_id == FALSE || empty( $leisure_id ) )
+		{
+			return Response::json([
+					'response'=> [
+						'success' => 'Error',
+						'message' => 'There is no valid leisure User'
+					]
+				],400);
+		}
+
+		$inspiraUser = User::where( 'leisure_id', $leisure_id )->first();
+
+		if ( empty( $inspiraUser ) )
+		{
+			return Response::json([
+					'response'=> [
+						'success' => 'Error',
+						'message' => 'The Leisure user was not found'
 					]
 				],404);	
 		}
 
+		$queryVacFund = UserVacFunds::where('users_id', $inspiraUser->id )->orderBy('id','desc')->first();
+
+
+		if( empty( $queryVacFund ) )
+		{
+			return Response::json([
+					'response'=> [
+						'success' => 'Error',
+						'message' => 'The Leisure user was found but did not have Vacational Fund Set'
+					]
+				], 404 );	
+		}
+
+		list($date, $time) = explode( ' ', $queryVacFund->created_at );
+		$objGeneratePaymentsDates = new GeneratePaymentsDates();
+		$objGeneratePaymentsDates->setDate( $date );
+		$objGeneratePaymentsDates->setBillableDay( $inspiraUser->billable_day );
+
 		return 	Response::json([
-				'data' => array( 'last_payment' => $queryAff->charge_at )
+				'data' => array( 'next_payment' => $objGeneratePaymentsDates->getNextPaymentDate() )
 			], 200);
 	}
 
 
 	/**
-	 * Get Next Payment Date
+	 * Get Due Payments
 	 *
 	 * @return Json 
 	 */
-	public function putUseraffnextpayment($leisure_id = FALSE)
+	public function Getuservacduepayments($leisure_id = FALSE)
 	{
 		if ( $leisure_id == FALSE || empty( $leisure_id ) )
 		{
@@ -202,55 +205,6 @@ class ApiaffiliationController extends Controller
 		$objGeneratePaymentsDates->setDate( $queryAff->charge_at );
 		$objGeneratePaymentsDates->setBillableDay( $inspiraUser->billable_day );
 
-		if( empty( $queryAff->charge_at ) )
-		{
-			return Response::json([
-					'response'=> [
-						'success' => 'Error',
-						'message' => 'The Leisure user was found but did not have affiliation date'
-					]
-				],404);	
-		}
-
-		return 	Response::json([
-				'data' => array( 'next_payment' => $objGeneratePaymentsDates->getNextPaymentDate() )
-			], 200);
-	}
-
-
-	/**
-	 * Get Due Payments
-	 *
-	 * @return Json 
-	 */
-	public function putUseraffduepayment($leisure_id = FALSE)
-	{
-		if ( $leisure_id == FALSE || empty( $leisure_id ) )
-		{
-			return Response::json([
-					'response'=> [
-						'success' => 'Error',
-						'message' => 'There is no valid leisure User'
-					]
-				],400);
-		}
-
-		$inspiraUser = User::where( 'leisure_id', $leisure_id )->first();
-
-		if ( empty( $inspiraUser ) )
-		{
-			return Response::json([
-					'response'=> [
-						'success' => 'Error',
-						'message' => 'The Leisure user was not found'
-					]
-				],404);	
-		}
-
-		$queryAff = UserAffPayments::where('users_id', $inspiraUser->id)->orderBy('id','desc')->first();
-		$objGeneratePaymentsDates = new GeneratePaymentsDates();
-		$objGeneratePaymentsDates->setDate( $queryAff->charge_at );
-
 		$objCheckDuePayments = new CheckDuePayments();
 		$objCheckDuePayments->setStartDate( $objGeneratePaymentsDates->getNextPaymentDate() );
 		$objCheckDuePayments->setEndDate( \date('Y-m-d') );
@@ -261,7 +215,7 @@ class ApiaffiliationController extends Controller
 			return Response::json([
 					'response'=> [
 						'success' => 'Error',
-						'message' => 'The Leisure user was found but did not have affiliation date'
+						'message' => 'The Leisure user was found but did not have Vacational found set'
 					]
 				],404);	
 		}
@@ -270,6 +224,7 @@ class ApiaffiliationController extends Controller
 				'data' => array( 'due_payments' => $objCheckDuePayments->getNumberOfDuePayments() )
 			], 200);
 	}
+
 
 
 }

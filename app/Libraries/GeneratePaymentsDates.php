@@ -10,6 +10,7 @@ class GeneratePaymentsDates
 	private $inputDate;
 	private $tempDate;
 	private $toleranceDays;
+	private $billDay;
 
 	public function  __construct($date = FALSE)
 	{
@@ -19,6 +20,7 @@ class GeneratePaymentsDates
 		}
 		$this->error_array = FALSE;
 		$this->toleranceDays = 0;
+		$this->billDay = FALSE;
 	}
 
 	public function setDate( $date )
@@ -28,9 +30,20 @@ class GeneratePaymentsDates
 		$this->tempDate = Carbon::createFromFormat('Y-m-d', $date);
 	}
 
+	public function setBillableDay($day)
+	{
+		$this->billDay = $day;
+	}
+
 
 	private function checkNextPaymentDate()
 	{
+		if( $this->billDay!==FALSE && is_numeric( $this->billDay ) )
+		{
+			$this->inputDate->day = $this->billDay;
+		}
+		
+
 		return $this->inputDate->addMonths(1)->toFormattedDateString();  
 	}
  
