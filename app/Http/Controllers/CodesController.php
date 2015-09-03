@@ -36,13 +36,9 @@ class CodesController extends Controller {
 		{			
 			$code = Session::get('code');
 		}
-			return view('codes.view')->with('title', 'Ingresa tu c&oacute;digo' )
+		return view('codes.view')->with('title', 'Ingresa tu c&oacute;digo' )
 									 ->with('background','codigo-background.jpg')
 									 ->with('code',$code);
-
-		
-
-		return view('codes.view')->with('title', 'Ingresa tu c&oacute;digo' )->with('background','codigo-background.jpg');
 	}
 
 	public function Check() 

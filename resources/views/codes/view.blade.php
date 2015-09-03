@@ -35,7 +35,7 @@
 	<div class="col-sm-10 col-sm-push-1">
 		<input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
 		<div class="inputs">
-			{!! Form::text('code', Input::get('code') ? Input::get('code') : @$code, array( 'required' => 'required')) !!}
+			{!! Form::text('code', Input::get('code') ? $code : '', array( 'required' => 'required')) !!}
 		</div>
 	</div>
 {!! Form::close() !!}

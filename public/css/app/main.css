@@ -787,3 +787,12 @@ label.error-db{
 		    width: calc(100% + 50px);
 	}
 }
+
+.alert-danger {
+    background-color: #f4dbeb;
+    border-color: #cc4b9b;
+    color: #9e2d73;
+    
+     opacity: 0.8;
+    filter: alpha(opacity=80);
+}
