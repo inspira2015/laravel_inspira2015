@@ -121,14 +121,14 @@
 <div clas="row">
 	<div class="col-xs-6 col-md-4 text-left">
 		<div class="row">
-			<input type="radio" name="toc" value="1" id="toc">
+			<input type="radio" name="terms">
 			{{ Lang::get('creditcards.accept') }} 
 			<a href="#" data-toggle="modal" data-target="#terms">
 				{{ Lang::get('creditcards.terms') }}
 			</a>
 		</div>
 		<div class="row">
-			<input type="radio" name="politicas" id="1" value="master">
+			<input type="radio" name="privacy">
 			{{ Lang::get('creditcards.accept') }} 
 			<a href="#" data-toggle="modal" data-target="#privacy">
 				{{ Lang::get('creditcards.privacy') }}

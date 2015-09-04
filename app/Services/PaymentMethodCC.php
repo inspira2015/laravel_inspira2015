@@ -14,7 +14,9 @@ class PaymentMethodCC
 			'birthdate.required' => 'The birthdate field is required.',
 			'birthdate.regex' => 'The expiration date format must be YYYY/MM/DD.',
 			'name_on_card.required' => 'The name on card field is required.',
-			'zip_code.required' => 'The zip code field is required.'
+			'zip_code.required' => 'The zip code field is required.',
+			'terms.required' => 'You must accept Terms and Conditions to continue.',
+			'privacy.required' => 'You must accept privacy policy to continue.'
 		],
 		'es' => [
 			'cnumber.required' => 'El número de tarjeta es requerido.',
@@ -29,7 +31,9 @@ class PaymentMethodCC
 			'birthdate.regex' => 'La fecha de nacimiento debe de tener un formato AAAA/MM/DD.',
 			'address.required' => 'La dirección es requerida.',
 			'city.required' => 'La ciudad es requerida.',
-			'zip_code.required' => 'El código postal es requerido.'
+			'zip_code.required' => 'El código postal es requerido.',
+			'terms.required' => 'Debes aceptar los términos para continuar.',
+			'privacy.required' => 'Debes aceptar las políticas de privacidad para continuar.'
 		]
 	];
 
@@ -44,6 +48,8 @@ class PaymentMethodCC
 			'city' => 'required',
 			'zip_code' => 'required',
 			'state' => 'required',
+			'terms' => 'required',
+			'privacy' => 'required'
 
 		],  $this->messages[$lang]);
 	}
