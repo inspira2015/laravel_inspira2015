@@ -18,7 +18,7 @@
 					<a href="{{ url('auth/logout') }} " style="color:#818c95;">Logout <i class="glyphicon glyphicon-log-out"></i></a>
 					<br><br>
 				</div>
-				@if( $accountSetup->checkValidAccount() !==FALSE )
+				@if( $accountSetup->checkValidAccount() !==FALSE && $user->details->leisure_id !== null )
 				<div class="row">
 					<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={{ $user->details->leisure_id }}" class="btn-blue btn-small">{{ Lang::get('userdata.go-reservations') }}</a>
 				</div>
@@ -33,20 +33,6 @@
 		<div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2">
 			<div class="row">
 				@include('errors.messages', array('success' => true ))
-			</div>
-			<div class="row">
-				@if(empty( $accountSetup->checkCreditCard() ))
-				<div class="alert alert-info" role="alert">
-					<div class="row">
-						<div class="col-md-8">
-							{{ Lang::get('userdata.activation-msg') }}
-						</div>
-						<div class="col-md-4">
-							<a href="{{ url('payment/creditcardinfo') }}" class="btn-small btn-pink-clear">{{ Lang::get('layout.continue') }}</a>
-						</div>
-					</div>
-				</div>
-				@endif
 			</div>
 		</div>
 	
@@ -197,7 +183,7 @@
 			</div>
 		</div>
 		
-		@if( $accountSetup->checkValidAccount() !==FALSE )
+		@if( $accountSetup->checkValidAccount() !==FALSE && $user->details->leisure_id !== null )
 		<div class="row">
 			<div class="divider"></div><br>
 		</div>

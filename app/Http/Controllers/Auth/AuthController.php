@@ -162,11 +162,22 @@ class AuthController extends Controller implements AuthenticateUserListener {
 		$credentials = ['email' => $email, 'password' => $password];
         if ($this->auth->attempt( $credentials )) {
 	        UserSession::put( 'confirmation_code', $this->auth->user()->confirmation_code );
-			return Redirect::to('useraccount');
+	        
+			$this->checkAccountSetup->setUsersID( $this->auth->user()->id );
+            $userpayment = $this->checkAccountSetup->checkCreditCard();
+
+            if( empty( $userpayment ) )
+            {
+                return Redirect::to('payment');
+            }else
+            {
+			    return redirect()->intended($this->redirectUserAccountPath());	            
+            }
+			
 		}else {
 			return redirect('/auth/login')
                 ->withInput( [ 'email' => $email ])
-                ->withErrors([ 'email' => 'Estas credenciales no coinciden con nuestros registros.' ]);
+                ->withErrors([ 'message' => 'Estas credenciales no coinciden con nuestros registros.' ]);
        	}
         
 	}

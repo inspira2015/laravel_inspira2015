@@ -174,6 +174,7 @@ class VacationfundsController extends Controller
 		$this->updateVacationalFund->setCurrentVacationalFund( $userCurrentVacationalFund );
 		$this->updateVacationalFund->changeVacationalFund();
 		Session::forget('currentVacationalFund');
+		
 		return Redirect::to('/useraccount');
 
 
