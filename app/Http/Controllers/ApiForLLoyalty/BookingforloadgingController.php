@@ -9,10 +9,9 @@ use App\Model\ApiSearchLoadging;
 use App\Libraries\ApiTraits\CleanLoadgingArray;
 
 
-class SearchforloadgingController extends Controller 
+class BookingforloadgingController extends Controller 
 {
 	use CleanLoadgingArray;
-
 	
 	public function __construct()
 	{
@@ -22,7 +21,7 @@ class SearchforloadgingController extends Controller
 	
 	public function index()
 	{
-		$searches = ApiSearchLoadging::all();
+		$searches = ApiSearchLoadging::where('data_type','BOOKING')->get();
 
 		return 	Response::json([
 				'data' => $searches->toArray()
@@ -47,8 +46,11 @@ class SearchforloadgingController extends Controller
 				],404);
 		}
 
+
 		foreach($searches as $search)
 		{
+
+
 			if( !isset($search['leisure_id']) || empty($search['leisure_id']) )
 			{
 				$flag_partial = 1;
@@ -63,11 +65,10 @@ class SearchforloadgingController extends Controller
 			}
 
 			$search = $this->exchangeArray( $search );
-
-			ApiSearchLoadging::create(array(
+			$newBooking = array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
-								'data_type' => 'SEARCH',
+								'data_type' => 'BOOKING',
 								'type' => $search['type'],
 								'destiny' => $search['destiny'],
 								'start_date' => $search['start_date'],
@@ -77,7 +78,10 @@ class SearchforloadgingController extends Controller
 								'stars' => $search['stars'],
 								'hotel_name' => $search['hotel_name'],
 								'key_words' => $search['key_words'],
-				));
+				);
+			ApiSearchLoadging::create($newBooking);
+
+
 		}
 
 		if($flag_partial == 1)
@@ -97,6 +101,9 @@ class SearchforloadgingController extends Controller
 				],201);
 		
 	}
+
+
+
 
 
 }

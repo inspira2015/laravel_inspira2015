@@ -8,11 +8,13 @@ use Session;
 use Auth;
 use App\Model\ApiSearchFlight;
 use App\Model\User;
+use App\Libraries\ApiTraits\CleanFlightArray;
 
 
 class SearchforflightsController extends Controller 
 {
-	
+	use CleanFlightArray;
+
 	
 	public function __construct()
 	{
@@ -63,10 +65,12 @@ class SearchforflightsController extends Controller
 				continue;
 			}
 
+			$search = $this->exchangeArray( $search );
 
 			ApiSearchFlight::create(array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
+								'data_type' => 'BOOKING',
 								'from' => $search['from'],
 								'where' => $search['where'],
 								'type' => $search['type'],

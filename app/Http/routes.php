@@ -18,8 +18,7 @@ Route::controllers([
 ]);
 
 Route::group(['middleware' => 'auth.very_basic'], function() {
-	Route::get('api/v1/loadging/', 'ApiForLLoyalty\SearchforloadgingController@index');
-	Route::post('api/v1/loadging/create', 'ApiForLLoyalty\SearchforloadgingController@create');
+	
 
 	Route::get('api/v1/flights/', 'ApiForLLoyalty\SearchforflightsController@index');
 	Route::post('api/v1/flights/create', 'ApiForLLoyalty\SearchforflightsController@create');
@@ -37,6 +36,17 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 	Route::post('api/v1/tours/create', 'ApiForLLoyalty\SearchforatourController@create');
 
 });
+
+	Route::get('api/v1/booking/loadging', 'ApiForLLoyalty\BookingforloadgingController@index');
+	Route::post('api/v1/booking/loadging/create', 'ApiForLLoyalty\BookingforloadgingController@create');
+
+	Route::get('api/v1/loadging/', 'ApiForLLoyalty\SearchforloadgingController@index');
+	Route::post('api/v1/loadging/create', 'ApiForLLoyalty\SearchforloadgingController@create');
+
+
+	Route::get('api/v1/booking/flights', 'ApiForLLoyalty\BookingforflightsController@index');
+	Route::post('api/v1/booking/flights/create', 'ApiForLLoyalty\BookingforflightsController@create');
+
 
 	Route::put('api/v1/affiliation/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@getUseraffiliation');
 	Route::put('api/v1/affiliation/payment/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@putUseraffpayment');

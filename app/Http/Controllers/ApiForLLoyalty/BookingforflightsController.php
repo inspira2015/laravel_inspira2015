@@ -4,15 +4,16 @@ use App\Http\Controllers\Controller;
 use Request;
 use Redirect;
 use Response;
+use Session;
+use Auth;
+use App\Model\ApiSearchFlight;
 use App\Model\User;
-use App\Model\ApiSearchLoadging;
-use App\Libraries\ApiTraits\CleanLoadgingArray;
+use App\Libraries\ApiTraits\CleanFlightArray;
 
 
-class SearchforloadgingController extends Controller 
+class BookingforflightsController extends Controller 
 {
-	use CleanLoadgingArray;
-
+	use CleanFlightArray;
 	
 	public function __construct()
 	{
@@ -22,7 +23,7 @@ class SearchforloadgingController extends Controller
 	
 	public function index()
 	{
-		$searches = ApiSearchLoadging::all();
+		$searches = ApiSearchFlight::where('data_type','BOOKING')->get();
 
 		return 	Response::json([
 				'data' => $searches->toArray()
@@ -47,6 +48,7 @@ class SearchforloadgingController extends Controller
 				],404);
 		}
 
+
 		foreach($searches as $search)
 		{
 			if( !isset($search['leisure_id']) || empty($search['leisure_id']) )
@@ -54,7 +56,7 @@ class SearchforloadgingController extends Controller
 				$flag_partial = 1;
 				continue;
 			}
-			$inspiraUser = User::where('leisure_id', $search['leisure_id'])->first();
+			$inspiraUser = User::where('leisure_id', $searches[0]['leisure_id'])->first();
 
 			if ( empty( $inspiraUser ) )
 			{
@@ -64,23 +66,24 @@ class SearchforloadgingController extends Controller
 
 			$search = $this->exchangeArray( $search );
 
-			ApiSearchLoadging::create(array(
+			ApiSearchFlight::create(array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
-								'data_type' => 'SEARCH',
+								'data_type' => 'BOOKING',
+								'from' => $search['from'],
+								'where' => $search['where'],
 								'type' => $search['type'],
-								'destiny' => $search['destiny'],
 								'start_date' => $search['start_date'],
 								'end_date' => $search['end_date'],
 								'adult_number' => $search['adult_number'],
 								'child_number' => $search['child_number'],
-								'stars' => $search['stars'],
-								'hotel_name' => $search['hotel_name'],
+								'air_line' => $search['air_line'],
+								'airfare' => $search['airfare'],
 								'key_words' => $search['key_words'],
 				));
 		}
 
-		if($flag_partial == 1)
+		if($flag_partial == 1 || $flag_notauser == TRUE )
 		{
 			return Response::json([
 					'response'=> [
