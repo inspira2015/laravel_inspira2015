@@ -3,7 +3,7 @@
 @section('content')
     <div class="row bg-gray">
 	    <div class="col-xs-12 bg-light-gray">
-			<h2>{{ Lang::get('subtotal.title') }}</h2>
+			<h2>{{ Lang::get('subtotal.subtitle') }}</h2>
 			<h3>{{ Lang::get('subtotal.type') }}</h3>
 			
 			<div class="col-md-8 col-md-offset-2">

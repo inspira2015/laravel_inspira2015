@@ -1,6 +1,7 @@
 <?php
 return [
-	"title" => "ACCOUNT SUMMARY",
+	"title" => "Summary",
+	"subtitle" => "ACCOUNT SUMMARY",
 	"type" => "FIRST MONTH FREE",
 	"affiliation-monthly-fee" => "Affiliation Monthly Fee",
 	"vacational-fund-fee" => "Vacational Fund Monthly Fee",

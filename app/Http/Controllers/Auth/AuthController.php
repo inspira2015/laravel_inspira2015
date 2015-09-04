@@ -160,6 +160,9 @@ class AuthController extends Controller implements AuthenticateUserListener {
 	public function getAutologin(Request $request,  $email , $encryptedPassword) {
 		$password = Crypt::decrypt($encryptedPassword);
 		$credentials = ['email' => $email, 'password' => $password];
+		
+		UserSession::put(array('email' => $email , 'password' => $encryptedPassword));
+		
         if ($this->auth->attempt( $credentials )) {  
 			$this->setLanguage();
 			return redirect('useraccount');

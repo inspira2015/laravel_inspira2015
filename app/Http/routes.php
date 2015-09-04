@@ -88,6 +88,7 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 
 Route::get('/', 'UseraccountController@index');
+
 Route::get('/home', 'UseraccountController@index');
 
 //Route::get('/', 'WelcomeController@index');

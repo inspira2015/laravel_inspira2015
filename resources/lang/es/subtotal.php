@@ -1,6 +1,7 @@
 <?php
 return [
-	"title" => "Res&uacute;men de Cuenta",
+	"title" => "Res&uacute;men",
+	"subtitle" => "Res&uacute;men de Cuenta",
 	"type" => "PRIMER MES GRATUITO",
 	"affiliation-monthly-fee" => "Pago mensual Afiliación",
 	"vacational-fund-fee" => "Pago Mensual Fondo vacacional",

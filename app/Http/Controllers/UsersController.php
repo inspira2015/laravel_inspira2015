@@ -5,6 +5,8 @@ use Config;
 use Lang;
 use Request;
 use Redirect;
+use Crypt;
+
 use App\Services\UserRegistration as UserRegistration;
 use App\Model\Dao\UserDao;
 use App\Model\Dao\UserRegisteredPhoneDao as UserRegisteredPhone;
@@ -190,7 +192,7 @@ class UsersController extends Controller {
 		$this->userDao->save();
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 		$data = array('full_name'=> $full_name);
-		
+		$this->userDao->password = Crypt::decrypt(Session::get('password'));
 		$sent =Mail::send('emails.user_welcome', array('user' => $this->userDao ), function($message) {	
 				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;		
 		    	$message->to( $this->userDao->email, $full_name )->to( 'hp_tanya@hotmail.com' , $full_name)->subject( Lang::get('emails.welcome-to')." InspiraMexico, {$full_name}!" );

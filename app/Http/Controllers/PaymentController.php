@@ -289,7 +289,7 @@ exit;*/
 		$this->generatePaymentesDate->setDate( \date('Y-m-d') );
 
 
-		$data = array(	'title' =>'Resumen',
+		$data = array(	'title' => Lang::get('subtotal.title') ,
 						'background' =>'2.jpg',
 						'affiliation_cost' => $userAffiliation->amount,
 						'affiliation_currency' => $userAffiliation->currency,
