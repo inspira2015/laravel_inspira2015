@@ -54,7 +54,7 @@ class UsersController extends Controller {
 								CodesUsedEntity $codesUsed,
 								CodeDao $codeDao)
 	{
-		$this->middleware('guest');
+		$this->middleware('guest', ['except' => 'activation'] );
 		$this->userDao = $userDao;
 		$this->userPhone = $userphone;
 		$this->codesUsed = $codesUsed;
@@ -190,6 +190,12 @@ class UsersController extends Controller {
 		$this->userDao->save();
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 		$data = array('full_name'=> $full_name);
+		
+		$sent =Mail::send('emails.user_welcome', array('user' => $this->userDao ), function($message) {	
+				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;		
+		    	$message->to( $this->userDao->email, $full_name )->to( 'hp_tanya@hotmail.com' , $full_name)->subject( Lang::get('emails.welcome-to')." InspiraMexico, {$full_name}!" );
+		});
+		
 		return view('users.accountactivation',$data)->with('title', Lang::get('activation.title') )->with('background','2.jpg');
 	}
 

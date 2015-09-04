@@ -10,6 +10,7 @@ use Lang;
 use GeoIP;
 use Session;
 use Response;
+use Redirect;
 
 use App\Model\User;
 use App\Model\Dao\UserDao;
@@ -89,22 +90,29 @@ class UseraccountController extends Controller {
 	public function index()
 	{
 		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
-		$errors = '';
-		if(Session::has('confirmation_code')){
-			$errors = array ('message' => $this->activation( Session::get('confirmation_code') ) );
-			Session::forget('confirmation_code');
+		$errors = '';		
+
+		$data = $this->getData();
+		
+		
+		if($this->userAuth->confirmation_code){
+			return Redirect::to('users/activation/'.$this->userAuth->confirmation_code);
 		}
 		
 		$this->accountSetup->setUsersID( $this->userAuth->id );
-
+		$valid = $this->accountSetup->checkValidAccount();
+		
+		if(! $this->accountSetup->checkValidAccount() ){
+			return Redirect::to('payment');
+		}
+		
 		return view('useraccount.userdata')
 			->with( 'title' ,  Lang::get('userdata.title') )
 			->with( 'background' , '1.png')
 			->with( 'user' , $this->details() )
-			->with( 'accountSetup' , $this->accountSetup )
 			->with( 'location', GeoIP::getLocation() )
 			->withErrors( $errors )
-			->with( $this->getData() );
+			->with( $data );
 	}
 	
 	private function getData(){
@@ -140,6 +148,7 @@ class UseraccountController extends Controller {
 			'inspiraPointsBalance' => $pointBalance,
 			'affiliation' => $affiliation,
 			'userAffiliation' => $userAffiliation,
+			'accountSetup' => $this->accountSetup, 
 			'next_payment_date' => $paymentDate->getNextPaymentDateHumanRead()
 		);
 
@@ -306,29 +315,5 @@ class UseraccountController extends Controller {
 		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
 		return $user;
 	}
-	
-		/**
-	 * Activates the user account with the email Url
-	 *
-	 * @return Response
-	 */
-	public function activation($code = FALSE)
-	{		
-		$user = $this->userDao->getUserByEmailCode( $code );
-
-		if( empty( $user->all() ) )
-		{
-			return "This account has already been confirmed";
-		}else{
-			$this->userDao->load( $user->first()->id );
-			$this->userDao->confirmed =1;
-			$this->userDao->confirmation_code ='';
-			$this->userDao->save();
-			return "Congratulations your account has been confirmed.";
-		}
-	}
-	
-	
-	
 }
 
