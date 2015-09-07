@@ -30,7 +30,7 @@
 	-o-background-size: cover;
 	background-size: cover;
 	">
-
+	@include('layouts.__common.facebook')
 	@include('layouts.__common.header')
 
 	<div id="wrapper">

@@ -5,8 +5,7 @@
 			&nbsp; {{ Lang::get('layout.copyright') }}
 		</div>
 		<div class="hidden-xs hidden-sm col-md-2">
-			<a href="{{ url('terms') }}"  onclick="window.open(this.href, 'mywin',
-			'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">
+			<a href="#"  data-toggle="modal" data-target="#privacy" >
 			{{ Lang::get('layout.privacy-policy') }} 
 			</a>
 		</div>
@@ -18,7 +17,7 @@
 		<div class="hidden-xs hidden-sm col-md-2" id="fb">
 			<p> {{ Lang::get('layout.follow-us') }}:</p>
 			<p>
-				{!! HTML::image('images/logofacebook.png', 'facebook logo') !!}
+				<a href="https://www.facebook.com/inspiramexico.mx" target="_blank">{!! HTML::image('images/logofacebook.png', 'facebook logo') !!}</a>
 			</p>
 		</div>
 	</div>
