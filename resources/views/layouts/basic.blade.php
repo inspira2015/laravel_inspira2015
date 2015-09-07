@@ -30,7 +30,6 @@
 	-o-background-size: cover;
 	background-size: cover;
 	">
-	@include('layouts.__common.facebook')
 	@include('layouts.__common.header')
 
 	<div id="wrapper">
@@ -43,6 +42,7 @@
 	@include('layouts.__common.privacy')
 	@include('layouts.__common.terms')
 	
+	
 	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
 	{!! HTML::script('js/minify/jquery.creditCardValidator.min.js') !!}
 	{!! HTML::script('js/jquery.maskedinput.min.js') !!}
@@ -53,6 +53,8 @@
 	@if(!$app->environment('local'))
 		@include('layouts.__common.tawk')
 		@include('layouts.__common.analytics')
+		
 	@endif
+	@include('layouts.__common.facebook')
 </body>
 </html>
