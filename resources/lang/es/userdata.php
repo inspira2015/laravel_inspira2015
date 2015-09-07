@@ -27,6 +27,7 @@ return [
 	"total-saved" => "Ahorros totales",
 	"promotions" => "Promociones del mes",
 	"change" => "Cambiar",
+	"cancel" => "Cancelar",
 	"save" => "Guardar",
 	"go-reservations" => "Ir a secci&oacute;n de reservaciones",
 	"additional-bonus" => "Abono Adicional",
@@ -41,5 +42,8 @@ return [
 	"activation-msg" => "Para terminar su perfil, favor de dar clic en continuar para llenar la información de su tarjeta crédito.",
 	"error" => [
 		"transaction" => "Hubo un error al procesar"
-	]
+	],
+	"affect-vacationfund" => "El cambio de moneda afectara las cantidades de su fondo vacacional",
+	"changes-to" => "Cambia a",
+	"current" => "Actual"
 ];

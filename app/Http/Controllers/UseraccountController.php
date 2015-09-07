@@ -21,6 +21,7 @@ use App\Model\Dao\UserRegisteredPhoneDao;
 
 use App\Model\Entity\UserAffiliation;
 use App\Model\Entity\UserVacFundLog;
+use App\Model\Entity\UserVacationalFunds;
 use App\Model\Entity\UsersPointsEntity;
 
 use App\Services\UserPassword;
@@ -32,6 +33,8 @@ use App\Libraries\GeneratePaymentsDates;
 use App\Libraries\CashPayment;
 use App\Libraries\SystemTransactions\CreateCashReceipt;
 
+use App\Libraries\ExchangeRate\ExchangeMXNUSD;
+use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
 
 class UseraccountController extends Controller {
 	
@@ -43,6 +46,8 @@ class UseraccountController extends Controller {
 	private $userAuth;
 	private $sysTransaction;
 	private $userPointsDao;
+	private $convertHelper;
+	private $exchange;
 
 	
 	/*
@@ -68,7 +73,8 @@ class UseraccountController extends Controller {
 								 UserRegisteredPhoneDao $phoneDao,
 								 CompleteAccountSetup $accountSetup,
 								 CreateCashReceipt $sysCashReceipt,
-								 UsersPointsEntity $userPoints)
+								 UsersPointsEntity $userPoints,
+								 ExchangeMXNUSD $exchange)
 	{
 		$this->middleware('auth');
 		$this->userDao = $userDao;
@@ -79,6 +85,10 @@ class UseraccountController extends Controller {
 		$this->userAuth = Auth::user();
 		$this->sysTransaction = $sysCashReceipt;
 		$this->userPointsDao = $userPoints;
+		$this->exchange = $exchange;
+		$this->convertHelper = new ConvertCurrencyHelper();
+		$this->convertHelper->setCurrencyShow( $this->userAuth['currency'] );
+		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
 		$this->setLanguage();
 	}
 	
@@ -120,13 +130,15 @@ class UseraccountController extends Controller {
 		$vacationalFundLog = new UserVacFundLog();
 		$userAff = new UserAffiliation();
 		$affiliationsDao = new AffiliationsDao();
+		$vacationalFund = new UserVacationalFunds();
+		$vacFundTotal = $vacationalFund->getLatestByUserId($this->userAuth->id);
+		$vacFundTotal = isset($vacFundTotal->balance) ? $vacFundTotal->balance : 0;
 		
 		$this->accountSetup->setUsersID( $this->userAuth->id );
 		$this->accountSetup->checkValidAccount();
 		
 		$userAffiliation = $userAff->getCurrentUserAffiliationByUserId( $this->userAuth->id );
 		$userVacationalFundLog = $vacationalFundLog->getCurrentUserVacFundLogByUserId( $this->userAuth->id );
-		//$userVacationalFundLog = $queryUserVac[0];
 		
 		$affiliation = $affiliationsDao->getById( $userAffiliation->affiliations_id );
 		$paymentDate->setDate( \date('Y-m-d') );
@@ -138,20 +150,22 @@ class UseraccountController extends Controller {
 			$pointBalance = (int)$userPoints->balance;
 
 		}
-
 		$data = array(
 			'affiliation_cost' => $userAffiliation->amount,
 			'affiliation_currency' => $userAffiliation->currency,
+			'vacational_fund_total' => $vacFundTotal,
 			'vacational_fund_amount' => $userVacationalFundLog->amount,
 			'vacational_fund_currency' => $userVacationalFundLog->currency,
+			'currency_change_to' => $userVacationalFundLog->currency != 'MXN' ? 'MXN' : 'USD',
 			'vacational_fund' => $userVacationalFundLog,
 			'inspiraPointsBalance' => $pointBalance,
 			'affiliation' => $affiliation,
 			'userAffiliation' => $userAffiliation,
 			'accountSetup' => $this->accountSetup, 
-			'next_payment_date' => $paymentDate->getNextPaymentDateHumanRead()
+			'next_payment_date' => $paymentDate->getNextPaymentDateHumanRead(),
+			'convertHelper' => $this->convertHelper,
 		);
-
+		
 		return $data;
 	}
 

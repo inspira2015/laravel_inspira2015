@@ -27,6 +27,7 @@ return [
 	"total-saved" => "Total Saved",
 	"promotions" => "This month's promotions",
 	"change" => "Change",
+	"cancel" => "Cancel",
 	"save" => "Save",
 	"go-reservations" => "Go to reservations section",
 	"additional-bonus" => "Additional Bonus",
@@ -41,5 +42,8 @@ return [
 	"activation-msg" => "To finish your profile Please continue to fill your credit card information.",
 	"error" => [
 		"transaction" => "There was an error while processing"
-	]
+	],
+	"affect-vacationfund" => "Change of currency will affect the amounts on your vacation fund",
+	"changes-to" => "Changes to",
+	"current" => "Current"
 ];

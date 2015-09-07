@@ -60,7 +60,7 @@
 					<div class="row form-data" data-role="response">
 						<br><br>
 						<div class="col-xs-6">
-							<strong>{{ Lang::get('userdata.language') }}</strong>: &nbsp; {{ Str::upper($user->details->language) }}
+							<strong>{{ Lang::get('userdata.language') }}</strong>: &nbsp;{{ Str::upper($user->details->language) }}
 						</div>
 						<div class="col-xs-4 col-xs-push-2 text-center">
 							<a data-role="change" data-route="api/user/change-language" class="btn-blue btn-small">
@@ -70,11 +70,10 @@
 					</div>
 					<div class="row form-data" data-role="response">
 						<div class="col-xs-6">
-<!-- 							Cambiar esta parte con el currency y funcion que debe de ir -->
-							<strong>{{ Lang::get('userdata.currency') }}</strong>: {{ $user->details->currency }}						
+							<strong>{{ Lang::get('userdata.currency') }}</strong>: &nbsp;{{ $user->details->currency }}						
 						</div>
 						<div class="col-xs-4 col-xs-push-2 text-center">
-							<div data-role="change" data-route="useraccount/edit-contact" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</div>
+							<a href="#"  data-toggle="modal" data-target="#currency" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>
 				</div>
@@ -132,10 +131,10 @@
 						@endif
 						<div class="col-xs-12  form-data">
 							<div class="row">
-								<strong>{{ Lang::get('subtotal.total-fund') }}:</strong> $ {{ round(0.00) }} MXN
+								<strong>{{ Lang::get('subtotal.total-fund') }}:</strong> $ {{ number_format($vacational_fund_total, 2, '.', '') }} {{ $vacational_fund_currency }}
 							</div>
 							<div class="row">
-								<strong>{{ Lang::get('subtotal.vacational-fund-fee') }}:</strong> $ {{ number_format($vacational_fund_amount, 2, '.', '') . ' ' . $vacational_fund_currency }} <br><br>
+								<strong>{{ Lang::get('subtotal.vacational-fund-fee') }}:</strong> $ {{ number_format($vacational_fund_amount, 2, '.', '') }} {{ $vacational_fund_currency }} <br><br>
 							</div>
 							<div class="row">
 								<strong>{{ Lang::get('subtotal.next-payment-date') }}: </strong>{{ $next_payment_date }}
@@ -195,4 +194,6 @@
 		@endif
 	</div>
 </div>
+@include('useraccount.currency_modal')
+
 @stop
