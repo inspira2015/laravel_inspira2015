@@ -183,7 +183,7 @@ class UseraccountController extends Controller {
 		$userDetails = new UserDetails();
 		$validator = $userDetails->validator($data, $this->userAuth->language);
 		if( $validator->passes() ){
-			$this->phoneDao->exchangeArray(  array ( 'users_id' => $this->userAuth->id , 'type' => 'cell', 'number' => $data['cell'] ) );
+			$this->phoneDao->exchangeArray(  array ( 'users_id' => $this->userAuth->id , 'type' => 'cellphone', 'number' => $data['cellphone'] ) );
 			$this->phoneDao->save();
 			$this->phoneDao->exchangeArray(  array ( 'users_id' => $this->userAuth->id , 'type' => 'phone', 'number' => $data['phone'] ) );
 			$this->phoneDao->save();

@@ -3,7 +3,7 @@
 	<div class="form-group">
 		<label for="cell">{{ Lang::get('userdata.cell') }}:</label>
 		<div class="input-group">
-			{!! Form::text( 'cell',  $user->phones->cell['number'] , array('class' => 'form-control') ) !!}
+			{!! Form::text( 'cellphone',  $user->phones->cell['number'] , array('class' => 'form-control') ) !!}
 		</div>
 	</div>
 	
