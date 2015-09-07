@@ -49,8 +49,8 @@ class UpdateVacationalFund extends CheckAndSaveUserInfo
 	{
 	
         $userCurrentVacationalFund = $this->vacDao->getById( $this->currentVacFundId );
-
-        if( ( $userCurrentVacationalFund->amount == $this->storeData['VacationFund']['amount'] )  && 
+		$amount = isset($this->storeData['VacationFund']['amount']) ? $this->storeData['VacationFund']['amount'] : '0'; 
+        if( ( $userCurrentVacationalFund->amount == $amount )  && 
         	  $userCurrentVacationalFund->currency == $this->storeData['VacationFund']['currency'] )
         {
         	return FALSE;
