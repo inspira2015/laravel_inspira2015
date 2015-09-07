@@ -38,7 +38,7 @@
 	<div class="form-group">
 		<label for="country">{{ Lang::get('userdata.country') }}:</label>
 		<div class="input-group">
-			{!! Form::select('country', $countries, $user->details->country_code, array('class' => 'select-country form-control', 'data-change' => 'select-state')) !!}
+			{!! Form::select('country', $countries, $user->details->country_code, array('class' => 'select-country form-control', 'data-change' => 'select-state', 'data-route' => url('api/states'))) !!}
 		</div>
 	</div>
 	<div class="form-group">

@@ -72,12 +72,13 @@ $(document).ready(function(){
 				var _this = $(this);
 				var _value = _this.val();
 				var _placeholder = _this.data('placeholder');
+				var _route = _this.data('route') ? _this.data('route') : 'api/states';
 				var _html =  $('<input>').attr({ 'type' : 'text', 'name' : 'state', 'class' : 'form-control'});
 
 				var _select_state = _this.data('change');
 				
 				if( _countries.indexOf(_value) > -1 ){
-					$.ajax({url: 'api/states', data: { country: _value }, type: 'POST'}).done(function(_response){
+					$.ajax({url: _route, data: { country: _value }, type: 'POST'}).done(function(_response){
 						var _states = _response.data;
 						var _option = '';
 						$.each(_states, function( index, value ){
