@@ -18,6 +18,7 @@ return [
 	"inspira-points" => "INSPIRA POINTS",
 	"points" => "points",
 	"affiliation-type" => "TYPE OF AFFILIATION",
+	"change-affiliation" => "When changing your Affiliation plan, your monthly billing on your current credit card will change.",
 	"expiration-date" => "Expiration Date",
 	"discover" => "Discover", 
 	"platinum" => "Platinum",

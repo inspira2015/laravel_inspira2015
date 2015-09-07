@@ -20,34 +20,21 @@ class UsersController extends Controller
 	
 	public function __construct(Guard $auth , UserDao $userDao )
 	{
-//$this->middleware('guest');
-		
+		$this->middleware('auth', ['except' => 'exists']);		
 		$this->userDao = $userDao;
 		$this->auth = $auth;
 	}
 	
 	public function details()
 	{
-		$this->middleware('auth');
-
 		return Response::json(array(
 			'error' => false,
 			'data' => $this->auth->user()
 		), 200);
 	}
 	
-	public function test()
-	{
-		return Response::json(array(
-			'error' => false,
-			'message' => 'Success api!'
-		), 200);
-	}
-	
 	public function changeLanguage()
 	{
-		$this->middleware('auth');
-
 		$this->userDao->load( $this->auth->user()->id );
 		$this->userDao->language = $this->auth->user()->language == 'es' ? 'en' : 'es';
 		$this->userDao->save();
@@ -59,9 +46,23 @@ class UsersController extends Controller
 		
 	}
 	
+	public function changeCurrency(){
+		$this->userDao->load( $this->auth->user()->id );
+		$this->userDao->currency = $this->auth->user()->currency != 'USD' ? 'USD' : 'MXN';
+		$this->userDao->save();
+		
+		
+		//Hacer aqui todo el cambio del vacation fund ;)
+		
+		
+		return Response::json(array(
+			'error' => false,
+			'redirect' => url('useraccount')
+		), 200);
+	}
+	
 	public function exists()
 	{
-		$this->middleware('auth');
 		$email = Input::get('email');
 		
 		$exists = empty($this->userDao->getByEmail( $email )) ? false : true ;	

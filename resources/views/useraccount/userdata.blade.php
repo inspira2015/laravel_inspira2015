@@ -96,7 +96,7 @@
 					<div class="row">
 						<div class="col-xs-10 col-xs-offset-1 col-md-12  col-md-offset-0 upgrade" id="promotion-box">							
 							<div class="promotion">
-								<a href="{{ url('affiliation/update', ['affiliation' => $userAffiliation->id]) }}"> 
+								<a href="#" data-toggle="modal" data-target="#change-affiliation"> 
 									<span>{{ Lang::get('userdata.upgrade') }}</span><br>
 									{{ Lang::get('userdata.additional-savings') }}
 								</a>
@@ -195,5 +195,6 @@
 	</div>
 </div>
 @include('useraccount.currency_modal')
+@include('useraccount.affiliation_modal')
 
 @stop

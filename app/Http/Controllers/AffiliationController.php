@@ -140,7 +140,6 @@ class AffiliationController extends Controller
 		$this->updateUserAffiliation->changeAffilition();
 		Session::forget('currentAffiliation');
 		return Redirect::to('useraccount');
-
 	}
 
 

@@ -42,7 +42,6 @@ $(document).ready(function(){
 
 				var _data = {};
 				
-				
 				if(typeof _route == 'undefined'){
 					_form.submit();
 					return;
@@ -51,11 +50,17 @@ $(document).ready(function(){
 				if(typeof _form[0] == 'object'){
 					_data = _form.serialize();
 				}
+				
 				_this.addClass('loading');
 				_this.removeAttr('data-role');
 				$.ajax({url:_route, data: _data, type: 'POST'}).done(function(_ajax_response){
 					if(_ajax_response.redirect){
-						window.location.href = _ajax_response.redirect;
+						if(_ajax_response.message){
+							alert(_ajax_response.message);
+							window.location.href = _ajax_response.redirect;
+						}else{
+							window.location.href = _ajax_response.redirect;	
+						}
 					}else{
 						_response.html(_ajax_response);
 					}

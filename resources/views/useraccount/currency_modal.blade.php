@@ -32,7 +32,7 @@
 						<button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('userdata.cancel') }}</button>
 					</div>
 					<div class="col-md-3 col-md-push-6 nopadding">
-						<div class="btn btn-blue btn-small" data-role="change" data-route="api/user/change-language" >{{ Lang::get('userdata.change') }}</div>
+						<a class="btn btn-blue btn-small" data-role="change" data-route="api/user/change-currency">{{ Lang::get('userdata.change') }}</a>
 					</div>
 				</div>
 			</div>

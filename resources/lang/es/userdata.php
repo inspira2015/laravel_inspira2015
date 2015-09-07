@@ -18,6 +18,7 @@ return [
 	"inspira-points" => "PUNTOS INSPIRA",
 	"points" => "puntos",
 	"affiliation-type" => "TIPO DE AFILIACI&Oacute;n",
+	"change-affiliation" => "Al cambiar de plan de afiliaci&oacute;n, el pago mensual en su tarjeta de cr&eacute;dito cambiar&aacute;.",
 	"expiration-date" => "Fecha de vencimiento", 
 	"discover" => "Descubre", 
 	"platinum" => "Platino",
@@ -43,7 +44,7 @@ return [
 	"error" => [
 		"transaction" => "Hubo un error al procesar"
 	],
-	"affect-vacationfund" => "El cambio de moneda afectara las cantidades de su fondo vacacional",
+	"affect-vacationfund" => "El cambio de moneda afectar&aacute; las cantidades de su fondo vacacional",
 	"changes-to" => "Cambia a",
 	"current" => "Actual"
 ];
