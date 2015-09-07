@@ -170,7 +170,7 @@ $(document).ready(function(){
 				var _amount_input = $('input[name="amount"]');
 				var _disabled = _this.val() == 1 ? false : true;
 				var _value = _disabled == true ? '0.00' : '0.00';
-
+				_amount_input.val(_value);
 				_amount_input.attr( 'placeholder', _value );
 				_amount_input.prop('disabled', _disabled );
 			});
