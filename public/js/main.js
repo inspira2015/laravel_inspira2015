@@ -56,8 +56,13 @@ $(document).ready(function(){
 				$.ajax({url:_route, data: _data, type: 'POST'}).done(function(_ajax_response){
 					if(_ajax_response.redirect){
 						if(_ajax_response.message){
-							alert(_ajax_response.message);
-							window.location.href = _ajax_response.redirect;
+							//Modal 
+							$('#message #text').html(_ajax_response.message);
+							$('#message').modal('show');
+							
+							$('#message').on('hidden.bs.modal', function () {
+								window.location.href = _ajax_response.redirect;
+							})
 						}else{
 							window.location.href = _ajax_response.redirect;	
 						}

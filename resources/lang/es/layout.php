@@ -9,5 +9,6 @@ return [
 	"required-fields" => "Campos obligatorios",
 	"reset-password" => "Restablecer Contrase&ntilde;a",
 	"privacy" => "Pol&iacute;ticas de privacidad",
-	"terms" => "T&eacute;rminos y Condiciones"
+	"terms" => "T&eacute;rminos y Condiciones",
+	"close" => "Cerrar"
 ];

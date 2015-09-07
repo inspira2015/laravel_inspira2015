@@ -8,6 +8,7 @@ use Session;
 use URL;
 use Crypt;
 use Lang;
+use Response;
 use App\Libraries\Affiliations\ParseCurrencyFromPost;
 use App\Libraries\CreateUser\CheckAndSaveUserInfo;
 use App\Services\UserRegistration;
@@ -162,11 +163,15 @@ class VacationfundsController extends Controller
 	{
 		$userAuth = Auth::user();
 		$post_data = Request::all();
-
+		$post_data['amount'] = $post_data['amount'] ? $post_data['amount'] : 0;
+		
 		$userCurrentVacationalFund = Session::get('currentVacationalFund');
 		if( !is_numeric( $userCurrentVacationalFund ) )
 		{
-			return Redirect::to('/useraccount');
+			return Response::json(array(
+				'error' => false,
+				'redirect' => url('useraccount')
+			), 200);
 		}
 
 		$this->updateVacationalFund->setUserId( $userAuth->id );
@@ -174,10 +179,18 @@ class VacationfundsController extends Controller
 		$this->updateVacationalFund->setCurrentVacationalFund( $userCurrentVacationalFund );
 		$this->updateVacationalFund->changeVacationalFund();
 		Session::forget('currentVacationalFund');
-		
-		return Redirect::to('/useraccount');
+		if($post_data['amount']>0){
+			return Response::json(array(
+				'error' => false,
+				'message' => Lang::get('vacationfund.welcome'),
+				'redirect' => url('useraccount')
+			), 200);
 
-
+		}
+		return Response::json(array(
+			'error' => false,
+			'redirect' => url('useraccount')
+		), 200);
 	}
 
 

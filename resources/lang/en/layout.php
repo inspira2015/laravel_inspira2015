@@ -9,5 +9,6 @@ return [
 	"required-fields" => "Required Fields",
 	"reset-password" => "Reset Password",
 	"privacy" => "Privacy Policy", 
-	"terms" => "Terms of Service"
+	"terms" => "Terms of Service",
+	"close" => "Close"
 ];
