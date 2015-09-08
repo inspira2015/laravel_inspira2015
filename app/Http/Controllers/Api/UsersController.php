@@ -82,7 +82,7 @@ class UsersController extends Controller
 			$vacFundLog->currency = $this->userDao->currency;
 			$vacFundLog->save();
 		}
-
+		
 		//Esto es del balance
 		if( $vacFund ) {
 			$this->convertHelper->setCost( $vacFund->balance );

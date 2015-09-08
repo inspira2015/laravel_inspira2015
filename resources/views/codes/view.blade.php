@@ -8,13 +8,13 @@
 	<div class="col-sm-12 col-sm-pull-1 col-sm-offset-1 text-justify" style="font-size:24px;">
 		<div class="row">
 			@if($errors->has())
-			<div class="col-xs-6 col-xs-push-6 col-sm-4 col-sm-push-8 col-md-3 col-md-push-9 nopadding">
+			<div class="col-xs-10 col-xs-push-2 col-sm-4 col-sm-push-8 col-md-3 col-md-push-9 nopadding">
 				<a href="{{ url('users') }}" class="btn-blue-clear btn-medium">
 					{{ Lang::get('code.continue-without-code') }}
 				</a>
 			</div>			
 			@else
-			<div class="col-xs-6 col-xs-push-6 col-sm-4 col-sm-push-8 col-md-2 col-md-push-10 nopadding">
+			<div class="col-xs-5 col-xs-push-7 col-sm-4 col-sm-push-8 col-md-2 col-md-push-10 nopadding">
 				<div class="btn-blue-clear btn-medium" data-role="submit">
 					{{ Lang::get('layout.continue') }}
 				</div>
