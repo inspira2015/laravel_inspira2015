@@ -13,16 +13,27 @@ use App\Model\Dao\UserDao;
 use Illuminate\Contracts\Auth\Guard;
 use App\Model\Entity\UserRegisteredPhone;
 
+
+use App\Libraries\ExchangeRate\ExchangeMXNUSD;
+use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
+
+use App\Model\Entity\UserVacFundLog;
+use App\Model\Entity\UserVacationalFunds;
+
+
 class UsersController extends Controller 
 {
 	private $userDao;
 	protected $auth;
+	private $convertHelper;
+	private $exchange;
 	
-	public function __construct(Guard $auth , UserDao $userDao )
+	public function __construct(Guard $auth , UserDao $userDao, ExchangeMXNUSD $exchange )
 	{
 		$this->middleware('auth', ['except' => 'exists']);		
 		$this->userDao = $userDao;
 		$this->auth = $auth;
+		$this->exchange = $exchange;
 	}
 	
 	public function details()
@@ -47,14 +58,36 @@ class UsersController extends Controller
 	}
 	
 	public function changeCurrency(){
-		$this->userDao->load( $this->auth->user()->id );
-		$this->userDao->currency = $this->auth->user()->currency != 'USD' ? 'USD' : 'MXN';
+		$user = $this->auth->user();
+		$this->userDao->load( $user->id );
+		$this->userDao->currency = $user->currency != 'USD' ? 'USD' : 'MXN';
 		$this->userDao->save();
 		
 		
-		//Hacer aqui todo el cambio del vacation fund ;)
+		//Hacer aqui todo el cambio del vacation fund / Revisar si se hace algo extra.
+		$vacationalFundLog = new UserVacFundLog();
+		$vacFundLog = $vacationalFundLog->getCurrentUserVacFundLogByUserId( $user->id );
+		$userVacationalFund = new UserVacationalFunds();
+		$vacFund = $userVacationalFund->getLatestByUserId( $user->id );
 		
+		$this->convertHelper = new ConvertCurrencyHelper();
+		$this->convertHelper->setCurrencyShow( $this->userDao->currency );
+		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
 		
+		$this->convertHelper->setCost( $vacFundLog->amount );
+		$this->convertHelper->setCurrencyOfCost( $user->currency );
+									
+		$vacFundLog->amount = $this->convertHelper->getConvertAmount();
+		$vacFundLog->currency = $this->userDao->currency;
+		$vacFundLog->save();
+		
+
+		//Esto es del balance
+		$this->convertHelper->setCost( $vacFund->balance );
+		$vacFund->currency = $this->userDao->currency;
+		$vacFund->balance = $this->convertHelper->getConvertAmount();
+		$vacFund->save();
+
 		return Response::json(array(
 			'error' => false,
 			'redirect' => url('useraccount')
