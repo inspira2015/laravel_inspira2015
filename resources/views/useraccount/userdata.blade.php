@@ -93,6 +93,7 @@
 							@endif 
 						</h3>
 					</div>
+					@if($affiliation->id < '3' )
 					<div class="row">
 						<div class="col-xs-10 col-xs-offset-1 col-md-12  col-md-offset-0 upgrade" id="promotion-box">							
 							<div class="promotion">
@@ -104,6 +105,7 @@
 							<div class="arrow"></div>
 						</div>
 					</div>
+					@endif
 					<div class="row" data-role="response">
 						<div class="col-xs-12">
 							{{ Lang::get('userdata.expiration-date') }}:<br>
@@ -118,7 +120,7 @@
 						</h3>
 					</div>
 					<div class="row" data-role="response">
-						@if( $vacational_fund->amount < '1' )
+						@if( $vacational_fund->amount == '0' )
 						<div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0 subscribe" id="promotion-box">		
 							<div class="promotion">
 								<a href="{{ url('vacationfund/update', ['vacationfund' => $vacational_fund->id ]) }}">
