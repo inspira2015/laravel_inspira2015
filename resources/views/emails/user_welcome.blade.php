@@ -23,10 +23,10 @@
 			<div style="display: table-cell;width:40%;vertical-align:top;padding-top:40px;">
 				<div style="padding-top: 20px; padding-bottom:20px; font-size:16px; line-height: 25px;padding-bottom:20px">
 				<div style="font-size: 22px;">{{ Lang::get('emails.welcome.affiliation-info-is') }}</div>
-E-mail: {{ $user->email }}<br>
-{{ Lang::get('emails.password') }}: {{ $user->password }}<br><br>
-{{ Lang::get('emails.welcome.login') }}:<br>
-<a href="http://InspiraMexico.com" style="color:white;text-decoration:none;">http://InspiraMexico.mx</a>
+					E-mail: {{ $user->email }}<br>
+					{{ Lang::get('emails.password') }}: {{ $user->password }}<br><br>
+					{{ Lang::get('emails.welcome.login') }}:<br>
+					<a href="http://InspiraMexico.mx" style="color:white;text-decoration:none;">http://InspiraMexico.mx</a>
 				</div>
 			</div>
 			<div style="display: table-cell;width:30%;text-align:right;">
