@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row bg-gray-transparent">
-{!! Form::open(array('url' => 'codes/check', 'id' => 'profile', 'name'=>'formulario')) !!}
+{!! Form::open(array('url' => 'codes/check')) !!}
 
 	<div class="col-sm-12 col-sm-pull-1 col-sm-offset-1 text-justify" style="font-size:24px;">
 		<div class="row">
