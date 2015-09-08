@@ -105,12 +105,13 @@ $(document).ready(function(){
 		_on_change_email : function(element){
 			element.on('keyup', function(){
 				var _this = $(this);
+				var _route = _this.data('route');
 				var _email = _this.val();
 				var _error =  _this.parent().find('label.error-db');
 		
 				delay(function(){
 		
-					$.get('/api/users/exists', {'email': _email }, function( response ){
+					$.get(_route, {'email': _email }, function( response ){
 						var _result = response.data;
 						if(_result.exists == true ){
 							if(typeof _error[0] != 'object') {

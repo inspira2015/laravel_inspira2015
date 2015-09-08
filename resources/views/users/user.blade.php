@@ -39,7 +39,7 @@
 			<div class="form-group">
 				<label for="email">* E-mail</label>
 				<div class="input-group">
-					{!! Form::email('email', Input::get('email') ? Input::get('email') : @$email, array('class' => 'form-control validate-email','id' => 'email')) !!}
+					{!! Form::email('email', Input::get('email') ? Input::get('email') : @$email, array('class' => 'form-control validate-email','id' => 'email', 'data-route' => url('api/users/exists') )) !!}
 				</div>
 			</div>
 			<div class="form-group">
