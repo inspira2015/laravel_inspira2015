@@ -27,11 +27,18 @@
     </FilesMatch>
      
     # Set up 2 Hour caching on commonly updated files
-    <FilesMatch "\.(xml|txt|html|js|css)$">
-      ExpiresDefault A7200
-      Header append Cache-Control "private, must-revalidate"
-    </FilesMatch>
-     
+#    <FilesMatch "\.(xml|txt|html|js|css)$">
+#      ExpiresDefault A7200
+#      Header append Cache-Control "private, must-revalidate"
+#    </FilesMatch>
+
+
+    # Set up 1 week caching on commonly updated files
+     <FilesMatch "\.(xml|txt|html|js|css)$">
+       ExpiresDefault A604800
+       Header append Cache-Control "private, must-revalidate"
+     </FilesMatch>
+
     # Force no caching for dynamic files
     <FilesMatch "\.(php|cgi|pl|htm)$">
       ExpiresDefault A0
