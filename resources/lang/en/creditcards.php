@@ -21,6 +21,7 @@ return [
 	"terms" => "Terms and Conditions",
 	"privacy" => "Privacy Policies", 
 	"accept" => "I accept", 
+	"message" => "Your card information has been linked.",
 	"ccv-modal" => [
 		"title" => "Finding your credit card CVV Number", 
 		"description" => "CVV is an anti-fraud security feature to help

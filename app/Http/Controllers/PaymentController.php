@@ -417,6 +417,7 @@ exit;*/
 
 			return Response::json(array(
 				'error' => false,
+				'message' => Lang::get('creditcards.message'),
 				'redirect' => url('useraccount')
 			), 200);
         }     

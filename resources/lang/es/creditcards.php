@@ -21,6 +21,7 @@ return [
 	"terms" => "T&eacute;rminos y Condiciones",
 	"privacy" => "Pol&iacute;ticas de Privacidad",
 	"accept" => "Acepto",
+	"message" => "Su Informaci&oacute;n de tarjeta ha sido vinculada.",
 	"ccv-modal" => [
 		"title" => "Encontrar en tarjeta el Número CVV", 
 		"description" => "CVV es una característica de seguridad anti-fraude que ayuda a verificar que estas en posesión de tu tarjeta de crédito. 
