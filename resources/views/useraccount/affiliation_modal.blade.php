@@ -10,10 +10,10 @@
 				</div>
 				<hr>
 				<div class="row">
-					<div class="col-md-3 nopadding text-left">
+					<div class="col-xs-4 col-md-3 nopadding text-left">
 						<button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('userdata.cancel') }}</button>
 					</div>
-					<div class="col-md-3 col-md-push-6 nopadding">
+					<div class="col-xs-4 col-xs-push-4 col-md-3 col-md-push-6 nopadding">
 						<a class="btn btn-blue btn-small" href="{{ url('affiliation/update', ['affiliation' => $userAffiliation->id]) }}">{{ Lang::get('userdata.change') }}</a>
 					</div>
 				</div>
