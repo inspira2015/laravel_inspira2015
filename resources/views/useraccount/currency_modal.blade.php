@@ -23,7 +23,7 @@
 					
 					<strong style="text-transform:uppercase;">{{ Lang::get('subtotal.total-fund') }}:</strong><br>
 					{{ Lang::get('userdata.current') }}: $ {{ number_format($vacational_fund_total, 2, '.', '') }} {{ $vacational_fund_currency }} <br>
-					{{ Lang::get('userdata.changes-to') }}: $ {{ $total_fund }} {{$convertHelper->getCurrencyShow() }}
+					{{ Lang::get('userdata.changes-to') }}: $ {{ number_format($total_fund, 2, '.', '') }} {{$convertHelper->getCurrencyShow() }}
 					</div>
 				</div>
 				<hr>
