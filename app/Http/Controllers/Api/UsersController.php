@@ -74,19 +74,22 @@ class UsersController extends Controller
 		$this->convertHelper->setCurrencyShow( $this->userDao->currency );
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
 		
-		$this->convertHelper->setCost( $vacFundLog->amount );
-		$this->convertHelper->setCurrencyOfCost( $user->currency );
-									
-		$vacFundLog->amount = $this->convertHelper->getConvertAmount();
-		$vacFundLog->currency = $this->userDao->currency;
-		$vacFundLog->save();
-		
+		if( $vacFundLog ){
+			$this->convertHelper->setCost( $vacFundLog->amount );
+			$this->convertHelper->setCurrencyOfCost( $user->currency );
+										
+			$vacFundLog->amount = $this->convertHelper->getConvertAmount();
+			$vacFundLog->currency = $this->userDao->currency;
+			$vacFundLog->save();
+		}
 
 		//Esto es del balance
-		$this->convertHelper->setCost( $vacFund->balance );
-		$vacFund->currency = $this->userDao->currency;
-		$vacFund->balance = $this->convertHelper->getConvertAmount();
-		$vacFund->save();
+		if( $vacFund ) {
+			$this->convertHelper->setCost( $vacFund->balance );
+			$vacFund->currency = $this->userDao->currency;
+			$vacFund->balance = $this->convertHelper->getConvertAmount();
+			$vacFund->save();
+		}
 
 		return Response::json(array(
 			'error' => false,
