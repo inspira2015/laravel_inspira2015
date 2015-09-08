@@ -6,26 +6,27 @@ use Redirect;
 use Response;
 use Session;
 use Auth;
-use App\Model\ApiSearchCruise;
+use App\Model\ApiSearchTour;
 use App\Model\User;
 use App\Model\ApiStorageMaster;
-use App\Libraries\ApiTraits\CleanCruiseArray;
 
 
-class SearchforcruiseController extends Controller 
+class BookingforatourController extends Controller 
 {
-	use CleanCruiseArray;
+	
 	
 	public function __construct()
 	{
+
 
 	}
 	
 	public function index()
 	{
-		$searches = ApiStorageMaster::where('api_type','CRUISE')->where('data_type','SEARCH')
-			->select( 'id','leisure_id','users_id','from','destination', 'cruise_line',
-				'cruise_name','cruise_lenght','start_date','adult_number','child_number','key_words','created_at'  )->get();
+		$searches = ApiStorageMaster::where('api_type','TOUR')->where('data_type','BOOKING')
+			->select( 'id','leisure_id','users_id','destination', 'tour_type',
+				'search_date','booking_amount','booking_date','booking_payment_type',
+				 'key_words','created_at'  )->get();
 
 		return 	Response::json([
 				'data' => $searches->toArray()
@@ -66,21 +67,18 @@ class SearchforcruiseController extends Controller
 				continue;
 			}
 
-			$search = $this->exchangeArray( $search );
 
 			ApiStorageMaster::create(array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
-								'data_type' => 'SEARCH',
-								'api_type' => 'CRUISE',
-								'from' => $search['from'],
-								'destination' => $search['where'],
-								'cruise_line' => $search['cruise_line'],
-								'cruise_name' => $search['cruise_name'],
-								'cruise_lenght' => $search['cruise_lenght'],
-								'start_date' => $search['start_date'],
-								'adult_number' => $search['adult_number'],
-								'child_number' => $search['child_number'],
+								'data_type' => 'BOOKING',
+								'api_type' => 'TOUR',
+								'destination' => $search['destination'],
+								'tour_type' => $search['tour_type'],
+								'search_date' => $search['search_date'],
+								'booking_amount' => $search['booking_amount'],
+								'booking_date' => $search['booking_date'],
+								'booking_payment_type' => $search['booking_payment_type'],
 								'key_words' => $search['key_words'],
 				));
 		}

@@ -4,14 +4,16 @@ use App\Http\Controllers\Controller;
 use Request;
 use Redirect;
 use Response;
+use Session;
+use Auth;
+use App\Model\ApiSearchActivities;
 use App\Model\User;
-use App\Model\ApiSearchLoadging;
-use App\Libraries\ApiTraits\CleanLoadgingArray;
+use App\Model\ApiStorageMaster;
 
 
-class BookingforloadgingController extends Controller 
+class BookingforactivitiesController extends Controller 
 {
-	use CleanLoadgingArray;
+	
 	
 	public function __construct()
 	{
@@ -21,7 +23,11 @@ class BookingforloadgingController extends Controller
 	
 	public function index()
 	{
-		$searches = ApiSearchLoadging::where('data_type','BOOKING')->get();
+		$searches = ApiStorageMaster::where('api_type','ACTIVITIES')->where('data_type','BOOKING')
+			->select( 'id','leisure_id','users_id','from','destination', 'activity_category',
+				'search_date','adult_number','child_number','key_words','booking_amount',
+				'booking_date','booking_payment_type', 'created_at'  )->get();
+
 
 		return 	Response::json([
 				'data' => $searches->toArray()
@@ -49,14 +55,12 @@ class BookingforloadgingController extends Controller
 
 		foreach($searches as $search)
 		{
-
-
 			if( !isset($search['leisure_id']) || empty($search['leisure_id']) )
 			{
 				$flag_partial = 1;
 				continue;
 			}
-			$inspiraUser = User::where('leisure_id', $search['leisure_id'])->first();
+			$inspiraUser = User::where('leisure_id', $searches[0]['leisure_id'])->first();
 
 			if ( empty( $inspiraUser ) )
 			{
@@ -64,27 +68,25 @@ class BookingforloadgingController extends Controller
 				continue;
 			}
 
-			$search = $this->exchangeArray( $search );
-			$newBooking = array(
+
+			ApiStorageMaster::create(array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
 								'data_type' => 'BOOKING',
-								'type' => $search['type'],
-								'destiny' => $search['destiny'],
-								'start_date' => $search['start_date'],
-								'end_date' => $search['end_date'],
+								'api_type' => 'ACTIVITIES',
+								'destination' => $search['destination'],
+								'activity_category' => $search['category'],
 								'adult_number' => $search['adult_number'],
 								'child_number' => $search['child_number'],
-								'stars' => $search['stars'],
-								'hotel_name' => $search['hotel_name'],
+								'search_date' => $search['search_date'],
+								'booking_amount' => $search['booking_amount'],
+								'booking_date' => $search['booking_date'],
+								'booking_payment_type' => $search['booking_payment_type'],
 								'key_words' => $search['key_words'],
-				);
-			ApiSearchLoadging::create($newBooking);
-
-
+				));
 		}
 
-		if($flag_partial == 1)
+		if($flag_partial == 1 || $flag_notauser == TRUE )
 		{
 			return Response::json([
 					'response'=> [
@@ -101,9 +103,6 @@ class BookingforloadgingController extends Controller
 				],201);
 		
 	}
-
-
-
 
 
 }

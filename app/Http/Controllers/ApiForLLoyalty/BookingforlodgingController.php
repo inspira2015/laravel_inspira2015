@@ -4,28 +4,29 @@ use App\Http\Controllers\Controller;
 use Request;
 use Redirect;
 use Response;
-use Session;
-use Auth;
-use App\Model\ApiSearchCruise;
 use App\Model\User;
+use App\Model\ApiSearchLoadging;
+use App\Libraries\ApiTraits\CleanLodgingArray;
 use App\Model\ApiStorageMaster;
-use App\Libraries\ApiTraits\CleanCruiseArray;
 
 
-class SearchforcruiseController extends Controller 
+class BookingforlodgingController extends Controller 
 {
-	use CleanCruiseArray;
+	use CleanLodgingArray;
 	
 	public function __construct()
 	{
+
 
 	}
 	
 	public function index()
 	{
-		$searches = ApiStorageMaster::where('api_type','CRUISE')->where('data_type','SEARCH')
-			->select( 'id','leisure_id','users_id','from','destination', 'cruise_line',
-				'cruise_name','cruise_lenght','start_date','adult_number','child_number','key_words','created_at'  )->get();
+		$searches = ApiStorageMaster::where('api_type','LODGING')->where('data_type','BOOKING')
+			->select( 'id','leisure_id','users_id','lodging_type','destination','start_date','end_date',
+				'adult_number','child_number','lodging_stars','lodging_hotel_name','booking_amount',
+				'booking_date','booking_payment_type','key_words' )->get();
+ 
 
 		return 	Response::json([
 				'data' => $searches->toArray()
@@ -53,12 +54,14 @@ class SearchforcruiseController extends Controller
 
 		foreach($searches as $search)
 		{
+
+
 			if( !isset($search['leisure_id']) || empty($search['leisure_id']) )
 			{
 				$flag_partial = 1;
 				continue;
 			}
-			$inspiraUser = User::where('leisure_id', $searches[0]['leisure_id'])->first();
+			$inspiraUser = User::where('leisure_id', $search['leisure_id'])->first();
 
 			if ( empty( $inspiraUser ) )
 			{
@@ -67,25 +70,28 @@ class SearchforcruiseController extends Controller
 			}
 
 			$search = $this->exchangeArray( $search );
-
 			ApiStorageMaster::create(array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
-								'data_type' => 'SEARCH',
-								'api_type' => 'CRUISE',
-								'from' => $search['from'],
-								'destination' => $search['where'],
-								'cruise_line' => $search['cruise_line'],
-								'cruise_name' => $search['cruise_name'],
-								'cruise_lenght' => $search['cruise_lenght'],
+								'data_type' => 'BOOKING',
+								'api_type' => 'LODGING',
+								'lodging_type' => $search['type'],
+								'destination' => $search['destination'],
 								'start_date' => $search['start_date'],
+								'end_date' => $search['end_date'],
 								'adult_number' => $search['adult_number'],
 								'child_number' => $search['child_number'],
+								'lodging_stars' => $search['stars'],
+								'lodging_hotel_name' => $search['hotel_name'],
+								'booking_amount' => $search['booking_amount'],
+								'booking_date' => $search['booking_date'],
+								'booking_payment_type' => $search['booking_payment_type'],
 								'key_words' => $search['key_words'],
 				));
+
 		}
 
-		if($flag_partial == 1 || $flag_notauser == TRUE )
+		if($flag_partial == 1)
 		{
 			return Response::json([
 					'response'=> [
@@ -102,6 +108,9 @@ class SearchforcruiseController extends Controller
 				],201);
 		
 	}
+
+
+
 
 
 }

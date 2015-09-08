@@ -8,6 +8,7 @@ use Session;
 use Auth;
 use App\Model\ApiSearchActivities;
 use App\Model\User;
+use App\Model\ApiStorageMaster;
 
 
 class SearchforactivitiesController extends Controller 
@@ -22,7 +23,10 @@ class SearchforactivitiesController extends Controller
 	
 	public function index()
 	{
-		$searches = ApiSearchActivities::all();
+		$searches = ApiStorageMaster::where('api_type','ACTIVITIES')->where('data_type','SEARCH')
+			->select( 'id','leisure_id','users_id','from','destination', 'activity_category',
+				'search_date','key_words','created_at'  )->get();
+
 
 		return 	Response::json([
 				'data' => $searches->toArray()
@@ -64,11 +68,13 @@ class SearchforactivitiesController extends Controller
 			}
 
 
-			ApiSearchActivities::create(array(
+			ApiStorageMaster::create(array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
+								'data_type' => 'SEARCH',
+								'api_type' => 'ACTIVITIES',
 								'destination' => $search['destination'],
-								'category' => $search['category'],
+								'activity_category' => $search['category'],
 								'search_date' => $search['search_date'],
 								'key_words' => $search['key_words'],
 				));

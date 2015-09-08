@@ -20,28 +20,56 @@ Route::controllers([
 Route::group(['middleware' => 'auth.very_basic'], function() {
 	
 
-	Route::get('api/v1/flights/', 'ApiForLLoyalty\SearchforflightsController@index');
-	Route::post('api/v1/flights/create', 'ApiForLLoyalty\SearchforflightsController@create');
 
-	Route::get('api/v1/cars/', 'ApiForLLoyalty\SearchforcarsController@index');
-	Route::post('api/v1/cars/create', 'ApiForLLoyalty\SearchforcarsController@create');
 
-	Route::get('api/v1/cruise/', 'ApiForLLoyalty\SearchforcruiseController@index');
-	Route::post('api/v1/cruise/create', 'ApiForLLoyalty\SearchforcruiseController@create');
 
-	Route::get('api/v1/activities/', 'ApiForLLoyalty\SearchforactivitiesController@index');
-	Route::post('api/v1/activities/create', 'ApiForLLoyalty\SearchforactivitiesController@create');
+
+	
+
+
+	
+
+});
+
+
+
+	Route::get('api/v1/booking/tours/', 'ApiForLLoyalty\BookingforatourController@index');
+	Route::post('api/v1/booking/tours/create', 'ApiForLLoyalty\BookingforatourController@create');
+
 
 	Route::get('api/v1/tours/', 'ApiForLLoyalty\SearchforatourController@index');
 	Route::post('api/v1/tours/create', 'ApiForLLoyalty\SearchforatourController@create');
 
-});
 
-	Route::get('api/v1/booking/loadging', 'ApiForLLoyalty\BookingforloadgingController@index');
-	Route::post('api/v1/booking/loadging/create', 'ApiForLLoyalty\BookingforloadgingController@create');
+	Route::get('api/v1/booking/activities/', 'ApiForLLoyalty\BookingforactivitiesController@index');
+	Route::post('api/v1/booking/activities/create', 'ApiForLLoyalty\BookingforactivitiesController@create');
 
-	Route::get('api/v1/loadging/', 'ApiForLLoyalty\SearchforloadgingController@index');
-	Route::post('api/v1/loadging/create', 'ApiForLLoyalty\SearchforloadgingController@create');
+	Route::get('api/v1/activities/', 'ApiForLLoyalty\SearchforactivitiesController@index');
+	Route::post('api/v1/activities/create', 'ApiForLLoyalty\SearchforactivitiesController@create');
+
+
+	Route::get('api/v1/booking/cruise/', 'ApiForLLoyalty\BookingforcruiseController@index');
+	Route::post('api/v1/booking/cruise/create', 'ApiForLLoyalty\BookingforcruiseController@create');
+
+	Route::get('api/v1/cruise/', 'ApiForLLoyalty\SearchforcruiseController@index');
+	Route::post('api/v1/cruise/create', 'ApiForLLoyalty\SearchforcruiseController@create');
+
+
+	Route::get('api/v1/cars/', 'ApiForLLoyalty\SearchforcarsController@index');
+	Route::post('api/v1/cars/create', 'ApiForLLoyalty\SearchforcarsController@create');
+
+	Route::get('api/v1/booking/cars/', 'ApiForLLoyalty\BookingforcarsController@index');
+	Route::post('api/v1/booking/cars/create', 'ApiForLLoyalty\BookingforcarsController@create');
+
+
+	Route::get('api/v1/flights/', 'ApiForLLoyalty\SearchforflightsController@index');
+	Route::post('api/v1/flights/create', 'ApiForLLoyalty\SearchforflightsController@create');
+
+	Route::get('api/v1/booking/lodging', 'ApiForLLoyalty\BookingforlodgingController@index');
+	Route::post('api/v1/booking/lodging/create', 'ApiForLLoyalty\BookingforlodgingController@create');
+
+	Route::get('api/v1/lodging/', 'ApiForLLoyalty\SearchforlodgingController@index');
+	Route::post('api/v1/lodging/create', 'ApiForLLoyalty\SearchforlodgingController@create');
 
 
 	Route::get('api/v1/booking/flights', 'ApiForLLoyalty\BookingforflightsController@index');

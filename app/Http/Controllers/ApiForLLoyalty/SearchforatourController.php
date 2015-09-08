@@ -8,6 +8,7 @@ use Session;
 use Auth;
 use App\Model\ApiSearchTour;
 use App\Model\User;
+use App\Model\ApiStorageMaster;
 
 
 class SearchforatourController extends Controller 
@@ -22,7 +23,9 @@ class SearchforatourController extends Controller
 	
 	public function index()
 	{
-		$searches = ApiSearchTour::all();
+		$searches = ApiStorageMaster::where('api_type','TOUR')->where('data_type','SEARCH')
+			->select( 'id','leisure_id','users_id','destination', 'tour_type',
+				'search_date','key_words','created_at'  )->get();
 
 		return 	Response::json([
 				'data' => $searches->toArray()
@@ -64,9 +67,11 @@ class SearchforatourController extends Controller
 			}
 
 
-			ApiSearchTour::create(array(
+			ApiStorageMaster::create(array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
+								'data_type' => 'SEARCH',
+								'api_type' => 'TOUR',
 								'destination' => $search['destination'],
 								'tour_type' => $search['tour_type'],
 								'search_date' => $search['search_date'],

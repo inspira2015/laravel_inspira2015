@@ -9,7 +9,7 @@ use Auth;
 use App\Model\ApiSearchFlight;
 use App\Model\User;
 use App\Libraries\ApiTraits\CleanFlightArray;
-
+use App\Model\ApiStorageMaster;
 
 class SearchforflightsController extends Controller 
 {
@@ -24,7 +24,12 @@ class SearchforflightsController extends Controller
 	
 	public function index()
 	{
-		$searches = ApiSearchFlight::all();
+		$searches = ApiStorageMaster::where('api_type','FLIGHTS')->where('data_type','SEARCH')
+			->select( 'id','leisure_id','users_id','flight_type','from','destination', 'start_date',
+				'end_date','adult_number','child_number','flight_air_line','flight_airfare','key_words','created_at'  )->get();
+
+
+		//$searches = ApiSearchFlight::all();
 
 		return 	Response::json([
 				'data' => $searches->toArray()
@@ -67,19 +72,20 @@ class SearchforflightsController extends Controller
 
 			$search = $this->exchangeArray( $search );
 
-			ApiSearchFlight::create(array(
+			ApiStorageMaster::create(array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
-								'data_type' => 'BOOKING',
+								'data_type' => 'SEARCH',
+								'api_type' => 'FLIGHTS',
 								'from' => $search['from'],
-								'where' => $search['where'],
-								'type' => $search['type'],
+								'destination' => $search['where'],
+								'flight_type' => $search['type'],
 								'start_date' => $search['start_date'],
 								'end_date' => $search['end_date'],
 								'adult_number' => $search['adult_number'],
 								'child_number' => $search['child_number'],
-								'air_line' => $search['air_line'],
-								'airfare' => $search['airfare'],
+								'flight_air_line' => $search['air_line'],
+								'flight_airfare' => $search['airfare'],
 								'key_words' => $search['key_words'],
 				));
 		}
