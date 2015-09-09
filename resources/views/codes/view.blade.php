@@ -2,9 +2,8 @@
 
 @section('content')
 
-<div class="row bg-gray-transparent">
 {!! Form::open(array('url' => 'codes/check')) !!}
-
+<div class="row bg-gray-transparent">
 	<div class="col-sm-12 col-sm-pull-1 col-sm-offset-1 text-justify" style="font-size:24px;">
 		<div class="row">
 			@if($errors->has())
@@ -38,12 +37,11 @@
 			{!! Form::text('code', Input::get('code') ? $code : '', array( 'required' => 'required')) !!}
 		</div>
 	</div>
-{!! Form::close() !!}
 </div>
 <div class="row bg-gray-transparent">
 	<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
 		<div class="row">
-			<a href="#" onClick="formulario.submit()" class="btn-blue">{{ Lang::get('layout.continue') }}</a>
+			<div data-role="submit" class="btn-blue">{{ Lang::get('layout.continue') }}</div>
 		</div>
 		@if($errors->has())
 			<div class="row" id="code-error">
@@ -59,4 +57,5 @@
 		@endif
 	</div>
 </div>
+{!! Form::close() !!}
 @endsection

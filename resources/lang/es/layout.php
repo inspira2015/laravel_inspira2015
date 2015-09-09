@@ -10,5 +10,6 @@ return [
 	"reset-password" => "Restablecer Contrase&ntilde;a",
 	"privacy" => "Pol&iacute;ticas de privacidad",
 	"terms" => "T&eacute;rminos y Condiciones",
-	"close" => "Cerrar"
+	"close" => "Cerrar",
+	"loading" => "Cargando"
 ];

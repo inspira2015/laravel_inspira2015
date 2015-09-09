@@ -51,15 +51,15 @@ $(document).ready(function(){
 					_data = _form.serialize();
 				}
 				
-				_this.addClass('loading');
+				$('#loading-inspira, #bg-loading').toggle();
 				_this.removeAttr('data-role');
 				$.ajax({url:_route, data: _data, type: 'POST'}).done(function(_ajax_response){
+					$('#loading-inspira, #bg-loading').toggle();
 					if(_ajax_response.redirect){
 						if(_ajax_response.message){
 							//Modal 
 							$('#message #text').html(_ajax_response.message);
 							$('#message').modal('show');
-							
 							$('#message').on('hidden.bs.modal', function () {
 								window.location.href = _ajax_response.redirect;
 							})

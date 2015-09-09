@@ -36,7 +36,23 @@
 		<div class="container">
 		    @yield('content')
 		</div>
+		
+		<div id="bg-loading"></div>
+		<div id="loading-inspira">
+			<div class="brand-logo">
+				<img src="http://images.leisureloyalty.com/viim/imlogo.png">
+			</div>
+			<div class="load">
+				{{ Lang::get('layout.loading') }}
+				<br>
+				<img src="http://inspiramexico.leisureloyalty.com/images/loading.gif">
+			</div>
+		</div>
+	
+	
 	</div>
+
+
 	@include('layouts.__common.footer')
 
 	@include('layouts.__common.privacy')

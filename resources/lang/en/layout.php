@@ -10,5 +10,6 @@ return [
 	"reset-password" => "Reset Password",
 	"privacy" => "Privacy Policy", 
 	"terms" => "Terms of Service",
-	"close" => "Close"
+	"close" => "Close",
+	"loading" => "Loading"
 ];

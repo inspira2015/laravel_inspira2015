@@ -290,7 +290,7 @@ div.container > div.bg-gray-transparent:nth-child(1){
 	margin-top: 50px;
 }
 
-div.container > div.bg-gray-transparent:nth-child(2){
+div.container > form > div.bg-gray-transparent:nth-child(2){
 	margin-bottom: 350px;
 	margin-top: 10px;
 }
@@ -825,4 +825,52 @@ div.modal.fade.in{
   background-color: rgba(0, 0, 0, .55);
 }
   
-	  
+  
+#bg-loading{
+	background-color: #000;
+	height: 100%;
+	left: 0;
+	opacity: .8;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 1001;
+	display:none;
+}
+
+#loading-inspira {
+	position:fixed;
+	top: calc(50% - 140px);
+	left: calc(50% - 281px);
+	width: 100%;
+	max-width: 562px;
+	max-height: 270px;
+	height: 100%;
+	background-color: #455564 !important;
+	text-align: center;
+	padding: 40px;
+	z-index: 1001;
+	display: none;
+}
+
+#loading-inspira .brand-logo,
+#loading-inspira .load{
+	display:block;
+	text-align: center;
+	clear:both;
+}
+
+#loading-inspira .brand-logo{
+	padding-bottom: 20px;
+}
+
+
+#loading-inspira .load{
+	color: white;
+	text-transform: uppercase;
+	font-size: 18px;
+	border-top: 1px solid #6f7c85;
+	border-bottom: 1px solid #6f7c85;
+	padding: 15px;
+}
+
