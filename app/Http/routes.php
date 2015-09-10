@@ -31,10 +31,18 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 
 });
 
+	Route::put('api/v1/inspirapoints/addpayment/{leisure_id}', 'ApiForLLoyalty\ApiadditionalpaymentsController@Monthlypayment');
+
+
+
+
 
 	Route::put('api/v1/inspirapoints/earned/{leisure_id}', 'ApiForLLoyalty\InspirapointsController@Pointsearnpermonth');
 	Route::put('api/v1/inspirapoints/spended/{leisure_id}', 'ApiForLLoyalty\InspirapointsController@Pointsspendpermonth');
 	Route::put('api/v1/inspirapoints/movements/{leisure_id}', 'ApiForLLoyalty\InspirapointsController@Monthlymovements');
+	Route::put('api/v1/inspirapoints/concepts/{leisure_id}', 'ApiForLLoyalty\InspirapointsController@Monthlyconceptsmovements');
+	Route::put('api/v1/inspirapoints/mbalance/{leisure_id}', 'ApiForLLoyalty\InspirapointsController@Monthlybalance');
+	Route::put('api/v1/inspirapoints/balance/{leisure_id}', 'ApiForLLoyalty\InspirapointsController@Currentbalance');
 
 
 
