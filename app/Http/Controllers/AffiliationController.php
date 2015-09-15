@@ -8,9 +8,13 @@ use App\Libraries\Affiliations\CheckCodeAffiliations;
 use App\Libraries\Affiliations\AffiliationsColorCodes;
 use App\Libraries\ExchangeRate\ExchangeMXNUSD;
 use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
+use App\Libraries\GeneratePaymentsDates;
+
 use App\Model\Entity\CodesUsedEntity;
 use App\Model\Entity\Affiliations;
+
 use Lang;
+use Response;
 use Session;
 use Redirect;
 use App\Libraries\CreateUser\UpdateUserAffiliation;
@@ -125,21 +129,41 @@ class AffiliationController extends Controller
 
 	public function dochange()
 	{
+		$paymentDate = new GeneratePaymentsDates();
+		$paymentDate->setDate( \date('Y-m-d') );
+		
 		$userAuth = Auth::user();
 		$post_data = Request::all();
 		$userCurrentAffiliation = Session::get('currentAffiliation');
 		if( !is_numeric( $userCurrentAffiliation ) )
 		{
-			return Redirect::to('/useraccount');
+			return Response::json(array(
+				'error' => false,
+				'redirect' => url('useraccount')
+			), 200);
 		}
-
 
 		$this->updateUserAffiliation->setUserId( $userAuth->id );
 		$this->updateUserAffiliation->setAffiliationPost( $post_data );
 		$this->updateUserAffiliation->setCurrentAffiliation( $userCurrentAffiliation );
 		$this->updateUserAffiliation->changeAffilition();
 		Session::forget('currentAffiliation');
-		return Redirect::to('useraccount');
+
+		$type = "type";
+		$payment = "payment";
+		$currency = "currency";
+		
+		return Response::json(array(
+			'error' => false,
+			'message' => Lang::get('affiliations.changed', ['type'=> $type, 
+															'payment' => $payment, 
+															'currency' => $currency, 
+															'payment_date' => $paymentDate->getNextPaymentDateHumanRead() 
+														]),
+			'redirect' => url('useraccount')
+		), 200);
+			
+			
 	}
 
 

@@ -21,13 +21,13 @@ return [
 	"terms" => "T&eacute;rminos y Condiciones",
 	"privacy" => "Pol&iacute;ticas de Privacidad",
 	"accept" => "Acepto",
-	"message" => "Su Informaci&oacute;n de tarjeta ha sido vinculada.",
+	"message" => "El procesamiento de su tarjeta ha sido exitoso. De clic para continuar.",
 	"ccv-modal" => [
-		"title" => "Encontrar en tarjeta el Número CVV", 
-		"description" => "CVV es una característica de seguridad anti-fraude que ayuda a verificar que estas en posesión de tu tarjeta de crédito. 
-						Para Visa/Mastercard, el código CVV de tres dígitos se encuentra impreso en el panel de firma en la parte trasera de la tarjeta, inmediatamente después del numero de tarjeta. 
-						Para American Express, el código CVV de 4 dígitos esta impreso en la parte delantera de la tarjeta arriba del numero de tarjeta.",
-		"amex" => "Un numero de  4 dígitos en la parte delantera, arriba de su numero de tarjeta.",
-		"vismas" => "Un número de 3 dígitos en itálicas invertidas en la parte trasera."
+	"title" => "Encontrar en tarjeta el Número CVV", 
+	"description" => "CVV es una característica de seguridad anti-fraude que ayuda a verificar que estas en posesión de tu tarjeta de crédito. 
+					Para Visa/Mastercard, el código CVV de tres dígitos se encuentra impreso en el panel de firma en la parte trasera de la tarjeta, inmediatamente después del numero de tarjeta. 
+					Para American Express, el código CVV de 4 dígitos esta impreso en la parte delantera de la tarjeta arriba del numero de tarjeta.",
+	"amex" => "Un numero de  4 dígitos en la parte delantera, arriba de su numero de tarjeta.",
+	"vismas" => "Un número de 3 dígitos en itálicas invertidas en la parte trasera."
 	]
 ];

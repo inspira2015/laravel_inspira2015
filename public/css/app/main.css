@@ -301,12 +301,46 @@ div[data-role="response"] h2{
 	font-weight:bold; 
 	color: #465664;
 }
+
+/*test*/
+
+
+form input[type="radio"]{
+  background-color: #BEC4C9;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-block;
+  height: 18px;
+  position: relative;
+  width: 18px!important;
+  vertical-align: middle;
+  margin-top: 0px;
+  -webkit-appearance: none;
+}
+
+form  input[type="radio"]:after {
+  border-radius: 25px;
+  content: '';
+  display: block;
+  height: 8px;
+  left: 4px;
+  position: relative;
+  top: 4px;
+  width: 8px;
+}
+
+form  input[type="radio"]:checked:after {
+  background-color: #465664;
+}
+
+
+
+/**/
 form input[type=radio],
 form input[type=checkbox]{
 	cursor: pointer;
 }
 
-form input[type=radio],
 form input[type=checkbox]{
 	display:inline-block;
 	width:15px;
@@ -526,7 +560,78 @@ div.modal-body  li li li{
 	margin-bottom: 10px;
 }
 
+.bg-bright-green{
+	background-color: #A4CE3A;
+	color: white;
+}
 
+div#vacational-box{
+	padding: 50px 50px;
+	display: block;
+	background-image: url('images/pig-bank.png');
+    background-repeat: no-repeat;
+    background-size: auto calc(100% - 20px);
+    background-position: calc(100% - 80px) 50%;
+}
+
+
+div#vacational-box h2{
+	text-transform: uppercase;
+	font-size: 26px;
+	padding-bottom: 20px;
+}
+
+div#vacational-box p{
+	font-size: 25px;
+	padding: 0 30px;
+	text-align: center;
+}
+
+
+@media(max-width: 992px){
+	div#vacational-box {
+		padding: 25px 20px;
+		background-position: calc(100% - 20px) 50%;
+	}
+	
+	div#vacational-box h2{
+		font-size: 20px;
+		text-align:left;
+	}
+	
+	div#vacational-box p{
+		font-size: 18px;
+	}
+}
+
+@media(min-width: 340px) and (max-width: 767px){
+	div#vacational-box {
+		padding: 15px 10px;
+		background-size: auto calc(80% - 20px);
+		background-position: calc(100% - 10px) 50%;
+
+	}
+	div#vacational-box p{
+		padding: 0px;
+	}
+}
+
+@media(max-width: 390px){
+	div#vacational-box {
+		padding: 10px 10px;
+		background-size: auto calc(50% - 20px);
+		background-position: calc(100% - 10px) 50%;
+	}
+	
+	div#vacational-box h2 {
+    	font-size: 16px;
+    }
+    
+    div#vacational-box p{
+		font-size: 14px;
+	}
+	
+}
 .vacational h3{
 	text-transform: uppercase;
 	font-size: 16px!important;
@@ -873,4 +978,6 @@ div.modal.fade.in{
 	border-bottom: 1px solid #6f7c85;
 	padding: 15px;
 }
+
+
 

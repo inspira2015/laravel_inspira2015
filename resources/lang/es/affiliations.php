@@ -18,5 +18,8 @@ return [
 	"promotion" => "PRIMER MES GRATIS",
 	"affconfirm" => "DESEO SER AFILIADO :affiliation",
 	"title" => "Afiliaciones",
-	"today-rate" => 'Cobro actual en pesos. Tomando en cuenta que el tipo de cambio del d&iacute;a:'
+	"today-rate" => 'Cobro actual en pesos. Tomando en cuenta que el tipo de cambio del d&iacute;a:',
+	"changed" => "<p>Su cambio de afiliación a :type fue exitosa.</p>
+				  <p>Su pago mensual es ahora $:payment :currency. </p>
+				  <p>Próxima fecha de pago :payment_date.</p>"
 ];

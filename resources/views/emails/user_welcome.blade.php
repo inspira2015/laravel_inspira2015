@@ -7,7 +7,7 @@
 		@endif
 	</div>
 	<div style="display: table-row;text-align: center;">
-		<div style="padding: 40px 40px 40px 40px; color:white; font-size: 18px;">
+		<div style="padding: 40px 40px 40px 40px; color:white; font-size: 24px;">
 			{{ Lang::get('emails.welcome.message') }}
 
 			<div style="color:#465664; font-size: 26px;text-transform:uppercase; padding-top: 30px;line-height: 1.5;">

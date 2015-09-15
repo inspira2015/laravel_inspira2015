@@ -100,7 +100,7 @@ class PaymentController extends Controller {
 		//PayU::$apiLogin = "W4Cwmrzwp1e87SZ"; 
 		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
 		//PayU::$merchantId = "529182"; 
-		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
+		PayU::$language = (Lang::locale() == 'es' ) ? SupportedLanguages::ES : SupportedLanguages::EN; //Seleccione el idioma.
 		PayU::$isTest = FALSE; //Dejarlo True cuando sean pruebas.
 
 		// URL de Pagos
@@ -412,9 +412,8 @@ exit;*/
 			
 			$this->chargeUserAffiliation->saveData();
 
-
-
-
+			Session::put('complete-profile', 'false');
+			
 			return Response::json(array(
 				'error' => false,
 				'message' => Lang::get('creditcards.message'),

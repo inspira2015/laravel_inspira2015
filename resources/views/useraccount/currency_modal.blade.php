@@ -14,17 +14,32 @@
 					
 					$convertHelper->setCost( $vacational_fund_total );
 					$total_fund = $convertHelper->getConvertAmount();
+					
+					$convertHelper->setCost( $affiliation->amount );
+					$affiliation_cost_convert = $convertHelper->getConvertAmount();
 					?>
 					
-					{{ Lang::get('userdata.affect-vacationfund') }}<br><br>				
-					<strong  style="text-transform:uppercase;">{{ Lang::get('subtotal.vacational-fund-fee') }}:</strong> <br>
-					{{ Lang::get('userdata.current') }}: $ {{ number_format($vacational_fund_amount, 2, '.', '') . ' ' . $vacational_fund_currency }}  <br>
-					{{ Lang::get('userdata.changes-to') }}: $ {{ number_format($vacation_fund, 2, '.', '') }}  {{$convertHelper->getCurrencyShow() }} <br><br>
+					{{ Lang::get('userdata.affect-vacationfund') }}:<br><br>			
+
+
+					{{ Lang::get('userdata.affiliation-payment') }}: {{ Lang::get('userdata.from') }}
+						{{ $affiliation_cost }} {{ $affiliation_currency }}
+						{{ Lang::get('userdata.to') }}
+						$ {{ number_format($affiliation_cost_convert, 2, '.', '') . ' ' . $currency_change_to }}<br>
 					
-					<strong style="text-transform:uppercase;">{{ Lang::get('subtotal.total-fund') }}:</strong><br>
-					{{ Lang::get('userdata.current') }}: $ {{ number_format($vacational_fund_total, 2, '.', '') }} {{ $vacational_fund_currency }} <br>
-					{{ Lang::get('userdata.changes-to') }}: $ {{ number_format($total_fund, 2, '.', '') }} {{$convertHelper->getCurrencyShow() }}
+					{{ Lang::get('userdata.vacation-fund') }}: {{ Lang::get('userdata.from') }}
+					 	$ {{ number_format($vacational_fund_amount, 2, '.', '') . ' ' . $vacational_fund_currency }} 
+					 	{{ Lang::get('userdata.to') }}
+						$ {{ number_format($vacation_fund, 2, '.', '') }}  {{ $currency_change_to }}<br>
+					
+					{{ Lang::get('userdata.total-saved') }}: {{ Lang::get('userdata.from') }}
+						 $ {{ number_format($vacational_fund_total, 2, '.', '') }} {{ $vacational_fund_currency }}
+						 {{ Lang::get('userdata.to') }}
+						 $ {{ number_format($total_fund, 2, '.', '') }} {{ $currency_change_to }}
+
 					</div>
+
+
 				</div>
 				<hr>
 				<div class="row">

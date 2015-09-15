@@ -3,22 +3,14 @@
 @section('content')
 
 {!! Form::open(array('url' => 'codes/check')) !!}
-<div class="row bg-gray-transparent">
-	<div class="col-sm-12 col-sm-pull-1 col-sm-offset-1 text-justify" style="font-size:24px;">
+<div class="row bg-gray-transparent" style="border-top:150px;">
+	<div class="col-sm-12 col-sm-pull-1 col-sm-offset-1 text-justify " style="font-size:24px;">
 		<div class="row">
-			@if($errors->has())
-			<div class="col-xs-10 col-xs-push-2 col-sm-4 col-sm-push-8 col-md-3 col-md-push-9 nopadding">
+			<div class="col-xs-9 col-xs-push-3 col-sm-4 col-sm-push-8 col-md-3 col-md-push-9 nopadding">
 				<a href="{{ url('users') }}" class="btn-blue-clear btn-medium">
 					{{ Lang::get('code.continue-without-code') }}
 				</a>
-			</div>			
-			@else
-			<div class="col-xs-5 col-xs-push-7 col-sm-4 col-sm-push-8 col-md-2 col-md-push-10 nopadding">
-				<div class="btn-blue-clear btn-medium" data-role="submit">
-					{{ Lang::get('layout.continue') }}
-				</div>
-			</div>
-			@endif
+			</div>	
 			<div class="divider"></div>
 			<div class="col-sm-10 col-sm-push-1 col-md-6 col-md-push-3">
 				<div class="code"></div>
@@ -38,21 +30,26 @@
 		</div>
 	</div>
 </div>
-<div class="row bg-gray-transparent">
-	<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+<div class="row bg-gray-transparent" style="margin-bottom: 450px;">
+	<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 		<div class="row">
-			<div data-role="submit" class="btn-blue">{{ Lang::get('layout.continue') }}</div>
+			<div class="col-sm-5">
+				<div data-role="submit" class="btn-blue btn-medium">{{ Lang::get('layout.with-code') }}</div>
+			</div>
+			<div class="col-sm-2 hidden-xs">
+				<span style="border: 1px solid gray;"></span>
+			</div>
+			<div class="col-sm-5 nopadding">
+				<a href="{{ url('users') }}" class="btn-blue-clear btn-medium">
+					{{ Lang::get('code.continue-without-code') }}
+				</a>
+			</div>
 		</div>
 		@if($errors->has())
 			<div class="row" id="code-error">
 				<p>
 					{{ Lang::get('code.promo-invalid') }}
 				</p>
-			</div>
-			<div class="row">
-				<a href="{{ url('users') }}" class="btn-light-blue btn-medium">
-					{{ Lang::get('code.continue-without-code') }}
-				</a>
 			</div>
 		@endif
 	</div>

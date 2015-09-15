@@ -1,3 +1,11 @@
+<h3>{{ Lang::get('userdata.information') }}
+	@if(Session::has('complete-profile'))
+	<br>
+	<span style="color:#CC4B9B;font-size:12px;">
+		{{ Lang::get('userdata.complete-profile') }}
+	</span>
+	@endif
+</h3>
 
 {!! Form::open(array('url' => 'useraccount/update-contact', 'class' => 'form-data' )) !!}
 	<div class="form-group">

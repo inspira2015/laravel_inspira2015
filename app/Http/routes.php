@@ -145,6 +145,7 @@ Route::get('/home', 'UseraccountController@index');
 Route::get('users', 'UsersController@index');		
 Route::post('users/registration', 'UsersController@registration');
 Route::get('users/activation/{code}', 'UsersController@activation');
+Route::post('users/select-language', 'UsersController@refreshLanguage');
 
 Route::get('affiliation', 'AffiliationController@index');
 Route::post('affiliation/add', 'AffiliationController@create');

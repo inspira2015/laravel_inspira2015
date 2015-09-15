@@ -18,7 +18,7 @@ return [
 	"inspira-points" => "INSPIRA POINTS",
 	"points" => "points",
 	"affiliation-type" => "TYPE OF AFFILIATION",
-	"change-affiliation" => "When changing your Affiliation plan, your monthly billing on your current credit card will change.",
+	"change-affiliation" => "By changing your Affiliation plan, your monthly billing will change.",
 	"expiration-date" => "Expiration Date",
 	"discover" => "Discover", 
 	"platinum" => "Platinum",
@@ -44,7 +44,15 @@ return [
 	"error" => [
 		"transaction" => "There was an error while processing"
 	],
-	"affect-vacationfund" => "Change of currency will affect the amounts on your vacation fund",
+	"payment-type" => [
+		"store" => "Store",
+		"online" => "Online"
+	],
+	"affect-vacationfund" => "The currency exchange affect your statement and monthly payments",
 	"changes-to" => "Changes to",
-	"current" => "Current"
+	"current" => "Current",
+	"from" => "from",
+	"to" => "to",
+	"affiliation-payment" => "Affiliation payment",
+	"complete-profile" => "Complete your registration by filling the remaining fields."
 ];

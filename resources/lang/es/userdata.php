@@ -18,14 +18,14 @@ return [
 	"inspira-points" => "PUNTOS INSPIRA",
 	"points" => "puntos",
 	"affiliation-type" => "TIPO DE AFILIACI&Oacute;n",
-	"change-affiliation" => "Al cambiar de plan de afiliaci&oacute;n, el pago mensual en su tarjeta de cr&eacute;dito cambiar&aacute;.",
+	"change-affiliation" => "Al cambiar su afiliación el cargo mensual en su tarjeta cambiará.",
 	"expiration-date" => "Fecha de vencimiento", 
 	"discover" => "Descubre", 
 	"platinum" => "Platino",
 	"diamond" => "Diamante", 
 	"vacation-fund" => "Fondo vacacional",
 	"monthly-fee" => "Abono mensual",
-	"total-saved" => "Ahorros totales",
+	"total-saved" => "Ahorro total",
 	"promotions" => "Promociones del mes",
 	"change" => "Cambiar",
 	"cancel" => "Cancelar",
@@ -44,7 +44,16 @@ return [
 	"error" => [
 		"transaction" => "Hubo un error al procesar"
 	],
-	"affect-vacationfund" => "El cambio de moneda afectar&aacute; las cantidades de su fondo vacacional",
+	"payment-type" => [
+		"store" => "Sucursal",
+		"online" => "En línea"
+	],
+	"affect-vacationfund" => "El cambio de moneda afectará su estado de cuenta y pagos mensuales",
 	"changes-to" => "Cambia a",
-	"current" => "Actual"
+	"current" => "Actual",
+	"from" => "de",
+	"to" => "a",
+	"affiliation-payment" => "Pago por afiliación",
+	"complete-profile" => "Complete su registro llenando los campos restantes."
+
 ];

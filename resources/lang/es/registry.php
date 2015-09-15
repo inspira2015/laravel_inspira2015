@@ -24,5 +24,5 @@ return [
 	"lang" => "Idioma",
 	"currency" => "Moneda",
 	"name_place" => "Ingresa tu nombre",
-	"title" => "Registrar"
+	"title" => "Registro"
 ];

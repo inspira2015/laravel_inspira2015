@@ -3,14 +3,14 @@
 @section('content')
 <div class="row bg-gray">
 	<div class="col-xs-12 nopadding">
-	{!! Form::open(array('url' => 'vacationfund/modify', 'class' => 'margin')) !!}
+	{!! Form::open(array('url' => url('vacationfund/modify'), 'class' => 'margin')) !!}
 		<div class="row">
-			<div class="col-xs-4 col-sm-3 col-sm-2">  
-				<a href="{{ URL::previous() }}" class="btn-blue-clear btn-medium back">
+			<div class="col-xs-4 col-sm-2 nopadding">  
+				<a href="{{ url('useraccount') }}" class="btn-blue-clear btn-medium back">
 					{{ Lang::get('layout.back') }}
 				</a>
 			</div>
-			<div class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8">   
+			<div class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-7 col-md-2 col-md-push-8 nopadding">   
 				<div data-role="submit" class="btn-blue-clear btn-medium" data-route="{{ url('vacationfund/modify') }}">
 					{{ Lang::get('layout.continue') }}
 				</div>
@@ -23,12 +23,16 @@
 		</div>
 		
 	
-		<div class="bg-light-gray text-justify row">
-			<div class="vacational">
-				<h2> 
+		<div class="bg-bright-green text-justify row" id="vacational-box">
+			
+			<h2 class="col-xs-12"> 
 	            	{{ Lang::get('vacationfund.title') }}  
-	        	</h2>
+	        </h2>
+			<div class="col-xs-8">
+				
 				{!! Lang::get('vacationfund.information') !!}
+			</div>
+			<div class="col-xs-4">
 			</div>
 		</div>
 		<div class="row vacational">
@@ -40,7 +44,7 @@
 					<div class="row">
 						<div class="col-xs-4 col-sm-2 col-md-2 nopadding"> 
 				            {{ Lang::get('vacationfund.yes') }}
-							<input type="radio" name="fondo" value="1" checked="checked" />
+							<input type="radio" name="fondo" value="1" checked="checked"/>
 			            </div>
 			            <div class="col-xs-8 col-sm-6 col-md-3 nopadding">
 			            	{{ Lang::get('vacationfund.no') }}
@@ -73,7 +77,7 @@
 		<div class="row nopadding">
 			<div class="divider"></div>
 			<div class="col-xs-4 col-sm-2 nopadding">  
-				<a href="{{ URL::previous() }}" class="btn-blue-clear btn-medium back">
+				<a href="{{ url('useraccount') }}" class="btn-blue-clear btn-medium back">
 					{{ Lang::get('layout.back') }}
 				</a>
 			</div>

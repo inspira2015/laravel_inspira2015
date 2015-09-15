@@ -11,7 +11,7 @@
 				</a>
 			</div>
 			<div class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8">   
-				<div data-role="submit" class="btn-blue-clear btn-medium">
+				<div data-role="submit" class="btn-blue-clear btn-medium" data-route="{{ url('affiliation/modify') }}">
 					{{ Lang::get('layout.continue') }}
 				</div>
 			</div>
@@ -86,7 +86,7 @@
                     }
                 ?>
                 <div class="form-group text-left">
-                	{!! Form::radio('affiliation', $obj->getAffiliationId(), $radio_select, array('style' => 'display:table-cell')) !!}
+                	{!! Form::radio('affiliation', $obj->getAffiliationId(), $radio_select ) !!}
                 	<div style="display:table-cell;padding-left:10px;">{{ Lang::get('affiliations.affconfirm', array('affiliation' => $obj->getAffiliationName())) }}</div>
                 </div>
 
@@ -104,12 +104,12 @@
 		<div class="divider"></div>
 	</div>
 	<div class="col-xs-4 col-sm-2">  
-		<a href="{{ url('useraccount') }}" class="btn-blue-clear btn-medium back" >
+		<a href="{{ url('useraccount') }}" class="btn-blue-clear btn-medium back">
 			{{ Lang::get('layout.back') }}
 		</a>
 	</div>
 	<div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-7">   
-		<div data-role="submit" class="btn-blue btn-medium">
+		<div data-role="submit" class="btn-blue btn-medium" data-route="{{ url('affiliation/modify') }}">
 			{{ Lang::get('layout.continue') }}
 		</div>
 	</div>

@@ -99,6 +99,7 @@ class UseraccountController extends Controller {
 	*/
 	public function index()
 	{
+
 		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
 		$errors = '';		
 
@@ -138,6 +139,10 @@ class UseraccountController extends Controller {
 		$this->accountSetup->checkValidAccount();
 		
 		$userAffiliation = $userAff->getCurrentUserAffiliationByUserId( $this->userAuth->id );
+
+		$this->convertHelper->setCost($userAffiliation->amount);
+		$this->convertHelper->setCurrencyOfCost($userAffiliation->currency);
+				
 		$userVacationalFundLog = $vacationalFundLog->getCurrentUserVacFundLogByUserId( $this->userAuth->id );
 		
 		$affiliation = $affiliationsDao->getById( $userAffiliation->affiliations_id );
@@ -151,8 +156,9 @@ class UseraccountController extends Controller {
 
 		}
 		$data = array(
-			'affiliation_cost' => $userAffiliation->amount,
-			'affiliation_currency' => $userAffiliation->currency,
+			'affiliation_cost' => $this->convertHelper->getFomattedAmount(),
+			'affiliation_currency' => $this->convertHelper->getCurrencyShow(),
+			'affiliation' => $userAffiliation,
 			'vacational_fund_total' => $vacFundTotal,
 			'vacational_fund_amount' => $userVacationalFundLog->amount,
 			'vacational_fund_currency' => $userVacationalFundLog->currency,
@@ -211,9 +217,14 @@ class UseraccountController extends Controller {
 			$this->userDao->state = $data['state'];
 			$this->userDao->save();		
 			
+			if( Session::has('complete-profile')){
+				Session::forget('complete-profile');
+			}
+		
 			return view( 'useraccount.contact')
 				->with( 'user' , $this->details() );
 		}
+		
 		$user = $this->details();
 		return view( 'useraccount.form-contact')
 				->with( 'user' , $user )
@@ -224,7 +235,11 @@ class UseraccountController extends Controller {
 	}
 	
 	public function editPayment(){
-		return view('useraccount.form-payment')->with('user', $this->userAuth );
+		//dpendiendo del seleccionado, enviarle el tipo para que se genere el recibo.
+		//Marcar error si no selecciono ninguno
+		$type = Input::get('type');
+		
+		return view('useraccount.form-payment')->with('user', $this->userAuth )->with('type', $type);
 	}
 	
 	public function updatePayment()

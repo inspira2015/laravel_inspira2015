@@ -81,10 +81,10 @@ class UsersController extends Controller {
 		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
 		$locale = Lang::getLocale();
 		
-		$data = array(	'title' =>'Resumen',
+		$data = array(	'title' => Lang::get('registry.title') ,
 						'background' =>'2.jpg',
 						'country_list' => $this->getCountryArray(),
-						'lan_list' => $this->getLanguaje($locale),
+						'lan_list' => $this->getLanguaje(),
 						'currency_list' => $this->getCurrency( Session::get('code', null) ),
 						'locale' => $locale,
 						'location_info' => $this->getLocationInfo()
@@ -93,14 +93,12 @@ class UsersController extends Controller {
 		if ( Session::has('users') )
 		{			
 			return view('users.user')
-					->with('title', Lang::get('registry.title') )
 					->with('background','2.jpg')
 					->with($data)
 					->with( Session::get('users') );
 					
 		}
 		return view('users.user',$data)
-					->with('title', Lang::get('registry.title') )
 					->with('background','2.jpg');
 	}
 
@@ -144,7 +142,7 @@ class UsersController extends Controller {
 		
 		$locale = Lang::getLocale();
 		$data['country_list'] = $this->getCountryArray();
-		$data['lan_list'] = $this->getLanguaje($locale);
+		$data['lan_list'] = $this->getLanguaje();
 		$data['currency_list'] = $this->getCurrency();
 		$data['location_info'] = $this->getLocationInfo($post_data['country']);
 
@@ -252,26 +250,20 @@ class UsersController extends Controller {
 		$data['states'] = $this->getStatesArray( $country_code );
 		$data['state_code'] = $state;
 		$data['country_code'] = $country_code;
-		$data['language'] =  $country['language'];
+		if( ! Session::has('users.language') ){
+			Session::put('users.language' , $country['language']);
+		}
+		$data['language'] = Session::get('users.language' , $country['language']);
 		$data['currency'] = $country['currency'];
+		$this->setLanguage();
 		return $data;
 	}
 	
-	protected function getLanguaje($language = FALSE)
+	protected function getLanguaje()
 	{
-		if($language== 'es' || $language==FALSE)
-		{
-			$lan = array(
-								   'es' => 'Español',
-								   'en' => 'Ingles');
-		}
-		else
-		{
-			$lan = array(
-								   'es' => 'Spanish',
-								   'en' => 'English');
-		}
-		return $lan;
+		return array(
+			   'es' => 'Español',
+			   'en' => 'English');
 	}
 
 	protected function getCurrency( $code = FALSE )
@@ -285,4 +277,14 @@ class UsersController extends Controller {
 		}
 	}
 
+	public function refreshLanguage(){
+		$post_data = Request::all();
+		Session::put('users',  $post_data );
+		
+		return Response::json(array(
+			'error' => false,
+			'redirect' => url('users')
+		), 200);
+	}
+	
 }

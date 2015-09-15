@@ -3,7 +3,7 @@
 return [
 	"email-confirmation" => "Confirmaci&oacute;n de Cuenta",
 	"welcome" => [
-		"message" => "Planear vacaciones puede ser tedioso y consumir bastante tiempo. Por estas razones y muchas m&aacute;s, varias personas posponen las vacaciones anuales hasta el siguiente a&ntilde;o, coloc&aacute;ndolos en la categor&iacute;a de los individuos que trabajan mucho y se divierten poco; aquellos que experimentan los efectos del estr&eacute;s como disminuci&oacute;n de productividad y creatividad, fracaso en las relaciones, depresi&oacute;n, problemas de coraz&oacute;n y &uacute;lceras.",
+		"message" => "Las vacaciones anuales son esenciales para la salud y el bienestar",
 		"you-worth" => "TE MERECES UNAS VACACIONES",
 		"we-are" => "Y ESTAMOS AQU&Iacute; PARA AYUDARTE",
 		"affiliation-info-is" => "La informaci&oacute;n de tu afiliaci&oacute;n es:",

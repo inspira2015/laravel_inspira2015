@@ -39,11 +39,10 @@
 		<div class="row text-left">
 			<div class="col-md-6">
 				<div class="row bg-light-gray-transparent" id="contact-info">
-					<div class="row">
-						<h3>{{ Lang::get('userdata.information') }}</h3>
-					</div>
 					<div class="row" data-role="response">
-						@include('useraccount.contact')
+						<div class="col-xs-12 nopadding">
+							@include('useraccount.contact')
+						</div>
 					</div>
 				</div>
 				<div class="row bg-light-gray-transparent" id="account-details">
@@ -144,7 +143,6 @@
 						</div>
 					</div>
 				</div>
-				@if( $location['isoCode'] == "MX")
 				<div class="row bg-light-gray-transparent" id="account-bonus">
 					<div class="row">
 						<h3>
@@ -155,7 +153,6 @@
 						@include('useraccount.payment')
 					</div>
 				</div>
-				@endif
 				<div class="row" style="margin-top:30px;">
 					
 					<div class="col-xs-10 col-xs-offset-1">

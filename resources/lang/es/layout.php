@@ -11,5 +11,6 @@ return [
 	"privacy" => "Pol&iacute;ticas de privacidad",
 	"terms" => "T&eacute;rminos y Condiciones",
 	"close" => "Cerrar",
-	"loading" => "Cargando"
+	"loading" => "Cargando",
+	"with-code" => "Ingresar Código"
 ];

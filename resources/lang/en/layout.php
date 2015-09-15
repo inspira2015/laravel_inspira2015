@@ -11,5 +11,6 @@ return [
 	"privacy" => "Privacy Policy", 
 	"terms" => "Terms of Service",
 	"close" => "Close",
-	"loading" => "Loading"
+	"loading" => "Loading",
+	"with-code" => "Enter code"
 ];

@@ -9,7 +9,7 @@
 				<hr>
 				<div class="row">
 					<div class="col-md-3 col-md-push-9 nopadding text-right">
-						<button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('layout.close') }}</button>
+						<button type="button" class="btn-light-blue btn-small" data-dismiss="modal">{{ Lang::get('layout.continue') }}</button>
 					</div>
 				</div>
 			</div>

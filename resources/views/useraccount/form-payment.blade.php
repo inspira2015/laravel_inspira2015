@@ -1,8 +1,8 @@
 {!! Form::open(array('url' => 'useraccount/update-payment' , 'class' => 'form-data' )) !!}
-	<div class="form-group">
-		<label for="amount">{{ Lang::get('userdata.amount') }}: </label>
+	<div class="form-group" style="line-height: 2;">
+		<label for="amount">{{ Lang::get('userdata.amount') }}:   $</label>
 		<div class="input-group">
-			<input type="text" name="amount" class="form-control">
+			<input type="text" name="amount" class="form-control" style="width:calc(75% - 10px)!important;display:inline-block;margin-right: 10px;">{{ $user->currency }}
 		</div>
 	</div>
 	<div class="form-group">
@@ -13,5 +13,6 @@
 			<div data-role="submit" data-route="useraccount/update-payment" class="btn-blue btn-small">{{ Lang::get('userdata.save') }}</div>
 		</div>
 	</div>
+	<input type="hidden" name="type" value="{{ $type }}">
 	<input type="hidden" name="currency" value="{{ $user->currency }}">
 {!! Form::close() !!}

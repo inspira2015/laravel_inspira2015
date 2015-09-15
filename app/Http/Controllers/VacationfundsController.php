@@ -16,6 +16,8 @@ use App\Services\VacationFund;
 use App\Model\Entity\UserVacFundLog;
 use Auth;
 use App\Libraries\CreateUser\UpdateVacationalFund;
+use App\Libraries\GeneratePaymentsDates;
+
 
 
 class VacationfundsController extends Controller 
@@ -161,6 +163,9 @@ class VacationfundsController extends Controller
 
 	public function dochange()
 	{
+		$paymentDate = new GeneratePaymentsDates();
+		$paymentDate->setDate( \date('Y-m-d') );
+
 		$userAuth = Auth::user();
 		$post_data = Request::all();
 		$post_data['amount'] = $post_data['amount'] ? $post_data['amount'] : 0;
@@ -178,11 +183,17 @@ class VacationfundsController extends Controller
 		$this->updateVacationalFund->setVacationFundPost( $post_data );
 		$this->updateVacationalFund->setCurrentVacationalFund( $userCurrentVacationalFund );
 		$this->updateVacationalFund->changeVacationalFund();
-		Session::forget('currentVacationalFund');
-		if($post_data['amount']>0){
+
+		Session::forget('currentVacationalFund');		
+		$vacLog = $this->userVacationalFundLog->getCurrentUserVacFundLogByUserId( $userAuth->id );
+		$date =  "date here";
+		if( $post_data['amount']>0 ){
 			return Response::json(array(
 				'error' => false,
-				'message' => Lang::get('vacationfund.welcome'),
+				'message' => Lang::get('vacationfund.welcome', [ 'amount' => $vacLog->amount, 
+																 'currency' => $vacLog->currency, 
+																 'payment_date' => $paymentDate->getNextPaymentDateHumanRead()  
+															]),
 				'redirect' => url('useraccount')
 			), 200);
 

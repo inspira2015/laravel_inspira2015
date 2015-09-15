@@ -13,6 +13,8 @@ $(document).ready(function(){
 				var _card = _this.find('input#card_number');
 				var _masked = _this.find('input[data-mask-type]');
 				var _fund = _this.find('input[name="fondo"]');
+				var _language = _this.find('select[id="language"]');
+				var _radio_bonus = _this.find('input[type="radio"]');
 				
 				feature._set_change( _buttons );
 				feature._on_change_country( _change_country );
@@ -20,6 +22,8 @@ $(document).ready(function(){
 				feature._apply_card_validation( _card );
 				feature._apply_masked_input( _masked );
 				feature._enable_fund( _fund );
+				feature._change_language( _language );
+				feature._apply_bonus( _radio_bonus );
 
 				$.ajaxSetup({headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')	}});
 
@@ -179,6 +183,51 @@ $(document).ready(function(){
 				_amount_input.val(_value);
 				_amount_input.attr( 'placeholder', _value );
 				_amount_input.prop('disabled', _disabled );
+			});
+		},
+		_change_language : function( element ) {
+			element.on('change', function() {
+				var _this = $(this);
+				var _route = _this.data('route');
+				var _response = _this.closest('div[data-role=response]');
+				var _form = _this.parents('form');
+								
+				var _data = {};
+				
+				if(typeof _form[0] == 'object'){
+					_data = _form.serialize();
+				}
+				
+				$('#loading-inspira, #bg-loading').toggle();
+				$.ajax({url: _route, data: _data, type: 'POST'}).done(function(_response){
+					if(!_response.error){
+						$('#loading-inspira, #bg-loading').toggle();
+						window.location.href =_response.redirect;	
+					}
+				});
+
+			});
+		},
+		_apply_bonus : function( element ){
+			element.on('change', function(){
+				var _this = $(this);
+				var _route = _this.data('route');
+				var _response = _this.closest('div[data-role=response]');
+				var _form = _this.parents('form');
+
+				if( _route ){
+					$('#loading-inspira, #bg-loading').toggle();
+
+					$.ajax({url:_route, data: _data, type: 'POST'}).done(function(_ajax_response){
+						$('#loading-inspira, #bg-loading').toggle();
+						_response.html(_ajax_response);
+						feature._set_actions(_response);
+					}).fail(function(){
+		
+					});
+
+
+				}
 			});
 		}
 	};

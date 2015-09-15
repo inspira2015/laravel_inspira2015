@@ -4,12 +4,12 @@
 	<div class="row bg-gray" data-role="response">
 		{!! Form::open(array('url' => 'users/registration', 'id' => 'user_data','name' => 'formulario','data-toggle' => 'validator')) !!}
 		<div class="row">
-			<div class="col-xs-4 col-sm-3 col-sm-2">  
+			<div class="nopadding col-xs-4 col-sm-3 col-md-2">  
 				<a href="{{ url('codes/1') }}" class="btn-blue-clear btn-medium back">
 					{{ Lang::get('layout.back') }}
 				</a>
 			</div>
-			<div class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8">   
+			<div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8 nopadding">   
 				<div data-role="submit" class="btn-blue-clear btn-medium">
 					{{ Lang::get('layout.continue') }}
 				</div>
@@ -90,7 +90,7 @@
 					<div class="form-group">
 						<label for="lang">* {{ Lang::get('registry.lang') }}</label>
 						<div class="input-group">
-							{!! Form::select('language', $lan_list,Input::get('language')  ? Input::get('language') : $location_info['language'], array('class' => 'form-control','id' => 'language')) !!}
+							{!! Form::select('language', $lan_list,Input::get('language')   ? Input::get('language') : $location_info['language'] , array('class' => 'form-control','id' => 'language', 'data-route' => url('users/select-language'))) !!}
 						</div>
 					</div>
 				</div>
@@ -106,24 +106,24 @@
 			</div>
 		</div>
 		
-		<div class="col-sm-12">
-			<div class="divider"></div>
-		</div>
-		<div class="col-xs-4 col-sm-2">  
-			<a href="{{ url('codes/1') }}" class="btn-blue-clear btn-medium back">
-				{{ Lang::get('layout.back') }}
-			</a>
-		</div>
-		<div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-7">   
-			<div data-role="submit" class="btn-blue btn-medium">
-				{{ Lang::get('layout.continue') }}
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="divider"></div>
+				<div class="nopadding col-xs-4 col-sm-3 col-md-2">  
+					<a href="{{ url('codes/1') }}" class="btn-blue-clear btn-medium back">
+						{{ Lang::get('layout.back') }}
+					</a>
+				</div>
+				<div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-6 col-md-push-7 nopadding">   
+					<div data-role="submit" class="btn-blue btn-medium">
+						{{ Lang::get('layout.continue') }}
+					</div>
+					<div class="col-xs-12 text-right nopadding" id="mandatory">
+					* {{ Lang::get('layout.required-fields') }}
+					</div>
+				</div>
 			</div>
-			<div class="col-xs-12 text-right nopadding" id="mandatory">
-			* {{ Lang::get('layout.required-fields') }}
-			</div>
 		</div>
-		
-		
 		{!! Form::close() !!}
 	</div>
 @stop
