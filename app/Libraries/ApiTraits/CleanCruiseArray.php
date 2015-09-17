@@ -13,7 +13,7 @@ Trait CleanCruiseArray
 				        'where'           => (isset($valid_data['where'])) ? trim($valid_data['where']) : null,
 				        'cruise_line'           => (isset($valid_data['cruise_line'])) ? trim($valid_data['cruise_line']) : null,
 				        'cruise_name'           => (isset($valid_data['cruise_name'])) ? trim($valid_data['cruise_name']) : null,
-				        'cruise_lenght'         => (isset($valid_data['cruise_lenght'])) ? trim($valid_data['cruise_lenght']) : 0,
+				        'cruise_length'         => (isset($valid_data['cruise_length'])) ? trim($valid_data['cruise_length']) : 0,
 				        'start_date'            => (isset($valid_data['start_date'])) ? trim($valid_data['start_date']) : 0,		
 						'adult_number'          => (isset($valid_data['adult_number'])) ? trim($valid_data['adult_number']) : null,
 					    'child_number'          => (isset($valid_data['child_number'])) ? trim($valid_data['child_number']) : null,

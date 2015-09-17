@@ -1,31 +1,35 @@
 <?php
-namespace App\Http\Controllers\ApiForLLoyalty;
+namespace App\Http\Controllers\ApiForLoyalty;
 use App\Http\Controllers\Controller;
 use Request;
 use Redirect;
 use Response;
 use Session;
 use Auth;
-use App\Model\ApiSearchCruise;
+use App\Model\ApiSearchFlight;
 use App\Model\User;
+use App\Libraries\ApiTraits\CleanFlightArray;
 use App\Model\ApiStorageMaster;
-use App\Libraries\ApiTraits\CleanCruiseArray;
 
-
-class SearchforcruiseController extends Controller 
+class SearchforflightsController extends Controller 
 {
-	use CleanCruiseArray;
+	use CleanFlightArray;
+
 	
 	public function __construct()
 	{
+
 
 	}
 	
 	public function index()
 	{
-		$searches = ApiStorageMaster::where('api_type','CRUISE')->where('data_type','SEARCH')
-			->select( 'id','leisure_id','users_id','from','destination', 'cruise_line',
-				'cruise_name','cruise_lenght','start_date','adult_number','child_number','key_words','created_at'  )->get();
+		$searches = ApiStorageMaster::where('api_type','FLIGHTS')->where('data_type','SEARCH')
+			->select( 'id','leisure_id','users_id','flight_type','from','destination', 'start_date',
+				'end_date','adult_number','child_number','flight_air_line','flight_airfare','key_words','created_at'  )->get();
+
+
+		//$searches = ApiSearchFlight::all();
 
 		return 	Response::json([
 				'data' => $searches->toArray()
@@ -72,15 +76,16 @@ class SearchforcruiseController extends Controller
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
 								'data_type' => 'SEARCH',
-								'api_type' => 'CRUISE',
+								'api_type' => 'FLIGHTS',
 								'from' => $search['from'],
 								'destination' => $search['where'],
-								'cruise_line' => $search['cruise_line'],
-								'cruise_name' => $search['cruise_name'],
-								'cruise_lenght' => $search['cruise_lenght'],
+								'flight_type' => $search['type'],
 								'start_date' => $search['start_date'],
+								'end_date' => $search['end_date'],
 								'adult_number' => $search['adult_number'],
 								'child_number' => $search['child_number'],
+								'flight_air_line' => $search['air_line'],
+								'flight_airfare' => $search['airfare'],
 								'key_words' => $search['key_words'],
 				));
 		}

@@ -1,18 +1,19 @@
 <?php
-namespace App\Http\Controllers\ApiForLLoyalty;
+namespace App\Http\Controllers\ApiForLoyalty;
 use App\Http\Controllers\Controller;
 use Request;
 use Redirect;
 use Response;
+use Session;
+use Auth;
+use App\Model\ApiSearchActivities;
 use App\Model\User;
-use App\Model\ApiSearchLoadging;
-use App\Libraries\ApiTraits\CleanLodgingArray;
 use App\Model\ApiStorageMaster;
 
 
-class BookingforlodgingController extends Controller 
+class SearchforactivitiesController extends Controller 
 {
-	use CleanLodgingArray;
+	
 	
 	public function __construct()
 	{
@@ -22,11 +23,10 @@ class BookingforlodgingController extends Controller
 	
 	public function index()
 	{
-		$searches = ApiStorageMaster::where('api_type','LODGING')->where('data_type','BOOKING')
-			->select( 'id','leisure_id','users_id','lodging_type','destination','start_date','end_date',
-				'adult_number','child_number','lodging_stars','lodging_hotel_name','booking_amount',
-				'booking_date','booking_payment_type','key_words' )->get();
- 
+		$searches = ApiStorageMaster::where('api_type','ACTIVITIES')->where('data_type','SEARCH')
+			->select( 'id','leisure_id','users_id','from','destination', 'activity_category',
+				'search_date','key_words','created_at'  )->get();
+
 
 		return 	Response::json([
 				'data' => $searches->toArray()
@@ -54,14 +54,12 @@ class BookingforlodgingController extends Controller
 
 		foreach($searches as $search)
 		{
-
-
 			if( !isset($search['leisure_id']) || empty($search['leisure_id']) )
 			{
 				$flag_partial = 1;
 				continue;
 			}
-			$inspiraUser = User::where('leisure_id', $search['leisure_id'])->first();
+			$inspiraUser = User::where('leisure_id', $searches[0]['leisure_id'])->first();
 
 			if ( empty( $inspiraUser ) )
 			{
@@ -69,29 +67,20 @@ class BookingforlodgingController extends Controller
 				continue;
 			}
 
-			$search = $this->exchangeArray( $search );
+
 			ApiStorageMaster::create(array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
-								'data_type' => 'BOOKING',
-								'api_type' => 'LODGING',
-								'lodging_type' => $search['type'],
+								'data_type' => 'SEARCH',
+								'api_type' => 'ACTIVITIES',
 								'destination' => $search['destination'],
-								'start_date' => $search['start_date'],
-								'end_date' => $search['end_date'],
-								'adult_number' => $search['adult_number'],
-								'child_number' => $search['child_number'],
-								'lodging_stars' => $search['stars'],
-								'lodging_hotel_name' => $search['hotel_name'],
-								'booking_amount' => $search['booking_amount'],
-								'booking_date' => $search['booking_date'],
-								'booking_payment_type' => $search['booking_payment_type'],
+								'activity_category' => $search['category'],
+								'search_date' => $search['search_date'],
 								'key_words' => $search['key_words'],
 				));
-
 		}
 
-		if($flag_partial == 1)
+		if($flag_partial == 1 || $flag_notauser == TRUE )
 		{
 			return Response::json([
 					'response'=> [
@@ -108,9 +97,6 @@ class BookingforlodgingController extends Controller
 				],201);
 		
 	}
-
-
-
 
 
 }

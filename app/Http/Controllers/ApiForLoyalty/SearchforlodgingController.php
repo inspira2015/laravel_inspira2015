@@ -1,33 +1,33 @@
 <?php
-namespace App\Http\Controllers\ApiForLLoyalty;
+namespace App\Http\Controllers\ApiForLoyalty;
 use App\Http\Controllers\Controller;
 use Request;
 use Redirect;
 use Response;
-use Session;
-use Auth;
-use App\Model\ApiSearchActivities;
 use App\Model\User;
+use App\Model\ApiSearchLodging;
+use App\Libraries\ApiTraits\CleanLodgingArray;
 use App\Model\ApiStorageMaster;
 
 
-class SearchforactivitiesController extends Controller 
+class SearchforlodgingController extends Controller 
 {
-	
+	use CleanLodgingArray;
+
+	private $lodgingView;
+
 	
 	public function __construct()
 	{
-
 
 	}
 	
 	public function index()
 	{
-		$searches = ApiStorageMaster::where('api_type','ACTIVITIES')->where('data_type','SEARCH')
-			->select( 'id','leisure_id','users_id','from','destination', 'activity_category',
-				'search_date','key_words','created_at'  )->get();
-
-
+		$searches = ApiStorageMaster::where('api_type','LODGING')->where('data_type','SEARCH')
+			->select( 'id','leisure_id','users_id','lodging_type','destination','start_date','end_date',
+				'adult_number','child_number','lodging_stars','lodging_hotel_name','key_words','created_at' )->get();
+ 
 		return 	Response::json([
 				'data' => $searches->toArray()
 			], 200);
@@ -51,7 +51,6 @@ class SearchforactivitiesController extends Controller
 				],404);
 		}
 
-
 		foreach($searches as $search)
 		{
 			if( !isset($search['leisure_id']) || empty($search['leisure_id']) )
@@ -59,7 +58,7 @@ class SearchforactivitiesController extends Controller
 				$flag_partial = 1;
 				continue;
 			}
-			$inspiraUser = User::where('leisure_id', $searches[0]['leisure_id'])->first();
+			$inspiraUser = User::where('leisure_id', $search['leisure_id'])->first();
 
 			if ( empty( $inspiraUser ) )
 			{
@@ -67,20 +66,26 @@ class SearchforactivitiesController extends Controller
 				continue;
 			}
 
+			$search = $this->exchangeArray( $search );
 
 			ApiStorageMaster::create(array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
 								'data_type' => 'SEARCH',
-								'api_type' => 'ACTIVITIES',
+								'api_type' => 'LODGING',
+								'lodging_type' => $search['type'],
 								'destination' => $search['destination'],
-								'activity_category' => $search['category'],
-								'search_date' => $search['search_date'],
+								'start_date' => $search['start_date'],
+								'end_date' => $search['end_date'],
+								'adult_number' => $search['adult_number'],
+								'child_number' => $search['child_number'],
+								'lodging_stars' => $search['stars'],
+								'lodging_hotel_name' => $search['hotel_name'],
 								'key_words' => $search['key_words'],
 				));
 		}
 
-		if($flag_partial == 1 || $flag_notauser == TRUE )
+		if($flag_partial == 1)
 		{
 			return Response::json([
 					'response'=> [

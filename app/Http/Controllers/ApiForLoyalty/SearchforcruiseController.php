@@ -1,21 +1,20 @@
 <?php
-namespace App\Http\Controllers\ApiForLLoyalty;
+namespace App\Http\Controllers\ApiForLoyalty;
 use App\Http\Controllers\Controller;
 use Request;
 use Redirect;
 use Response;
+use Session;
+use Auth;
+use App\Model\ApiSearchCruise;
 use App\Model\User;
-use App\Model\ApiSearchLoadging;
-use App\Libraries\ApiTraits\CleanLodgingArray;
 use App\Model\ApiStorageMaster;
+use App\Libraries\ApiTraits\CleanCruiseArray;
 
 
-class SearchforlodgingController extends Controller 
+class SearchforcruiseController extends Controller 
 {
-	use CleanLodgingArray;
-
-	private $lodgingView;
-
+	use CleanCruiseArray;
 	
 	public function __construct()
 	{
@@ -24,10 +23,10 @@ class SearchforlodgingController extends Controller
 	
 	public function index()
 	{
-		$searches = ApiStorageMaster::where('api_type','LODGING')->where('data_type','SEARCH')
-			->select( 'id','leisure_id','users_id','lodging_type','destination','start_date','end_date',
-				'adult_number','child_number','lodging_stars','lodging_hotel_name','key_words','created_at' )->get();
- 
+		$searches = ApiStorageMaster::where('api_type','CRUISE')->where('data_type','SEARCH')
+			->select( 'id','leisure_id','users_id','from','destination', 'cruise_line',
+				'cruise_name','cruise_length','start_date','adult_number','child_number','key_words','created_at'  )->get();
+
 		return 	Response::json([
 				'data' => $searches->toArray()
 			], 200);
@@ -51,6 +50,7 @@ class SearchforlodgingController extends Controller
 				],404);
 		}
 
+
 		foreach($searches as $search)
 		{
 			if( !isset($search['leisure_id']) || empty($search['leisure_id']) )
@@ -58,7 +58,7 @@ class SearchforlodgingController extends Controller
 				$flag_partial = 1;
 				continue;
 			}
-			$inspiraUser = User::where('leisure_id', $search['leisure_id'])->first();
+			$inspiraUser = User::where('leisure_id', $searches[0]['leisure_id'])->first();
 
 			if ( empty( $inspiraUser ) )
 			{
@@ -72,20 +72,20 @@ class SearchforlodgingController extends Controller
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
 								'data_type' => 'SEARCH',
-								'api_type' => 'LODGING',
-								'lodging_type' => $search['type'],
-								'destination' => $search['destination'],
+								'api_type' => 'CRUISE',
+								'from' => $search['from'],
+								'destination' => $search['where'],
+								'cruise_line' => $search['cruise_line'],
+								'cruise_name' => $search['cruise_name'],
+								'cruise_lenght' => $search['cruise_lenght'],
 								'start_date' => $search['start_date'],
-								'end_date' => $search['end_date'],
 								'adult_number' => $search['adult_number'],
 								'child_number' => $search['child_number'],
-								'lodging_stars' => $search['stars'],
-								'lodging_hotel_name' => $search['hotel_name'],
 								'key_words' => $search['key_words'],
 				));
 		}
 
-		if($flag_partial == 1)
+		if($flag_partial == 1 || $flag_notauser == TRUE )
 		{
 			return Response::json([
 					'response'=> [

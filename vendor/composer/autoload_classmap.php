@@ -46,7 +46,7 @@ return array(
     'AddUpdateUsers' => $baseDir . '/database/migrations/2015_08_07_231721_add_update_users.php',
     'AffiliationsDescriptionSeeder' => $baseDir . '/database/seeds/AffiliationsDescriptionSeeder.php',
     'AffiliationsSeeder' => $baseDir . '/database/seeds/AffiliationsSeeder.php',
-    'ApiSearchLoadgingSeeder' => $baseDir . '/database/seeds/ApiSearchLoadgingSeeder.php',
+    'ApiSearchLodgingSeeder' => $baseDir . '/database/seeds/ApiSearchLodgingSeeder.php',
     'ChangeAmountAffiliationPayment' => $baseDir . '/database/migrations/2015_08_19_171225_change_amount_affiliation_payment.php',
     'ChangeAmountSystemTransaction' => $baseDir . '/database/migrations/2015_08_19_170928_change_amount_system_transaction.php',
     'ChangeUsersPoints' => $baseDir . '/database/migrations/2015_08_19_165248_change_users_points.php',
@@ -473,7 +473,6 @@ return array(
     'RemoveFieldsSystemLogTable' => $baseDir . '/database/migrations/2015_07_06_145351_remove_fields_system_log_table.php',
     'RenameApiSearchLoadging' => $baseDir . '/database/migrations/2015_09_17_124911_rename_api_search_loadging.php',
     'RenameColumnInspirausersIdOnAuthenticationsTable' => $baseDir . '/database/migrations/2015_06_24_114355_rename_column_inspirausers_id_on_authentications_table.php',
-    'RenameColumnsOnApiSearchLodging' => $baseDir . '/database/migrations/2015_09_17_125307_rename_columns_on_api_search_lodging.php',
     'RenameColumnsOnApiSearchMasterTable' => $baseDir . '/database/migrations/2015_09_17_125450_rename_columns_on_api_search_master_table.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',
@@ -525,4 +524,6 @@ return array(
     'UpdateUsersFbfieldsTable' => $baseDir . '/database/migrations/2015_07_08_212844_update_users_fbfields_table.php',
     'UpdateUsersTable' => $baseDir . '/database/migrations/2015_07_02_180548_update_users_table.php',
     'UpdateUsersVacationalFundTable' => $baseDir . '/database/migrations/2015_07_13_195342_update_usersVacational_fund_table.php',
+    'apiSearchLodging' => $baseDir . '/database/seeds/apiSearchLodging.php',
+    'apiSearchLodginggitSeeder' => $baseDir . '/database/seeds/apiSearchLodginggitSeeder.php',
 );

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class ApiSearchLoadging extends Model 
+class ApiSearchLodging extends Model 
 {
 	protected $table = 'api_search_lodging';
 	

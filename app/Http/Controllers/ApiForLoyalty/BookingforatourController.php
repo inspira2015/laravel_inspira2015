@@ -1,20 +1,19 @@
 <?php
-namespace App\Http\Controllers\ApiForLLoyalty;
+namespace App\Http\Controllers\ApiForLoyalty;
 use App\Http\Controllers\Controller;
 use Request;
 use Redirect;
 use Response;
 use Session;
 use Auth;
-use App\Model\ApiSearchFlight;
+use App\Model\ApiSearchTour;
 use App\Model\User;
-use App\Libraries\ApiTraits\CleanFlightArray;
 use App\Model\ApiStorageMaster;
 
-class SearchforflightsController extends Controller 
-{
-	use CleanFlightArray;
 
+class BookingforatourController extends Controller 
+{
+	
 	
 	public function __construct()
 	{
@@ -24,12 +23,10 @@ class SearchforflightsController extends Controller
 	
 	public function index()
 	{
-		$searches = ApiStorageMaster::where('api_type','FLIGHTS')->where('data_type','SEARCH')
-			->select( 'id','leisure_id','users_id','flight_type','from','destination', 'start_date',
-				'end_date','adult_number','child_number','flight_air_line','flight_airfare','key_words','created_at'  )->get();
-
-
-		//$searches = ApiSearchFlight::all();
+		$searches = ApiStorageMaster::where('api_type','TOUR')->where('data_type','BOOKING')
+			->select( 'id','leisure_id','users_id','destination', 'tour_type',
+				'search_date','booking_amount','booking_date','booking_payment_type',
+				 'key_words','created_at'  )->get();
 
 		return 	Response::json([
 				'data' => $searches->toArray()
@@ -70,22 +67,18 @@ class SearchforflightsController extends Controller
 				continue;
 			}
 
-			$search = $this->exchangeArray( $search );
 
 			ApiStorageMaster::create(array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
-								'data_type' => 'SEARCH',
-								'api_type' => 'FLIGHTS',
-								'from' => $search['from'],
-								'destination' => $search['where'],
-								'flight_type' => $search['type'],
-								'start_date' => $search['start_date'],
-								'end_date' => $search['end_date'],
-								'adult_number' => $search['adult_number'],
-								'child_number' => $search['child_number'],
-								'flight_air_line' => $search['air_line'],
-								'flight_airfare' => $search['airfare'],
+								'data_type' => 'BOOKING',
+								'api_type' => 'TOUR',
+								'destination' => $search['destination'],
+								'tour_type' => $search['tour_type'],
+								'search_date' => $search['search_date'],
+								'booking_amount' => $search['booking_amount'],
+								'booking_date' => $search['booking_date'],
+								'booking_payment_type' => $search['booking_payment_type'],
 								'key_words' => $search['key_words'],
 				));
 		}

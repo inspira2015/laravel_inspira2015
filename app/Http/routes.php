@@ -31,78 +31,78 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 
 });
 
-	Route::put('api/v1/inspirapoints/addpayment/{leisure_id}', 'ApiForLLoyalty\ApiadditionalpaymentsController@Monthlypayment');
+	Route::put('api/v1/inspirapoints/addpayment/{leisure_id}', 'ApiForLoyalty\ApiadditionalpaymentsController@Monthlypayment');
 
 
 
 
 
-	Route::put('api/v1/inspirapoints/earned/{leisure_id}', 'ApiForLLoyalty\InspirapointsController@Pointsearnpermonth');
-	Route::put('api/v1/inspirapoints/spended/{leisure_id}', 'ApiForLLoyalty\InspirapointsController@Pointsspendpermonth');
-	Route::put('api/v1/inspirapoints/movements/{leisure_id}', 'ApiForLLoyalty\InspirapointsController@Monthlymovements');
-	Route::put('api/v1/inspirapoints/concepts/{leisure_id}', 'ApiForLLoyalty\InspirapointsController@Monthlyconceptsmovements');
-	Route::put('api/v1/inspirapoints/mbalance/{leisure_id}', 'ApiForLLoyalty\InspirapointsController@Monthlybalance');
-	Route::put('api/v1/inspirapoints/balance/{leisure_id}', 'ApiForLLoyalty\InspirapointsController@Currentbalance');
+	Route::put('api/v1/inspirapoints/earned/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Pointsearnpermonth');
+	Route::put('api/v1/inspirapoints/spent/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Pointsspendpermonth');
+	Route::put('api/v1/inspirapoints/movements/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Monthlymovements');
+	Route::put('api/v1/inspirapoints/concepts/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Monthlyconceptsmovements');
+	Route::put('api/v1/inspirapoints/mbalance/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Monthlybalance');
+	Route::put('api/v1/inspirapoints/balance/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Currentbalance');
 
 
 
-	Route::get('api/v1/booking/tours/', 'ApiForLLoyalty\BookingforatourController@index');
-	Route::post('api/v1/booking/tours/create', 'ApiForLLoyalty\BookingforatourController@create');
+	Route::get('api/v1/booking/tours/', 'ApiForLoyalty\BookingforatourController@index');
+	Route::post('api/v1/booking/tours/create', 'ApiForLoyalty\BookingforatourController@create');
 
 
-	Route::get('api/v1/tours/', 'ApiForLLoyalty\SearchforatourController@index');
-	Route::post('api/v1/tours/create', 'ApiForLLoyalty\SearchforatourController@create');
+	Route::get('api/v1/tours/', 'ApiForLoyalty\SearchforatourController@index');
+	Route::post('api/v1/tours/create', 'ApiForLoyalty\SearchforatourController@create');
 
 
-	Route::get('api/v1/booking/activities/', 'ApiForLLoyalty\BookingforactivitiesController@index');
-	Route::post('api/v1/booking/activities/create', 'ApiForLLoyalty\BookingforactivitiesController@create');
+	Route::get('api/v1/booking/activities/', 'ApiForLoyalty\BookingforactivitiesController@index');
+	Route::post('api/v1/booking/activities/create', 'ApiForLoyalty\BookingforactivitiesController@create');
 
-	Route::get('api/v1/activities/', 'ApiForLLoyalty\SearchforactivitiesController@index');
-	Route::post('api/v1/activities/create', 'ApiForLLoyalty\SearchforactivitiesController@create');
-
-
-	Route::get('api/v1/booking/cruise/', 'ApiForLLoyalty\BookingforcruiseController@index');
-	Route::post('api/v1/booking/cruise/create', 'ApiForLLoyalty\BookingforcruiseController@create');
-
-	Route::get('api/v1/cruise/', 'ApiForLLoyalty\SearchforcruiseController@index');
-	Route::post('api/v1/cruise/create', 'ApiForLLoyalty\SearchforcruiseController@create');
+	Route::get('api/v1/activities/', 'ApiForLoyalty\SearchforactivitiesController@index');
+	Route::post('api/v1/activities/create', 'ApiForLoyalty\SearchforactivitiesController@create');
 
 
-	Route::get('api/v1/cars/', 'ApiForLLoyalty\SearchforcarsController@index');
-	Route::post('api/v1/cars/create', 'ApiForLLoyalty\SearchforcarsController@create');
+	Route::get('api/v1/booking/cruise/', 'ApiForLoyalty\BookingforcruiseController@index');
+	Route::post('api/v1/booking/cruise/create', 'ApiForLoyalty\BookingforcruiseController@create');
 
-	Route::get('api/v1/booking/cars/', 'ApiForLLoyalty\BookingforcarsController@index');
-	Route::post('api/v1/booking/cars/create', 'ApiForLLoyalty\BookingforcarsController@create');
-
-
-	Route::get('api/v1/flights/', 'ApiForLLoyalty\SearchforflightsController@index');
-	Route::post('api/v1/flights/create', 'ApiForLLoyalty\SearchforflightsController@create');
-
-	Route::get('api/v1/booking/lodging', 'ApiForLLoyalty\BookingforlodgingController@index');
-	Route::post('api/v1/booking/lodging/create', 'ApiForLLoyalty\BookingforlodgingController@create');
-
-	Route::get('api/v1/lodging/', 'ApiForLLoyalty\SearchforlodgingController@index');
-	Route::post('api/v1/lodging/create', 'ApiForLLoyalty\SearchforlodgingController@create');
+	Route::get('api/v1/cruise/', 'ApiForLoyalty\SearchforcruiseController@index');
+	Route::post('api/v1/cruise/create', 'ApiForLoyalty\SearchforcruiseController@create');
 
 
-	Route::get('api/v1/booking/flights', 'ApiForLLoyalty\BookingforflightsController@index');
-	Route::post('api/v1/booking/flights/create', 'ApiForLLoyalty\BookingforflightsController@create');
+	Route::get('api/v1/cars/', 'ApiForLoyalty\SearchforcarsController@index');
+	Route::post('api/v1/cars/create', 'ApiForLoyalty\SearchforcarsController@create');
+
+	Route::get('api/v1/booking/cars/', 'ApiForLoyalty\BookingforcarsController@index');
+	Route::post('api/v1/booking/cars/create', 'ApiForLoyalty\BookingforcarsController@create');
 
 
-	Route::put('api/v1/affiliation/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@getUseraffiliation');
-	Route::put('api/v1/affiliation/payment/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@putUseraffpayment');
-	Route::put('api/v1/affiliation/lastpayment/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@putUserafflastpayment');
-	Route::put('api/v1/affiliation/nextpayment/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@putUseraffnextpayment');
-	Route::put('api/v1/affiliation/duepayments/{leisure_id}', 'ApiForLLoyalty\ApiaffiliationController@putUseraffduepayment');
+	Route::get('api/v1/flights/', 'ApiForLoyalty\SearchforflightsController@index');
+	Route::post('api/v1/flights/create', 'ApiForLoyalty\SearchforflightsController@create');
+
+	Route::get('api/v1/booking/lodging', 'ApiForLoyalty\BookingforlodgingController@index');
+	Route::post('api/v1/booking/lodging/create', 'ApiForLoyalty\BookingforlodgingController@create');
+
+	Route::get('api/v1/lodging/', 'ApiForLoyalty\SearchforlodgingController@index');
+	Route::post('api/v1/lodging/create', 'ApiForLoyalty\SearchforlodgingController@create');
 
 
-	Route::put('api/v1/vacationalfund/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@Getmonthlyamount');
-	Route::put('api/v1/vacationalfund/lastpayment/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@Getlastpayment');
-	Route::put('api/v1/vacationalfund/nextpayment/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@Getnextpayment');
-	Route::put('api/v1/vacationalfund/duepayments/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@Getuservacduepayments');
-	Route::put('api/v1/vacationalfund/withdraw/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@Withdraw');
-	Route::put('api/v1/vacationalfund/lastwithdraw/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@GetLastWithdrawDate');
-	Route::put('api/v1/vacationalfund/currentbalance/{leisure_id}', 'ApiForLLoyalty\ApivacationalfundsController@GetCurrentBalance');
+	Route::get('api/v1/booking/flights', 'ApiForLoyalty\BookingforflightsController@index');
+	Route::post('api/v1/booking/flights/create', 'ApiForLoyalty\BookingforflightsController@create');
+
+
+	Route::put('api/v1/affiliation/{leisure_id}', 'ApiForLoyalty\ApiaffiliationController@getUseraffiliation');
+	Route::put('api/v1/affiliation/payment/{leisure_id}', 'ApiForLoyalty\ApiaffiliationController@putUseraffpayment');
+	Route::put('api/v1/affiliation/lastpayment/{leisure_id}', 'ApiForLoyalty\ApiaffiliationController@putUserafflastpayment');
+	Route::put('api/v1/affiliation/nextpayment/{leisure_id}', 'ApiForLoyalty\ApiaffiliationController@putUseraffnextpayment');
+	Route::put('api/v1/affiliation/duepayments/{leisure_id}', 'ApiForLoyalty\ApiaffiliationController@putUseraffduepayment');
+
+
+	Route::put('api/v1/vacationalfund/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@Getmonthlyamount');
+	Route::put('api/v1/vacationalfund/lastpayment/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@Getlastpayment');
+	Route::put('api/v1/vacationalfund/nextpayment/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@Getnextpayment');
+	Route::put('api/v1/vacationalfund/duepayments/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@Getuservacduepayments');
+	Route::put('api/v1/vacationalfund/withdraw/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@Withdraw');
+	Route::put('api/v1/vacationalfund/lastwithdraw/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@GetLastWithdrawDate');
+	Route::put('api/v1/vacationalfund/currentbalance/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@GetCurrentBalance');
 
 
 

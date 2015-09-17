@@ -1,32 +1,32 @@
 <?php
-namespace App\Http\Controllers\ApiForLLoyalty;
+namespace App\Http\Controllers\ApiForLoyalty;
 use App\Http\Controllers\Controller;
 use Request;
 use Redirect;
 use Response;
 use Session;
 use Auth;
-use App\Model\ApiSearchTour;
+use App\Model\ApiSearchCar;
 use App\Model\User;
 use App\Model\ApiStorageMaster;
+use App\Libraries\ApiTraits\CleanCarArray;
 
 
-class BookingforatourController extends Controller 
+class SearchforcarsController extends Controller 
 {
-	
+	use CleanCarArray;
 	
 	public function __construct()
 	{
-
+	
 
 	}
 	
 	public function index()
 	{
-		$searches = ApiStorageMaster::where('api_type','TOUR')->where('data_type','BOOKING')
-			->select( 'id','leisure_id','users_id','destination', 'tour_type',
-				'search_date','booking_amount','booking_date','booking_payment_type',
-				 'key_words','created_at'  )->get();
+		$searches = ApiStorageMaster::where('api_type','CARS')->where('data_type','SEARCH')
+			->select( 'id','leisure_id','users_id','from','start_date', 'destination',
+				'end_date','car_type','payment_type','key_words','created_at'  )->get();
 
 		return 	Response::json([
 				'data' => $searches->toArray()
@@ -67,20 +67,22 @@ class BookingforatourController extends Controller
 				continue;
 			}
 
+			$search = $this->exchangeArray( $search );
 
 			ApiStorageMaster::create(array(
 								'leisure_id' => $search['leisure_id'],
 								'users_id' => $inspiraUser->id,
-								'data_type' => 'BOOKING',
-								'api_type' => 'TOUR',
-								'destination' => $search['destination'],
-								'tour_type' => $search['tour_type'],
-								'search_date' => $search['search_date'],
-								'booking_amount' => $search['booking_amount'],
-								'booking_date' => $search['booking_date'],
-								'booking_payment_type' => $search['booking_payment_type'],
+								'data_type' => 'SEARCH',
+								'api_type' => 'CARS',
+								'from' => $search['from'],
+								'start_date' => $search['start_date'],
+								'destination' => $search['where'],
+								'end_date' => $search['end_date'],
+								'car_type' => $search['car_type'],
+								'payment_type' => $search['payment_type'],
 								'key_words' => $search['key_words'],
 				));
+
 		}
 
 		if($flag_partial == 1 || $flag_notauser == TRUE )

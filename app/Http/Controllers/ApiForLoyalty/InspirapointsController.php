@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\ApiForLLoyalty;
+namespace App\Http\Controllers\ApiForLoyalty;
 use App\Http\Controllers\Controller;
 use Request;
 use Redirect;
@@ -434,7 +434,7 @@ class InspirapointsController extends Controller
 			}
 			else
 			{
-				$operation_type = 'Points Spended';
+				$operation_type = 'Points Spent';
 				$amount = $inspira->substracted_points;
 			}
 			$inspiraArray[] = array( 'Date' => $this->cleanDate( $inspira->created_at ),
@@ -458,7 +458,7 @@ class InspirapointsController extends Controller
 			}
 			else
 			{
-				$operation_type = 'Points Spended';
+				$operation_type = 'Points Spent';
 				$amount = $inspira->substracted_points;
 			}
 			$inspiraArray[] = array( 'Date' => $this->cleanDate( $inspira->created_at ),
