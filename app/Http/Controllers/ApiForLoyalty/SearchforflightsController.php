@@ -55,7 +55,7 @@ class SearchforflightsController extends Controller
 		}
 
 
-		foreach($searches as $search)
+		foreach($searches as $index => $search)
 		{
 			if( !isset($search['leisure_id']) || empty($search['leisure_id']) )
 			{
@@ -79,7 +79,7 @@ class SearchforflightsController extends Controller
 								'api_type' => 'FLIGHTS',
 								'from' => $search['from'],
 								'destination' => $search['where'],
-								'flight_type' => $search['type'],
+								'flight_type' => $search['flight_type'],
 								'start_date' => $search['start_date'],
 								'end_date' => $search['end_date'],
 								'adult_number' => $search['adult_number'],

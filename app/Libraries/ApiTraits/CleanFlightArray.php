@@ -11,7 +11,7 @@ trait CleanFlightArray
 				       'leisure_id'             => (isset($valid_data['leisure_id'])) ? trim($valid_data['leisure_id']) : null,
 						'from'        			=> (isset($valid_data['from'])) ? trim($valid_data['from']) : null,
 				        'where'                 => (isset($valid_data['where'])) ? trim($valid_data['where']) : null,
-				        'type'            		=> (isset($valid_data['type'])) ? trim($valid_data['type']) : null,
+				        'flight_type'            		=> (isset($valid_data['flight_type'])) ? trim($valid_data['flight_type']) : null,
 				        'start_date'            => (isset($valid_data['start_date'])) ? trim($valid_data['start_date']) : null,
 				       	'end_date'              => (isset($valid_data['end_date'])) ? trim($valid_data['end_date']) : null,
 				        'adult_number'          => (isset($valid_data['adult_number'])) ? trim($valid_data['adult_number']) : 0,

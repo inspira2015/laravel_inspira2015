@@ -51,7 +51,7 @@ class SearchforatourController extends Controller
 		}
 
 
-		foreach($searches as $search)
+		foreach($searches as $index => $search)
 		{
 			if( !isset($search['leisure_id']) || empty($search['leisure_id']) )
 			{
@@ -75,7 +75,7 @@ class SearchforatourController extends Controller
 								'destination' => $search['destination'],
 								'tour_type' => $search['tour_type'],
 								'search_date' => $search['search_date'],
-								'key_words' => $search['key_words'],
+								'key_words' => $search['key_words']
 				));
 		}
 

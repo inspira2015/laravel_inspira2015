@@ -24,7 +24,7 @@ class SearchforactivitiesController extends Controller
 	public function index()
 	{
 		$searches = ApiStorageMaster::where('api_type','ACTIVITIES')->where('data_type','SEARCH')
-			->select( 'id','leisure_id','users_id','from','destination', 'activity_category',
+			->select( 'id','leisure_id','users_id', 'destination', 'activity_category',
 				'search_date','key_words','created_at'  )->get();
 
 

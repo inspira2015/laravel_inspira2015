@@ -32,11 +32,6 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 });
 
 	Route::put('api/v1/inspirapoints/addpayment/{leisure_id}', 'ApiForLoyalty\ApiadditionalpaymentsController@Monthlypayment');
-
-
-
-
-
 	Route::put('api/v1/inspirapoints/earned/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Pointsearnpermonth');
 	Route::put('api/v1/inspirapoints/spent/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Pointsspendpermonth');
 	Route::put('api/v1/inspirapoints/movements/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Monthlymovements');
@@ -49,10 +44,8 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 	Route::get('api/v1/booking/tours/', 'ApiForLoyalty\BookingforatourController@index');
 	Route::post('api/v1/booking/tours/create', 'ApiForLoyalty\BookingforatourController@create');
 
-
 	Route::get('api/v1/tours/', 'ApiForLoyalty\SearchforatourController@index');
 	Route::post('api/v1/tours/create', 'ApiForLoyalty\SearchforatourController@create');
-
 
 	Route::get('api/v1/booking/activities/', 'ApiForLoyalty\BookingforactivitiesController@index');
 	Route::post('api/v1/booking/activities/create', 'ApiForLoyalty\BookingforactivitiesController@create');
@@ -60,20 +53,17 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 	Route::get('api/v1/activities/', 'ApiForLoyalty\SearchforactivitiesController@index');
 	Route::post('api/v1/activities/create', 'ApiForLoyalty\SearchforactivitiesController@create');
 
-
 	Route::get('api/v1/booking/cruise/', 'ApiForLoyalty\BookingforcruiseController@index');
 	Route::post('api/v1/booking/cruise/create', 'ApiForLoyalty\BookingforcruiseController@create');
 
 	Route::get('api/v1/cruise/', 'ApiForLoyalty\SearchforcruiseController@index');
 	Route::post('api/v1/cruise/create', 'ApiForLoyalty\SearchforcruiseController@create');
 
-
 	Route::get('api/v1/cars/', 'ApiForLoyalty\SearchforcarsController@index');
 	Route::post('api/v1/cars/create', 'ApiForLoyalty\SearchforcarsController@create');
 
 	Route::get('api/v1/booking/cars/', 'ApiForLoyalty\BookingforcarsController@index');
 	Route::post('api/v1/booking/cars/create', 'ApiForLoyalty\BookingforcarsController@create');
-
 
 	Route::get('api/v1/flights/', 'ApiForLoyalty\SearchforflightsController@index');
 	Route::post('api/v1/flights/create', 'ApiForLoyalty\SearchforflightsController@create');
@@ -88,13 +78,11 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 	Route::get('api/v1/booking/flights', 'ApiForLoyalty\BookingforflightsController@index');
 	Route::post('api/v1/booking/flights/create', 'ApiForLoyalty\BookingforflightsController@create');
 
-
 	Route::put('api/v1/affiliation/{leisure_id}', 'ApiForLoyalty\ApiaffiliationController@getUseraffiliation');
 	Route::put('api/v1/affiliation/payment/{leisure_id}', 'ApiForLoyalty\ApiaffiliationController@putUseraffpayment');
 	Route::put('api/v1/affiliation/lastpayment/{leisure_id}', 'ApiForLoyalty\ApiaffiliationController@putUserafflastpayment');
 	Route::put('api/v1/affiliation/nextpayment/{leisure_id}', 'ApiForLoyalty\ApiaffiliationController@putUseraffnextpayment');
 	Route::put('api/v1/affiliation/duepayments/{leisure_id}', 'ApiForLoyalty\ApiaffiliationController@putUseraffduepayment');
-
 
 	Route::put('api/v1/vacationalfund/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@Getmonthlyamount');
 	Route::put('api/v1/vacationalfund/lastpayment/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@Getlastpayment');
@@ -103,8 +91,6 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 	Route::put('api/v1/vacationalfund/withdraw/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@Withdraw');
 	Route::put('api/v1/vacationalfund/lastwithdraw/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@GetLastWithdrawDate');
 	Route::put('api/v1/vacationalfund/currentbalance/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@GetCurrentBalance');
-
-
 
 
 Route::get('terms', 'WelcomeController@terms');

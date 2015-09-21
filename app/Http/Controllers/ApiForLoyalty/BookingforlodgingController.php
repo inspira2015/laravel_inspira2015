@@ -75,7 +75,7 @@ class BookingforlodgingController extends Controller
 								'users_id' => $inspiraUser->id,
 								'data_type' => 'BOOKING',
 								'api_type' => 'LODGING',
-								'lodging_type' => $search['type'],
+								'lodging_type' => $search['lodging_type'],
 								'destination' => $search['destination'],
 								'start_date' => $search['start_date'],
 								'end_date' => $search['end_date'],

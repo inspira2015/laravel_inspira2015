@@ -9,7 +9,7 @@ Trait CleanCruiseArray
        
        return array( 
 				       'leisure_id'            => (isset($valid_data['leisure_id'])) ? trim($valid_data['leisure_id']) : null,
-						'from'        			=> (isset($valid_data['type'])) ? trim($valid_data['type']) : null,
+						'from'        			=> (isset($valid_data['from'])) ? trim($valid_data['from']) : null,
 				        'where'           => (isset($valid_data['where'])) ? trim($valid_data['where']) : null,
 				        'cruise_line'           => (isset($valid_data['cruise_line'])) ? trim($valid_data['cruise_line']) : null,
 				        'cruise_name'           => (isset($valid_data['cruise_name'])) ? trim($valid_data['cruise_name']) : null,

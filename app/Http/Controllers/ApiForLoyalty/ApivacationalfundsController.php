@@ -206,14 +206,7 @@ class ApivacationalfundsController extends Controller
 		}
 
 		$queryAff = UserVacFunds::where('users_id', $inspiraUser->id)->orderBy('id','desc')->first();
-		$objGeneratePaymentsDates = new GeneratePaymentsDates();
-		$objGeneratePaymentsDates->setDate( $queryAff->charge_at );
-		$objGeneratePaymentsDates->setBillableDay( $inspiraUser->billable_day );
-
-		$objCheckDuePayments = new CheckDuePayments();
-		$objCheckDuePayments->setStartDate( $objGeneratePaymentsDates->getNextPaymentDate() );
-		$objCheckDuePayments->setEndDate( \date('Y-m-d') );
-
+		
 
 		if( empty( $queryAff->charge_at ) )
 		{
@@ -224,6 +217,14 @@ class ApivacationalfundsController extends Controller
 					]
 				],404);	
 		}
+
+		$objGeneratePaymentsDates = new GeneratePaymentsDates();
+		$objGeneratePaymentsDates->setDate( $queryAff->charge_at );
+		$objGeneratePaymentsDates->setBillableDay( $inspiraUser->billable_day );
+
+		$objCheckDuePayments = new CheckDuePayments();
+		$objCheckDuePayments->setStartDate( $objGeneratePaymentsDates->getNextPaymentDate() );
+		$objCheckDuePayments->setEndDate( \date('Y-m-d') );
 
 		return 	Response::json([
 				'data' => array( 'due_payments' => $objCheckDuePayments->getNumberOfDuePayments() )
@@ -434,7 +435,7 @@ class ApivacationalfundsController extends Controller
 		$queryVacFund = UserVacFunds::where('users_id', $inspiraUser->id )->orderBy('id','desc')->first();
 
 
-		if( $queryVacFund->balance == 0 )
+		if( empty($queryVacFund) || $queryVacFund->balance == 0 )
 		{
 			return Response::json([
 					'response'=> [

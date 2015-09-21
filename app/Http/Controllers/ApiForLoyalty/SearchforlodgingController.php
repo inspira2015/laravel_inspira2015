@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use Redirect;
 use Response;
+use Input;
 use App\Model\User;
 use App\Model\ApiSearchLodging;
 use App\Libraries\ApiTraits\CleanLodgingArray;
@@ -34,13 +35,15 @@ class SearchforlodgingController extends Controller
 	}
 
 
-
 	public function create()
 	{
 		$searches = Request::all();
 		$flag_partial = 0;
 		$flag_notauser = FALSE;
-
+/*
+		print_r($searches);
+		exit;
+*/
 		if ( empty( $searches ) )
 		{
 			return Response::json([
@@ -50,14 +53,16 @@ class SearchforlodgingController extends Controller
 					]
 				],404);
 		}
-
-		foreach($searches as $search)
+	
+		foreach($searches as $index => $search)
 		{
+			
 			if( !isset($search['leisure_id']) || empty($search['leisure_id']) )
-			{
+			{	
 				$flag_partial = 1;
 				continue;
 			}
+			
 			$inspiraUser = User::where('leisure_id', $search['leisure_id'])->first();
 
 			if ( empty( $inspiraUser ) )
@@ -73,7 +78,7 @@ class SearchforlodgingController extends Controller
 								'users_id' => $inspiraUser->id,
 								'data_type' => 'SEARCH',
 								'api_type' => 'LODGING',
-								'lodging_type' => $search['type'],
+								'lodging_type' => $search['lodging_type'],
 								'destination' => $search['destination'],
 								'start_date' => $search['start_date'],
 								'end_date' => $search['end_date'],

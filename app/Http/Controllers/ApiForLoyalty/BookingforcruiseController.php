@@ -78,7 +78,7 @@ class BookingforcruiseController extends Controller
 								'destination' => $search['where'],
 								'cruise_line' => $search['cruise_line'],
 								'cruise_name' => $search['cruise_name'],
-								'cruise_lenght' => $search['cruise_lenght'],
+								'cruise_length' => $search['cruise_length'],
 								'start_date' => $search['start_date'],
 								'adult_number' => $search['adult_number'],
 								'child_number' => $search['child_number'],
