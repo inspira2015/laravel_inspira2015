@@ -80,7 +80,7 @@
 							<strong>{{ Lang::get('userdata.credit-card') }}</strong>				
 						</div>
 						<div class="col-xs-4 col-xs-push-2 text-center">
-							<a href="{{ url('payment/creditcardinfo') }}"  class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
+							<a href="{{ url('creditcardinfo/update') }}"  class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>
 				</div>

@@ -312,6 +312,12 @@ exit;*/
 		return view('creditcards.creditcard')->with( $this->getCCData() );
 	}
 
+	public function CreditcardinfoUpdate()
+	{
+		return view('creditcards.changecreditcard')->with( $this->getCCData() );
+	}
+
+
 
 	public function Addcreditcard()
 	{

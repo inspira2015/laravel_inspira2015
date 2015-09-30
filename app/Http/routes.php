@@ -150,6 +150,8 @@ Route::get('payment', 'PaymentController@index');
 Route::post('payment/addcreditcard', 'PaymentController@Addcreditcard');
 Route::get('payment/creditcardinfo', 'PaymentController@Creditcardinfo');
 
+Route::get('creditcardinfo/update', 'PaymentController@CreditcardinfoUpdate');
+
 Route::get('codes/{reset?}', 'CodesController@index');
 Route::any('codes/nocode', 'CodesController@Continuenocode');
 

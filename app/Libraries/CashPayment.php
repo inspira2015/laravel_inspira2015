@@ -86,7 +86,9 @@ class CashPayment extends InitializePayUCredentials
 			PayUParameters::PAYER_DNI => "5415668464654",
 			
 			//Tipo de tienda?
-			PayUParameters::PAYMENT_METHOD => PaymentMethods::OXXO,
+						PayUParameters::PAYMENT_METHOD => PaymentMethods::OXXO,
+
+			PayUParameters::PAYMENT_METHOD => PaymentMethods::SEVEN_ELEVEN,
 			//Dependiendo si esta en mexico obvio
 			PayUParameters::COUNTRY => PayUCountries::MX,
 		//	date('c',time()+259200),
