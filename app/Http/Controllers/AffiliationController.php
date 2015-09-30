@@ -149,9 +149,10 @@ class AffiliationController extends Controller
 		$this->updateUserAffiliation->changeAffilition();
 		Session::forget('currentAffiliation');
 
-		$type = "type";
-		$payment = "payment";
-		$currency = "currency";
+		$affiliation_id = $post_data['affiliation']; 
+		$type = $post_data["name_$affiliation_id"]; 
+		$payment = $post_data["amount_$affiliation_id"]; 
+		$currency = $post_data["currency_$affiliation_id"];
 		
 		return Response::json(array(
 			'error' => false,

@@ -15,17 +15,21 @@
 					$convertHelper->setCost( $vacational_fund_total );
 					$total_fund = $convertHelper->getConvertAmount();
 					
-					$convertHelper->setCost( $affiliation->amount );
+					$convertHelper->setCost( $userAffiliation->amount );
+					$convertHelper->setCurrencyOfCost( $userAffiliation->currency );
+					$convertHelper->setCurrencyShow( $userAffiliation->currency_change_to );
+
 					$affiliation_cost_convert = $convertHelper->getConvertAmount();
+
 					?>
 					
 					{{ Lang::get('userdata.affect-vacationfund') }}:<br><br>			
 
 
 					{{ Lang::get('userdata.affiliation-payment') }}: {{ Lang::get('userdata.from') }}
-						{{ $affiliation_cost }} {{ $affiliation_currency }}
+						$ {{ number_format($userAffiliation->amount, 2, '.', '') . ' ' . $userAffiliation->currency }} 
 						{{ Lang::get('userdata.to') }}
-						$ {{ number_format($affiliation_cost_convert, 2, '.', '') . ' ' . $currency_change_to }}<br>
+						$ {{ number_format(@$affiliation_cost_convert, 2, '.', '') . ' ' . @$currency_change_to }}<br>
 					
 					{{ Lang::get('userdata.vacation-fund') }}: {{ Lang::get('userdata.from') }}
 					 	$ {{ number_format($vacational_fund_amount, 2, '.', '') . ' ' . $vacational_fund_currency }} 

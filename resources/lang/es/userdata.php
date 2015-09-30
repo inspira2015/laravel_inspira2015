@@ -54,6 +54,6 @@ return [
 	"from" => "de",
 	"to" => "a",
 	"affiliation-payment" => "Pago por afiliación",
-	"complete-profile" => "Complete su registro llenando los campos restantes."
-
+	"complete-profile" => "Complete su registro llenando los campos restantes.",
+	"credit-card" => "Información de Tarjeta de Crédito o Débito"
 ];

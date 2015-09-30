@@ -54,5 +54,6 @@ return [
 	"from" => "from",
 	"to" => "to",
 	"affiliation-payment" => "Affiliation payment",
-	"complete-profile" => "Complete your registration by filling the remaining fields."
+	"complete-profile" => "Complete your registration by filling the remaining fields.",
+	"credit-card" => "Credit or Debit Card information"
 ];

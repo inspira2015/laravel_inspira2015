@@ -318,12 +318,7 @@ exit;*/
 		$paymentMethodCC = new PaymentMethodCC();
 		$postData = Request::all();
 
-
-
-
-
 		$validator = $paymentMethodCC->validator( $postData, Lang::locale() );
-
 		
 		if ( $validator->passes() ) 
         {

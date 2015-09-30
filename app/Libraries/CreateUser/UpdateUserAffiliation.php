@@ -26,7 +26,6 @@ class UpdateUserAffiliation extends CheckAndSaveUserInfo
 	private $userId;
 	private $currentAffiliation;
 
-
 	public function __construct(UserDao $userDao,CodeDao $codeDao, 
 								UserAffiliation $affiliationDao,UserVacFundLog $vacationDao, 
 								UserRegisteredPhoneDao $userPh,CodesUsedEntity $usedCodes)
@@ -50,6 +49,7 @@ class UpdateUserAffiliation extends CheckAndSaveUserInfo
 	private function doChange()
 	{
 		$affiliationData = $this->cleanAffiliationPost();
+
         $userCurrentAffiliation = $this->affDao->getById( $this->currentAffiliation );
 
         if($userCurrentAffiliation->affiliations_id == $affiliationData['affiliations_id'])
@@ -64,14 +64,13 @@ class UpdateUserAffiliation extends CheckAndSaveUserInfo
 											 'amount' => $affiliationData['amount'],
 											 'currency' => $affiliationData['currency'] ) );
 		$this->affDao->save();
-
+		
 		$this->affDao->load( $this->currentAffiliation );
 		$this->affDao->active = 0;
 		$this->affDao->save();
 		return TRUE;
 
 	}
-
 
 	public function changeAffilition()
 	{

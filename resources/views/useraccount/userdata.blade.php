@@ -75,6 +75,14 @@
 							<a href="#"  data-toggle="modal" data-target="#currency" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>
+					<div class="row form-data" data-role="response">
+						<div class="col-xs-6">
+							<strong>{{ Lang::get('userdata.credit-card') }}</strong>				
+						</div>
+						<div class="col-xs-4 col-xs-push-2 text-center">
+							<a href="{{ url('payment/creditcardinfo') }}"  class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
+						</div>
+					</div>
 				</div>
 				<div class="row bg-light-gray-transparent text-center" id="inspira-points">
 					{{ Lang::get('userdata.inspira-points') }} 
@@ -92,7 +100,7 @@
 							@endif 
 						</h3>
 					</div>
-					@if($affiliation->id < '3' )
+
 					<div class="row">
 						<div class="col-xs-10 col-xs-offset-1 col-md-12  col-md-offset-0 upgrade" id="promotion-box">							
 							<div class="promotion">
@@ -104,7 +112,7 @@
 							<div class="arrow"></div>
 						</div>
 					</div>
-					@endif
+
 					<div class="row" data-role="response">
 						<div class="col-xs-12">
 							{{ Lang::get('userdata.expiration-date') }}:<br>

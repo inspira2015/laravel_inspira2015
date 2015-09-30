@@ -168,7 +168,7 @@ class VacationfundsController extends Controller
 
 		$userAuth = Auth::user();
 		$post_data = Request::all();
-		$post_data['amount'] = $post_data['amount'] ? $post_data['amount'] : 0;
+		$post_data['amount'] = isset($post_data['amount']) ? $post_data['amount'] : 0;
 		
 		$userCurrentVacationalFund = Session::get('currentVacationalFund');
 		if( !is_numeric( $userCurrentVacationalFund ) )

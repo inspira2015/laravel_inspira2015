@@ -139,7 +139,8 @@ class UseraccountController extends Controller {
 		$this->accountSetup->checkValidAccount();
 		
 		$userAffiliation = $userAff->getCurrentUserAffiliationByUserId( $this->userAuth->id );
-
+		$userAffiliation->currency_change_to = $userAffiliation->currency == 'MXN' ? 'USD' : 'MXN';
+		
 		$this->convertHelper->setCost($userAffiliation->amount);
 		$this->convertHelper->setCurrencyOfCost($userAffiliation->currency);
 				

@@ -13,6 +13,5 @@
 			<div data-role="submit" data-route="useraccount/update-payment" class="btn-blue btn-small">{{ Lang::get('userdata.save') }}</div>
 		</div>
 	</div>
-	<input type="hidden" name="type" value="{{ $type }}">
 	<input type="hidden" name="currency" value="{{ $user->currency }}">
 {!! Form::close() !!}

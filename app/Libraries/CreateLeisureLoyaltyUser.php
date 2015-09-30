@@ -64,7 +64,7 @@ class CreateLeisureLoyaltyUser
 		    )
 		));
 
-		$response = file_get_contents('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&', FALSE, $context);
+		$response = file_get_contents('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH', FALSE, $context);
 		$stdResponse = json_decode($response);
 
 		$this->leisureLoyaltyResponse = $response;

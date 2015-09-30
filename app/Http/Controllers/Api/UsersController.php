@@ -13,9 +13,9 @@ use App\Model\Dao\UserDao;
 use Illuminate\Contracts\Auth\Guard;
 use App\Model\Entity\UserRegisteredPhone;
 
-
 use App\Libraries\ExchangeRate\ExchangeMXNUSD;
 use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
+use App\Libraries\CreateUser\UpdateUserAffiliation;
 
 use App\Model\Entity\UserVacFundLog;
 use App\Model\Entity\UserVacationalFunds;
@@ -59,6 +59,8 @@ class UsersController extends Controller
 	
 	public function changeCurrency(){
 		$user = $this->auth->user();
+		
+
 		$this->userDao->load( $user->id );
 		$this->userDao->currency = $user->currency != 'USD' ? 'USD' : 'MXN';
 		$this->userDao->save();
@@ -90,6 +92,8 @@ class UsersController extends Controller
 			$vacFund->balance = $this->convertHelper->getConvertAmount();
 			$vacFund->save();
 		}
+
+		//guardar en afiliacion
 
 		return Response::json(array(
 			'error' => false,
