@@ -21,5 +21,7 @@ return [
 	"password-message" => "Favor de dar clic en el siguiente enlace para restablecer contrase&ntilde;a.",
 	"confirm-message" => "Por Favor revisa tu correo para confirmar tu cuenta",
 	"password" => "Contraseña",
-	"confirm-account" => "Confirma tu cuenta de InspiraMexico‏"
+	"confirm-account" => "Confirma tu cuenta de InspiraMexico‏",
+	"declined-title" => "Su transacci&oacute;n ha sido rechazada"
+
 ];

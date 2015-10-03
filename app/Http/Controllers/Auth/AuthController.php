@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Auth;
 use Redirect;
 use Session as UserSession;
 use Crypt; 
-
+use Socialize;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
@@ -62,7 +62,9 @@ class AuthController extends Controller implements AuthenticateUserListener {
 
     public function getLoginfb(AuthUserWithFacebook $authfb, Request $request)
     {
-        return $authfb->execute($request->has('code'), $this);
+	    $user = Socialize::with('facebook')->user();
+	    print_r($user);
+      //  return $authfb->execute($request->has('code'), $this);
     }
 
 

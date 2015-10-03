@@ -1,11 +1,17 @@
-{!! Form::open(array('url' => 'users/registration')) !!}
+{!! Form::open(array('url' => 'payment/addcreditcard')) !!}
+{!! Form::hidden('is_update', 'true') !!}
 <div class="row">
 	<div class="col-xs-12">
 		<h2>
 			{{  Lang::get('creditcards.card-information') }}
 		</h2>
 	</div>
-	<div class="col-xs-4 col-xs-push-8 col-sm-3 col-sm-push-9 col-md-2 col-md-push-10">   
+	<div class="col-xs-4 col-sm-3 col-sm-2">  
+		<a href="{{ url('useraccount') }}" class="btn-blue-clear btn-medium back">
+			{{ Lang::get('layout.back') }}
+		</a>
+	</div>
+	<div class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-9 col-md-2 col-md-push-8">   
 		<div data-role="submit" data-route="addcreditcard" class="btn-blue-clear btn-medium">
 			{{ Lang::get('layout.continue') }}
 		</div>

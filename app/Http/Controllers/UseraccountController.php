@@ -259,6 +259,7 @@ class UseraccountController extends Controller {
 		}
 		
 		$location = GeoIP::getLocation();
+		
 		$cashPayment = new CashPayment();
 		$cashPayment->setUserData([
 							'full_name' => $this->userAuth->name. ' '.$this->userAuth->last_name,

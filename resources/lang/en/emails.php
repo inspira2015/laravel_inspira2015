@@ -21,5 +21,6 @@ return [
 	"password-message" => "Please click on the link below to reset your password.",
 	"confirm-message" => "Please check your e-mail to confirm your account", 
 	"password" => "Password",
-	"confirm-account" => "Confirm Your InspiraMexico Account‏"
+	"confirm-account" => "Confirm Your InspiraMexico Account‏",
+	"declined-title" => "Your transaction has been declined"
 ];

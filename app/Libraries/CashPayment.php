@@ -66,7 +66,7 @@ class CashPayment extends InitializePayUCredentials
 		}
 
 
-		$this->paymentMethod = PaymentMethods::OXXO;
+		//$this->paymentMethod = PaymentMethods::OXXO;
 		$parameters = array(
 			//Ingrese aquí el código de referencia.
 			PayUParameters::REFERENCE_CODE => $this->itemData['reference'],
@@ -86,9 +86,9 @@ class CashPayment extends InitializePayUCredentials
 			PayUParameters::PAYER_DNI => "5415668464654",
 			
 			//Tipo de tienda?
-						PayUParameters::PAYMENT_METHOD => PaymentMethods::OXXO,
+//						PayUParameters::PAYMENT_METHOD => PaymentMethods::OXXO,
 
-			PayUParameters::PAYMENT_METHOD => PaymentMethods::SEVEN_ELEVEN,
+			PayUParameters::PAYMENT_METHOD => PaymentMethods::OXXO,
 			//Dependiendo si esta en mexico obvio
 			PayUParameters::COUNTRY => PayUCountries::MX,
 		//	date('c',time()+259200),

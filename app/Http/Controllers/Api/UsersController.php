@@ -10,6 +10,10 @@ use Auth;
 use Lang;
 use Input;
 use App\Model\Dao\UserDao;
+
+use App\Model\Dao\UserAffiliationDao;
+
+
 use Illuminate\Contracts\Auth\Guard;
 use App\Model\Entity\UserRegisteredPhone;
 
@@ -71,6 +75,7 @@ class UsersController extends Controller
 		$vacFundLog = $vacationalFundLog->getCurrentUserVacFundLogByUserId( $user->id );
 		$userVacationalFund = new UserVacationalFunds();
 		$vacFund = $userVacationalFund->getLatestByUserId( $user->id );
+		$affDao = new UserAffiliationDao();
 		
 		$this->convertHelper = new ConvertCurrencyHelper();
 		$this->convertHelper->setCurrencyShow( $this->userDao->currency );
@@ -93,7 +98,32 @@ class UsersController extends Controller
 			$vacFund->save();
 		}
 
+
 		//guardar en afiliacion
+		$currentAffiliation = $affDao->getCurrentUserAffiliationByUserId( $user->id );
+
+		$this->convertHelper->setCost( $currentAffiliation['amount'] );
+		$this->convertHelper->setCurrencyOfCost( $currentAffiliation['currency'] );
+			
+		$affCurrency = $currentAffiliation['currency'] == 'MXN' ? 'USD' : 'MXN';
+		
+		$affDao->load( $currentAffiliation->id );
+		$affDao->amount = $this->convertHelper->getConvertAmount();
+		$affDao->currency = $affCurrency;
+		$affDao->save();
+		
+
+/*
+		$currentAffiliation['amount'] = 19;
+		$currentAffiliation['currency'] = "USD";
+		
+		$affDao->exchangeArray( array( 'users_id' => $user->id,
+											 'affiliations_id' => $currentAffiliation['affiliations_id'],
+											 'active' => 1,
+											 'amount' => $currentAffiliation['amount'],
+											 'currency' => $currentAffiliation['currency'] ) );
+*/
+		$affDao->save();
 
 		return Response::json(array(
 			'error' => false,

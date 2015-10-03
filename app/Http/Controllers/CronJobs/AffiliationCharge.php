@@ -8,6 +8,7 @@ use Redirect;
 use Response;
 use Session;
 use Auth;
+use Mail;
 use App\Model\Entity\ExchangeRateEntity;
 use App\Libraries\ApiExchangeRate\CurrentExchangeRate;
 use Mail;
@@ -194,9 +195,16 @@ class AffiliationCharge extends Controller
 
 			if ( $response->transactionResponse->state=="DECLINED" ) 
 			{
+				//Send email.
+				$sent = Mail::send('emails.declined', array('user' => $user ), function($message) {	
+				$full_name = $user->name . ' ' . $user->last_name;		
+		    	$message->to( $user->email, $full_name )
+		    			->to( 'hp_tanya@hotmail.com' , $full_name)
+		    			->subject( Lang::get('emails.declined-title')."!" );
+		    	
 				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
 																		  'code' => 'DECLINED',
-																		'type' => 'Charge Affiliation',
+																		  'type' => 'Charge Affiliation',
 																		  'description' => $response->transactionResponse->responseCode,
 																		  'json_data' => json_encode($response),
 																		  'payu_transaction_id' =>$response->transactionResponse->transactionId ));

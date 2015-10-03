@@ -191,7 +191,7 @@ class UsersController extends Controller {
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 		$data = array('full_name'=> $full_name);
 		$this->userDao->password = Crypt::decrypt(Session::get('password'));
-		$sent =Mail::send('emails.user_welcome', array('user' => $this->userDao ), function($message) {	
+		$sent = Mail::send('emails.user_welcome', array('user' => $this->userDao ), function($message) {	
 				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;		
 		    	$message->to( $this->userDao->email, $full_name )->to( 'hp_tanya@hotmail.com' , $full_name)->subject( Lang::get('emails.welcome-to')." InspiraMexico, {$full_name}!" );
 		});

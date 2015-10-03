@@ -322,9 +322,15 @@ exit;*/
 	public function Addcreditcard()
 	{
 		$paymentMethodCC = new PaymentMethodCC();
-		$postData = Request::all();
+		$postData = Request::except('is_update');
 
 		$validator = $paymentMethodCC->validator( $postData, Lang::locale() );
+		
+		$blade = 'creditcards.payment_form';
+
+		if(Request::get('is_update')){
+			$blade = 'creditcards.payment_form_update';
+		}
 		
 		if ( $validator->passes() ) 
         {
@@ -345,14 +351,17 @@ exit;*/
 			{
 				//Error en tarjeta de credito direccionarlo a pagina
 				//Mostrar el mensaje de que dato fallo
-				return view('creditcards.payment_form')->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
+				
+				//Revisar si es de tipo inspira.
+				//Si no
+				return view($blade)->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
 			}
 
 			if( $this->createToken->doToken() == FALSE ) 
 			{
 				//Error en tarjeta de credito direccionarlo a pagina
 				//Mostrar el mensaje de que dato fallo
-				return view('creditcards.payment_form')->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
+				return view($blade)->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
 			}
 
 			$response = $this->createToken->getToken();
@@ -413,7 +422,9 @@ exit;*/
 			
 			$this->chargeUserAffiliation->saveData();
 
-			Session::put('complete-profile', 'false');
+			if(!Request::get('is_update')){
+				Session::put('complete-profile', 'false');
+			}
 			
 			return Response::json(array(
 				'error' => false,
@@ -421,7 +432,7 @@ exit;*/
 				'redirect' => url('useraccount')
 			), 200);
         }     
-        return view('creditcards.payment_form')->with( $this->getCCData() )->withErrors($validator)->withInput( $postData );
+        return view($blade)->with( $this->getCCData() )->withErrors($validator)->withInput( $postData );
 	}
 
 
