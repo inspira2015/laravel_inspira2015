@@ -42,4 +42,10 @@ class ExchangeRateDao implements ICrudOperations
 	{
 		return ExchangeRate::where('exchange_date', $date)->where('exchange_type',$type)->get();
 	}
+	
+	public function getFromNearestDate()
+	{
+		return ExchangeRate::orderBy('created_at', 'desc')->first();
+	}
+	
 }
