@@ -67,6 +67,7 @@ class CashPayment extends InitializePayUCredentials
 
 
 		//$this->paymentMethod = PaymentMethods::OXXO;
+		$payment_method =  $this->getPaymentMethod( $this->itemData['method'] );
 		$parameters = array(
 			//Ingrese aquí el código de referencia.
 			PayUParameters::REFERENCE_CODE => $this->itemData['reference'],
@@ -88,7 +89,10 @@ class CashPayment extends InitializePayUCredentials
 			//Tipo de tienda?
 //						PayUParameters::PAYMENT_METHOD => PaymentMethods::OXXO,
 
-			PayUParameters::PAYMENT_METHOD => PaymentMethods::OXXO,
+			//OXXO | SCOTIABANK | SEVEN_ELVEN | BANCOMER | SANTANDER
+
+			PayUParameters::PAYMENT_METHOD => $payment_method,
+			
 			//Dependiendo si esta en mexico obvio
 			PayUParameters::COUNTRY => PayUCountries::MX,
 		//	date('c',time()+259200),
@@ -118,6 +122,27 @@ class CashPayment extends InitializePayUCredentials
 			$this->errorArray[] = $this->apiResponse->error;
 			return FALSE;
 		}
+	}
+	
+	private function getPaymentMethod( $method_name ){
+		switch($method_name){
+			case 'OXXO':
+				$method = PaymentMethods::OXXO;
+				break;
+			case 'SCOTIABANK':
+				$method = PaymentMethods::SCOTIABANK;
+				break;
+			case 'BANCOMER':
+				$method = PaymentMethods::BANCOMER;
+				break;
+			case 'SEVEN_ELVEN':
+				$method = PaymentMethods::SEVEN_ELEVEN;
+				break;
+			case 'SANTANDER':
+				$method = PaymentMethods::SANTANDER;
+				break;
+		}
+		return $method;
 	}
 
 	public function getTransactionId()

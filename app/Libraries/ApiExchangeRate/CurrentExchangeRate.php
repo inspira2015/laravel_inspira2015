@@ -31,11 +31,11 @@ class CurrentExchangeRate
 	private function checkApi()
 	{
 		$currentRate = $this->webServcx->getCurrentRate();
-		if( $currentRate == FALSE )
+		if( $currentRate == FALSE || $currentRate < 0 )
 		{
 			$currentRate = $this->openExch->getCurrentRate();
 		}
-		if($currentRate)
+		if($currentRate )
 		{
 			$this->currentRate = $currentRate;
 			return TRUE;

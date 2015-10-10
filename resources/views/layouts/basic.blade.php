@@ -4,7 +4,7 @@
 	$minifierCss->minify('css/minify/main.css');
 	
 	$minifierJs = new MinifyJs();
-	$minifierJs->add('js/jquery.creditCardValidator.min.js');
+	$minifierJs->add('js/jquery.creditCardValidator.js');
 	$minifierJs->minify('js/minify/jquery.creditCardValidator.min.js');
 ?>
 <!DOCTYPE html>

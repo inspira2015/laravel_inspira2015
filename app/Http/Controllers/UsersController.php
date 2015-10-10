@@ -17,6 +17,11 @@ use App\Model\Dao\StatesDao;
 use App\Libraries\CodeValidator as CodeValidator;
 use App\Libraries\Referer\CheckReferer;
 
+
+use App\Libraries\UpdateDataBaseLeisureMember;
+use App\Model\Entity\UserAffiliation;
+
+
 use Input;
 use Mail;
 use Session;
@@ -183,13 +188,24 @@ class UsersController extends Controller {
 			//Error page
 			return view('users.erroractivation')->with('title', Lang::get('activation.title') )->with('background','2.jpg');
 		}
-
+		
+		$userAff = new UserAffiliation();
+		$updateDbLeisure = new UpdateDataBaseLeisureMember( $userDao, $userAff );
+		
 		$this->userDao->load($user->first()->id);
 		$this->userDao->confirmed =1;
 		$this->userDao->confirmation_code ='';
+		
+		$updateDbLeisure->setUserId( $user->first() );
+		
+		$updateDbLeisure->saveMemberId();
 		$this->userDao->save();
+		
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 		$data = array('full_name'=> $full_name);
+
+		//Create leisure_id
+		
 		$this->userDao->password = Crypt::decrypt(Session::get('password'));
 		$sent = Mail::send('emails.user_welcome', array('user' => $this->userDao ), function($message) {	
 				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;		

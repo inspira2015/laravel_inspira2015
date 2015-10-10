@@ -18,7 +18,7 @@
 					<a href="{{ url('auth/logout') }} " style="color:#818c95;">Logout <i class="glyphicon glyphicon-log-out"></i></a>
 					<br><br>
 				</div>
-				@if( $accountSetup->checkValidAccount() !==FALSE && $user->details->leisure_id !== null )
+				@if( $user->details->leisure_id !== null )
 				<div class="row">
 					<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={{ $user->details->leisure_id }}" class="btn-blue btn-small">{{ Lang::get('userdata.go-reservations') }}</a>
 				</div>
@@ -48,7 +48,6 @@
 				<div class="row bg-light-gray-transparent" id="account-details">
 					<div class="row">
 						<h3>{{ Lang::get('userdata.account-details') }}</h3>
-						
 					</div>
 					<div class="row" data-role="response">
 						@include('useraccount.password')
@@ -189,7 +188,7 @@
 			</div>
 		</div>
 		
-		@if( $accountSetup->checkValidAccount() !==FALSE && $user->details->leisure_id !== null )
+		@if( $user->details->leisure_id !== null )
 		<div class="row">
 			<div class="divider"></div><br>
 		</div>

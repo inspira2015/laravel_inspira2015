@@ -5,6 +5,12 @@ return [
 		'support' => 'suporte@inspiramexico.com'
 	],
 	'countries' => [ "US", "MX", "CA", "AU" ],
-	'stores' => [ 'Oxxo', '7Eleven'],
+	'stores' => [ 
+					'OXXO' => 'Oxxo',
+					'SEVEN_ELEVEN' => '7Eleven',
+					'BANCOMER' => 'Bancomer',
+					'SCOTIABANK' => 'Scotiabank',
+					'SANTANDER' => 'Santander'
+				],
 	'cards' => ['Visa', 'MasterCard', 'American Express']
 ];

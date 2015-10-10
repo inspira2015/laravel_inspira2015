@@ -18,16 +18,6 @@ Route::controllers([
 ]);
 
 Route::group(['middleware' => 'auth.very_basic'], function() {
-	
-
-
-
-
-
-	
-
-
-	
 
 });
 
@@ -149,6 +139,7 @@ Route::post('vacationfund/modify', 'VacationfundsController@dochange');
 Route::get('payment', 'PaymentController@index');
 Route::post('payment/addcreditcard', 'PaymentController@Addcreditcard');
 Route::get('payment/creditcardinfo', 'PaymentController@Creditcardinfo');
+Route::post('payment/bonus', 'PaymentController@bonus');
 
 Route::get('creditcardinfo/update', 'PaymentController@CreditcardinfoUpdate');
 

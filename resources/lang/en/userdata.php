@@ -45,7 +45,7 @@ return [
 		"transaction" => "There was an error while processing"
 	],
 	"payment-type" => [
-		"store" => "Store",
+		"store" => "On Location",
 		"online" => "Online"
 	],
 	"affect-vacationfund" => "The currency exchange affect your statement and monthly payments",

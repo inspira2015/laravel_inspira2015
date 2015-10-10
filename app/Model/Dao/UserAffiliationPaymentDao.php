@@ -37,6 +37,11 @@ class UserAffiliationPaymentDao  implements ICrudOperations
 		$user->save();
 		return $user->id;
 	}
+	
+	public function getPaymentByUser($user_id){
+		$userAff = UserAffiliationPayment::where('users_id',$user_id);
+		return $userAff;
+	}
 
 	public function checkPaymentByUserMonth($user_id, $month)
 	{

@@ -408,7 +408,7 @@ form #card_number.diners_club_international{
 	background-position: 1px -519px, calc(100% + 95px) -61px;
 }
 
-form #card_number.diners_club_carte_blanche{
+form #card_number.inspira-card{
 	background-position: 1px -474px, calc(100% + 95px) -61px;
 }
 
@@ -445,7 +445,7 @@ form #card_number.valid.diners_club_international{
 }
 
 
-form #card_number.valid.diners_club_carte_blanche{
+form #card_number.valid.inspira-card{
 	background-position: 1px -474px, 222px -23px;
 }
 

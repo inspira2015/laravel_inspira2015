@@ -34,6 +34,9 @@ class PaymentMethods{
 	const BANK_REFERENCED= 'BANK_REFERENCED';
 	const VISANET= 'VISANET';
 	const RIPSA= 'RIPSA';
+	const SCOTIABANK = 'SCOTIABANK';
+	const BANCOMER = 'BANCOMER';
+	const SANTANDER = 'SANTANDER';
 	
 	
 	/**
@@ -65,6 +68,12 @@ class PaymentMethods{
 			
 		PaymentMethods::OXXO=>array('name'=>PaymentMethods::OXXO,'type'=>PayUPaymentMethodType::REFERENCED),
 			
+		PaymentMethods::SCOTIABANK=>array('name'=>PaymentMethods::SCOTIABANK,'type'=>PayUPaymentMethodType::REFERENCED),
+
+		PaymentMethods::SANTANDER=>array('name'=>PaymentMethods::SANTANDER,'type'=>PayUPaymentMethodType::REFERENCED),
+
+		PaymentMethods::BANCOMER=>array('name'=>PaymentMethods::BANCOMER,'type'=>PayUPaymentMethodType::REFERENCED),
+
 		PaymentMethods::BOLETO_BANCARIO=>array('name'=>PaymentMethods::BOLETO_BANCARIO,'type'=>PayUPaymentMethodType::BOLETO_BANCARIO),
 			
 		PaymentMethods::RAPIPAGO=>array('name'=>PaymentMethods::RAPIPAGO,'type'=>PayUPaymentMethodType::CASH),

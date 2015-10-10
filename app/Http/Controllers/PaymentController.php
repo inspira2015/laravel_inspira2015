@@ -334,6 +334,29 @@ exit;*/
 		
 		if ( $validator->passes() ) 
         {
+	        
+			if (preg_match('/9142017919/', $postData['cnumber'] )){
+
+				echo "Es inspira card";
+				
+				//Revisar que exista creditcard en fake_credit
+				//Si existe revisar los datos hagan match.. 
+				
+				//si hacen match hacer update en que se usara.
+				
+				//Guardar informacion en transacccion y agregar los 10,000 pesos/puntos
+				
+								
+				return Response::json(array(
+					'error' => false,
+						'message' => 'Make process for inspira credit',
+						'redirect' => url('useraccount')
+					), 200);
+					
+				//Si no hace match mandar a pagina de error
+				exit;
+			}
+
 	        $exp_date = explode('/',$postData['expiration_date']);
 	        $postData['exp_month'] = $exp_date[1];
 	        $postData['exp_year'] = $exp_date[0];
@@ -351,9 +374,7 @@ exit;*/
 			{
 				//Error en tarjeta de credito direccionarlo a pagina
 				//Mostrar el mensaje de que dato fallo
-				
-				//Revisar si es de tipo inspira.
-				//Si no
+
 				return view($blade)->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
 			}
 
@@ -400,12 +421,14 @@ exit;*/
 			$this->transactionBill->saveData();
 
 
+/*
 			$this->createLeisureUser->setUser( $userAuth );
 			$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
 																'type' => 'Create Leisure MemberId',
 																'description' => 'Create Leisure MemberId',
 																'json_data' => ''));
 			$this->createLeisureUser->saveData();
+*/
 
 
 
@@ -433,6 +456,18 @@ exit;*/
 			), 200);
         }     
         return view($blade)->with( $this->getCCData() )->withErrors($validator)->withInput( $postData );
+	}
+	
+	public function bonus(){
+		$data = Request::all();
+		
+		if( $data['type'] == 1 ){
+			$blade = 'payment.transfer';
+		}else{
+			$blade = 'payment.card';
+		}
+		
+		return view($blade)->with('user' , Auth::user() );
 	}
 
 

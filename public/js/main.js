@@ -14,7 +14,7 @@ $(document).ready(function(){
 				var _masked = _this.find('input[data-mask-type]');
 				var _fund = _this.find('input[name="fondo"]');
 				var _language = _this.find('select[id="language"]');
-				var _radio_bonus = _this.find('input[type="radio"]');
+				var _radio_bonus = _this.find('#bonus input[type="radio"]');
 				
 				feature._set_change( _buttons );
 				feature._on_change_country( _change_country );
@@ -36,6 +36,7 @@ $(document).ready(function(){
 			feature._on_change_email( element.find('input[type="email"].validate-email') );
 			feature._apply_masked_input( element.find('input[data-mask-type]') );
 			feature._enable_fund( element.find('input[name="fondo"]') );
+			feature._apply_bonus( element.find('#bonus input[type="radio"]') );
 		},
 		_set_change: function( element ) {
 			element.bind('click', function(){
@@ -211,9 +212,13 @@ $(document).ready(function(){
 		_apply_bonus : function( element ){
 			element.on('change', function(){
 				var _this = $(this);
-				var _route = _this.data('route');
 				var _response = _this.closest('div[data-role=response]');
 				var _form = _this.parents('form');
+				var _route = _form.attr('action');
+			
+				if(typeof _form[0] == 'object'){
+					_data = _form.serialize();
+				}
 
 				if( _route ){
 					$('#loading-inspira, #bg-loading').toggle();

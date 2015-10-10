@@ -36,6 +36,8 @@ use App\Libraries\SystemTransactions\CreateCashReceipt;
 use App\Libraries\ExchangeRate\ExchangeMXNUSD;
 use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
 
+use App\Model\Entity\UserAffiliationPaymentEntity;
+
 class UseraccountController extends Controller {
 	
 	private $userDao;
@@ -48,6 +50,7 @@ class UseraccountController extends Controller {
 	private $userPointsDao;
 	private $convertHelper;
 	private $exchange;
+	private $userAffiliationPayment;
 
 	
 	/*
@@ -74,6 +77,7 @@ class UseraccountController extends Controller {
 								 CompleteAccountSetup $accountSetup,
 								 CreateCashReceipt $sysCashReceipt,
 								 UsersPointsEntity $userPoints,
+								 UserAffiliationPaymentEntity $userAffPayment,
 								 ExchangeMXNUSD $exchange)
 	{
 		$this->middleware('auth');
@@ -89,6 +93,7 @@ class UseraccountController extends Controller {
 		$this->convertHelper = new ConvertCurrencyHelper();
 		$this->convertHelper->setCurrencyShow( $this->userAuth['currency'] );
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
+		$this->userAffiliationPayment = $userAffPayment;
 		$this->setLanguage();
 	}
 	
@@ -105,7 +110,6 @@ class UseraccountController extends Controller {
 
 		$data = $this->getData();
 		
-		
 		if($this->userAuth->confirmation_code){
 			return Redirect::to('users/activation/'.$this->userAuth->confirmation_code);
 		}
@@ -113,7 +117,7 @@ class UseraccountController extends Controller {
 		$this->accountSetup->setUsersID( $this->userAuth->id );
 		$valid = $this->accountSetup->checkValidAccount();
 		
-		if(! $this->accountSetup->checkValidAccount() ){
+		if(! $this->accountSetup->checkValidAccount() && $data['userAffiliation']['amount'] > 0 ){
 			return Redirect::to('payment');
 		}
 		
@@ -273,7 +277,8 @@ class UseraccountController extends Controller {
 						]);
 		$cashPayment->setItem([
 				'reference' => 'Item-test-'.time(),
-				'description' => 'Test dresciption'
+				'description' => 'Test dresciption', 
+				'method' => $data['payment_on']
 			]);
 	
 		if( $cashPayment->checkPaymentData() )

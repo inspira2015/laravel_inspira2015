@@ -34,12 +34,15 @@ class ExchangeRateUpdate extends Controller
 		
 		$dayRate = $this->exchangeDao->getByDate( $this->today->toDateString() , 'USDMXN' )->first();
 		$id = 0;
+		
+		echo $dayRate;
 		if ( !empty( $dayRate ) )
 		{
 			$id = $dayRate->id;
 		}
 
 		$currentRate = $this->currentExchangeRate->getExchangeRate();
+
 		$this->exchangeDao->exchangeArray(array( 'id' => $id ,
 												 'exchange_type' => 'USDMXN',
 												 'exchange_date' => $this->today->toDateString(),
