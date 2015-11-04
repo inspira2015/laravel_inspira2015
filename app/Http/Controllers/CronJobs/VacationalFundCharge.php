@@ -106,11 +106,6 @@ class VacationalFundCharge extends Controller
 			
 			$userVacationalFund = $this->userVacFundLogDao->getCurrentUserVacFundLogByUserId( $user->id );
 
-
-			
-
-
-
 			$this->prepareTransactionArray->setUserId( $user->id );
 			$this->convertHelper->setCost( $userVacationalFund->amount );
 			$this->convertHelper->setCurrencyOfCost( $userVacationalFund->currency );

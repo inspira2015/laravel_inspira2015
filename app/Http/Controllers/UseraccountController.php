@@ -17,24 +17,30 @@ use App\Model\Dao\UserDao;
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
 use App\Model\Dao\AffiliationsDao;
+use App\Model\Dao\UserAffiliationDao;
 use App\Model\Dao\UserRegisteredPhoneDao;
 
 use App\Model\Entity\UserAffiliation;
 use App\Model\Entity\UserVacFundLog;
 use App\Model\Entity\UserVacationalFunds;
 use App\Model\Entity\UsersPointsEntity;
+use App\Model\Dao\SystemTransactionDao;
 
 use App\Services\UserPassword;
 use App\Services\UserDetails;
 use App\Services\Payment as PaymentValidator;
+use App\Services\PaymentCC as PaymentMethodCC;
 
+use App\Libraries\ConvertMoneyAmountToPoints;
 use App\Libraries\AccountValidation\CompleteAccountSetup;
 use App\Libraries\GeneratePaymentsDates;
-use App\Libraries\CashPayment;
+use App\Libraries\CardPayment;
 use App\Libraries\SystemTransactions\CreateCashReceipt;
 
 use App\Libraries\ExchangeRate\ExchangeMXNUSD;
 use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
+use App\Libraries\AddInspiraPoints;
+use App\Libraries\GetLastBalance;
 
 use App\Model\Entity\UserAffiliationPaymentEntity;
 
@@ -51,7 +57,7 @@ class UseraccountController extends Controller {
 	private $convertHelper;
 	private $exchange;
 	private $userAffiliationPayment;
-
+	private $lastUserBalance;
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +84,8 @@ class UseraccountController extends Controller {
 								 CreateCashReceipt $sysCashReceipt,
 								 UsersPointsEntity $userPoints,
 								 UserAffiliationPaymentEntity $userAffPayment,
-								 ExchangeMXNUSD $exchange)
+								 ExchangeMXNUSD $exchange,
+								 GetLastBalance $lastBalance)
 	{
 		$this->middleware('auth');
 		$this->userDao = $userDao;
@@ -95,6 +102,8 @@ class UseraccountController extends Controller {
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
 		$this->userAffiliationPayment = $userAffPayment;
 		$this->setLanguage();
+		$this->convertMoneyToPoints = new ConvertMoneyAmountToPoints();
+		$this->lastUserBalance = $lastBalance;
 	}
 	
 	/**
@@ -149,9 +158,12 @@ class UseraccountController extends Controller {
 		$this->convertHelper->setCurrencyOfCost($userAffiliation->currency);
 				
 		$userVacationalFundLog = $vacationalFundLog->getCurrentUserVacFundLogByUserId( $this->userAuth->id );
-		
 		$affiliation = $affiliationsDao->getById( $userAffiliation->affiliations_id );
-		$paymentDate->setDate( \date('Y-m-d') );
+				
+		$paymentDate->setDate( $userAffiliation->created_at->format('Y-m-d') );
+		$paymentAffiliationDate = $paymentDate->getNextPaymentDateHumanRead();
+		$paymentDate->setDate( $userVacationalFundLog->created_at->format('Y-m-d') );
+		$paymentVacationDate = $paymentDate->getNextPaymentDateHumanRead();
 		$userPoints = $this->userPointsDao->getLatestByUserId( $this->userAuth->id );
 		$pointBalance = 0;
 
@@ -173,7 +185,8 @@ class UseraccountController extends Controller {
 			'affiliation' => $affiliation,
 			'userAffiliation' => $userAffiliation,
 			'accountSetup' => $this->accountSetup, 
-			'next_payment_date' => $paymentDate->getNextPaymentDateHumanRead(),
+			'next_payment_date' => $paymentAffiliationDate,
+			'next_payment_vacation_date' => $paymentVacationDate,
 			'convertHelper' => $this->convertHelper,
 		);
 		
@@ -247,6 +260,107 @@ class UseraccountController extends Controller {
 		return view('useraccount.form-payment')->with('user', $this->userAuth )->with('type', $type);
 	}
 	
+	public function creditPayment(){
+		$data = Input::except('_token');
+		//Validar
+		$paymentMethodCC = new PaymentMethodCC();
+		$validator = $paymentMethodCC->validator( $data, Lang::locale() );
+		
+		$location = GeoIP::getLocation();
+		
+		if ( $validator->passes() ) 
+        {
+			$cardPayment = new CardPayment();
+			
+			$cardPayment->setUserData([
+								'full_name' => $this->userAuth->name. ' '.$this->userAuth->last_name,
+								'id' => $this->userAuth->id,
+								'email' => $this->userAuth->email,
+								'location' => $location['ip']
+							]);
+			$cardPayment->setAmountData([
+								'value' => $data['amount'],
+								'expiration_date' => $data['expiration_date'],
+								'currency' => $data['currency']
+							]);
+			$cardPayment->setItem([
+					'reference' => 'Item-test-'.time(),
+					'description' => 'Test dresciption',
+					'method' => 'VISA'
+				]);
+		
+			if( $cardPayment->checkPaymentData() )
+			{
+				
+				if( $cardPayment->doToken() ){
+					$response = $cardPayment->getToken();
+
+					$responseArray = (array) $response;
+	
+					if( @$cardPayment->getTransactionResponse()->state != 'SUCCESS' )
+					{
+						$userVacationFundDao = new UserVacationalFunds();
+						$sysTransactionDao = new SystemTransactionDao();
+						$this->convertHelper->setCost( $data['amount'] );
+						$this->convertHelper->setCurrencyOfCost( $data['currency'] );
+						$formatedAmount = $this->convertHelper->getFomattedAmount();
+							
+						
+						$this->sysTransaction->setUser( $this->userAuth );
+						$this->sysTransaction->setTransactionInfo( array('users_id' => $this->userAuth->id,
+																'code' => 'Success',
+																'type' => 'Register CC Payment Transaction',
+																'description' => 'Payment ready',
+																'json_data' => json_encode($responseArray),
+																'amount' => $data['amount'],
+																'currency' => $data['currency'],
+																'payu_transaction_id' => $cardPayment->getTransactionId() ) );
+						$this->sysTransaction->saveData();	
+						//Save to VacationalFund step.
+						$this->sysTransaction = $sysTransactionDao->getLastTransaction($this->userAuth->id);
+						
+						$userVacationlArray = array();
+						$this->lastUserBalance->setUserId( $this->userAuth->id );
+						$lastBalance = $this->lastUserBalance->getCurrentBalance();
+						$total = $lastBalance + $data['amount'];
+						
+						$userVacationlArray['transaction_id'] = $this->sysTransaction->id;
+						$userVacationlArray['description'] = 'Bonus Payment';
+						$userVacationlArray['added_amount'] = $data['amount'];
+						$userVacationlArray['substracted_amount'] = 0; 
+						$userVacationlArray['currency'] = $data['currency'];
+						$userVacationlArray['balance'] = $total;
+						$userVacationlArray['users_id'] = $this->userAuth->id;
+		
+						$userVacationFundDao->exchangeArray( $userVacationlArray );
+						$userVacationFundDao->save();
+									
+						return view('useraccount.payment')
+									->with( 'success' , Lang::get('userdata.success.transaction') )
+									->with('user', $this->userAuth );
+					
+					}else{
+						$this->sysTransaction->setUser( $this->userAuth );
+						$this->sysTransaction->setTransactionInfo( array('users_id' => $this->userAuth->id,
+																'code' => $cardPayment->getTransactionResponse()->state,
+																'type' => 'Register CC Payment Transaction',
+																'description' => $cardPayment->getTransactionResponse()->responseCode,
+																'json_data' => json_encode($responseArray),
+																'amount' => $data['amount'],
+																'currency' => $data['currency'],
+																'payu_transaction_id' => $cardPayment->getTransactionId() ) );
+						$this->sysTransaction->saveData();	
+					}
+				}else{
+					return view('payment.card')->withErrors($cardPayment->getErrors())->with('user', $this->userAuth );
+				}
+			}
+		}
+		return view('payment.card')->withErrors($validator)->with('user', $this->userAuth );
+		
+
+	}
+	
 	public function updatePayment()
 	{
 		$data = Input::except('_token');
@@ -277,7 +391,7 @@ class UseraccountController extends Controller {
 						]);
 		$cashPayment->setItem([
 				'reference' => 'Item-test-'.time(),
-				'description' => 'Test dresciption', 
+				'description' => 'Test description', 
 				'method' => $data['payment_on']
 			]);
 	

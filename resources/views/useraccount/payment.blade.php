@@ -33,6 +33,17 @@
 	</div>
 @endif
 
+
+@if(@$success)
+<div class="row">
+	<div class="col-xs-12">
+		<div class="alert alert-success" role="alert">
+			{{ $success }}
+		</div>
+	</div>
+</div>	
+@endif
+
 <style>
 	.underline {
 		text-decoration: underline;

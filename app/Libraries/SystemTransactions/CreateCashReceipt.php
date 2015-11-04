@@ -25,4 +25,5 @@ class CreateCashReceipt extends AbstractTransactions
 	{
 		return TRUE;
 	}
+	
 }

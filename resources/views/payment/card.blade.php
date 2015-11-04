@@ -39,10 +39,10 @@
 				<input type="text" name="amount" class="form-control" style="width:calc(75% - 10px)!important;display:inline-block;margin-right: 10px;">{{ $user->currency }}
 			</div>
 		</div>
-			
+		<input type="hidden" name="currency" value="{{ $user->currency }}">
 		<div class="form-group">
 			<div class="col-xs-4 col-xs-push-8 text-center nopadding">
-				<div data-role="submit" data-route="useraccount/update-payment" class="btn-blue btn-small">{{ Lang::get('userdata.pay') }}</div>
+				<div data-role="submit" data-route="useraccount/credit-payment" class="btn-blue btn-small">{{ Lang::get('userdata.pay') }}</div>
 			</div>
 		</div>
 	</div>
@@ -60,7 +60,9 @@
 
 
 <div class="row">
-@include('errors.messages')
+	<div class="col-xs-12">
+	@include('errors.messages')
+	</div>
 </div>
 	
 @if(@$receipt)

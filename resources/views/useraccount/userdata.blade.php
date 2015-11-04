@@ -145,7 +145,7 @@
 								<strong>{{ Lang::get('subtotal.vacational-fund-fee') }}:</strong> $ {{ number_format($vacational_fund_amount, 2, '.', '') }} {{ $vacational_fund_currency }} <br><br>
 							</div>
 							<div class="row">
-								<strong>{{ Lang::get('subtotal.next-payment-date') }}: </strong>{{ $next_payment_date }}
+								<strong>{{ Lang::get('subtotal.next-payment-date') }}: </strong>{{ $next_payment_vacation_date }}
 							</div>
 						</div>
 					</div>
