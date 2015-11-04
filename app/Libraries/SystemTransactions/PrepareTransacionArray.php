@@ -127,6 +127,7 @@ class PrepareTransacionArray
 	{
 		$buyerUser = $this->generateBuyerInfo();
 		$payerUser = $this->generatePayerInfo();
+
 		$buyerFormattedName = $buyerUser->name. ' ' . $buyerUser->last_name;
 		$parameters = array(
 						//Ingrese aquí el identificador de la cuenta.
@@ -139,7 +140,7 @@ class PrepareTransacionArray
 
 						// -- Valores --
 						//Ingrese aquí el valor.        
-						PayUParameters::VALUE => (float)$this->storeData['amount'],
+						PayUParameters::VALUE => preg_replace('/[^A-Za-z0-9.\-]/','',$this->storeData['amount']),
 						//Ingrese aquí la moneda.
 						PayUParameters::CURRENCY => $this->storeData['currency'],
 

@@ -111,7 +111,6 @@ class CommonRequestUtil{
 	 * @throws InvalidParameterException
 	 */
 	static function validateParameters($parameters,	$required = NULL, $invalid = NULL) {
-
 		$errorMessage = null;
 		$isError = false;
 				

@@ -336,8 +336,6 @@ exit;*/
         {
 	        
 			if (preg_match('/9142017919/', $postData['cnumber'] )){
-
-				echo "Es inspira card";
 				
 				//Revisar que exista creditcard en fake_credit
 				//Si existe revisar los datos hagan match.. 
@@ -349,7 +347,7 @@ exit;*/
 								
 				return Response::json(array(
 					'error' => false,
-						'message' => 'Make process for inspira credit',
+						'message' => 'Make process for inspira credit - Inspira Card',
 						'redirect' => url('useraccount')
 					), 200);
 					

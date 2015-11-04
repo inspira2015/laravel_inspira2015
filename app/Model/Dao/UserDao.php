@@ -146,7 +146,7 @@ class UserDao extends UserEntity implements ICrudOperations
 
 		
 
- 		return User::has('affiliations')->where( 'id', '=',25  )->first();
+ 		return User::has('affiliations')->where( 'id', '=',79  )->first();
  	}
 
 

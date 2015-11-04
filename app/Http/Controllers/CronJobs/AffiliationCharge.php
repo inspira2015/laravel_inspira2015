@@ -8,7 +8,6 @@ use Redirect;
 use Response;
 use Session;
 use Auth;
-use Mail;
 use App\Model\Entity\ExchangeRateEntity;
 use App\Libraries\ApiExchangeRate\CurrentExchangeRate;
 use Mail;
@@ -80,8 +79,6 @@ class AffiliationCharge extends Controller
 		$this->debugPointsBalance = $pointsBalance;
 		$this->userAffiliationDao = $userAffiliation;
 
-
-
 		//PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
 		PayU::$apiKey = "tq4SDejVi5zKlmlw0L78AM4vLf"; // LIVE
 		//PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
@@ -108,8 +105,6 @@ class AffiliationCharge extends Controller
 	{
 		$user = $this->userDao->getUserAffiliatonPaymentTEST();
 		$this->convertHelper->setCurrencyShow( 'MXN' );
-
-
 
 		//foreach($users as $user)
 		//{
@@ -142,28 +137,38 @@ class AffiliationCharge extends Controller
 			print_r($parameters);
 			echo "<br><br><pre>";
 
-			echo $user->id;
+		//	echo $user->id;
 			
+			if($parameters['value'] == 0){
+				echo "Succes";
+				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
+																		  'code' => 'Success',
+																		  'type' => 'Charge Affiliation',
+																		  'description' => 'Extend Month',
+																		  'amount' => $userCurrentAffiliation->amount,
+																		  'currency' => $userCurrentAffiliation->currency,
+																		  'json_data' => '' ));
+				$this->chargeUserAffiliation->setAffiliationPayment( array( 'users_id' => $user->id,
+																		'charge_at' => date('Y-m-d')));
+				$this->chargeUserAffiliation->saveTransaction();
+			
+				exit;
+			}
 			$this->chargeUserAffiliation->setUser( $user );
 
 			$response = PayUPayments::doAuthorizationAndCapture($parameters);
-
-			print_r($response);
-			echo "<br><br>";
-
 
 
 			if( empty($response) )
 			{
 				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
 																		  'code' => 'Error',
-																		'type' => 'Charge Affiliation',
+																		  'type' => 'Charge Affiliation',
 																		  'description' => 'Unexpected Error',
 																		  'json_data' => '' ));
 				$this->chargeUserAffiliation->saveTransaction();
 				exit;
 			}
-
 
 			if ($response->code == 'ERROR') 
 			{
@@ -197,21 +202,25 @@ class AffiliationCharge extends Controller
 			{
 				//Send email.
 				$sent = Mail::send('emails.declined', array('user' => $user ), function($message) {	
-				$full_name = $user->name . ' ' . $user->last_name;		
-		    	$message->to( $user->email, $full_name )
-		    			->to( 'hp_tanya@hotmail.com' , $full_name)
-		    			->subject( Lang::get('emails.declined-title')."!" );
-		    	
-				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
-																		  'code' => 'DECLINED',
-																		  'type' => 'Charge Affiliation',
-																		  'description' => $response->transactionResponse->responseCode,
-																		  'json_data' => json_encode($response),
-																		  'payu_transaction_id' =>$response->transactionResponse->transactionId ));
-				$this->chargeUserAffiliation->saveTransaction();
-				exit;
+						$full_name = $user->name . ' ' . $user->last_name;		
+				    	$message->to( $user->email, $full_name )
+				    			->to( 'hp_tanya@hotmail.com' , $full_name)
+				    			->subject( Lang::get('emails.declined-title')."!" );
+				    	});
+			    	
+					$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
+																			  'code' => 'DECLINED',
+																			  'type' => 'Charge Affiliation',
+																			  'description' => $response->transactionResponse->responseCode,
+																			  'json_data' => json_encode($response),
+																			  'payu_transaction_id' =>$response->transactionResponse->transactionId ));
+					$this->chargeUserAffiliation->saveTransaction();
+					exit;
+					
+					//contador de 5.
 			}
 			echo "<br><br>";
+			
 			$transactionResponse  = $response->transactionResponse->transactionId;
 
 			$this->chargeUserAffiliation->setTransactionInfo( array(	'users_id' => $user->id,
