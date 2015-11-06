@@ -43,6 +43,7 @@ class PageController extends Controller {
 	 */
 	public function index()
 	{
+		
 		return view('uber.main')->with('title', 'Login' )->with('background','3.jpg');
 	}
 	

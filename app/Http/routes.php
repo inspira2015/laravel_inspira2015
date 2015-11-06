@@ -21,10 +21,11 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 
 });
 
-Route::group(array('domain' => 'uber.{domain}'), function() {
+Route::group(array('domain' => Config::get('domain.uber')), function(){
 	Route::get('/', 'Uber\PageController@index');
 });
 
+Route::group(array('domain' => Config::get('domain.front')), function(){
 
 	Route::put('api/v1/inspirapoints/addpayment/{leisure_id}', 'ApiForLoyalty\ApiadditionalpaymentsController@Monthlypayment');
 	Route::put('api/v1/inspirapoints/earned/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Pointsearnpermonth');
@@ -88,89 +89,90 @@ Route::group(array('domain' => 'uber.{domain}'), function() {
 	Route::put('api/v1/vacationalfund/currentbalance/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@GetCurrentBalance');
 
 
-Route::get('terms', 'WelcomeController@terms');
-
-// Password reset link request routes...
-Route::get('password/email', 'Auth\PasswordController@getEmail');
-Route::post('password/email', 'Auth\PasswordController@postEmail');
-
-
-Route::get('cronjob/exchangerate', 'CronJobs\ExchangeRateUpdate@Currentrate');
-Route::get('cronjob/affiliationcharge', 'CronJobs\AffiliationCharge@Montlypayment');
-Route::get('cronjob/vacationalfunds', 'CronJobs\VacationalFundCharge@Montlypayment');
-Route::get('cronjob/cashtransaction', 'CronJobs\CashTransaction@Hourlycheck');
-
-
-Route::get('api/test', 'Api\UsersController@test');
-Route::get('api/users/details', 'Api\UsersController@all');
-Route::get('api/users/exists', 'Api\UsersController@exists');
-Route::post('api/states', 'Api\StatesController@getByCountryCode');
-Route::post('api/user/change-language', 'Api\UsersController@changeLanguage');
-Route::post('api/user/change-currency', 'Api\UsersController@changeCurrency');
-
-Route::post('api/users/edit-account', 'Api\UsersController@editAccount');
-Route::post('api/states', 'Api\StatesController@getByCountryCode');
-
-
-// Password reset routes...
-Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
-Route::post('password/reset', 'Auth\PasswordController@postReset');
-
-
-Route::get('/', 'UseraccountController@index');
-
-Route::get('/home', 'UseraccountController@index');
-
-//Route::get('/', 'WelcomeController@index');
-
-Route::get('users', 'UsersController@index');		
-Route::post('users/registration', 'UsersController@registration');
-Route::get('users/activation/{code}', 'UsersController@activation');
-Route::post('users/select-language', 'UsersController@refreshLanguage');
-
-Route::get('affiliation', 'AffiliationController@index');
-Route::post('affiliation/add', 'AffiliationController@create');
-Route::get('affiliation/update/{affiliation?}', 'AffiliationController@changeaffiliation');
-Route::post('affiliation/modify', 'AffiliationController@dochange');
-
-
-Route::get('vacationfund', 'VacationfundsController@index');
-Route::post('vacationfund/add', 'VacationfundsController@create');
-Route::get('vacationfund/update/{vacationfund?}', 'VacationfundsController@changevacationalfund');
-Route::post('vacationfund/modify', 'VacationfundsController@dochange');
-
-
-
-Route::get('payment', 'PaymentController@index');
-Route::post('payment/addcreditcard', 'PaymentController@Addcreditcard');
-Route::get('payment/creditcardinfo', 'PaymentController@Creditcardinfo');
-Route::post('payment/bonus', 'PaymentController@bonus');
-
-Route::get('payment/credit-card', 'PaymentController@getAddCreditCard');
-
-
-Route::get('creditcardinfo/update', 'PaymentController@CreditcardinfoUpdate');
-
-Route::get('codes/{reset?}', 'CodesController@index');
-Route::any('codes/nocode', 'CodesController@Continuenocode');
-
-Route::get('useraccount', 'UseraccountController@index');
-
-Route::get('accountsetup', 'UseraccountController@accountSetup');
-Route::post('useraccount/update-contact', 'UseraccountController@updateAccount');
-Route::post('useraccount/edit-contact', 'UseraccountController@editAccount');
-Route::post('useraccount/edit-password', 'UseraccountController@editPassword');
-Route::post('useraccount/update-password', 'UseraccountController@updatePassword');
-Route::post('useraccount/edit-payment', 'UseraccountController@editPayment');
-Route::post('useraccount/update-payment', 'UseraccountController@updatePayment');
-Route::post('useraccount/credit-payment', 'UseraccountController@creditPayment');
-
-Route::get('useraccount/activation/{code}', 'UseraccountController@activation');
-
-Route::post('codes/check', 'CodesController@check');
-
-Route::post('/language', array(
-	'before' => 'csrf',
-	'as'    =>  'language-choose',
-	'uses'  =>  'LanguageController@choose'
-));
+	Route::get('terms', 'WelcomeController@terms');
+	
+	// Password reset link request routes...
+	Route::get('password/email', 'Auth\PasswordController@getEmail');
+	Route::post('password/email', 'Auth\PasswordController@postEmail');
+	
+	
+	Route::get('cronjob/exchangerate', 'CronJobs\ExchangeRateUpdate@Currentrate');
+	Route::get('cronjob/affiliationcharge', 'CronJobs\AffiliationCharge@Montlypayment');
+	Route::get('cronjob/vacationalfunds', 'CronJobs\VacationalFundCharge@Montlypayment');
+	Route::get('cronjob/cashtransaction', 'CronJobs\CashTransaction@Hourlycheck');
+	
+	
+	Route::get('api/test', 'Api\UsersController@test');
+	Route::get('api/users/details', 'Api\UsersController@all');
+	Route::get('api/users/exists', 'Api\UsersController@exists');
+	Route::post('api/states', 'Api\StatesController@getByCountryCode');
+	Route::post('api/user/change-language', 'Api\UsersController@changeLanguage');
+	Route::post('api/user/change-currency', 'Api\UsersController@changeCurrency');
+	
+	Route::post('api/users/edit-account', 'Api\UsersController@editAccount');
+	Route::post('api/states', 'Api\StatesController@getByCountryCode');
+	
+	
+	// Password reset routes...
+	Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+	Route::post('password/reset', 'Auth\PasswordController@postReset');
+	
+	
+	Route::get('/', 'UseraccountController@index');
+	
+	Route::get('/home', 'UseraccountController@index');
+	
+	//Route::get('/', 'WelcomeController@index');
+	
+	Route::get('users', 'UsersController@index');		
+	Route::post('users/registration', 'UsersController@registration');
+	Route::get('users/activation/{code}', 'UsersController@activation');
+	Route::post('users/select-language', 'UsersController@refreshLanguage');
+	
+	Route::get('affiliation', 'AffiliationController@index');
+	Route::post('affiliation/add', 'AffiliationController@create');
+	Route::get('affiliation/update/{affiliation?}', 'AffiliationController@changeaffiliation');
+	Route::post('affiliation/modify', 'AffiliationController@dochange');
+	
+	
+	Route::get('vacationfund', 'VacationfundsController@index');
+	Route::post('vacationfund/add', 'VacationfundsController@create');
+	Route::get('vacationfund/update/{vacationfund?}', 'VacationfundsController@changevacationalfund');
+	Route::post('vacationfund/modify', 'VacationfundsController@dochange');
+	
+	
+	
+	Route::get('payment', 'PaymentController@index');
+	Route::post('payment/addcreditcard', 'PaymentController@Addcreditcard');
+	Route::get('payment/creditcardinfo', 'PaymentController@Creditcardinfo');
+	Route::post('payment/bonus', 'PaymentController@bonus');
+	
+	Route::get('payment/credit-card', 'PaymentController@getAddCreditCard');
+	
+	
+	Route::get('creditcardinfo/update', 'PaymentController@CreditcardinfoUpdate');
+	
+	Route::get('codes/{reset?}', 'CodesController@index');
+	Route::any('codes/nocode', 'CodesController@Continuenocode');
+	
+	Route::get('useraccount', 'UseraccountController@index');
+	
+	Route::get('accountsetup', 'UseraccountController@accountSetup');
+	Route::post('useraccount/update-contact', 'UseraccountController@updateAccount');
+	Route::post('useraccount/edit-contact', 'UseraccountController@editAccount');
+	Route::post('useraccount/edit-password', 'UseraccountController@editPassword');
+	Route::post('useraccount/update-password', 'UseraccountController@updatePassword');
+	Route::post('useraccount/edit-payment', 'UseraccountController@editPayment');
+	Route::post('useraccount/update-payment', 'UseraccountController@updatePayment');
+	Route::post('useraccount/credit-payment', 'UseraccountController@creditPayment');
+	
+	Route::get('useraccount/activation/{code}', 'UseraccountController@activation');
+	
+	Route::post('codes/check', 'CodesController@check');
+	
+	Route::post('/language', array(
+		'before' => 'csrf',
+		'as'    =>  'language-choose',
+		'uses'  =>  'LanguageController@choose'
+	));
+});
