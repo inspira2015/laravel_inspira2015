@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 
 });
 
-Route::group(array('domain' => 'uber.inspira'), function() {
+Route::group(array('domain' => 'uber.{domain}'), function() {
 	Route::get('/', 'Uber\PageController@index');
 });
 
