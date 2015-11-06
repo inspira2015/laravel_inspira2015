@@ -123,6 +123,10 @@ class UseraccountController extends Controller {
 			return Redirect::to('users/activation/'.$this->userAuth->confirmation_code);
 		}
 		
+		if($this->userAuth->days_overdue == 5){
+			return Redirect::to('payment/credit-card');
+		}
+		
 		$this->accountSetup->setUsersID( $this->userAuth->id );
 		$valid = $this->accountSetup->checkValidAccount();
 		
@@ -280,8 +284,10 @@ class UseraccountController extends Controller {
 							]);
 			$cardPayment->setAmountData([
 								'value' => $data['amount'],
+								'cnumber' => $data['cnumber'],
 								'expiration_date' => $data['expiration_date'],
-								'currency' => $data['currency']
+								'currency' => $data['currency'],
+								'ccv' => $data['ccv']
 							]);
 			$cardPayment->setItem([
 					'reference' => 'Item-test-'.time(),
@@ -294,10 +300,12 @@ class UseraccountController extends Controller {
 				
 				if( $cardPayment->doToken() ){
 					$response = $cardPayment->getToken();
-
+					print_r($cardPayment->getToken());
 					$responseArray = (array) $response;
+					
+					
 	
-					if( @$cardPayment->getTransactionResponse()->state != 'SUCCESS' )
+					if( $cardPayment->getToken()->code == 'SUCCESS' )
 					{
 						$userVacationFundDao = new UserVacationalFunds();
 						$sysTransactionDao = new SystemTransactionDao();

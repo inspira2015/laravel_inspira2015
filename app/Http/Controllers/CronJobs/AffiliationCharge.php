@@ -79,27 +79,24 @@ class AffiliationCharge extends Controller
 		$this->debugPointsBalance = $pointsBalance;
 		$this->userAffiliationDao = $userAffiliation;
 
-		//PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
-		PayU::$apiKey = "tq4SDejVi5zKlmlw0L78AM4vLf"; // LIVE
-		//PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
-		PayU::$apiLogin = "W4Cwmrzwp1e87SZ"; 
-		//PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
-		PayU::$merchantId = "529182"; 
+		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c";  //Ingrese aquí su propio apiKey.
+		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
+		PayU::$merchantId = "500238";  //Ingrese aquí su Id de Comercio.
 		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
-		PayU::$isTest = FALSE; //Dejarlo True cuando sean pruebas.
+		PayU::$isTest = TRUE; //Dejarlo True cuando sean pruebas.
 
 		// URL de Pagos
-		//Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
-		Environment::setPaymentsCustomUrl("https://api.payulatam.com/payments-api/4.0/service.cgi");
+		Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
+		//Environment::setPaymentsCustomUrl("https://api.payulatam.com/payments-api/4.0/service.cgi");
 
 		// URL de Consultas
-		//Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
-		Environment::setReportsCustomUrl("https://api.payulatam.com/reports-api/4.0/service.cgi");
+		Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
+		//Environment::setReportsCustomUrl("https://api.payulatam.com/reports-api/4.0/service.cgi");
 
 		// URL de Suscripciones para Pagos Recurrentes
 		//Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");
 	}
-	
+
 
 	public function Montlypayment()
 	{
@@ -120,14 +117,11 @@ class AffiliationCharge extends Controller
 
 
 
-		$userCurrentAffiliation = $this->userAffiliationDao->getCurrentUserAffiliationByUserId( $user->id );
-
-
-			
+		$userCurrentAffiliation = $this->userAffiliationDao->getCurrentUserAffiliationByUserId( $user->id );			
 			$this->prepareTransactionArray->setUserId( $user->id );
 			$this->convertHelper->setCost( $userCurrentAffiliation->amount );
 			$this->convertHelper->setCurrencyOfCost( $userCurrentAffiliation->currency );
-			$this->prepareTransactionArray->setAccountId( 529182 );
+			$this->prepareTransactionArray->setAccountId( 500547 );
 			$this->prepareTransactionArray->setDescription( 'Monthly Affiliation Payment' );
 			$this->prepareTransactionArray->setAmount( $this->convertHelper->getFomattedAmount() );
 			$this->prepareTransactionArray->setCurrency( 'MXN' );
@@ -158,7 +152,8 @@ class AffiliationCharge extends Controller
 
 			$response = PayUPayments::doAuthorizationAndCapture($parameters);
 
-
+			print_r($response);
+			exit;
 			if( empty($response) )
 			{
 				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
@@ -181,22 +176,17 @@ class AffiliationCharge extends Controller
 				exit;
 			}
 
-
-
-
-
 			if ( $response->transactionResponse->state=="PENDING" ) 
 			{
 				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
 																		  'code' => 'PENDING',
-																		'type' => 'Charge Affiliation',
+																		  'type' => 'Charge Affiliation',
 																		  'description' => $response->transactionResponse->responseCode,
 																		  'json_data' => json_encode($response),
 																		  'payu_transaction_id' =>$response->transactionResponse->transactionId ));
 				$this->chargeUserAffiliation->saveTransaction();
 				exit;
 			}
-
 
 			if ( $response->transactionResponse->state=="DECLINED" ) 
 			{
@@ -244,10 +234,6 @@ class AffiliationCharge extends Controller
 
 			print_r($inspiraPoints);
 			echo "<br><br>";
-
-
-
-
 
 
 			$this->inspiraPoints->setDate( date('Y-m-d') );

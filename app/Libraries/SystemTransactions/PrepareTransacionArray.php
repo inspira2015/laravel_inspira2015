@@ -49,6 +49,7 @@ class PrepareTransacionArray
 	private $userDao;
 	private $userPaymentInfo;
 	private $storeData;
+	private $parameters;
 
 
 	public function __construct(UserDao $userDao,UserPaymentInfoEntity $userPaymentInfo)
@@ -150,6 +151,7 @@ class PrepareTransacionArray
 						//Ingrese aquí el email del comprador.
 						PayUParameters::BUYER_EMAIL =>  $buyerUser->email,
 						//Ingrese aquí el teléfono de contacto del comprador.
+/*
 						PayUParameters::BUYER_CONTACT_PHONE => $buyerUser->phones[0]->number,
 						//Ingrese aquí el documento de contacto del comprador.
 						PayUParameters::BUYER_DNI => "",
@@ -171,6 +173,7 @@ class PrepareTransacionArray
 						PayUParameters::PAYER_CONTACT_PHONE => $buyerUser->phones[0]->number,
 						//Ingrese aquí el documento de contacto del pagador.
 						PayUParameters::PAYER_DNI => "234234234",
+*/
 						//OPCIONAL fecha de nacimiento del pagador YYYY-MM-DD, importante para autorización de pagos en México.
 						PayUParameters::PAYER_BIRTHDATE => $payerUser->birthdate,
 
@@ -206,10 +209,9 @@ class PrepareTransacionArray
 						//Cookie de la sesión actual.        
 						PayUParameters::USER_AGENT=>"Mozilla/5.0 (Windows NT 5.1; rv:18.0) Gecko/20100101 Firefox/18.0"
 
-		);
-
-	
-		return $parameters;
+		);	
+		$this->parameters = $parameters;
+		return TRUE;
 	
 	}
 
@@ -217,7 +219,8 @@ class PrepareTransacionArray
 
 	public function getParameters()
 	{
-		return $this->builtParameters();
+		$this->builtParameters();
+		return $this->parameters;
 	}
 
 

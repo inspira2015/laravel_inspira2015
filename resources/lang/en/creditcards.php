@@ -21,6 +21,7 @@ return [
 	"terms" => "Terms and Conditions",
 	"privacy" => "Privacy Policies", 
 	"accept" => "I accept", 
+	"pay-now" => "Pay Now",
 	"message" => "Card processing has been successful. Click to continue.",
 	"ccv-modal" => [
 	"title" => "Finding your credit card CVV Number", 

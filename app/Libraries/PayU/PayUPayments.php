@@ -147,7 +147,6 @@ class PayUPayments{
 		$paymentMethodParameter = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYMENT_METHOD);
 		
 		if($paymentMethodParameter != null){
-			
 			$responseAvailability = PayUPayments::getPaymentMethodAvailability($paymentMethodParameter, $lang);
 			$paymentMethod = $responseAvailability->paymentMethod;
 			

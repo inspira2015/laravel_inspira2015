@@ -15,16 +15,22 @@ use App\Model\Entity\SystemTransactionEntity;
 use App\Libraries\SystemTransactions\UserTokenRegistration;
 use App\Libraries\SystemTransactions\SetBillableDate;
 use App\Libraries\SystemTransactions\ChargeUserAffiliation;
+use App\Libraries\CCPayment;
 use App\Model\Entity\UserAffiliation;
 use App\Model\Entity\UserVacFundLog;
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
+use App\Model\Dao\UserDao;
 use App\Libraries\GeneratePaymentsDates;
 use App\Libraries\SystemTransactions\PrepareTransacionArray;
 use App\Libraries\SystemTransactions\CreateLeisureUser;
 use App\Libraries\AddInspiraPoints;
 use App\Libraries\UpdateDataBaseLeisureMember;
 use App\Model\Entity\CodesUsedEntity;
+
+
+use App\Libraries\ExchangeRate\ExchangeMXNUSD;
+use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
 
 
 use App\Libraries\PayU\PayUReports;
@@ -66,6 +72,9 @@ class PaymentController extends Controller {
 	private $inspiraPoints;
 	private $createLeisureUser2;
 	private $codesUsedDao;
+	private $ccpayment;
+	private $exchange;
+	private $convertHelper;
 
 
 	public function __construct( UserTokenRegistration $sysDao,
@@ -76,7 +85,9 @@ class PaymentController extends Controller {
 								PrepareTransacionArray $preparePayUArray,
 								CreateLeisureUser $createLeisureUser,
 								AddInspiraPoints $inspiraPoints,
-								CodesUsedEntity $codesUsed)
+								CodesUsedEntity $codesUsed,
+								CCPayment $ccpayment,
+								ExchangeMXNUSD $exchangeMXNUSD)
 	{
 		//echo base_path();
 		$this->middleware('auth');
@@ -91,15 +102,23 @@ class PaymentController extends Controller {
 		$this->createLeisureUser = $createLeisureUser;
 		$this->inspiraPoints = $inspiraPoints;
 		$this->codesUsedDao = $codesUsed;
+		$this->ccpayment = $ccpayment;
+		$this->exchange = $exchangeMXNUSD;
+		$this->convertHelper = new ConvertCurrencyHelper();
+		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
 		$this->setLanguage();
 
 
-		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c"; //Ingrese aquí su propio apiKey.
-		//PayU::$apiKey = "tq4SDejVi5zKlmlw0L78AM4vLf"; // LIVE
+/*
+		PayU::$apiKey = "tq4SDejVi5zKlmlw0L78AM4vLf";  //Ingrese aquí su propio apiKey.
+		PayU::$apiLogin = "W4Cwmrzwp1e87SZ"; //Ingrese aquí su propio apiLogin.
+		PayU::$merchantId = "529182";  //Ingrese aquí su Id de Comercio.
+*/
+
+		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c";  //Ingrese aquí su propio apiKey.
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
-		//PayU::$apiLogin = "W4Cwmrzwp1e87SZ"; 
-		PayU::$merchantId = "500238"; //Ingrese aquí su Id de Comercio.
-		//PayU::$merchantId = "529182"; 
+		PayU::$merchantId = "500238";  //Ingrese aquí su Id de Comercio.
+		
 		PayU::$language = (Lang::locale() == 'es' ) ? SupportedLanguages::ES : SupportedLanguages::EN; //Seleccione el idioma.
 		PayU::$isTest = FALSE; //Dejarlo True cuando sean pruebas.
 
@@ -302,11 +321,6 @@ exit;*/
 		return view('creditcards.subtotal')->with( $data );
 	}
 
-
-
-
-
-
 	public function Creditcardinfo()
 	{
 		return view('creditcards.creditcard')->with( $this->getCCData() );
@@ -316,8 +330,6 @@ exit;*/
 	{
 		return view('creditcards.changecreditcard')->with( $this->getCCData() );
 	}
-
-
 
 	public function Addcreditcard()
 	{
@@ -354,12 +366,13 @@ exit;*/
 				//Si no hace match mandar a pagina de error
 				exit;
 			}
+			$userAuth = Auth::user();
 
 	        $exp_date = explode('/',$postData['expiration_date']);
 	        $postData['exp_month'] = $exp_date[1];
 	        $postData['exp_year'] = $exp_date[0];
 	        array_forget($postData, 'expiration_date');
-        	$userAuth = Auth::user();
+        	
 			$this->createToken->setAuthUser( $userAuth  );
 			$this->createToken->setUserCreditCard( $postData   );
 
@@ -382,6 +395,8 @@ exit;*/
 				//Mostrar el mensaje de que dato fallo
 				return view($blade)->with( $this->getCCData() )->withErrors( $this->createToken->getErrors() )->withInput( $postData );
 			}
+			
+
 
 			$response = $this->createToken->getToken();
 			$responseToStore = (array)$response;
@@ -394,18 +409,20 @@ exit;*/
 															'json_data' => json_encode($responseToStore)));
 
 			$response_token = $response->creditCardToken;
+			
+			$paymentInfo =  array( 'users_id' => $userAuth->id,
+							      'token' => $response_token->creditCardTokenId,
+							      'ccv' => $postData['ccv'],
+							      'name_on_card' => $postData['name_on_card'],
+							      'birthdate' => $postData['birthdate'],
+							      'payment_method' => $this->createToken->getPaymentMethod(),
+							      'address' => $postData['address'],
+							      'city' => $postData['city'],
+							      'state' => $postData['state'],
+							      'zip_code' => $postData['zip_code'],
+							      'country' => $postData['country']);
 
-			$this->sysTransaction->setUserPaymentInfo( array( 'users_id' => $userAuth->id,
-														      'token' => $response_token->creditCardTokenId,
-														      'ccv' => $postData['ccv'],
-														      'name_on_card' => $postData['name_on_card'],
-														      'birthdate' => $postData['birthdate'],
-														      'payment_method' => $this->createToken->getPaymentMethod(),
-														      'address' => $postData['address'],
-														      'city' => $postData['city'],
-														      'state' => $postData['state'],
-														      'zip_code' => $postData['zip_code'],
-														      'country' => $postData['country']));
+			$this->sysTransaction->setUserPaymentInfo( $paymentInfo );
 			$this->sysTransaction->saveData();
 
 			//
@@ -443,10 +460,76 @@ exit;*/
 			
 			$this->chargeUserAffiliation->saveData();
 
+/*
+			if($userAuth->days_overdue == 5){
+
+			//	$userDao = new UserDao();
+			//	$userDao->load($userAuth->id);
+
+/*
+				$userAffDao = new UserAffiliation();
+				$userCurrentAffiliation = $userAffDao->getCurrentUserAffiliationByUserId( $userAuth->id  );			
+				$this->prepareTransactionArray->setUserId( $userAuth->id );
+				$this->convertHelper->setCost( $userCurrentAffiliation->amount );
+				$this->convertHelper->setCurrencyOfCost( $userCurrentAffiliation->currency );
+*/
+						
+			//	echo $userCurrentAffiliation->amount;
+/*				$aff_amount = 101;
+				$aff_currency = 'MXN';
+				
+				$this->ccpayment->setStoreData( array(
+													'userId' => $userAuth->id,
+													'description' => 'Overdue affiliation payment',
+													'amount' => $aff_amount,
+													'currency' => $aff_currency
+													)
+												);
+				$this->ccpayment->setUserData($userAuth);
+				$paymentInfo['cnumber'] =  $postData['cnumber'];
+				$this->ccpayment->setCreditCardData($paymentInfo);
+				$this->ccpayment->checkPaymentData();
+				print_r($this->ccpayment->doToken());
+
+				if($this->ccpayment->doToken()){
+					if($this->ccpayment->getState() == 'APPROVED'){
+						//Aqui van los pasos para que se ponga al corriente la cuenta.
+						
+						//Save payment and set a new one of last date plus the days_overdue
+						
+						
+
+						//Get currency and payment
+						
+						//$userDao->days_overdue = 0;
+						//$userDao->save();
+
+						return Response::json(array(
+						'error' => false,
+						'message' => Lang::get('creditcards.message'),
+						'redirect' => url('useraccount')
+						), 200);
+					}
+
+					return Response::json(array(
+						'error' => false,
+						'message' => 'DECLINED',
+						'redirect' => url('useraccount')
+					), 200);
+				}else{
+					return Response::json(array(
+						'error' => false,
+						'message' => 'Error on request',
+						'redirect' => url('useraccount')
+					), 200);
+				}
+			}
+*/
+			
 			if(!Request::get('is_update')){
 				Session::put('complete-profile', 'false');
 			}
-			
+
 			return Response::json(array(
 				'error' => false,
 				'message' => Lang::get('creditcards.message'),
@@ -454,6 +537,10 @@ exit;*/
 			), 200);
         }     
         return view($blade)->with( $this->getCCData() )->withErrors($validator)->withInput( $postData );
+	}
+	
+	public function getAddCreditCard(){
+		 return view('creditcards.creditcard')->with('user' , Auth::user() )->with( $this->getCCData() );
 	}
 	
 	public function bonus(){
@@ -481,6 +568,7 @@ exit;*/
 		return array( 'title' => Lang::get('creditcards.title'),
 					   'background' => '2.jpg',
 					   'monthsList' => $this->getArrayMonths(),
+					   'user' => Auth::user(),
 					   'yearsList' => $this->getArrayYears(),
 					   'country_list' => $this->getCountryArray($locale),
 					   'states' => $this->getStatesArray($locale)

@@ -21,6 +21,7 @@ return [
 	"terms" => "T&eacute;rminos y Condiciones",
 	"privacy" => "Pol&iacute;ticas de Privacidad",
 	"accept" => "Acepto",
+	"pay-now" => "Pagar ahora",
 	"message" => "El procesamiento de su tarjeta ha sido exitoso. De clic para continuar.",
 	"ccv-modal" => [
 	"title" => "Encontrar en tarjeta el Número CVV", 

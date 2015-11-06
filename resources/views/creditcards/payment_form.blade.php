@@ -1,15 +1,24 @@
 {!! Form::open(array('url' => 'users/registration')) !!}
+
 <div class="row">
 	<div class="col-xs-12">
 		<h2>
 			{{  Lang::get('creditcards.card-information') }}
 		</h2>
 	</div>
+	@if($user->days_overdue != 5)
 	<div class="col-xs-4 col-xs-push-8 col-sm-3 col-sm-push-9 col-md-2 col-md-push-10">   
 		<div data-role="submit" data-route="addcreditcard" class="btn-blue-clear btn-medium">
 			{{ Lang::get('layout.continue') }}
 		</div>
 	</div>
+	@else
+	<div class="col-xs-4 col-xs-push-8 col-sm-3 col-sm-push-9 col-md-2 col-md-push-10">   
+		<div data-role="submit" data-route="addcreditcard" class="btn-blue-clear btn-medium">
+			{{ Lang::get('creditcards.pay-now') }}
+		</div>
+	</div>
+	@endif
 	<div class="divider"></div>
 </div>
 
@@ -118,6 +127,8 @@
 <div class="col-sm-12" style="padding:20px 10px 10px 10px;">
 	<div class="divider"></div>
 </div>
+
+@if($user->days_overdue != 5)
 <div clas="row">
 	<div class="col-xs-6 col-md-4 text-left">
 		<div class="row">
@@ -145,5 +156,20 @@
 		</div>
 	</div>
 </div>
+@else
+<div clas="row">
+	<input type="hidden" name="terms" value="1">
+	<input type="hidden" name="privacy" value="1">
+
+	<div class="col-xs-8 col-xs-push-2 col-sm-4 col-sm-push-4">   
+		<div data-role="submit" data-route="{{ url('payment/addcreditcard') }}" class="btn-light-blue btn-large">
+			{{ Lang::get('creditcards.pay-now') }}
+		</div>
+		<div class="col-xs-12 text-center nopadding" id="mandatory">
+		* {{ Lang::get('layout.required-fields') }}
+		</div>
+	</div>
+</div>
+@endif
 
 {!! Form::close() !!}

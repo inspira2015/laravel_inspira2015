@@ -55,7 +55,7 @@ class CreateToken extends InitializePayUCredentials
 	{
 		if( empty( $this->userCreditCard ) )
 		{
-			$this->errorArray[] = "Error en la Comunicacion con la pagina, vuelva a Intentar";
+			$this->errorArray[] = "Error en la Comunicación con la pagina, vuelva a Intentar";
 			return FALSE;
 		}
 

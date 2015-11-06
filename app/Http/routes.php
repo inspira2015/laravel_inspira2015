@@ -21,6 +21,11 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 
 });
 
+Route::group(array('domain' => 'uber.inspira'), function() {
+	Route::get('/', 'Uber\PageController@index');
+});
+
+
 	Route::put('api/v1/inspirapoints/addpayment/{leisure_id}', 'ApiForLoyalty\ApiadditionalpaymentsController@Monthlypayment');
 	Route::put('api/v1/inspirapoints/earned/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Pointsearnpermonth');
 	Route::put('api/v1/inspirapoints/spent/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Pointsspendpermonth');
@@ -140,6 +145,9 @@ Route::get('payment', 'PaymentController@index');
 Route::post('payment/addcreditcard', 'PaymentController@Addcreditcard');
 Route::get('payment/creditcardinfo', 'PaymentController@Creditcardinfo');
 Route::post('payment/bonus', 'PaymentController@bonus');
+
+Route::get('payment/credit-card', 'PaymentController@getAddCreditCard');
+
 
 Route::get('creditcardinfo/update', 'PaymentController@CreditcardinfoUpdate');
 
