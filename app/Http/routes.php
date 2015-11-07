@@ -25,6 +25,13 @@ Route::group(array('domain' => Config::get('domain.uber')), function(){
 	Route::get('/', 'Uber\PageController@index');
 });
 
+
+Route::group(array('domain' => Config::get('domain.api')), function(){
+	Route::put('reservation/?apiKey=test', 'Api\ReservationsController@addReservation');
+});
+
+
+
 Route::group(array('domain' => Config::get('domain.front')), function(){
 
 	Route::put('api/v1/inspirapoints/addpayment/{leisure_id}', 'ApiForLoyalty\ApiadditionalpaymentsController@Monthlypayment');
@@ -88,6 +95,7 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 	Route::put('api/v1/vacationalfund/lastwithdraw/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@GetLastWithdrawDate');
 	Route::put('api/v1/vacationalfund/currentbalance/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@GetCurrentBalance');
 
+	Route::put('api/v1/reservation', 'ApiForLoyalty\ApiReservationsController@addReservation');
 
 	Route::get('terms', 'WelcomeController@terms');
 	
