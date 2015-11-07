@@ -95,7 +95,7 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 	Route::put('api/v1/vacationalfund/lastwithdraw/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@GetLastWithdrawDate');
 	Route::put('api/v1/vacationalfund/currentbalance/{leisure_id}', 'ApiForLoyalty\ApivacationalfundsController@GetCurrentBalance');
 
-	Route::put('api/v1/reservation', 'ApiForLoyalty\ApiReservationsController@addReservation');
+	Route::put('api/v1/reservation/usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH', 'ApiForLoyalty\ApiReservationsController@addReservation');
 
 	Route::get('terms', 'WelcomeController@terms');
 	
