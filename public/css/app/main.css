@@ -1116,6 +1116,39 @@ div.flat-windows #modal-login a.btn-blue:visited{
 	padding: 15px;
 }
 
+div.flat-windows .input-group{
+	width: 100%!important;
+}
+
+div.flat-windows .input-group input{
+	background-color: #8d969e!important;
+	padding: 20px;
+	color: white;
+	font-size: 20px;
+	text-align: center;
+}
+
+div.flat-windows .input-group input::-webkit-input-placeholder {
+   color: white;
+   text-align: center;
+}
+
+div.flat-windows .input-group input:-moz-placeholder { /* Firefox 18- */
+   color: white;  
+   text-align: center;
+}
+
+div.flat-windows .input-group input::-moz-placeholder {  /* Firefox 19+ */
+   color: white; 
+   text-align: center;
+}
+
+div.flat-windows .input-group input:-ms-input-placeholder {  
+   color: white;  
+   text-align: center;
+}
+
+
 span.small-super {
     vertical-align: super;
     font-size: 12px;

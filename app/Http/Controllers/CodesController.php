@@ -46,7 +46,7 @@ class CodesController extends Controller {
 		$data = Request::all();
 		$validator = ServiceCode::validator($data);
 		
-        if ( $validator->passes() ) 
+        if ( $validator->passes() && $data['code'] != 'uber' ) 
         {
 			$code = $this->codeDao->getByCode( $data['code'] )->first();
 			if(!empty($code)){
@@ -54,6 +54,7 @@ class CodesController extends Controller {
 	
 				if ( $this->check->checkValid() )
 				{
+					
 					Session::put('code', $data['code']);
 					return Redirect::to('users');
 				}				

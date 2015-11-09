@@ -1,20 +1,44 @@
 <?php 
 namespace App\Http\Controllers\Uber;
 use App\Http\Controllers\Controller;
+use App\Services\PaymentMethodCC as PaymentValidator;
 
 use Lang;
 use Response;
+use Session;
 use Request;
+use Redirect;
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
 
 class CertificatesController extends Controller {
 
-	public function buyCertificate(){
+	public function getBuyCertificate(){
+		if(!Session::get('user')) {
+			return Redirect::to('registro');
+		}
 		return view('uber.buy_certificate')->with( $this->getCCData() )
 											->with('title', 'Comprar certificado' )
 											->with('background','beach-girl.jpg');
 	}
+	
+	public function postBuyCertificate(){
+		$payment = new PaymentValidator();
+		$postData = Request::except('_token');
+		$validator = $payment->validator( $postData, Lang::locale() );
+		if($validator->passes()){
+			return Response::json(array(
+			'error' => false,
+			'data' => 'Success',
+			'redirect' => 'http://inspiramexico.leisureloyalty.com'
+			), 200);
+		}
+		return view('uber.buy_certificate_form')->withErrors($validator)
+											->with( $this->getCCData() )
+											->with('title', 'Comprar certificado' )
+											->with('background','beach-girl.jpg');
+	}
+	
 	private function getCCData()
 	{
 		$locale = Lang::locale();
