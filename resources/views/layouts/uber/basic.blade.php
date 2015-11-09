@@ -50,7 +50,7 @@
 					<a href="#" class="btn-light-blue btn-xsmall" id="btn-login" data-toggle="modal" data-target="#modal-login" >INICIAR SESI&Oacute;N</a>
 					</div>
 				<div class="col-xs-6 col-md-3 nopadding">
-					<a href="{{ url('registro-certificado') }}" class="btn-white-clear btn-xsmall">COMPRAR CERTIFICADO</a>
+					<a href="{{ url('registro') }}" class="btn-white-clear btn-xsmall">COMPRAR CERTIFICADO</a>
 				</div>
 			</div>
 		</div>

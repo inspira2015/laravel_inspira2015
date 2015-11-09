@@ -29,10 +29,11 @@ Route::group(array('domain' => Config::get('domain.uber')), function(){
 	Route::get('destino/puerto-vallarta', 'Uber\PageController@goPuertoVallarta');
 	Route::get('destino', 'Uber\PageController@goDestination');
 
-	Route::get('comprar-certificado', 'Uber\PageController@buyCertificate');
-	Route::get('registro', 'Uber\PageController@getRegister');
-	Route::get('registro-certificado', 'Uber\PageController@getRegister');
+	Route::get('comprar-certificado', 'Uber\CertificatesController@buyCertificate');
+	Route::get('registro', 'Uber\UsersController@getRegister');
 	Route::post('leisure-login', 'Uber\LoginController@postLeisureAutologin');
+	Route::post('registrar', 'Uber\UsersController@postRegister');
+	Route::get('api/users/exists', 'Api\UsersController@exists');
 });
 
 

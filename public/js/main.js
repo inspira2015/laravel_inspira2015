@@ -257,6 +257,7 @@ $(document).ready(function(){
 	
 	var wd = document.documentElement.clientWidth;
 	var swiperH = new Swiper('.swiper-container-h', {
+		pagination: '.swiper-pagination-h',
 	    paginationClickable: true,
 	    slidesPerView: 1,
 		width:wd,

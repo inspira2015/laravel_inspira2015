@@ -14,8 +14,6 @@ use App\Model\VacationFundLog;
 use App\Http\Controllers\Controller;
 
 use Lang;
-use App\Model\Dao\CountryDao;
-use App\Model\Dao\StatesDao;
 
 class PageController extends Controller {
 
@@ -49,14 +47,7 @@ class PageController extends Controller {
 	{
 		return view('uber.main')->with('title', 'Uber' )->with('background','3.jpg');
 	}
-	
-	public function buyCertificate(){
-		return view('uber.buy_certificate')->with( $this->getCCData() )
-											->with('title', 'Comprar certificado' )
-											->with('background','beach-girl.jpg');
-	}
-	
-	
+		
 	public function goMazatlan(){
 		header('Location: http://inspiramexico.leisureloyalty.com/resortweeks/quickSearch?saved_search=RoRJln63xXF9SOj');
 		exit;
@@ -82,38 +73,4 @@ class PageController extends Controller {
 		exit;
 	}
 	
-	public function getRegister(){
-		return view('uber.register')->with('title', 'Reg&iacute;strate')->with('background' , '2.jpg');
-	}
-	
-	private function getCCData()
-	{
-		$locale = Lang::locale();
-		return array(  'background' => '2.jpg',
-					   'country_list' => $this->getCountryArray($locale),
-					   'states' => $this->getStatesArray($locale)
-			);
-	}
-	
-	
-	protected function getCountryArray($language = FALSE)
-	{
-		$country = new CountryDao();
-		return $country->forSelect('name', 'code');
-		
-	}
-	
-	protected function getStatesArray($language = FALSE)
-	{
-		$states = new StatesDao();
-		//default MX - check if its gonna be changed.
-		if($language== 'es' || $language==FALSE){
-			$country = 'MX';
-		}else{
-			$country = 'US';
-		}
-		return $states->forSelect('name', 'code', array('country' => $country ));
-	}
-
-
 }

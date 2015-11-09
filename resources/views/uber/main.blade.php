@@ -12,7 +12,7 @@
 					Los resorts mas lujosos rededor del mundo, al precio mas bajo<br>
 					<br>
 					<div class="row text-center">
-						<a href="{{ url('registro-certificado') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
+						<a href="{{ url('registro') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
 					</div>
 				</div>
 
@@ -22,7 +22,7 @@
 					<h2>Viaja a los mejores lugares con uber e inspira</h2>
 					Los resorts mas lujosos rededor del mundo, al precio mas bajo<br>
 					<br>
-					<a href="{{ url('registro-certificado') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
+					<a href="{{ url('registro') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
 				</div>
 
 				<div class="swiper-slide" id="slide-3">
@@ -30,21 +30,21 @@
 					<h2>Viaja a los mejores lugares con uber e inspira</h2>
 					Los resorts mas lujosos rededor del mundo, al precio mas bajo<br>
 					<br>
-					<a href="{{ url('registro-certificado') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
+					<a href="{{ url('registro') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
 				</div>
 				<div class="swiper-slide" id="slide-4">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 					<h2>Viaja a los mejores lugares con uber e inspira</h2>
 					Los resorts mas lujosos rededor del mundo, al precio mas bajo<br>
 					<br>
-					<a href="{{ url('registro-certificado') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
+					<a href="{{ url('registro') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
 				</div>
 				<div class="swiper-slide" id="slide-5">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 					<h2>Viaja a los mejores lugares con uber e inspira</h2>
 					Los resorts mas lujosos rededor del mundo, al precio mas bajo<br>
 					<br>
-					<a href="{{ url('registro-certificado') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
+					<a href="{{ url('registro') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
 				</div>
 			</div>
 			<!-- Add Pagination -->
