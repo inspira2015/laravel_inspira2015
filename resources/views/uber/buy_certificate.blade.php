@@ -35,7 +35,7 @@
 				<div class="table-cell"><span class="glyphicon glyphicon-ok"></span></div>
 			</div>
 			<div class="table-row">
-				<div class="table-cell">Opciones de alojamiento en resorts de lujo alrededor del mundo<span class="small-super">1</span></div>
+				<div class="table-cell">Opciones de alojamiento en resorts de lujo<span class="small-super">1</span> alrededor del mundo</div>
 				<div class="table-cell"><span class="glyphicon glyphicon-ok"></span></div>
 			</div>
 			<div class="table-row">
