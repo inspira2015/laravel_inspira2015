@@ -171,7 +171,7 @@ footer > .container > div:nth-child(3){
 	font-size: 14px!important;
 }
 
-.btn-blue, .btn-light-blue{
+.btn-blue, .btn-light-blue, .btn-white-clear{
 	color: white;
 	font-size: 24px;
 	font-weight: 200;
@@ -180,7 +180,7 @@ footer > .container > div:nth-child(3){
 	padding-bottom: 5px;
 	display: inline-block;
 	text-decoration: none;
-	background-image: url('images/arrow.png');
+	background-image: url('../app/images/arrow.png');
 	background-repeat: no-repeat;
 	background-position: calc(100% - 10px) center;
 	background-position-x: 95%;
@@ -189,6 +189,14 @@ footer > .container > div:nth-child(3){
 }
 .btn-blue{
 	background-color: #465664;
+}
+
+#btn-login {
+	background-image: url('images/member-icon.png');
+	background-size: 20px;
+	background-position: calc(100% - 10px) 3px;
+	padding-right: 25px;
+	padding-left: 10px;
 }
 
 .btn-light-blue{
@@ -210,6 +218,19 @@ footer > .container > div:nth-child(3){
 	background-repeat: no-repeat;
 	background-position: right center;
 }
+
+.btn-xsmall{
+	font-size: 14px;
+}
+		
+.btn-white-clear {
+	color: white;
+    clear: both;
+    background-size: 9px 15px;
+    background-position-y: 40%;
+    margin-right: 20px;
+}
+
 
 .back{
 	background-position: left center;
@@ -979,5 +1000,48 @@ div.modal.fade.in{
 	padding: 15px;
 }
 
+
+#product-offers {
+	display:table;
+	background-color: #4d9ad4;
+	color:white;
+	width: 100%;
+
+}
+
+.table-row {
+	display:table-row;
+	border: 1px solid #ebeced;
+	padding-right: 40px;
+	text-align: left;
+}
+
+.table-cell {
+	display: table-cell;
+	border: 1px solid #ebeced;
+	text-align: left;
+}
+
+.table-row > div.table-cell:not(:last-child){
+padding: 7px 40px 7px 40px;	
+}
+
+.table-row > div.table-cell:last-child {
+	padding: 7px 20px;	
+}
+
+.bg-light-gray {
+	background-color: #ebeced;
+	padding: 25px;
+	display: block;
+	margin-bottom: 15px;
+}
+
+.bg-blue{
+	background-color:#465664;
+	color: white;
+	margin-top: 15px;
+	padding: 20px 20px;
+}
 
 

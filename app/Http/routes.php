@@ -23,6 +23,13 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 
 Route::group(array('domain' => Config::get('domain.uber')), function(){
 	Route::get('/', 'Uber\PageController@index');
+	Route::get('destino/mazatlan', 'Uber\PageController@goMazatlan');
+	Route::get('destino/las-vegas', 'Uber\PageController@goLasVegas');
+	Route::get('destino/malaga', 'Uber\PageController@goMalaga');
+	Route::get('destino/puerto-vallarta', 'Uber\PageController@goPuertoVallarta');
+	Route::get('destino', 'Uber\PageController@goDestination');
+
+	Route::get('comprar-certificado', 'Uber\PageController@buyCertificate');
 });
 
 

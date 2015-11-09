@@ -1,5 +1,14 @@
 $(document).ready(function(){
 	$('body').inspira();
+	setResizeWindow();
+
+	function setResizeWindow(){
+		var wd = document.documentElement.clientWidth;
+		$('.swiper-container').css('width', wd);
+	}
+
+	$(window).on('resize orientationChanged', function(){ setResizeWindow(); });
+
 });
 
 (function($){
@@ -242,4 +251,15 @@ $(document).ready(function(){
 		if ( "object" === typeof method || !method ) return feature._init.apply(this, arguments);
 		$.error("Method " + method + " does not exist on jQuery.inspira");
 	}
+	
+	var swiperH = new Swiper('.swiper-container-h', {
+	    paginationClickable: true,
+	    slidesPerView: 1,
+	    setWrapperSize: false,
+	    resizeEvent: 'auto',
+	    speed: 500,
+ 	    autoplay: 10000
+	});
+	
+
 })(jQuery);

@@ -87,7 +87,9 @@ class CardPayment extends InitializePayUCredentials
 			//Ingrese aquí el documento de identificación del comprador.
 		//	PayUParameters::PAYER_DNI => "5415668464654",
 // 			PayUParameters::PAYER_DOCUMENT_TYPE => "CC",
-			PayUParameters::ACCOUNT_ID => 500547,
+		//	PayUParameters::ACCOUNT_ID => 500547,
+			PayUParameters::ACCOUNT_ID => 531038,
+
 			//Tipo de tienda?
 //			PayUParameters::PAYMENT_METHOD => PaymentMethods::OXXO,
 
