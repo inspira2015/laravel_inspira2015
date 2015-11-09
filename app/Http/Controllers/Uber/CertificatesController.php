@@ -28,9 +28,8 @@ class CertificatesController extends Controller {
 		$validator = $payment->validator( $postData, Lang::locale() );
 		if($validator->passes()){
 			return Response::json(array(
-			'error' => false,
-			'data' => 'Success',
-			'redirect' => 'http://inspiramexico.leisureloyalty.com'
+				'message' => 'Success last step',
+				'redirect' => 'http://inspiramexico.leisureloyalty.com'
 			), 200);
 		}
 		return view('uber.buy_certificate_form')->withErrors($validator)
