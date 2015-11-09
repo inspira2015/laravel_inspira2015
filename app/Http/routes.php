@@ -39,6 +39,9 @@ Route::group(array('domain' => Config::get('domain.uber')), function(){
 
 
 Route::group(array('domain' => Config::get('domain.api')), function(){
+	Route::any('/', function(){
+		return json_encode(['message' => 'Please use api key']);
+	});
 	Route::put('reservation/?apiKey=test', 'Api\ReservationsController@addReservation');
 });
 

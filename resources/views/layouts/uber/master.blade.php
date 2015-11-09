@@ -2,8 +2,6 @@
 	$minifierCss = new MinifyCSS();
 	$minifierCss->add('css/app/main.css');
 	$minifierCss->minify('css/minify/main.css');
-	$minifierCss->add('css/uber.css');
-	$minifierCss->minify('css/minify/uber.css');
 	
 	$minifierJs = new MinifyJs();
 	$minifierJs->add('js/jquery.creditCardValidator.js');
@@ -24,7 +22,6 @@
 	{!! HTML::style('css/bootstrap/css/slide.css') !!}
 	{!! HTML::style('css/bootstrap/css/slidestyle.css') !!}
 	{!! HTML::style('css/minify/main.css') !!}
-	{!! HTML::style('css/minify/uber.css') !!}
 </head>
 
 <body id="page" style="background-image:url('<?php echo url();?>/images/<?php echo $background; ?>'); background-repeat:no-repeat; background-position: center center fixed; 
@@ -34,7 +31,6 @@
 	background-size: cover;
 	">
 	@include('layouts.__common.header')
-
 
 	<div id="wrapper">
 		<div class="container">
@@ -72,11 +68,8 @@
 	
 	@if(!$app->environment('local'))
 		@include('layouts.__common.tawk')
-		@include('layouts.__common.analytics')
-		
 	@endif
 	@include('layouts.__common.facebook')
-	<style>	
-	</style>
+	@include('layouts.uber.analytics')
 </body>
 </html>

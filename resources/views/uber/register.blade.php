@@ -1,4 +1,4 @@
-@extends('layouts.basic')
+@extends('layouts.uber.master')
 
 @section('content')
 <div class="row bg-gray" data-role="response">

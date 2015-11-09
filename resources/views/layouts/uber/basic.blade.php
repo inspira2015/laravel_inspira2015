@@ -94,11 +94,12 @@
 	
 	@if(!$app->environment('local'))
 		@include('layouts.__common.tawk')
-		@include('layouts.__common.analytics')
-		
 	@endif
+	
 	@include('layouts.__common.facebook')
 	@include('layouts.uber.modal_login')
+	
+	@include('layouts.uber.analytics')
 	<script type="text/javascript">
 	function poponload()
 	{
@@ -111,7 +112,7 @@
 			
 			var myPopup = window.open("http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1", "", "directories=no,height=150,width=150,menubar=no,resizable=no,scrollbars=no,status=no,titlebar=no,top=0,location=no");
 			if (!myPopup){
-			    alert("Favor desactivar ventanas emergentes para mejor experiencia de usuario.");  
+			    alert("Favor de desactivar cualquier bloqueador de pantallas nuevas para el buen funcionamiento del sistema.");  
 			}else {
 			    myPopup.onload = function() {
 			        setTimeout(function() {
