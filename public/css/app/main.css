@@ -1054,14 +1054,19 @@ padding: 7px 40px 7px 40px;
 	display:block;
 	text-align: left;
 	margin-bottom: 15px;
-	background-image: url('images/member-icon.png'), url('images/registro-fondo.png');
+	background-image: url('images/member-icon.png'), url('/images/registro-fondo.png');
 	background-repeat: no-repeat, no-repeat;
-	background-position: 20px center, right center;
-	background-size: 45px, auto 100%;
+	background-position: 20px center, right bottom;
+	background-size: 45px,auto 90%;
 
 }
 
 #register-box h2{
 	color:white;
+}
+
+
+.input-group.extra-width{
+	width: 70%!important;
 }
 

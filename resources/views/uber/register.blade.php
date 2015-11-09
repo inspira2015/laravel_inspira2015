@@ -32,7 +32,7 @@
 		<div class="col-xs-12">
 			<div class="form-group">
 	            <label for="nombre">* Nombre(s):</label>
-	            <div class="input-group">
+	            <div class="input-group extra-width">
 	              {!! Form::text('name', Input::get('name_on_card') ? Input::get('name') : @$name, array('class' => 'form-control','id' => 'name')) !!}                                                
 	            </div>
 			</div>
@@ -40,7 +40,7 @@
 		<div class="col-xs-12">
 			<div class="form-group">
 	            <label for="nombre">* Apellido:</label>
-	            <div class="input-group">
+	            <div class="input-group extra-width">
 	              {!! Form::text('last_name', Input::get('last_name') ? Input::get('last_name') : @$last_name, array('class' => 'form-control','id' => 'last_name')) !!}                                                
 	            </div>
 			</div>
@@ -48,23 +48,15 @@
 		<div class="col-xs-12">
 			<div class="form-group">
 	            <label for="nombre">* E-Mail:</label>
-	            <div class="input-group">
+	            <div class="input-group extra-width">
 	              {!! Form::text('email', Input::get('email') ? Input::get('email') : @$email, array('class' => 'form-control','id' => 'email')) !!}                                                
 	            </div>
 			</div>
 		</div>
 		<div class="col-xs-12">
 			<div class="form-group">
-	            <label for="nombre">* Confirmar E-Mail:</label>
-	            <div class="input-group">
-	              {!! Form::text('email_confirmation', Input::get('email_confirmation') ? Input::get('email_confirmation') : @$email_confirmation, array('class' => 'form-control','id' => 'email_confirmation')) !!}                                                
-	            </div>
-			</div>
-		</div>
-		<div class="col-xs-12">
-			<div class="form-group">
 	            <label for="nombre">* Contrase&ntilde;a</label>
-	            <div class="input-group">
+	            <div class="input-group extra-width">
 	              {!! Form::password('password', array('class' => 'form-control','id' => 'password')) !!}   
 	            </div>
 			</div>
@@ -72,7 +64,7 @@
 		<div class="col-xs-12">
 			<div class="form-group">
 	            <label for="nombre">* Confirmar Contrase&ntilde;a</label>
-	            <div class="input-group">
+	            <div class="input-group extra-width">
 	              {!! Form::password('password_confirmation', array('class' => 'form-control','id' => 'password_confirmation')) !!}   
 	            </div>
 			</div>
