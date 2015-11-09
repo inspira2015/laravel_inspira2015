@@ -82,6 +82,10 @@ class PageController extends Controller {
 		exit;
 	}
 	
+	public function getRegister(){
+		return view('uber.register')->with('title', 'Reg&iacute;strate')->with('background' , '2.jpg');
+	}
+	
 	private function getCCData()
 	{
 		$locale = Lang::locale();
@@ -90,6 +94,7 @@ class PageController extends Controller {
 					   'states' => $this->getStatesArray($locale)
 			);
 	}
+	
 	
 	protected function getCountryArray($language = FALSE)
 	{

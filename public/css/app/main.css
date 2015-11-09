@@ -1044,4 +1044,24 @@ padding: 7px 40px 7px 40px;
 	padding: 20px 20px;
 }
 
+#register-box{
+	font-size:20px;
+	font-weight: 400;
+	padding: 40px 40px 30px 80px;
+	color: white;
+	background-color: #4d9ad4;
+	color:white;
+	display:block;
+	text-align: left;
+	margin-bottom: 15px;
+	background-image: url('images/member-icon.png'), url('images/registro-fondo.png');
+	background-repeat: no-repeat, no-repeat;
+	background-position: 20px center, right center;
+	background-size: 45px, auto 100%;
+
+}
+
+#register-box h2{
+	color:white;
+}
 

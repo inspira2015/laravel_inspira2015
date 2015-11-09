@@ -1,10 +1,13 @@
 $(document).ready(function(){
 	$('body').inspira();
+	
 	setResizeWindow();
 
 	function setResizeWindow(){
 		var wd = document.documentElement.clientWidth;
-		$('.swiper-container').css('width', wd);
+		if($('.swiper-container')) {
+			$('.swiper-container').css('width', wd);
+		}
 	}
 
 	$(window).on('resize orientationChanged', function(){ setResizeWindow(); });
@@ -252,11 +255,11 @@ $(document).ready(function(){
 		$.error("Method " + method + " does not exist on jQuery.inspira");
 	}
 	
+	var wd = document.documentElement.clientWidth;
 	var swiperH = new Swiper('.swiper-container-h', {
 	    paginationClickable: true,
 	    slidesPerView: 1,
-	    setWrapperSize: false,
-	    resizeEvent: 'auto',
+		width:wd,
 	    speed: 500,
  	    autoplay: 10000
 	});

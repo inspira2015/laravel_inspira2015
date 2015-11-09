@@ -3,6 +3,11 @@
 	padding: 10px;
 }
 
+span.small-caps {
+    font-variant: small-caps;
+}
+
+
 #map {
 	background-color:#4e9cd4;
 	padding: 60px 0px;
@@ -12,6 +17,7 @@
 	background-repeat: no-repeat;
 	background-size: 40%;
 	background-position: center center;
+	font-size: 16px;
 }
 
 #map h2{
@@ -23,6 +29,7 @@
 	background-color: #ebeced;
 	padding-bottom: 40px;
 	padding-top: 20px;
+	font-size: 16px;
 }
 
 #destinations ul{
@@ -54,7 +61,7 @@
 
 #destinations h2,
 #map h2{
-	font-size: 20px;
+	font-size: 22px;
 }
 
 footer {
@@ -75,6 +82,11 @@ h1 a, h1 a:hover{
 }
 */
 
+h1 img {
+	width: 60%;
+	max-width: 350px;
+}
+
 
 a:hover, a:visited {
 	color: white;
@@ -85,6 +97,9 @@ a:hover, a:visited {
 	font-weight: 200;
 }
 
+.input-group {
+    width: 80%!important;
+}
 
 .slider h2{
 	font-size:30px;
@@ -149,4 +164,15 @@ div.modal div.modal-body{
 	color: white!important;
 	text-decoration: none;
 	padding: 15px;
+}
+
+
+@media (max-width: 992px){
+
+	#destinations li {
+		display:list-item!important;
+	}
+	#destinations li a{
+		font-size: 20px;
+	}
 }
