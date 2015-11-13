@@ -38,19 +38,20 @@
 	">
 	<div class="header">
 		<div class="container">
-<!--
-	  		<div class="logo">
-	  			<a href="{{ url('/') }}">
-	  				{!! HTML::image('css/bootstrap/css/images/logo.png', 'Inspira Mexico - Logo') !!}
-	  			</a>
-	  		</div>
--->
 			<div class="row text-center">
-				<div class="col-xs-6 col-md-2 col-md-offset-4 nopadding">
-					<a href="#" class="btn-light-blue btn-xsmall" id="btn-login" data-toggle="modal" data-target="#modal-login" >INICIAR SESI&Oacute;N</a>
+				<div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-2 col-md-offset-4 nopadding">
+					@if(!Auth::check())
+					<a href="#" class="btn-light-blue btn-xsmall" id="btn-login" data-toggle="modal" data-target="#modal-login" >
+						INICIAR SESI&Oacute;N
+					</a>
+					@else
+					<a href="#" class="btn-light-blue btn-xsmall" id="btn-login" data-toggle="modal" data-target="#modal-login" >
+						{{ Auth::user()->name }} {{ Auth::user()->last_name }}
+					</a>
+					@endif
 					</div>
-				<div class="col-xs-6 col-md-3 nopadding">
-					<a href="{{ url('registro') }}" class="btn-white-clear btn-xsmall">COMPRAR CERTIFICADO</a>
+				<div class="col-xs-12 col-sm-4 col-md-3 nopadding">
+					<a href="{{ url('comprar-certificado') }}" class="btn-white-clear btn-xsmall">COMPRAR CERTIFICADO</a>
 				</div>
 			</div>
 		</div>
@@ -80,7 +81,8 @@
 
 	@include('layouts.__common.privacy')
 	@include('layouts.__common.terms')
-	@include('layouts.__common.message_modal')
+	
+	@include('layouts.uber.message_modal')
 	
 	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
 	{!! HTML::script('js/minify/jquery.creditCardValidator.min.js') !!}
@@ -97,6 +99,7 @@
 	@endif
 	
 	@include('layouts.__common.facebook')
+	
 	@include('layouts.uber.modal_login')
 	
 	@include('layouts.uber.analytics')

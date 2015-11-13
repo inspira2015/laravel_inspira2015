@@ -45,6 +45,9 @@ class UsersController extends Controller {
 	
 		//	}
 		}
+	/*	This email is already registered. Please log in to activate this certificate to your account or create a new account with this certificate with a different email address
+
+OK*/
 		return view('uber.register_form')->withErrors($validator)->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
 	}
 }

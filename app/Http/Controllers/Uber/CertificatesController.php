@@ -7,6 +7,7 @@ use Lang;
 use Response;
 use Session;
 use Request;
+use Auth;
 use Redirect;
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
@@ -14,12 +15,20 @@ use App\Model\Dao\StatesDao;
 class CertificatesController extends Controller {
 
 	public function getBuyCertificate(){
-		if(!Session::get('user')) {
+		if(!Session::get('user') ) {
 			return Redirect::to('registro');
 		}
 		return view('uber.buy_certificate')->with( $this->getCCData() )
 											->with('title', 'Comprar certificado' )
 											->with('background','beach-girl.jpg');
+	}
+	
+	public function postUseWeek(){
+		$user = Auth::user();
+		return Response::json(array(
+				'error' => false,
+				'redirect' => 'http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user->leisure_id
+			), 200);
 	}
 	
 	public function postBuyCertificate(){

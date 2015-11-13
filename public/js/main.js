@@ -27,7 +27,8 @@ $(document).ready(function(){
 				var _fund = _this.find('input[name="fondo"]');
 				var _language = _this.find('select[id="language"]');
 				var _radio_bonus = _this.find('#bonus input[type="radio"]');
-				
+				var _anchor = $(this).find('a[data-anchor]');
+
 				feature._set_change( _buttons );
 				feature._on_change_country( _change_country );
 				feature._on_change_email( _email );
@@ -36,6 +37,7 @@ $(document).ready(function(){
 				feature._enable_fund( _fund );
 				feature._change_language( _language );
 				feature._apply_bonus( _radio_bonus );
+				feature._apply_anchor( _anchor );
 
 				$.ajaxSetup({headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')	}});
 
@@ -72,14 +74,33 @@ $(document).ready(function(){
 				_this.removeAttr('data-role');
 				$.ajax({url:_route, data: _data, type: 'POST'}).done(function(_ajax_response){
 					$('#loading-inspira, #bg-loading').toggle();
+								
 					if(_ajax_response.redirect){
-						if(_ajax_response.message){
+						$('.modal').modal('hide');
+
+						if(_ajax_response.html){
+	
+							$('#message div[class=modal-body]').html(htmlDecode(_ajax_response.html));
+							$('#message').modal('show');
+							$('#message').on('hidden.bs.modal', function () {
+								window.location.href = _ajax_response.redirect;
+							});
+								
+							function htmlDecode(input){
+							  var e = document.createElement('div');
+							  e.innerHTML = input;
+							  return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+							}
+							
+							feature._set_actions($('#message div[class=modal-body]'));
+							return false;
+						}else if(_ajax_response.message){
 							//Modal 
 							$('#message #text').html(_ajax_response.message);
 							$('#message').modal('show');
 							$('#message').on('hidden.bs.modal', function () {
 								window.location.href = _ajax_response.redirect;
-							})
+							});
 						}else{
 							window.location.href = _ajax_response.redirect;	
 						}
@@ -245,6 +266,14 @@ $(document).ready(function(){
 
 
 				}
+			});
+		},
+		_apply_anchor : function( element ){
+			element.on('click', function(){
+				var _this = $(this);
+				var _name = $(this).data('anchor');			
+				var _top = $('div.header').height();
+				$("html,body").animate({scrollTop:$("div[data-id="+_name+"]").offset().top - _top},"500");
 			});
 		}
 	};

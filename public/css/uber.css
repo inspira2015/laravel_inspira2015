@@ -1,12 +1,15 @@
 .header{
     min-height: inherit;
-	padding: 10px;
+    padding: 10px;
+    position: fixed;
+    z-index: 2;
+    background-color:rgba(70,86,100,0.9)!important;
 }
 
 
 #map {
 	background-color:#4e9cd4;
-	padding: 60px 0px;
+	padding: 60px 20px;
 	color:white;
 	display:block;
 	background-image: url('images/map.png');
@@ -52,9 +55,38 @@
 
 #destinations li img {
 	width: 100%;
+	filter: url('#grayscale'); /* Versión SVG para IE10, Chrome 17, FF3.5, Safari 5.2 and Opera 11.6 */
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	-ms-filter: grayscale(100%);
+	-o-filter: grayscale(100%);
+	filter: grayscale(100%); /* Para cuando es estándar funcione en todos */
+	filter: Gray(); /* IE4-8 and 9 */
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+	opacity: 0.8;
+    filter: Alpha(opacity=80); /* IE8 and earlier */
 }
 
+#destinations li img:hover{
+	-webkit-filter: grayscale(0%);
+	-moz-filter: grayscale(0%);
+	-ms-filter: grayscale(0%);
+	-o-filter: grayscale(0%);
+	filter: none;
+	
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+		opacity: 1;
+    filter: Alpha(opacity=100); /* IE8 and earlier */
 
+}
 #destinations h2,
 #map h2{
 	font-size: 22px;
@@ -125,4 +157,32 @@ a:hover, a:visited {
 	#destinations li a{
 		font-size: 20px;
 	}
+}
+
+#option-1, #option-2{
+	padding: 10px 40px 10px 60px;
+    width: 100%;
+    display: block;
+    color: white!important;
+    text-decoration: none!important;
+	margin-bottom:15px;
+    text-align: left;
+    background-repeat: no-repeat, no-repeat;
+	background-position: 10px center, calc(100% - 5px) center;
+	background-size: 40px, 20px;
+	font-size: 16px;
+	vertical-align: middle;
+	height: 55px;
+
+}
+#option-1{
+	background-color: #a3cc3b;
+	background-image: url('images/Calendario.png'), url('images/Flechas.png');
+	line-height: 2.5!important;
+
+}
+
+#option-2{
+	background-color: #529ad1;
+	background-image: url('images/Sol.png'), url('images/Flechas.png');
 }

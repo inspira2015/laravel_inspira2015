@@ -475,14 +475,6 @@ form div#mandatory{
 }
 
 
-/*MODALS*/
-@media(min-width:992px) {
-	div.modal#privacy div.modal-dialog,
-	div.modal#terms div.modal-dialog{
-		width: 90%;
-	}
-}
-
 div.modal h4.modal-title,
 div.modal div.modal-body h5,
 div.modal div.modal-body h6 {
@@ -609,50 +601,6 @@ div#vacational-box p{
 }
 
 
-@media(max-width: 992px){
-	div#vacational-box {
-		padding: 25px 20px;
-		background-position: calc(100% - 20px) 50%;
-	}
-	
-	div#vacational-box h2{
-		font-size: 20px;
-		text-align:left;
-	}
-	
-	div#vacational-box p{
-		font-size: 18px;
-	}
-}
-
-@media(min-width: 340px) and (max-width: 767px){
-	div#vacational-box {
-		padding: 15px 10px;
-		background-size: auto calc(80% - 20px);
-		background-position: calc(100% - 10px) 50%;
-
-	}
-	div#vacational-box p{
-		padding: 0px;
-	}
-}
-
-@media(max-width: 390px){
-	div#vacational-box {
-		padding: 10px 10px;
-		background-size: auto calc(50% - 20px);
-		background-position: calc(100% - 10px) 50%;
-	}
-	
-	div#vacational-box h2 {
-    	font-size: 16px;
-    }
-    
-    div#vacational-box p{
-		font-size: 14px;
-	}
-	
-}
 .vacational h3{
 	text-transform: uppercase;
 	font-size: 16px!important;
@@ -1069,12 +1017,20 @@ padding: 7px 40px 7px 40px;
 	width: 70%!important;
 }
 
+div.flat-windows button.close {
+	margin-right: -20px;
+    margin-top: -20px;
+    color:transparent;
+}
+
+div.flat-windows .modal-dialog{
+	max-width: 400px;
+}
 div.flat-windows div.modal-content {
     border-radius: 0px;
     background-color: #dcdfe0;
     padding: 20px;
-    max-width: 400px;
-    margin-left: 100px;
+    width: 100%!important;
 }
 
 div.flat-windows div.modal-content .modal-wrapper {
@@ -1091,6 +1047,7 @@ div.flat-windows div.modal div.modal-body{
 div.flat-windows #modal-login span{
 	margin-bottom: 15px;
 	display:block;
+	color: transparent;
 }
 
 div.flat-windows #modal-login a{
@@ -1158,4 +1115,64 @@ span.small-super:before{
 	content: ' ';
 }
 
+
+
+/*MODALS*/
+@media(min-width:992px) {
+	div.modal#privacy div.modal-dialog,
+	div.modal#terms div.modal-dialog{
+		width: 90%;
+	}
+	
+}
+
+@media(max-width: 992px){
+	div#vacational-box {
+		padding: 25px 20px;
+		background-position: calc(100% - 20px) 50%;
+	}
+	
+	div#vacational-box h2{
+		font-size: 20px;
+		text-align:left;
+	}
+	
+	div#vacational-box p{
+		font-size: 18px;
+	}
+}
+
+@media(min-width: 340px) and (max-width: 767px){
+	div#vacational-box {
+		padding: 15px 10px;
+		background-size: auto calc(80% - 20px);
+		background-position: calc(100% - 10px) 50%;
+
+	}
+	div#vacational-box p{
+		padding: 0px;
+	}
+	
+	div.flat-windows .modal-dialog{
+		max-width:100%!important;
+	}
+	
+}
+
+@media(max-width: 390px){
+	div#vacational-box {
+		padding: 10px 10px;
+		background-size: auto calc(50% - 20px);
+		background-position: calc(100% - 10px) 50%;
+	}
+	
+	div#vacational-box h2 {
+    	font-size: 16px;
+    }
+    
+    div#vacational-box p{
+		font-size: 14px;
+	}
+	
+}
 
