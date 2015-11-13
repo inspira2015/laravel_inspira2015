@@ -186,3 +186,15 @@ a:hover, a:visited {
 	background-color: #529ad1;
 	background-image: url('images/Sol.png'), url('images/Flechas.png');
 }
+
+#more-info{
+	position: absolute;
+    bottom: 50px;
+    text-align: center;
+    left: 0;
+    right: 0;
+}
+
+#more-info img{
+	width: 30px;
+}

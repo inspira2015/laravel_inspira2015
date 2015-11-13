@@ -1,11 +1,13 @@
 @extends('layouts.uber.basic')
 
 @section('content')
+<?php $slides = 0; ?>
 <div class="col-xs-12">
 	<div class="row">
 		<div class="swiper-container swiper-container-h slider">
 			<div class="swiper-wrapper">
-				<div class="swiper-slide" id="slide-1">
+				@for ($i = 1; $i <= 5; $i++)
+				<div class="swiper-slide" id="slide-{{$i}}">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
 					<h2>Viaja a los mejores lugares con uber e inspira</h2>
@@ -15,44 +17,12 @@
 						<a href="{{ url('registro') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
 					</div>
 					<div class="row">
-					<a href="#" data-anchor="more-info" style="    position: absolute;
-    bottom: 80px;
-    text-align: center;">Mas info</a>
+					<a href="#" data-anchor="more-info" id="more-info">M&aacute;s info<br>
+	    				{!! HTML::image('images/more-info-arrow.png', 'M&aacute;s informaci&oacute;n') !!}
+    				</a>
 					</div>
 				</div>
-
-
-<!--
-				<div class="swiper-slide" id="slide-2">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
-					<h2>Viaja a los mejores lugares con uber e inspira</h2>
-					Los resorts mas lujosos rededor del mundo, al precio mas bajo<br>
-					<br>
-					<a href="{{ url('registro') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
-				</div>
-
-				<div class="swiper-slide" id="slide-3">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
-					<h2>Viaja a los mejores lugares con uber e inspira</h2>
-					Los resorts mas lujosos rededor del mundo, al precio mas bajo<br>
-					<br>
-					<a href="{{ url('registro') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
-				</div>
-				<div class="swiper-slide" id="slide-4">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
-					<h2>Viaja a los mejores lugares con uber e inspira</h2>
-					Los resorts mas lujosos rededor del mundo, al precio mas bajo<br>
-					<br>
-					<a href="{{ url('registro') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
-				</div>
-				<div class="swiper-slide" id="slide-5">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
-					<h2>Viaja a los mejores lugares con uber e inspira</h2>
-					Los resorts mas lujosos rededor del mundo, al precio mas bajo<br>
-					<br>
-					<a href="{{ url('registro') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
-				</div>
--->
+				@endfor
 			</div>
 			<!-- Add Pagination -->
 			<div class="swiper-pagination swiper-pagination-h"></div>
