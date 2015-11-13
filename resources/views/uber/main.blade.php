@@ -14,7 +14,7 @@
 					Los resorts mas lujosos rededor del mundo, al precio mas bajo<br>
 					<br>
 					<div class="row text-center">
-						<a href="{{ url('registro') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
+						<a href="{{ url('comprar-certificado') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
 					</div>
 					<div class="row">
 					<a href="#" data-anchor="more-info" id="more-info">M&aacute;s info<br>
