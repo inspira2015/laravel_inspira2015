@@ -39,7 +39,7 @@
 	<div class="header">
 		<div class="container">
 			<div class="row text-center">
-				<div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-2 col-md-2 col-md-push-2 nopadding">
+				<div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-2 col-md-3 col-md-push-1 nopadding">
 					@if(!Auth::check())
 					<a href="#" class="btn-light-blue btn-xsmall" id="btn-login" data-toggle="modal" data-target="#modal-login" >
 						INICIAR SESI&Oacute;N
@@ -50,7 +50,7 @@
 					</a>
 					@endif
 					</div>
-				<div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-0 col-md-3 nopadding">
+				<div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-0 col-md-3 col-md-offset-1 nopadding">
 					<a href="{{ url('comprar-certificado') }}" class="btn-white-clear btn-xsmall">COMPRAR CERTIFICADO</a>
 				</div>
 			</div>
