@@ -62,17 +62,17 @@
 			<img src="images/markets.png" style="margin-top:10px;margin-right: 20px;">
 		</div>
 	</div>
-	@if(isset($cc))
+	@if(isset($cc) || isset($name_on_card))
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
 			<a data-role="change" data-route="{{ url('nueva-tarjeta') }}">
-				{!! Form::radio('cc-option', '','true', array('data-role' => 'change', 'data-route' => 'nueva-tarjeta') ) !!}  
+				{!! Form::radio('cc-option', '',!isset($name_on_card) ? 'true' : '', array('data-role' => 'change', 'data-route' => 'nueva-tarjeta') ) !!}  
 				<span style="color:#465664;font-weight: 600;">NUEVA TARJETA</span>
 			</a>
 		</div>
 		<div class="col-xs-12 col-sm-6">
 			<a data-role="change" data-route="{{ url('tarjeta-registrada') }}"> 
-				{!! Form::radio('cc-option', '','', array('data-role' => 'change', 'data-route' => 'nueva-tarjeta') ) !!} 
+				{!! Form::radio('cc-option', '',isset($name_on_card) ? 'true' : '', array('data-role' => 'change', 'data-route' => 'nueva-tarjeta') ) !!} 
 				<span style="color:#465664;font-weight: 600;">USAR DATOS DEL ULTIMO REGISTRO</span>
 			</a>
 		</div>
@@ -109,7 +109,7 @@
 			<div class="form-group">
                 <label for="nombre">* {{ Lang::get('creditcards.birthdate') }}</label>
                 <div class="input-group extra-width">
-                  {!! Form::text('birthdate', Input::get('birthdate') ? Input::get('birthdate') : @$cc['birthdate'], array('class' => 'form-control', 'data-mask-type' => 'date', 'placeholder' => Lang::get('creditcards.birthdate-format') )) !!}                                                
+                  {!! Form::text('birthdate', Input::get('birthdate') ? Input::get('birthdate') : @$birthdate, array('class' => 'form-control', 'data-mask-type' => 'date', 'placeholder' => Lang::get('creditcards.birthdate-format') )) !!}                                                
                 </div>
 			</div>
 		</div>
@@ -119,7 +119,7 @@
 			<div class="form-group">
 	            <label for="nombre">* {{ Lang::get('creditcards.name-on-card') }}</label>
 	            <div class="input-group extra-width">
-	              {!! Form::text('name_on_card', Input::get('name_on_card') ? Input::get('name_on_card') : @$cc->name_on_card, array('class' => 'form-control','id' => 'name_on_card')) !!}                                                
+	              {!! Form::text('name_on_card', Input::get('name_on_card') ? Input::get('name_on_card') : @$name_on_card, array('class' => 'form-control','id' => 'name_on_card')) !!}                                                
 	            </div>
 			</div>
 		</div>
@@ -127,7 +127,7 @@
 			<div class="form-group">
 			    <label for="direccion">* {{ Lang::get('creditcards.address') }}</label>
 			    <div class="input-group extra-width">
-			      {!! Form::text('address', Input::get('address') ? Input::get('address') : @$cc->address, array('class' => 'form-control','id' => 'address')) !!}                                                
+			      {!! Form::text('address', Input::get('address') ? Input::get('address') : @$address, array('class' => 'form-control','id' => 'address')) !!}                                                
 			    </div>
 			</div>
 		</div>
@@ -137,7 +137,9 @@
 			<div class="form-group">
 				<label for="pais">* {{ Lang::get('creditcards.country') }}</label>
 				<div class="input-group extra-width">
-					{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : ( Lang::locale() == 'es' ? 'MX' : 'US' ) , array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state', 'data-route' => url('api/states'))) !!}
+					{!! Form::select('country', [
+					   'MX' => 'M&eacute;xico'],'MX', array('class' => 'form-control' )
+					) !!}
 				</div>
 			</div>
 		</div>
@@ -145,11 +147,7 @@
 			<div class="form-group">
                 <label for="state">* {{ Lang::get('creditcards.state') }}</label>
                 <div class="input-group select-state extra-width">
-					@if( in_array( Input::get('country') ? Input::get('country') : 'MX' , Config::get('extra.countries') ))
-					{!! Form::select('state', $states, Input::get('country') ? Input::get('country') : 'MX', array('class' => 'form-control' ) ) !!}
-					@else
-					{!! Form::text( 'state',  Input::get('country') ? Input::get('country') : 'MX' , array('class' => 'form-control')) !!}
-					@endif
+					{!! Form::select('state', $states, @$state, array('class' => 'form-control' ) ) !!}
                 </div>
         	</div>
 		</div>

@@ -50,7 +50,7 @@
 					</a>
 					@endif
 					</div>
-				<div class="col-xs-8 col-xs-offset-2 col-sm-4 col-md-3 nopadding">
+				<div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-0 col-md-3 nopadding">
 					<a href="{{ url('comprar-certificado') }}" class="btn-white-clear btn-xsmall">COMPRAR CERTIFICADO</a>
 				</div>
 			</div>

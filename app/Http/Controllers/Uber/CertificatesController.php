@@ -20,15 +20,10 @@ class CertificatesController extends Controller {
 			return Redirect::to('registro');
 		}
 
-/*
-		if(Auth::check()){
-			$usersPayDao = new UserPayDao();
+		$usersPayDao = new UserPayDao();
 		$payInfo = $usersPayDao->getByUsersId( Auth::user()->id );
-		}
-*/
-		$back_route = (Auth::check()) ? url('/') : url('registro');
-		return view('uber.buy_certificate')->with( $this->getCCData() )
-											->with('back_route' , $back_route )
+		return view('uber.certificates.buy_certificate')->with('cc', $payInfo)
+											->with( $this->getCCData() )
 											->with('title', 'Comprar certificado' )
 											->with('background','beach-girl.jpg');
 	}
@@ -45,24 +40,42 @@ class CertificatesController extends Controller {
 		$payment = new PaymentValidator();
 		$postData = Request::except('_token');
 		$validator = $payment->validator( $postData, Lang::locale() );
+		
 		if($validator->passes()){
 			return Response::json(array(
-				'message' => 'Success last step',
-				'redirect' => 'http://inspiramexico.leisureloyalty.com'
+				'error' => false,
+				'html' => htmlspecialchars(view('uber.certificates.success_payment')),
+				'redirect' => url('/')
 			), 200);
 		}
-		return view('uber.buy_certificate_form')->withErrors($validator)
+		return view('uber.certificates.buy_certificate_form')->withErrors($validator)
 											->with( $this->getCCData() )
 											->with('title', 'Comprar certificado' )
 											->with('background','beach-girl.jpg');
 	}
 	
 	public function newCreditCard(){
-		return "clean data";
+		return Response::json(array(
+			'error' => false,
+			'redirect' => '/comprar-certificado'
+		), 200);
 	}
 	
 	public function useCreditCard(){
-		return "use data";
+		$usersPayDao = new UserPayDao();
+		$payInfo = $usersPayDao->getByUsersId( Auth::user()->id )->first();
+		$data = array(
+			'name_on_card' => $payInfo->name_on_card,
+			'state' => $payInfo->state,
+			'city' => $payInfo->city,
+			'zip_code' => $payInfo->zip_code,
+			'address' => $payInfo->address,
+			'birthdate' => date("Y/m/d", strtotime($payInfo->birthdate))
+		);
+		return view('uber.certificates.buy_certificate_form')->with($data)
+											->with( $this->getCCData() )
+											->with('title', 'Comprar certificado' )
+											->with('background','beach-girl.jpg');
 	}
 	
 	private function getCCData()
