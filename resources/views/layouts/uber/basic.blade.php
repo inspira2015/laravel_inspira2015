@@ -104,7 +104,6 @@
 	
 	@include('layouts.uber.analytics')
 	<script type="text/javascript">
-/*
 	function poponload()
 	{
 		var been_before = $.cookie("leisurelogin");
@@ -137,7 +136,6 @@
 			}
 
 		}
-*/
 	</script>
 </body>
 </html>
