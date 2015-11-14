@@ -7,6 +7,7 @@ use Lang;
 use Response;
 use Session;
 use Request;
+use Mail;
 use Auth;
 use Redirect;
 use App\Model\Dao\CountryDao;
