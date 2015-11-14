@@ -39,18 +39,18 @@
 	<div class="header">
 		<div class="container">
 			<div class="row text-center">
-				<div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-2 col-md-offset-4 nopadding">
+				<div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-2 col-md-2 col-md-push-2 nopadding">
 					@if(!Auth::check())
 					<a href="#" class="btn-light-blue btn-xsmall" id="btn-login" data-toggle="modal" data-target="#modal-login" >
 						INICIAR SESI&Oacute;N
 					</a>
 					@else
 					<a href="#" class="btn-light-blue btn-xsmall" id="btn-login" data-toggle="modal" data-target="#modal-login" >
-						{{ Auth::user()->name }} {{ Auth::user()->last_name }}
+						{{ Auth::user()->name }} {{ substr(Auth::user()->last_name, 0,1) }}.
 					</a>
 					@endif
 					</div>
-				<div class="col-xs-12 col-sm-4 col-md-3 nopadding">
+				<div class="col-xs-8 col-xs-offset-2 col-sm-4 col-md-3 nopadding">
 					<a href="{{ url('comprar-certificado') }}" class="btn-white-clear btn-xsmall">COMPRAR CERTIFICADO</a>
 				</div>
 			</div>
@@ -104,6 +104,7 @@
 	
 	@include('layouts.uber.analytics')
 	<script type="text/javascript">
+/*
 	function poponload()
 	{
 		var been_before = $.cookie("leisurelogin");
@@ -111,7 +112,7 @@
 		if(!been_before){
 			var date = new Date();
 			date.setTime(date.getTime() + (60 * 30 * 1000));
-			$.cookie("leisurelogin", "true", { path: '/', expires: date });
+			$.cookie("leisurelogin", "Leisure Session has begin", { path: '/', expires: date });
 			
 			var myPopup = window.open("http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1", "", "directories=no,height=150,width=150,menubar=no,resizable=no,scrollbars=no,status=no,titlebar=no,top=0,location=no");
 			if (!myPopup){
@@ -136,6 +137,7 @@
 			}
 
 		}
+*/
 	</script>
 </body>
 </html>

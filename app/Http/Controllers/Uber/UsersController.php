@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Uber;
 use App\Http\Controllers\Controller;
 use App\Libraries\CreateUser\CheckAndSaveUserInfo;
 use App\Services\Uber\Register as RegisterValidator;
-
+use Auth;
 use Lang;
 use Response;
 use Request;
@@ -11,7 +11,16 @@ use Session;
 use Redirect;
 
 class UsersController extends Controller {
+	
+	public function __construct(Auth $auth ){
+		$this->auth = $auth;
+		
+	}
+	
 	public function getRegister(){
+		if(Auth::check()){
+			return redirect('/');
+		}
 		return view('uber.register')->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
 	}
 	
@@ -37,6 +46,17 @@ class UsersController extends Controller {
 			{
 */
 				//Aqui hacer gurdar el VIIM
+				
+				
+				/*$this->createLeisureUser->setUser( $userAuth );
+		$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
+																'type' => 'Create Leisure MemberId',
+																'description' => 'Create Leisure MemberId',
+																'json_data' => ''));
+		$this->createLeisureUser->saveData();
+
+*/
+//Una vez que se haya enviado el correo mandar, limpiar user data. y hacer authlog.
 			return Response::json(array(
 				'error' => false,
 				'redirect' => url('comprar-certificado')

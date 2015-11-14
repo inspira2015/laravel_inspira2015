@@ -43,6 +43,8 @@ Route::group(array('domain' => Config::get('domain.uber')), function(){
 	Route::post('restablecer-contrasena', 'Uber\AuthController@postResetPassword');
 
 	Route::get('/admin', 'Uber\Admin\PageController@index');
+	Route::post('/nueva-tarjeta', 'Uber\CertificatesController@newCreditCard');
+	Route::post('/tarjeta-registrada', 'Uber\CertificatesController@useCreditCard');
 });
 
 

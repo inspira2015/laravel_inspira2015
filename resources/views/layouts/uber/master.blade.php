@@ -62,6 +62,8 @@
 	{!! HTML::script('js/jquery.maskedinput.min.js') !!}
 	
 	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
+	<script src="http://www.idangero.us/swiper/dist/js/swiper.min.js"></script>
+
 	{!! HTML::script('js/main.js') !!}
 	
 	@if(!$app->environment('local'))

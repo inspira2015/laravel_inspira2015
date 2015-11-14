@@ -195,8 +195,9 @@ footer > .container > div:nth-child(3){
 	background-image: url('images/member-icon.png');
 	background-size: 20px;
 	background-position: calc(100% - 10px) 3px;
-	padding-right: 25px;
-	padding-left: 10px;
+	padding-right: 35px;
+	padding-left: 15px;
+	text-transform: uppercase;
 }
 
 .btn-light-blue{

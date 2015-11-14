@@ -13,7 +13,9 @@ use App\Model\UserVacationalFunds;
 use App\Model\VacationFundLog;
 use App\Http\Controllers\Controller;
 
+use Request;
 use Lang;
+use Session;
 
 class PageController extends Controller {
 
@@ -45,6 +47,16 @@ class PageController extends Controller {
 	 */
 	public function index()
 	{
+		//if guest.
+		//Session::put('LAST_ACTIVITY', time());
+/*
+		if( Session::get('LAST_ACTIVITY') ){
+			echo "Si existe cookie";
+		}else{
+			Session::put('LAST_ACTIVITY', time());
+			echo "no existe cookie";
+		}
+*/
 		return view('uber.main')->with('title', 'Uber' )->with('background','3.jpg');
 	}
 		

@@ -11,6 +11,7 @@ use Auth;
 use Redirect;
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
+use App\Model\Entity\UserPaymentInfoEntity as UserPayDao;
 
 class CertificatesController extends Controller {
 
@@ -18,7 +19,16 @@ class CertificatesController extends Controller {
 		if(!Session::get('user') ) {
 			return Redirect::to('registro');
 		}
+
+/*
+		if(Auth::check()){
+			$usersPayDao = new UserPayDao();
+		$payInfo = $usersPayDao->getByUsersId( Auth::user()->id );
+		}
+*/
+		$back_route = (Auth::check()) ? url('/') : url('registro');
 		return view('uber.buy_certificate')->with( $this->getCCData() )
+											->with('back_route' , $back_route )
 											->with('title', 'Comprar certificado' )
 											->with('background','beach-girl.jpg');
 	}
@@ -45,6 +55,14 @@ class CertificatesController extends Controller {
 											->with( $this->getCCData() )
 											->with('title', 'Comprar certificado' )
 											->with('background','beach-girl.jpg');
+	}
+	
+	public function newCreditCard(){
+		return "clean data";
+	}
+	
+	public function useCreditCard(){
+		return "use data";
 	}
 	
 	private function getCCData()

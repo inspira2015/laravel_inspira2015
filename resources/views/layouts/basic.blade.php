@@ -48,8 +48,6 @@
 				<img src="http://inspiramexico.leisureloyalty.com/images/loading.gif">
 			</div>
 		</div>
-	
-	
 	</div>
 
 

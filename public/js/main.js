@@ -19,7 +19,7 @@ $(document).ready(function(){
 		_init: function() {
 			return this.each(function(){
 				var _this = $(this);
-				var _buttons = _this.find('a[data-role=change], div[data-role=submit]');
+				var _buttons = _this.find('a[data-role=change],div[data-role=submit]');
 				var _change_country = _this.find('select.select-country');
 				var _email = _this.find('input[type="email"].validate-email');
 				var _card = _this.find('input#card_number');
