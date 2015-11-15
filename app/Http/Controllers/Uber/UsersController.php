@@ -3,6 +3,9 @@ namespace App\Http\Controllers\Uber;
 use App\Http\Controllers\Controller;
 use App\Libraries\CreateUser\CheckAndSaveUserInfo;
 use App\Services\Uber\Register as RegisterValidator;
+use App\Libraries\LeisureLoyaltyUser;
+use Illuminate\Contracts\Auth\Guard;
+use App\Libraries\SystemTransactions\CreateLeisureUser;
 use Auth;
 use Lang;
 use Mail;
@@ -12,10 +15,17 @@ use Session;
 use Redirect;
 
 class UsersController extends Controller {
-	
-	public function __construct(Auth $auth ){
+	private $createUser;
+	private $guard;
+	private $createLeisureUser;
+	private $auth;
+	private $leisureLoyalty;
+	public function __construct(Auth $auth, CheckAndSaveUserInfo $checkUser, Guard $guard, CreateLeisureUser $createLeisureUser, LeisureLoyaltyUser $leisureLoyaltyUser){
 		$this->auth = $auth;
-		
+		$this->guard  = $guard;
+		$this->createUser = $checkUser;
+		$this->createLeisureUser = $createLeisureUser;
+		$this->leisureLoyalty = $leisureLoyaltyUser;
 	}
 	
 	public function getRegister(){
@@ -33,57 +43,46 @@ class UsersController extends Controller {
 
 		if($validator->passes()){
 			Session::put('user',  $postData );
-		///	Session::put(array('email' => $postData['email'] , 'password' => 'password'));
-	//		return "Make magic!";
-/*
-			$createUser = new CheckAndSaveUserInfo();
-			$createUser->setUserPost( $postData );
-			$createUser->setCodePost( 'uber' );
-			$createUser->setAffiliationPost( 0 );
-			$createUser->setVacationFundPost( Session::get( 'vacationfund' ) );
-*/
-		
-/*
-			if ( $createUser->saveData()== FALSE )
+			$postData['phone'] = '00000';
+			$this->createUser->setUserPost( $postData );
+			$this->createUser->setCodePost( 'UBER' );
+			$this->createUser->setAffiliationPost( [ 'currency_6' => 'MXN', 'amount_6' => 0, 'affiliation' => 6 ] );
+			$this->createUser->setVacationFundPost( [ 'fondo' => 1, 'amount' => 0, 'currency' => 'MXN' ]  );
+			if ( $this->createUser->saveData() == TRUE )
 			{
-*/
+				//Iniciar sesion.
 				//Aqui hacer gurdar el VIIM
-				
-				
-				/*$this->createLeisureUser->setUser( $userAuth );
-		$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
-																'type' => 'Create Leisure MemberId',
-																'description' => 'Create Leisure MemberId',
-																'json_data' => ''));
-		$this->createLeisureUser->saveData();
 
-*/
-//Una vez que se haya enviado el correo mandar, limpiar user data. y hacer authlog.
-		//	$this->userDao->password = Crypt::decrypt(Session::get('password'));
-			$user = new \stdClass();
-			foreach ($postData as $key => $value)
-			{
-			    $user->$key = $value;
-			}
-			$sent = Mail::send('emails.uber.welcome', array('user' => $user, 'url' => url('/')), function($message) use ($user) {	
-						$full_name = $user->name . ' ' . $user->last_name;		
-				    	$message->to( $user->email, $full_name )
-				    			->to( 'hp_tanya@hotmail.com' , $full_name)
-				    			->subject( "Bienvenido a InspiraMexico, {$full_name}!"  );
-				    	});
-				    	
-				    	
-			return Response::json(array(
-				'error' => false,
-				'redirect' => url('comprar-certificado')
-			), 200);
+				if($this->guard->attempt(['email' => $postData['email'], 'password' => $postData['password']])){
+					$user = Auth::user();
+					$user->tierId = 80;
 					
-	
-		//	}
+					$this->leisureLoyalty->setUser($user);
+					$memberId = $this->leisureLoyalty->createOrRetriveMemberId();
+					print_r($memberId);
+					exit;
+/*
+					$user = new \stdClass();
+					foreach ($postData as $key => $value)
+					{
+					    $user->$key = $value;
+					}
+*/
+					$sent = Mail::send('emails.uber.welcome', array('user' => $user, 'url' => url('/')), function($message) use ($user) {	
+								$full_name = $user->name . ' ' . $user->last_name;		
+						    	$message->to( $user->email, $full_name )
+						    			->to( 'hp_tanya@hotmail.com' , $full_name)
+						    			->subject( "Bienvenido a InspiraMexico, {$full_name}!"  );
+						    	});
+						    	
+					return Response::json(array(
+						'error' => false,
+						'redirect' => url('comprar-certificado')
+					), 200);
+				}
+			}
+			return view('uber.register_form')->withErrors(['Lo sentimos hubo en error al crear usuario, intente de nuevo.'])->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
 		}
-	/*	This email is already registered. Please log in to activate this certificate to your account or create a new account with this certificate with a different email address
-
-OK*/
 		return view('uber.register_form')->withErrors($validator)->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
 	}
 }

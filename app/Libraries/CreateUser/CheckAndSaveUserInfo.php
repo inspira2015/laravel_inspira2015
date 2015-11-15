@@ -124,8 +124,12 @@ class CheckAndSaveUserInfo
 		$users_id = $this->userDao->save();
 		$this->userDao->load( $users_id );
 		$this->storeData['User']['users_id'] = $users_id;
-		$this->userPhone->exchangeArray( $this->storeData['User'] );
-		$last_phone_id = $this->userPhone->save();
+		
+		
+		//Temporal esto, revisar despues.
+			/*$this->userPhone->exchangeArray( $this->storeData['User'] );
+			$last_phone_id = $this->userPhone->save();*/
+		
 		$this->codeOperations->setUserId( $users_id );
 		$this->codeOperations->saveUsedCode();
 		$this->codeOperations->markCodeUsed();

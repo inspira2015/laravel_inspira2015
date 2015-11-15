@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Uber;
 use App\Http\Controllers\Controller;
 use App\Services\PaymentMethodCC as PaymentValidator;
-
+use App\Libraries\CardPayment;
 use Lang;
 use Response;
 use Session;
@@ -10,6 +10,7 @@ use Request;
 use Mail;
 use Auth;
 use Crypt;
+use GeoIP;
 use Redirect;
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
@@ -61,26 +62,91 @@ class CertificatesController extends Controller {
 		$payment = new PaymentValidator();
 		$postData = Request::except('_token');
 		$validator = $payment->validator( $postData, Lang::locale() );
-		
+		$userAuth = Auth::user();
 		if($validator->passes()){
 			//Make payment. 
 			
-			//if success Send email
-			$user = Auth::user();
+			$cardPayment = new CardPayment();
+			$location = GeoIP::getLocation();
 
-			$email_encrypted = $this->encrypt_decrypt('encrypt', $user->email );
-			$url = url('usar-semana/'.$email_encrypted );
-			$sent = Mail::send('emails.uber.success_payment', array('user' => $user, 'url' => $url ) , function($message) use ($user){
-						$full_name = $user['name'] . ' ' . $user->last_name;		
-				    	$message->to(  $user->email, $full_name )
-				    			->to( 'hp_tanya@hotmail.com' , $full_name)
-				    			->subject( "Confirmación de Compra en InspiraMexico"  );
-				    	});
-			return Response::json(array(
-				'error' => false,
-				'html' => htmlspecialchars(view('uber.certificates.success_payment')),
-				'redirect' => url('/')
-			), 200);
+			$cardPayment->setUserData([
+								'full_name' => $userAuth->name. ' '.$userAuth->last_name,
+								'id' => $userAuth->id,
+								'email' => $userAuth->email,
+								'location' => $location['ip']
+							]);
+			$cardPayment->setAmountData([
+								'value' => 45,
+								'cnumber' => $postData['cnumber'],
+								'expiration_date' => $postData['expiration_date'],
+								'currency' => 'MXN',
+								'ccv' => $postData['ccv']
+							]);
+			$cardPayment->setItem([
+					'reference' => 'Item-test-'.time(),
+					'description' => 'Uber Payment TEST',
+					'method' => 'VISA'
+				]);
+		
+			if( $cardPayment->checkPaymentData() )
+			{
+				
+				if( $cardPayment->doToken() ){
+					$response = $cardPayment->getToken();
+// 					print_r($cardPayment->getToken());
+					$responseArray = (array) $response;
+					
+					
+	
+					if( $cardPayment->getToken()->code == 'SUCCESS' )
+					{
+						if($cardPayment->getTransactionResponse()->state == 'DECLINED'){
+							//guardar el mensaje de error de transaccion.
+							//mostrar venana con el error.
+							return Response::json(array(
+								'error' => false,
+								'message' => $cardPayment->getTransactionResponse()->responseMessage,
+								'redirect' => url('/comprar-certificado')
+							), 200);
+						}else{
+							//guardar informacion de tarjeta de credito.
+							
+							//guardar informacion de transaccion.
+							
+							//Hacer request para agregar semana a cuenta (addWeek)
+							
+							//Enviar correo de confirmacion.
+							$email_encrypted = $this->encrypt_decrypt('encrypt', $user->email );
+							$url = url('usar-semana/'.$email_encrypted );
+							$sent = Mail::send('emails.uber.success_payment', array('user' => $user, 'url' => $url ) , function($message) use ($user){
+										$full_name = $user['name'] . ' ' . $user->last_name;		
+								    	$message->to(  $user->email, $full_name )
+								    			->to( 'hp_tanya@hotmail.com' , $full_name)
+								    			->subject( "Confirmación de Compra en InspiraMexico"  );
+								    	});
+							return Response::json(array(
+								'error' => false,
+								'html' => htmlspecialchars(view('uber.certificates.success_payment')),
+								'redirect' => url('/')
+							), 200);
+						}
+					
+					}else{
+						//guardar el mensaje de error. //transaccion.
+
+						return "buuuh error";
+					}
+				}
+				
+				//guardar el mensaje de error. //transaccion.
+				
+				return view('uber.certificates.buy_certificate_form')->withErrors([$cardPayment->getErrors()[0]])
+										->with( $this->getCCData() )
+										->with('title', 'Comprar certificado' )
+										->with('background','beach-girl.jpg');
+				
+				
+			}	
 		}
 		return view('uber.certificates.buy_certificate_form')->withErrors($validator)
 											->with( $this->getCCData() )
