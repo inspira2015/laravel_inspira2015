@@ -9,9 +9,11 @@ use Session;
 use Request;
 use Mail;
 use Auth;
+use Crypt;
 use Redirect;
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
+use App\Model\Dao\UserDao;
 use App\Model\Entity\UserPaymentInfoEntity as UserPayDao;
 
 class CertificatesController extends Controller {
@@ -37,12 +39,43 @@ class CertificatesController extends Controller {
 			), 200);
 	}
 	
+	
+	public function getUseWeek($email = FALSE){
+ 		if($email){
+	 		$userDao = new UserDao();
+	 		$email = $this->encrypt_decrypt('decrypt', $email );
+	 		$user = $userDao->getUserByEmail($email);
+	 		return redirect('http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user->leisure_id );
+ 		}else{
+	 		$user = Auth::user();	
+ 		}
+		return Response::json(array(
+				'error' => false,
+				'redirect' => 'http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user->leisure_id
+			), 200);
+	}
+	
+	
+	
 	public function postBuyCertificate(){
 		$payment = new PaymentValidator();
 		$postData = Request::except('_token');
 		$validator = $payment->validator( $postData, Lang::locale() );
 		
 		if($validator->passes()){
+			//Make payment. 
+			
+			//if success Send email
+			$user = Auth::user();
+
+			$email_encrypted = $this->encrypt_decrypt('encrypt', $user->email );
+			$url = url('usar-semana/'.$email_encrypted );
+			$sent = Mail::send('emails.uber.success_payment', array('user' => $user, 'url' => $url ) , function($message) use ($user){
+						$full_name = $user['name'] . ' ' . $user->last_name;		
+				    	$message->to(  $user->email, $full_name )
+				    			->to( 'hp_tanya@hotmail.com' , $full_name)
+				    			->subject( "Confirmación de Compra en InspiraMexico"  );
+				    	});
 			return Response::json(array(
 				'error' => false,
 				'html' => htmlspecialchars(view('uber.certificates.success_payment')),

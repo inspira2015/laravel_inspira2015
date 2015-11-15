@@ -30,6 +30,7 @@ Route::group(array('domain' => Config::get('domain.uber')), function(){
 	Route::get('destino', 'Uber\PageController@goDestination');
 	
 	Route::post('usar-semana', 'Uber\CertificatesController@postUseWeek');
+	Route::get('usar-semana/{email}', 'Uber\CertificatesController@getUseWeek');
 	Route::get('comprar-certificado', 'Uber\CertificatesController@getBuyCertificate');
 	Route::get('registro', 'Uber\UsersController@getRegister');
 	Route::post('registrar', 'Uber\UsersController@postRegister');

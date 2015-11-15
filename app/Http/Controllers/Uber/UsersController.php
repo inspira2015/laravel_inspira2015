@@ -5,6 +5,7 @@ use App\Libraries\CreateUser\CheckAndSaveUserInfo;
 use App\Services\Uber\Register as RegisterValidator;
 use Auth;
 use Lang;
+use Mail;
 use Response;
 use Request;
 use Session;
@@ -32,6 +33,7 @@ class UsersController extends Controller {
 
 		if($validator->passes()){
 			Session::put('user',  $postData );
+		///	Session::put(array('email' => $postData['email'] , 'password' => 'password'));
 	//		return "Make magic!";
 /*
 			$createUser = new CheckAndSaveUserInfo();
@@ -57,6 +59,20 @@ class UsersController extends Controller {
 
 */
 //Una vez que se haya enviado el correo mandar, limpiar user data. y hacer authlog.
+		//	$this->userDao->password = Crypt::decrypt(Session::get('password'));
+			$user = new \stdClass();
+			foreach ($postData as $key => $value)
+			{
+			    $user->$key = $value;
+			}
+			$sent = Mail::send('emails.uber.welcome', array('user' => $user, 'url' => url('/')), function($message) use ($user) {	
+						$full_name = $user->name . ' ' . $user->last_name;		
+				    	$message->to( $user->email, $full_name )
+				    			->to( 'hp_tanya@hotmail.com' , $full_name)
+				    			->subject( "Bienvenido a InspiraMexico, {$full_name}!"  );
+				    	});
+				    	
+				    	
 			return Response::json(array(
 				'error' => false,
 				'redirect' => url('comprar-certificado')

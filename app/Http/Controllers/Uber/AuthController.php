@@ -32,6 +32,7 @@ class AuthController extends Controller {
 
 		if($this->auth->attempt($credentials)){
 			Session::put('user', true);
+
 			return Response::json(array(
 				'error' => false,
 				'html' => htmlspecialchars(view('uber.auth.options')),
@@ -77,4 +78,5 @@ class AuthController extends Controller {
 	    }
 	    return view('uber.auth.forgot_password')->withErrors(['message' => 'El correo es incorrecto. Favor de intentar de nuevo o contacte al administrador en customerservice@inspiramexico.mx']);
     }
+  
 }
