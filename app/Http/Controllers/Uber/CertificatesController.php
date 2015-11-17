@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Uber;
 use App\Http\Controllers\Controller;
 use App\Services\PaymentMethodCC as PaymentValidator;
 use App\Libraries\CardPayment;
+use App\Libraries\SystemTransactions\UserTokenRegistration;
 use Lang;
 use Response;
 use Session;
@@ -19,13 +20,22 @@ use App\Model\Entity\UserPaymentInfoEntity as UserPayDao;
 
 class CertificatesController extends Controller {
 
+	private $sysTransaction;
+	
+	public function __construct( UserTokenRegistration $sysDao ) {
+		$this->$sysTransaction = $sysDao;
+	}
+	
 	public function getBuyCertificate(){
 		if(!Session::get('user') ) {
 			return Redirect::to('registro');
 		}
 
 		$usersPayDao = new UserPayDao();
-		$payInfo = $usersPayDao->getByUsersId( Auth::user()->id );
+		$payInfo = FALSE;
+		if(Auth::check()){
+			$payInfo = $usersPayDao->getByUsersId( Auth::user()->id );
+		}
 		return view('uber.certificates.buy_certificate')->with('cc', $payInfo)
 											->with( $this->getCCData() )
 											->with('title', 'Comprar certificado' )
@@ -100,8 +110,9 @@ class CertificatesController extends Controller {
 	
 					if( $cardPayment->getToken()->code == 'SUCCESS' )
 					{
-						if($cardPayment->getTransactionResponse()->state == 'DECLINED'){
+						if($cardPayment->getTransactionResponse()->state != 'DECLINED'){
 							//guardar el mensaje de error de transaccion.
+							
 							//mostrar venana con el error.
 							return Response::json(array(
 								'error' => false,
@@ -110,10 +121,37 @@ class CertificatesController extends Controller {
 							), 200);
 						}else{
 							//guardar informacion de tarjeta de credito.
-							
 							//guardar informacion de transaccion.
+							$response =  $cardPayment->getToken();
+							$responseToStore = (array)$response;
+				
+							$this->sysTransaction->setUser( $userAuth );
+							$this->sysTransaction->setTransactionInfo( array('users_id' => $userAuth->id,
+																			'code' => 'Success',
+																			'type' => 'Create Token',
+																			'description' => 'Create User Token',
+																			'json_data' => json_encode($responseToStore)));
+				
+							$response_token = $response->creditCardToken;
 							
+							$paymentInfo =  array( 'users_id' => $userAuth->id,
+											      'token' => $response_token->creditCardTokenId,
+											      'ccv' => $postData['ccv'],
+											      'name_on_card' => $postData['name_on_card'],
+											      'birthdate' => $postData['birthdate'],
+											      'payment_method' =>  $cardPayment->getPaymentMethod(),
+											      'address' => $postData['address'],
+											      'city' => $postData['city'],
+											      'state' => $postData['state'],
+											      'zip_code' => $postData['zip_code'],
+											      'country' => $postData['country']);
+				
+							$this->sysTransaction->setUserPaymentInfo( $paymentInfo );
+							$this->sysTransaction->saveData();
+
+
 							//Hacer request para agregar semana a cuenta (addWeek)
+							
 							
 							//Enviar correo de confirmacion.
 							$email_encrypted = $this->encrypt_decrypt('encrypt', $user->email );

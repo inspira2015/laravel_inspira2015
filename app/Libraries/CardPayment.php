@@ -65,8 +65,8 @@ class CardPayment extends InitializePayUCredentials
 			return FALSE;
 		}
 
-		$paymentMethod = $this->cardType( $this->amountData['cnumber'] );
-		$payment_method = $this->getPaymentMethod( $paymentMethod );
+		$this->paymentMethod = $this->cardType( $this->amountData['cnumber'] );
+		$payment_method = $this->getPaymentMethodParam( $this->paymentMethod );
 
 		$parameters = array(
 			//Ingrese aquí el código de referencia.
@@ -115,7 +115,7 @@ class CardPayment extends InitializePayUCredentials
 		return TRUE;
 	}
 	
-	private function getPaymentMethod( $method_name ){
+	private function getPaymentMethodParam( $method_name ){
 		switch($method_name){
 			case 'VISA':
 				$method = PaymentMethods::VISA;
@@ -132,6 +132,12 @@ class CardPayment extends InitializePayUCredentials
 		}
 		return $method;
 	}
+	
+	public function getPaymentMethod()
+	{
+		return $this->paymentMethod;
+	}
+
 	
 	private function cardType($number)
 	{

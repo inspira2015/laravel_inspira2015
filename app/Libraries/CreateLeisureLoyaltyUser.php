@@ -35,7 +35,7 @@ class CreateLeisureLoyaltyUser
 			$this->membersDays = 365;
 		}
 		
-		if ( $tier_id  == 81 ){
+		if ( $tier_id  == 80 ){
 			$this->membersDays = 7;
 		}
 	}

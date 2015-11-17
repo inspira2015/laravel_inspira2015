@@ -30,13 +30,13 @@ class LeisureLoyaltyUser
 	protected function setupTimes( $tier_id )
 	{
 		$tier_id = (int)$tier_id;
-		$this->membersDays = 30;
+					$this->membersDays = 30;
+
 		if ( $tier_id  == 81 )
 		{
 			$this->membersDays = 365;
 		}
-		
-		if ( $tier_id  == 80 ){
+		else if ( $tier_id  == 80 ){
 			$this->membersDays = 7;
 		}
 	}
@@ -58,8 +58,7 @@ class LeisureLoyaltyUser
 		
 		$stdResponse = $this->sendPostData('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH', $postData);
 		
-		print_r($stdResponse);
-		exit;
+
 		if ($stdResponse->success == 'OK' )
 		{
 			$this->newMemberFlag = TRUE;

@@ -6,6 +6,8 @@ use App\Services\Uber\Register as RegisterValidator;
 use App\Libraries\LeisureLoyaltyUser;
 use Illuminate\Contracts\Auth\Guard;
 use App\Libraries\SystemTransactions\CreateLeisureUser;
+use App\Model\Dao\UserDao;
+use App\Model\Entity\SystemTransactionEntity;
 use Auth;
 use Lang;
 use Mail;
@@ -20,12 +22,20 @@ class UsersController extends Controller {
 	private $createLeisureUser;
 	private $auth;
 	private $leisureLoyalty;
-	public function __construct(Auth $auth, CheckAndSaveUserInfo $checkUser, Guard $guard, CreateLeisureUser $createLeisureUser, LeisureLoyaltyUser $leisureLoyaltyUser){
+	private $sysTransaction;
+	
+	public function __construct(Auth $auth, 
+								CheckAndSaveUserInfo $checkUser, 
+								Guard $guard, 
+								CreateLeisureUser $createLeisureUser, 
+								LeisureLoyaltyUser $leisureLoyaltyUser,
+								SystemTransactionEntity $systemTransaction ){
 		$this->auth = $auth;
 		$this->guard  = $guard;
 		$this->createUser = $checkUser;
 		$this->createLeisureUser = $createLeisureUser;
 		$this->leisureLoyalty = $leisureLoyaltyUser;
+		$this->sysTransaction = $systemTransaction;
 	}
 	
 	public function getRegister(){
@@ -40,7 +50,7 @@ class UsersController extends Controller {
 		$register = new RegisterValidator();
 		$postData = Request::except('_token');
 		$validator = $register->validator( $postData, Lang::locale() );
-
+		
 		if($validator->passes()){
 			Session::put('user',  $postData );
 			$postData['phone'] = '00000';
@@ -50,27 +60,33 @@ class UsersController extends Controller {
 			$this->createUser->setVacationFundPost( [ 'fondo' => 1, 'amount' => 0, 'currency' => 'MXN' ]  );
 			if ( $this->createUser->saveData() == TRUE )
 			{
-				//Iniciar sesion.
-				//Aqui hacer gurdar el VIIM
-
 				if($this->guard->attempt(['email' => $postData['email'], 'password' => $postData['password']])){
-					$user = Auth::user();
-					$user->tierId = 80;
+					$userAuth = Auth::user();
+					$userAuth->password = $postData['password'];
+					$userAuth->tierId = 80;
 					
-					$this->leisureLoyalty->setUser($user);
+					$this->leisureLoyalty->setUser($userAuth);
+					
 					$memberId = $this->leisureLoyalty->createOrRetriveMemberId();
-					print_r($memberId);
-					exit;
-/*
-					$user = new \stdClass();
-					foreach ($postData as $key => $value)
-					{
-					    $user->$key = $value;
-					}
-*/
-					$sent = Mail::send('emails.uber.welcome', array('user' => $user, 'url' => url('/')), function($message) use ($user) {	
-								$full_name = $user->name . ' ' . $user->last_name;		
-						    	$message->to( $user->email, $full_name )
+					$userDao = new UserDao();
+					$userDao->load($userAuth->id);
+					$userDao->leisure_id = $memberId;
+					$userDao->save();
+
+					//Update user.	//Guardar el memberId
+
+					$this->createLeisureUser->setUser( $userAuth );
+					$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
+																		'type' => 'Create Leisure MemberId',
+																		'description' => 'Create Leisure MemberId',
+																		'json_data' => ''));
+					$this->createLeisureUser->saveData();
+
+
+
+					$sent = Mail::send('emails.uber.welcome', array('user' => $userAuth, 'url' => url('/')), function($message) use ($userAuth) {	
+								$full_name = $userAuth->name . ' ' . $userAuth->last_name;		
+						    	$message->to( $userAuth->email, $full_name )
 						    			->to( 'hp_tanya@hotmail.com' , $full_name)
 						    			->subject( "Bienvenido a InspiraMexico, {$full_name}!"  );
 						    	});

@@ -62,7 +62,8 @@
 			<img src="images/markets.png" style="margin-top:10px;margin-right: 20px;">
 		</div>
 	</div>
-	@if(isset($cc) || isset($name_on_card))
+	
+	@if(is_array($cc) || isset($name_on_card))
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
 			<a data-role="change" data-route="{{ url('nueva-tarjeta') }}">
