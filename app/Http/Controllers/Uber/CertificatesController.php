@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Services\PaymentMethodCC as PaymentValidator;
 use App\Libraries\CardPayment;
 use App\Libraries\SystemTransactions\UserTokenRegistration;
+use App\Libraries\SystemTransactions\CertificateOperation;
 use Lang;
 use Response;
 use Session;
@@ -22,8 +23,9 @@ class CertificatesController extends Controller {
 
 	private $sysTransaction;
 	
-	public function __construct( UserTokenRegistration $sysDao ) {
+	public function __construct( UserTokenRegistration $sysDao, CertificateOperation $certificateOperation ) {
 		$this->sysTransaction = $sysDao;
+		$this->certificateOperation = $certificateOperation;
 	}
 	
 	public function getBuyCertificate(){
@@ -114,16 +116,16 @@ class CertificatesController extends Controller {
 						if($cardPayment->getTransactionResponse()->state == 'DECLINED'){
 							//guardar el mensaje de error de transaccion.
 				
-							$this->sysTransaction->setUser( $this->userAuth );
-							$this->sysTransaction->setTransactionInfo( array('users_id' => $userAuth->id,
+							$this->certificateOperation->setUser( $userAuth );
+							$this->certificateOperation->setTransactionInfo( array('users_id' => $userAuth->id,
 																	'code' => $cardPayment->getTransactionResponse()->state,
 																	'type' => 'Register CC Payment Transaction',
 																	'description' => $cardPayment->getTransactionResponse()->responseCode,
 																	'json_data' => json_encode($responseArray),
-																	'amount' => $payment['amount',
+																	'amount' => $payment['amount'],
 																	'currency' => $payment['currency'],
 																	'payu_transaction_id' => $cardPayment->getTransactionId() ) );
-							$this->sysTransaction->saveData();								
+							$this->certificateOperation->saveData();								
 							//mostrar venana con el error.
 							return Response::json(array(
 								'error' => false,

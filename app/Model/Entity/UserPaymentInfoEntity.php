@@ -2,7 +2,7 @@
 
 namespace App\Model\Entity;
 use App\Model\Dao\UserPaymentInfoDao;
-use carbon;
+use Carbon;
 
 
 class UserPaymentInfoEntity extends UserPaymentInfoDao
