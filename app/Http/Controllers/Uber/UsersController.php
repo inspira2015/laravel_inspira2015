@@ -5,7 +5,7 @@ use App\Libraries\CreateUser\CheckAndSaveUserInfo;
 use App\Services\Uber\Register as RegisterValidator;
 use App\Libraries\LeisureLoyaltyUser;
 use Illuminate\Contracts\Auth\Guard;
-use App\Libraries\SystemTransactions\CreateLeisureUser;
+use App\Libraries\SystemTransactions\CreateUser;
 use App\Model\Dao\UserDao;
 use App\Model\Entity\SystemTransactionEntity;
 use Auth;
@@ -27,7 +27,7 @@ class UsersController extends Controller {
 	public function __construct(Auth $auth, 
 								CheckAndSaveUserInfo $checkUser, 
 								Guard $guard, 
-								CreateLeisureUser $createLeisureUser, 
+								CreateUser $createLeisureUser, 
 								LeisureLoyaltyUser $leisureLoyaltyUser,
 								SystemTransactionEntity $systemTransaction ){
 		$this->auth = $auth;

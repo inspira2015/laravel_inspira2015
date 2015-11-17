@@ -23,7 +23,7 @@ class CertificatesController extends Controller {
 	private $sysTransaction;
 	
 	public function __construct( UserTokenRegistration $sysDao ) {
-		$this->$sysTransaction = $sysDao;
+		$this->sysTransaction = $sysDao;
 	}
 	
 	public function getBuyCertificate(){
@@ -72,6 +72,7 @@ class CertificatesController extends Controller {
 		$payment = new PaymentValidator();
 		$postData = Request::except('_token');
 		$validator = $payment->validator( $postData, Lang::locale() );
+		$payment = array('amount' => 45, 'currency' => 'MXN');
 		$userAuth = Auth::user();
 		if($validator->passes()){
 			//Make payment. 
@@ -110,9 +111,19 @@ class CertificatesController extends Controller {
 	
 					if( $cardPayment->getToken()->code == 'SUCCESS' )
 					{
-						if($cardPayment->getTransactionResponse()->state != 'DECLINED'){
+						if($cardPayment->getTransactionResponse()->state == 'DECLINED'){
 							//guardar el mensaje de error de transaccion.
-							
+				
+							$this->sysTransaction->setUser( $this->userAuth );
+							$this->sysTransaction->setTransactionInfo( array('users_id' => $userAuth->id,
+																	'code' => $cardPayment->getTransactionResponse()->state,
+																	'type' => 'Register CC Payment Transaction',
+																	'description' => $cardPayment->getTransactionResponse()->responseCode,
+																	'json_data' => json_encode($responseArray),
+																	'amount' => $payment['amount',
+																	'currency' => $payment['currency'],
+																	'payu_transaction_id' => $cardPayment->getTransactionId() ) );
+							$this->sysTransaction->saveData();								
 							//mostrar venana con el error.
 							return Response::json(array(
 								'error' => false,
@@ -122,9 +133,6 @@ class CertificatesController extends Controller {
 						}else{
 							//guardar informacion de tarjeta de credito.
 							//guardar informacion de transaccion.
-							$response =  $cardPayment->getToken();
-							$responseToStore = (array)$response;
-				
 							$this->sysTransaction->setUser( $userAuth );
 							$this->sysTransaction->setTransactionInfo( array('users_id' => $userAuth->id,
 																			'code' => 'Success',
@@ -149,9 +157,7 @@ class CertificatesController extends Controller {
 							$this->sysTransaction->setUserPaymentInfo( $paymentInfo );
 							$this->sysTransaction->saveData();
 
-
 							//Hacer request para agregar semana a cuenta (addWeek)
-							
 							
 							//Enviar correo de confirmacion.
 							$email_encrypted = $this->encrypt_decrypt('encrypt', $user->email );
