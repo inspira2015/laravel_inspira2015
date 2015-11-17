@@ -1,7 +1,6 @@
 @extends('layouts.uber.basic')
 
 @section('content')
-<?php $slides = 0; ?>
 <div class="col-xs-12">
 	<div class="row">
 		<div class="swiper-container swiper-container-h slider">
@@ -18,7 +17,7 @@
 					</div>
 					<div class="row">
 					<a href="#" data-anchor="more-info" id="more-info">M&aacute;s info<br>
-	    				{!! HTML::image('images/more-info-arrow.png', 'M&aacute;s informaci&oacute;n') !!}
+	    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
     				</a>
 					</div>
 				</div>
