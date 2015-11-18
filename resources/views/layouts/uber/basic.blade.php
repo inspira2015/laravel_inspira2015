@@ -45,7 +45,7 @@
 						INICIAR SESI&Oacute;N
 					</a>
 					@else
-					<a href="#" class="btn-light-blue btn-xsmall" id="btn-login" data-toggle="modal" data-target="#modal-login" >
+					<a href="#" class="btn-light-blue btn-xsmall" id="btn-login" data-toggle="modal" data-target="#modal-options" >
 						{{ Auth::user()->name }} {{ substr(Auth::user()->last_name, 0,1) }}.
 					</a>
 					@endif

@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Uber;
+namespace App\Http\Controllers\Uber\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use App\Model\Dao\UserDao;

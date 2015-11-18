@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'soporte@inspiramexico.mx', 'name' => 'INSPIRAMEXICO SOPORTE'],
+	'from' => ['address' => 'soporte@inspiramexico.mx', 'name' => 'Inspira Mexico'],
 
 	/*
 	|--------------------------------------------------------------------------
