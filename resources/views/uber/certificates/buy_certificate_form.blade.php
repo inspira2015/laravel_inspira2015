@@ -63,7 +63,7 @@
 		</div>
 	</div>
 	
-	@if(is_array($cc) || isset($name_on_card))
+	@if(is_object(@$cc) || isset($name_on_card))
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
 			<a data-role="change" data-route="{{ url('nueva-tarjeta') }}">

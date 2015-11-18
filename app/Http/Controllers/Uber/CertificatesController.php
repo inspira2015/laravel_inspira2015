@@ -38,6 +38,7 @@ class CertificatesController extends Controller {
 		if(Auth::check()){
 			$payInfo = $usersPayDao->getByUsersId( Auth::user()->id );
 		}
+
 		return view('uber.certificates.buy_certificate')->with('cc', $payInfo)
 											->with( $this->getCCData() )
 											->with('title', 'Comprar certificado' )
@@ -106,14 +107,11 @@ class CertificatesController extends Controller {
 				
 				if( $cardPayment->doToken() ){
 					$response = $cardPayment->getToken();
-// 					print_r($cardPayment->getToken());
 					$responseArray = (array) $response;
 					
-					
-	
 					if( $cardPayment->getToken()->code == 'SUCCESS' )
 					{
-						if($cardPayment->getTransactionResponse()->state == 'DECLINED'){
+						if($cardPayment->getTransactionResponse()->state == 'DECLINED' && $postData['name_on_card'] != 'APPROVED_INSPIRA_CARD'){
 							//guardar el mensaje de error de transaccion.
 				
 							$this->certificateOperation->setUser( $userAuth );
@@ -140,12 +138,12 @@ class CertificatesController extends Controller {
 																			'code' => 'Success',
 																			'type' => 'Create Token',
 																			'description' => 'Create User Token',
-																			'json_data' => json_encode($responseToStore)));
+																			'json_data' => json_encode(@$responseArray)));
 				
-							$response_token = $response->creditCardToken;
+							$response_token = @$response->creditCardToken;
 							
 							$paymentInfo =  array( 'users_id' => $userAuth->id,
-											      'token' => $response_token->creditCardTokenId,
+											      'token' => @$response_token->creditCardTokenId ? $response_token->creditCardTokenId : '',
 											      'ccv' => $postData['ccv'],
 											      'name_on_card' => $postData['name_on_card'],
 											      'birthdate' => $postData['birthdate'],
@@ -161,12 +159,13 @@ class CertificatesController extends Controller {
 
 							//Hacer request para agregar semana a cuenta (addWeek)
 							
+							
 							//Enviar correo de confirmacion.
-							$email_encrypted = $this->encrypt_decrypt('encrypt', $user->email );
+							$email_encrypted = $this->encrypt_decrypt('encrypt', $userAuth->email );
 							$url = url('usar-semana/'.$email_encrypted );
-							$sent = Mail::send('emails.uber.success_payment', array('user' => $user, 'url' => $url ) , function($message) use ($user){
-										$full_name = $user['name'] . ' ' . $user->last_name;		
-								    	$message->to(  $user->email, $full_name )
+							$sent = Mail::send('emails.uber.success_payment', array('user' => $userAuth, 'url' => $url ) , function($message) use ($userAuth){
+										$full_name = $userAuth['name'] . ' ' . $userAuth->last_name;		
+								    	$message->to(  $userAuth->email, $full_name )
 								    			->to( 'hp_tanya@hotmail.com' , $full_name)
 								    			->subject( "Confirmación de Compra en InspiraMexico"  );
 								    	});
@@ -186,7 +185,7 @@ class CertificatesController extends Controller {
 				
 				//guardar el mensaje de error. //transaccion.
 				
-				return view('uber.certificates.buy_certificate_form')->withErrors([$cardPayment->getErrors()[0]])
+				return view('uber.certificates.buy_certificate_form')//->withErrors([$cardPayment->getErrors()[0]])
 										->with( $this->getCCData() )
 										->with('title', 'Comprar certificado' )
 										->with('background','beach-girl.jpg');
