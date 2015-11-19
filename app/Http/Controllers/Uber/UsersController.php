@@ -92,9 +92,9 @@ class UsersController extends Controller {
 						'error' => false,
 						'redirect' => url('comprar-certificado')
 					), 200);
-				}else{
-					
 				}
+				return view('uber.register_form')->withErrors($this->createUser->getErrors());
+				
 			}
 			return view('uber.register_form')->withErrors(['Lo sentimos hubo en error al crear usuario, intente de nuevo.'])->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
 		}
