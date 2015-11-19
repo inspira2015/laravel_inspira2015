@@ -54,6 +54,7 @@ class LeisureLoyaltyUser
 			"mtierId"=> (int) $this->objUser->tierId,
 			"memberId"=> $memberId,
 			"memberDays" => $this->membersDays,
+			"remainResortWeeks" => 0
 		);
 		
 		$stdResponse = $this->sendData('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH', 'POST',$postData);
