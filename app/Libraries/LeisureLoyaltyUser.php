@@ -56,7 +56,7 @@ class LeisureLoyaltyUser
 			"memberDays" => $this->membersDays,
 		);
 		
-		$stdResponse = $this->sendPostData('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH', $postData);
+		$stdResponse = $this->sendData('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH', 'POST',$postData);
 		
 
 		if ($stdResponse->success == 'OK' )
@@ -70,10 +70,11 @@ class LeisureLoyaltyUser
 	} 
 
 
-	public function sendPostData($url, $postData){
+	public function sendData($url, $method, $postData = array() ){
+		
 		$context = stream_context_create(array(
 		    'http' => array(
-		        'method' => 'POST',
+		        'method' => $method,
 		        'header' => "Content-Type: application/json\r\n",
 		        'content' => json_encode($postData)
 		    )
@@ -86,7 +87,19 @@ class LeisureLoyaltyUser
 		return $stdResponse;
 		
 	}
-
+	
+	public function resortWeek( $week = 0 ){
+		 $url_send = "https://api.leisureloyalty.com/v3/member/addResortWeeks/{$this->objUser['leisure_id']}?resortWeeks={$week}&apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH";
+		return $this->sendData($url_send, 'PUT');
+	}
+	
+	
+	public function extend( $days ){
+		$data = array( 'days' => $days );
+		$url_send = "https://api.leisureloyalty.com/v3/members/extend/{$this->objUser['leisure_id']}?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH";
+		return $this->sendData($url_send, 'PUT', $data);
+	}
+	
 	protected function checkMemberIdByEmail()
 	{
 		$json = file_get_contents('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&');

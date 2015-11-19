@@ -5,6 +5,7 @@ use App\Services\PaymentMethodCC as PaymentValidator;
 use App\Libraries\CardPayment;
 use App\Libraries\SystemTransactions\UserTokenRegistration;
 use App\Libraries\SystemTransactions\CertificateOperation;
+use App\Libraries\LeisureLoyaltyUser;
 use Lang;
 use Response;
 use Session;
@@ -22,14 +23,17 @@ use App\Model\Entity\UserPaymentInfoEntity as UserPayDao;
 class CertificatesController extends Controller {
 
 	private $sysTransaction;
-	
-	public function __construct( UserTokenRegistration $sysDao, CertificateOperation $certificateOperation ) {
+	private $leisureLoyalty;
+	public function __construct( UserTokenRegistration $sysDao, 
+								CertificateOperation $certificateOperation,
+								LeisureLoyaltyUser $leisureLoyaltyUser ) {
 		$this->sysTransaction = $sysDao;
 		$this->certificateOperation = $certificateOperation;
+		$this->leisureLoyalty = $leisureLoyaltyUser;
 	}
 	
 	public function getBuyCertificate(){
-		if(!Session::get('user') ) {
+		if(!Auth::check()) {
 			return Redirect::to('registro');
 		}
 
@@ -157,8 +161,14 @@ class CertificatesController extends Controller {
 							$this->sysTransaction->setUserPaymentInfo( $paymentInfo );
 							$this->sysTransaction->saveData();
 
-							//Hacer request para agregar semana a cuenta (addWeek)
+							$this->leisureLoyalty->setUser($userAuth);
+							//Agregar codigo a base de datos.
 							
+							//Agarra el ultimo codigo agregado y hace diferencia de dias. Si es mayor a 0. extender.
+							//$this->leisureLoyalty->extend($days);
+							
+							//Hacer request para agregar semana a cuenta (addWeek)
+							$this->leisureLoyalty->resortWeek(1);
 							
 							//Enviar correo de confirmacion.
 							$email_encrypted = $this->encrypt_decrypt('encrypt', $userAuth->email );
@@ -172,7 +182,7 @@ class CertificatesController extends Controller {
 							return Response::json(array(
 								'error' => false,
 								'html' => htmlspecialchars(view('uber.certificates.success_payment')),
-								'redirect' => url('/')
+								'redirect' => url('http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$userAuth->leisure_id)
 							), 200);
 						}
 					

@@ -67,13 +67,12 @@ class UsersController extends Controller {
 					
 					$this->leisureLoyalty->setUser($userAuth);
 					
+					//Update user.	//Guardar el memberId
 					$memberId = $this->leisureLoyalty->createOrRetriveMemberId();
 					$userDao = new UserDao();
 					$userDao->load($userAuth->id);
 					$userDao->leisure_id = $memberId;
 					$userDao->save();
-
-					//Update user.	//Guardar el memberId
 
 					$this->createLeisureUser->setUser( $userAuth );
 					$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
@@ -81,8 +80,6 @@ class UsersController extends Controller {
 																		'description' => 'Create Leisure MemberId',
 																		'json_data' => ''));
 					$this->createLeisureUser->saveData();
-
-
 
 					$sent = Mail::send('emails.uber.welcome', array('user' => $userAuth, 'url' => url('/')), function($message) use ($userAuth) {	
 								$full_name = $userAuth->name . ' ' . $userAuth->last_name;		
