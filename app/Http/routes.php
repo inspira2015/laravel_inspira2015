@@ -58,7 +58,9 @@ Route::group(array('domain' => Config::get('domain.api')), function(){
 	Route::any('/', function(){
 		return json_encode(['message' => 'Please use api key']);
 	});
-	Route::put('reservation/?apiKey=test', 'Api\ReservationsController@addReservation');
+	
+	Route::put('/v1/reservation', 'ApiForLoyalty\ApiReservationsController@putReservation');	
+	//Route::put('reservation/?apiKey=test', 'Api\ReservationsController@addReservation');
 });
 
 

@@ -6,6 +6,6 @@ use Lang;
 class PageController extends Controller {
 	
 	public function index(){
-		return "Index";
+		return view('uber.admin.login');
 	}
 }

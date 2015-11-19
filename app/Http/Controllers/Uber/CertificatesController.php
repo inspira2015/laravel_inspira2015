@@ -65,14 +65,7 @@ class CertificatesController extends Controller {
 	
 	
 	public function getUseWeek($email = FALSE){
- 		if($email){
-	 		$userDao = new UserDao();
-	 		$email = $this->encrypt_decrypt('decrypt', $email );
-	 		$user = $userDao->getUserByEmail($email);
-	 		return redirect('http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user->leisure_id );
- 		}else{
-	 		$user = Auth::user();	
- 		}
+	 	$user = Auth::user();	
 		return Response::json(array(
 				'error' => false,
 				'redirect' => 'http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user->leisure_id
@@ -108,9 +101,8 @@ class CertificatesController extends Controller {
 							]);
 			$cardPayment->setItem([
 					'reference' => 'Item-test-'.time(),
-					'description' => 'Uber Payment TEST',
-					'method' => 'VISA'
-				]);
+					'description' => 'Uber Payment TEST'
+			]);
 		
 			if( $cardPayment->checkPaymentData() )
 			{

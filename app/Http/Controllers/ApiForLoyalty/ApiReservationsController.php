@@ -7,8 +7,7 @@ use Response;
 
 class ApiReservationsController extends Controller 
 {
-	
-	public function addReservation(){
+	public function putReservation(){
 		return Response::json([
 			'response'=> [
 				'success' => 'Success',
