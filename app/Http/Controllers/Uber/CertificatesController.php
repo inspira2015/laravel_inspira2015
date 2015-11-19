@@ -15,21 +15,27 @@ use Auth;
 use Crypt;
 use GeoIP;
 use Redirect;
+use Carbon;
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
 use App\Model\Dao\UserDao;
+use App\Model\Dao\RegisteredCodesDao;
 use App\Model\Entity\UserPaymentInfoEntity as UserPayDao;
 
 class CertificatesController extends Controller {
 
 	private $sysTransaction;
 	private $leisureLoyalty;
+	private $registeredCodeDao;
+	
 	public function __construct( UserTokenRegistration $sysDao, 
 								CertificateOperation $certificateOperation,
-								LeisureLoyaltyUser $leisureLoyaltyUser ) {
+								LeisureLoyaltyUser $leisureLoyaltyUser,
+								RegisteredCodesDao $registeredCodesDao) {
 		$this->sysTransaction = $sysDao;
 		$this->certificateOperation = $certificateOperation;
 		$this->leisureLoyalty = $leisureLoyaltyUser;
+		$this->registeredCodeDao = $registeredCodesDao;
 	}
 	
 	public function getBuyCertificate(){
@@ -164,8 +170,19 @@ class CertificatesController extends Controller {
 							$this->leisureLoyalty->setUser($userAuth);
 							//Agregar codigo a base de datos.
 							
+							$this->registeredCodeDao->users_id = $userAuth->id;
+							$this->registeredCodeDao->code = "UBER";
+							$this->registeredCodeDao->status = "Active";
+							$this->registeredCodeDao->expiration_date = 2;
+							$this->registeredCodeDao->save();
+							
+							
 							//Agarra el ultimo codigo agregado y hace diferencia de dias. Si es mayor a 0. extender.
-							//$this->leisureLoyalty->extend($days);
+							$last = $this->registeredCodeDao->getLastActivated( $userAuth->id );							
+							$difference = $this->timeDiff(new Carbon($last->expiration_date), Carbon::now());
+							if($difference > 0){
+								//$this->leisureLoyalty->extend($days);
+							}
 							
 							//Hacer request para agregar semana a cuenta (addWeek)
 							$this->leisureLoyalty->resortWeek(1);
@@ -248,6 +265,10 @@ class CertificatesController extends Controller {
 		$country = new CountryDao();
 		return $country->forSelect('name', 'code');
 		
+	}
+	
+	protected function timeDiff($expiration_date, $now){
+		return round((strtotime($expiration_date)-strtotime($now))/86400);
 	}
 	
 	protected function getStatesArray($language = FALSE)

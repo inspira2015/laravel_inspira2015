@@ -3,6 +3,7 @@
 namespace App\Model\Dao;
 
 use App\Model\RegisteredCodes;
+use DB;
 
 class RegisteredCodesDao
 {
@@ -38,12 +39,19 @@ class RegisteredCodesDao
 		$registeredCode = RegisteredCodes::firstOrNew( array( 'id' => $id ));
 		foreach($this as $key =>$value)
 		{
-			$registeredCode->$key = $value;
+			if($key == 'expiration_date' ) 
+				$registeredCode->$key = DB::raw('NOW() + INTERVAL '.$value.' DAY');
+			else
+				$registeredCode->$key = $value;
+
 		}
 		$registeredCode->save();
 		return $registeredCode->id;
 	}
 	
 	
+	public function getLastActivated( $users_id ){
+		return RegisteredCodes::where('status', 'Active')->where('users_id' , $users_id)->orderBy('expiration_date' , 'asc')->first();
+	}
 
 }
