@@ -4,15 +4,18 @@ use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Model\SystemLog as Log;
+use App\Model\Entity\LogEntity;
 use Auth; 
 use App;
 use Lang;
 use Session;
 
 abstract class Controller extends BaseController {
-
+	protected $logDao;
+	
 	use DispatchesCommands, ValidatesRequests;
 
+	
 	public function setLanguage()
 	{
 		$lang = Lang::locale();
@@ -42,6 +45,13 @@ abstract class Controller extends BaseController {
 		return $this;
 	}
 	
+	
+	
+	public function actionLog( Array $data ){
+		$this->logDao = new LogEntity();
+		$this->logDao->exchangeArray($data);
+		return $this->logDao->save();
+	}
 	public function encrypt_decrypt($action, $string) {
 	    $output = false;
 	
