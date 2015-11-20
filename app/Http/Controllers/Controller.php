@@ -66,8 +66,10 @@ abstract class Controller extends BaseController {
 	    return $output;
 	}
 
-
-
+	protected function timeDiff($expiration_date, $now){
+		return round((strtotime($expiration_date)-strtotime($now))/86400);
+	}
+	
 	protected function deleteSessionData()
 	{
 		if ( Session::has('code') )

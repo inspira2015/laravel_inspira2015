@@ -123,6 +123,18 @@ class UserDao extends UserEntity implements ICrudOperations
  		}
 		return $users;
  	}
+ 	
+ 	public function getUserByLeisureId( $leisure_id = FALSE )
+	{
+ 		$users = User::where( 'leisure_id', '=', $leisure_id )->get()->first();
+		if( empty( $users ) )
+		{
+			return FALSE;
+ 		}
+		return $users;
+ 	}
+ 	
+ 	
 
  	public function getUserByEmail($email)
  	{

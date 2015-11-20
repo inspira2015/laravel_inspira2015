@@ -116,6 +116,11 @@ class LeisureLoyaltyUser
 		}
 		return FALSE;
 	}
+	
+	public function getUser(){
+		$url_send = "https://api.leisureloyalty.com/v3/members/{$this->objUser['leisure_id']}?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH";
+		return $this->sendData($url_send, 'GET');
+	}
 
 	public function getNewMemberCheck()
 	{

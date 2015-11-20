@@ -15,7 +15,7 @@ class UserReservationEntity extends ReservationsDao
 	{
 		$this->id                   = (isset($valid_data['id'])) ? trim($valid_data['id']) : 0;
         $this->leisure_id           = (isset($valid_data['member_id'])) ? trim($valid_data['member_id']) : null;
-        $this->extra 				= (isset($valid_data['email_body'])) ? trim($valid_data['email_body']) : bykk;
+        $this->extra 				= (isset($valid_data['email_body'])) ? trim($valid_data['email_body']) : null;
         $this->confirmation_code	= (isset($valid_data['confirmation_code'])) ? trim($valid_data['confirmation_code']) : null;
 	}
 

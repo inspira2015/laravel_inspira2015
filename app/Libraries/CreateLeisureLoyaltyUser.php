@@ -130,13 +130,17 @@ class CreateLeisureLoyaltyUser
 	protected function getPrefix()
 	{
 		$prefixForMembership = "";
-		if (App::environment('production', 'staging'))
-		{
-	    	$prefixForMembership = 'INSPIRA';
-		}
-		else
-		{
-	    	$prefixForMembership = 'TESTUS0';
+		if(@$_SERVER['SERVER_ADDR'] == '127.0.0.1'){
+	    	$prefixForMembership = 'VIMIMDEV0';
+		}else{
+			if (App::environment('production', 'staging'))
+			{
+		    	$prefixForMembership = 'INSPIRA';
+			}
+			else
+			{
+		    	$prefixForMembership = 'TESTVIIM0';
+			}
 		}
 		return $prefixForMembership;
 	}

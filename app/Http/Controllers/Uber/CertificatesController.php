@@ -259,10 +259,6 @@ class CertificatesController extends Controller {
 		
 	}
 	
-	protected function timeDiff($expiration_date, $now){
-		return round((strtotime($expiration_date)-strtotime($now))/86400);
-	}
-	
 	protected function getStatesArray($language = FALSE)
 	{
 		$states = new StatesDao();

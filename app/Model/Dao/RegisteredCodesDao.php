@@ -39,10 +39,11 @@ class RegisteredCodesDao
 		$registeredCode = RegisteredCodes::firstOrNew( array( 'id' => $id ));
 		foreach($this as $key =>$value)
 		{
-			if($key == 'expiration_date' ) 
+			$registeredCode->$key = $value;
+
+			if($key == 'expiration_date' && is_int($value) ) {
 				$registeredCode->$key = DB::raw('NOW() + INTERVAL '.$value.' DAY');
-			else
-				$registeredCode->$key = $value;
+			}
 
 		}
 		$registeredCode->save();
@@ -52,6 +53,10 @@ class RegisteredCodesDao
 	
 	public function getLastActivated( $users_id ){
 		return RegisteredCodes::where('status', 'Active')->where('users_id' , $users_id)->orderBy('expiration_date' , 'asc')->first();
+	}
+	
+	public function getFirstActive( $users_id ){
+		return RegisteredCodes::where('status', 'Active')->where('users_id' , $users_id)->where('expiration_date', '>=', time() )->orderBy('expiration_date' , 'asc')->get()->first();
 	}
 
 }
