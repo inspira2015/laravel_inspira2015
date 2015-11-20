@@ -13,7 +13,7 @@ class VerifyCsrfToken extends BaseVerifier {
 	 * @return mixed
 	 */
 	protected $except = [
- 			'api/*'
+ 			'v1/*', 'api/*'
 	];
 
 	public function handle($request, Closure $next)

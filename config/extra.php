@@ -12,5 +12,6 @@ return [
 					'SCOTIABANK' => 'Scotiabank',
 					'SANTANDER' => 'Santander'
 				],
-	'cards' => ['Visa', 'MasterCard', 'American Express']
+	'cards' => ['Visa', 'MasterCard', 'American Express'],
+	'inspira' => ['apiKey' => '121722689d453a905e02c79477bb79c8']
 ];
