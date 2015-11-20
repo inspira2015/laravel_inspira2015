@@ -300,11 +300,8 @@ class UseraccountController extends Controller {
 				
 				if( $cardPayment->doToken() ){
 					$response = $cardPayment->getToken();
-					print_r($cardPayment->getToken());
 					$responseArray = (array) $response;
 					
-					
-	
 					if( $cardPayment->getToken()->code == 'SUCCESS' )
 					{
 						$userVacationFundDao = new UserVacationalFunds();
@@ -314,6 +311,7 @@ class UseraccountController extends Controller {
 						$formatedAmount = $this->convertHelper->getFomattedAmount();
 							
 						
+
 						$this->sysTransaction->setUser( $this->userAuth );
 						$this->sysTransaction->setTransactionInfo( array('users_id' => $this->userAuth->id,
 																'code' => 'Success',

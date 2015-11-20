@@ -57,12 +57,20 @@ class CertificatesController extends Controller {
 	
 	public function postUseWeek(){
 		$user = Auth::user();
-		return Response::json(array(
+		
+		if(count($this->registeredCodeDao->getNotExpired( $user->id )) > 0){
+			return Response::json(array(
 				'error' => false,
 				'redirect' => 'http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user->leisure_id
 			), 200);
+		}else{
+			return Response::json(array(
+				'error' => false,
+				'message' => 'Lo sentimos, su cuenta ha expirado. Favor de agregar certificado o contactarnos en customerservice@inspiramexico.mx.',
+				'redirect' => url('/')
+			), 200);
+		}
 	}
-	
 	
 	public function getUseWeek($email = FALSE){
 	 	$user = Auth::user();	
@@ -115,7 +123,8 @@ class CertificatesController extends Controller {
 					{
 						if($cardPayment->getTransactionResponse()->state == 'DECLINED' && $postData['name_on_card'] != 'APPROVED_INSPIRA_CARD'){
 							//guardar el mensaje de error de transaccion.
-				
+							$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'ERROR on Transaction: '.json_encode($cardPayment->getTransactionResponse()), 'method' => 'POST', 'module' => 'Certificate' ) );
+
 							$this->certificateOperation->setUser( $userAuth );
 							$this->certificateOperation->setTransactionInfo( array('users_id' => $userAuth->id,
 																	'code' => $cardPayment->getTransactionResponse()->state,
@@ -158,6 +167,8 @@ class CertificatesController extends Controller {
 				
 							$this->sysTransaction->setUserPaymentInfo( $paymentInfo );
 							$this->sysTransaction->saveData();
+							$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'Saved Transaction: '.json_encode($paymentInfo), 'method' => 'POST', 'module' => 'Certificate' ) );
+
 
 							$this->leisureLoyalty->setUser($userAuth);
 							//Agregar codigo a base de datos.
@@ -165,9 +176,10 @@ class CertificatesController extends Controller {
 							$this->registeredCodeDao->users_id = $userAuth->id;
 							$this->registeredCodeDao->code = "UBER";
 							$this->registeredCodeDao->status = "Active";
-							$this->registeredCodeDao->expiration_date = 2;
+							$this->registeredCodeDao->expiration_date = 365;
 							$this->registeredCodeDao->save();
-							
+							$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'Bought Certificate: '.json_encode($this->registeredCodeDao), 'method' => 'POST', 'module' => 'Certificate' ) );
+
 							
 							//Agarra el ultimo codigo agregado y hace diferencia de dias. Si es mayor a 0. extender.
 							$last = $this->registeredCodeDao->getLastActivated( $userAuth->id );							
@@ -178,7 +190,8 @@ class CertificatesController extends Controller {
 							
 							//Hacer request para agregar semana a cuenta (addWeek)
 							$this->leisureLoyalty->resortWeek(1);
-							
+							$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'Added one resort week', 'method' => 'POST', 'module' => 'Certificate' ) );
+
 							//Enviar correo de confirmacion.
 							$email_encrypted = $this->encrypt_decrypt('encrypt', $userAuth->email );
 							$url = url('usar-semana/'.$email_encrypted );
@@ -197,14 +210,14 @@ class CertificatesController extends Controller {
 					
 					}else{
 						//guardar el mensaje de error. //transaccion.
-
-						return "buuuh error";
+						$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'ERROR on Transaction: '.json_encode($cardPayment->getTransactionResponse()), 'method' => 'POST', 'module' => 'Certificate' ) );
 					}
 				}
 				
 				//guardar el mensaje de error. //transaccion.
-				
-				return view('uber.certificates.buy_certificate_form')//->withErrors([$cardPayment->getErrors()[0]])
+				$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'ERROR on Transaction: '.json_encode($cardPayment->getErrors()), 'method' => 'POST', 'module' => 'Certificate' ) );
+
+				return view('uber.certificates.buy_certificate_form')->withErrors([$cardPayment->getErrors()[0]])
 										->with( $this->getCCData() )
 										->with('title', 'Comprar certificado' )
 										->with('background','beach-girl.jpg');
@@ -212,6 +225,8 @@ class CertificatesController extends Controller {
 				
 			}	
 		}
+		$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'ERROR on Transaction: '.json_encode($validator), 'method' => 'POST', 'module' => 'Certificate' ) );
+
 		return view('uber.certificates.buy_certificate_form')->withErrors($validator)
 											->with( $this->getCCData() )
 											->with('title', 'Comprar certificado' )
