@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\ApiForLoyalty;
 use App\Http\Controllers\Controller;
 use App\Services\Api\Reservation as ReservationValidator;
-
+use App\Model\Entity\UserReservationEntity;
 use Request;
 use Redirect;
 use Response;
@@ -11,8 +11,11 @@ use Config;
 class ApiReservationsController extends Controller 
 {
 	private $reservationValidator;
-	public function __construct(ReservationValidator $reservationValidator) {
+	private $reservationDao;
+	
+	public function __construct(ReservationValidator $reservationValidator, UserReservationEntity $reservationEntity) {
 		$this->reservationValidator = $reservationValidator;
+		$this->reservationDao = $reservationEntity;
 	}
 	public function putReservation(){
 		$params = Request::all();
@@ -22,10 +25,13 @@ class ApiReservationsController extends Controller
 		if( $validator->passes() ){
 			if($params['apiKey'] == Config::get('extra.inspira.apiKey')){
 				
+				$this->reservationDao->exchangeArray($params);
+				$this->reservationDao->save();
+				
 				return Response::json([
 					'response'=> [
 						'success' => 'Success',
-						'message' => 'API working'
+						'message' => 'Data Saved Correctly'
 					]
 				],200);
 				

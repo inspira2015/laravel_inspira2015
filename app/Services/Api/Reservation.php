@@ -11,7 +11,7 @@ class Reservation
 	{
 		return Validator::make($data, [
 			'apiKey' => 'required',
-			'member_id' => 'required',
+			'member_id' => 'required|exists:users,leisure_id',
 			'confirmation_code' => 'required|unique:api_users_reservations',
 			'email_body' => 'required',
 		]);
