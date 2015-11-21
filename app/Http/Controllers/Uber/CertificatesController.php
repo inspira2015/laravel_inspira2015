@@ -75,11 +75,9 @@ class CertificatesController extends Controller {
 	
 	
 	public function getUseWeek($email = FALSE){
-	 	$user = Auth::user();	
-		return Response::json(array(
-				'error' => false,
-				'redirect' => 'http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user->leisure_id
-			), 200);
+	 	$user = Auth::user();
+	 	header("Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={$user->leisure_id}");	
+		exit;
 	}
 	
 	
