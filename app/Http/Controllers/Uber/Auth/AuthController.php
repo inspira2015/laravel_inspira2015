@@ -44,19 +44,20 @@ class AuthController extends Controller {
 
 		if($this->auth->attempt($credentials)){
 			$userAuth = Auth::user();
+			$this->leisureLoyalty->setUser( $userAuth );
+
 			$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'User Logged', 'method' => 'POST', 'module' => 'Login' ) );
 
 			Session::put('user', true);
 			//Revisar los activos.
 			$total_active = count($this->codeDao->getActive( $userAuth->id ));
 
-			if($total_active == 0){
+			if($total_active == 0 ){
 				$expired = count($this->codeDao->getActiveExpired( $userAuth->id  ));
 				//Desactivarlos.
 				$this->codeDao->setExpired( $userAuth->id );
 				$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'Expired active expires codes', 'method' => 'POST', 'module' => 'Login - Total Expires' ) );
 
-				$this->leisureLoyalty->setUser( $userAuth );
 				$this->leisureLoyalty->resortWeek(-$expired);
 				//quitar en LL.				
 				

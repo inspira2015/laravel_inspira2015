@@ -121,6 +121,13 @@ class LeisureLoyaltyUser
 		$url_send = "https://api.leisureloyalty.com/v3/members/{$this->objUser['leisure_id']}?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH";
 		return $this->sendData($url_send, 'GET');
 	}
+	
+	public function getResortWeeks(){
+		$url_send = "https://api.leisureloyalty.com/v3/member/getResortWeeks/{$this->objUser['leisure_id']}?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH";
+		$this->sendData($url_send, 'GET');
+		$response = json_decode($this->getResponseJson());		
+		return $response->data->resort_weeks;
+	}
 
 	public function getNewMemberCheck()
 	{

@@ -58,8 +58,8 @@ class CertificatesController extends Controller {
 	
 	public function postUseWeek(){
 		$user = Auth::user();
-
-		if(count($this->registeredCodeDao->getNotExpired( $user->id )) > 0){
+		$this->leisureLoyalty->setUser($user);
+		if(count($this->registeredCodeDao->getNotExpired( $user->id )) > 0 && $this->leisureLoyalty->getResortWeeks() > 0 ){
 			return Response::json(array(
 				'error' => false,
 				'redirect' => 'http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user->leisure_id
@@ -67,7 +67,7 @@ class CertificatesController extends Controller {
 		}else{
 			return Response::json(array(
 				'error' => false,
-				'message' => 'Lo sentimos, su cuenta ha expirado..  Favor de agregar certificado o contactarnos en customerservice@inspiramexico.mx.',
+				'message' => 'Lo sentimos, su cuenta ha expirado. Favor de agregar certificado o contactarnos en customerservice@inspiramexico.mx.',
 				'redirect' => url('/')
 			), 200);
 		}
