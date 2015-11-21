@@ -27,6 +27,7 @@ class CertificatesController extends Controller {
 	private $sysTransaction;
 	private $leisureLoyalty;
 	private $registeredCodeDao;
+	private $extend_period = 365;
 	
 	public function __construct( UserTokenRegistration $sysDao, 
 								CertificateOperation $certificateOperation,
@@ -66,11 +67,12 @@ class CertificatesController extends Controller {
 		}else{
 			return Response::json(array(
 				'error' => false,
-				'message' => 'Lo sentimos, su cuenta ha expirado. Favor de agregar certificado o contactarnos en customerservice@inspiramexico.mx.',
+				'message' => 'Lo sentimos, su cuenta ha expirado..  Favor de agregar certificado o contactarnos en customerservice@inspiramexico.mx.',
 				'redirect' => url('/')
 			), 200);
 		}
 	}
+	
 	
 	public function getUseWeek($email = FALSE){
 	 	$user = Auth::user();	
@@ -142,6 +144,7 @@ class CertificatesController extends Controller {
 								'redirect' => url('/comprar-certificado')
 							), 200);
 						}else{
+							$total_active = count($this->registeredCodeDao->getActive( $userAuth->id ));
 							//guardar informacion de tarjeta de credito.
 							//guardar informacion de transaccion.
 							$this->sysTransaction->setUser( $userAuth );
@@ -176,18 +179,39 @@ class CertificatesController extends Controller {
 							$this->registeredCodeDao->users_id = $userAuth->id;
 							$this->registeredCodeDao->code = "UBER";
 							$this->registeredCodeDao->status = "Active";
-							$this->registeredCodeDao->expiration_date = 365;
+							$this->registeredCodeDao->expiration_date = $this->extend_period;
 							$this->registeredCodeDao->save();
 							$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'Bought Certificate: '.json_encode($this->registeredCodeDao), 'method' => 'POST', 'module' => 'Certificate' ) );
 
-							
-							//Agarra el ultimo codigo agregado y hace diferencia de dias. Si es mayor a 0. extender.
-							$last = $this->registeredCodeDao->getLastActivated( $userAuth->id );							
-							$difference = $this->timeDiff(new Carbon($last->expiration_date), Carbon::now());
-							if($difference > 0){
-								//$this->leisureLoyalty->extend($days);
+														
+							//Si los totales activos es igual a 0.
+							if($total_active == 0){
+								$this->leisureLoyalty->getUser();
+								$leisure_member = json_decode($this->leisureLoyalty->getResponseJson());
+								$date = Carbon::now()->addDays($this->registeredCodeDao->expiration_date);
+	
+								$difference = $this->timeDiff($date, $leisure_member->data->expirationDate );
+						
+								//Si son muchos dias los divide por anio.
+								if($difference > 0){
+									$days_in_year = 365;
+									$divided_days = ceil($difference/$days_in_year);
+									$remainder_days = $difference%$days_in_year;
+				
+									for($s = 1 ; $s <= $divided_days ; $s++){	
+										if($s==$divided_days && $remainder_days > 0){
+											$days_requested = $remainder_days;
+										}else{
+											$days_requested = $days_in_year;
+										}
+										$this->leisureLoyalty->extend($days_requested);
+										$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'Extended expiration_date to user:'.$days_requested, 'method' => 'POST', 'module' => 'Certificate' ) );
+	
+									}
+								
+								}
 							}
-							
+
 							//Hacer request para agregar semana a cuenta (addWeek)
 							$this->leisureLoyalty->resortWeek(1);
 							$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'Added one resort week', 'method' => 'POST', 'module' => 'Certificate' ) );

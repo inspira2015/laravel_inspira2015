@@ -50,6 +50,10 @@ class RegisteredCodesDao
 		return $registeredCode->id;
 	}
 	
+	public function getActive( $users_id ){
+		return RegisteredCodes::where('status', 'Active')->where('users_id' , $users_id)->where('expiration_date', '>=', time() )->get();
+	}
+	
 	public function getNotExpired( $users_id ){
 		return RegisteredCodes::where('status', 'Active')->orWhere('status', 'Redeem')->where('users_id' , $users_id)->where('expiration_date', '>=', time() )->get();
 

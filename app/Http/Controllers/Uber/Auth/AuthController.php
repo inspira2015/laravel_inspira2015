@@ -32,7 +32,8 @@ class AuthController extends Controller {
 
 		if($this->auth->attempt($credentials)){
 			Session::put('user', true);
-
+			//Revisar los activos.
+			
 			return Response::json(array(
 				'error' => false,
 				'html' => htmlspecialchars(view('uber.auth.options')),
