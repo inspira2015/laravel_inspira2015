@@ -50,20 +50,28 @@ class RegisteredCodesDao
 		return $registeredCode->id;
 	}
 	
+	public function setExpired( $users_id ){
+		return RegisteredCodes::where('status', 'Active')->where('users_id' , $users_id)->where('expiration_date', '<', date('Y-m-d H:i:s') )->update( array('status' => 'Expired'));
+	}
+	
 	public function getActive( $users_id ){
-		return RegisteredCodes::where('status', 'Active')->where('users_id' , $users_id)->where('expiration_date', '>=', time() )->get();
+		return RegisteredCodes::where('status', 'Active')->where('users_id' , $users_id)->where('expiration_date', '>=', date('Y-m-d H:i:s') )->get();
+	}
+	
+	public function getActiveExpired( $users_id ){
+		return RegisteredCodes::where('status', 'Active')->where('users_id' , $users_id)->where('expiration_date', '<', date('Y-m-d H:i:s') )->get();
 	}
 	
 	public function getNotExpired( $users_id ){
-		return RegisteredCodes::where('status', 'Active')->orWhere('status', 'Redeem')->where('users_id' , $users_id)->where('expiration_date', '>=', time() )->get();
+		return RegisteredCodes::where('users_id' , $users_id)->where('expiration_date', '>=', date('Y-m-d H:i:s') )->where('status', '!=', 'Expired')->get();
 
 	}
 	public function getLastActivated( $users_id ){
-		return RegisteredCodes::where('status', 'Active')->where('users_id' , $users_id)->orderBy('expiration_date' , 'asc')->first();
+		return RegisteredCodes::where('status', 'Active')->where('users_id' , $users_id)->orderBy('expiration_date' , 'asc')->get()->first();
 	}
 	
 	public function getFirstActive( $users_id ){
-		return RegisteredCodes::where('status', 'Active')->where('users_id' , $users_id)->where('expiration_date', '>=', time() )->orderBy('expiration_date' , 'asc')->get()->first();
+		return RegisteredCodes::where('status', 'Active')->where('users_id' , $users_id)->where('expiration_date', '>=', date('Y-m-d H:i:s') )->orderBy('expiration_date' , 'asc')->get()->first();
 	}
 
 }

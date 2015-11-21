@@ -58,7 +58,7 @@ class CertificatesController extends Controller {
 	
 	public function postUseWeek(){
 		$user = Auth::user();
-		
+
 		if(count($this->registeredCodeDao->getNotExpired( $user->id )) > 0){
 			return Response::json(array(
 				'error' => false,
