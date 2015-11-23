@@ -9,14 +9,15 @@
 
 #map {
 	background-color:#4e9cd4;
-	padding: 60px 20px;
+	padding: 120px 20px;
 	color:white;
 	display:block;
 	background-image: url('images/map.png');
 	background-repeat: no-repeat;
-	background-size: 500px;
+/*	background-size: 600px;*/
+background-size: 60%;
 	background-position: center center;
-	font-size: 16px;
+	font-size: 18px;
 }
 
 #map h2{
@@ -28,7 +29,7 @@
 	background-color: #ebeced;
 	padding-bottom: 40px;
 	padding-top: 20px;
-	font-size: 16px;
+	font-size: 18px;
 }
 
 #destinations ul{
@@ -37,7 +38,7 @@
 	margin-top: 10px;
 }
 
-#destinations li{
+#destinations li, #destinations li:hover{
 	display:table-cell;
 	position:relative;
 	text-align: center;
@@ -52,26 +53,29 @@
 	color: white;
 	text-transform: uppercase;
 }
-
 #destinations li img {
 	width: 100%;
-	filter: url('#grayscale'); /* Versión SVG para IE10, Chrome 17, FF3.5, Safari 5.2 and Opera 11.6 */
-	-webkit-filter: grayscale(100%);
-	-moz-filter: grayscale(100%);
-	-ms-filter: grayscale(100%);
-	-o-filter: grayscale(100%);
-	filter: grayscale(100%); /* Para cuando es estándar funcione en todos */
-	filter: Gray(); /* IE4-8 and 9 */
+}
+#destinations li img {
+	width: 100%;
+	filter: url('#grayscale'); 
+	-webkit-filter: brightness(0.6) contrast(1.7) grayscale(1);
+	-moz-filter: brightness(0.6) contrast(1.7) grayscale(1));
+	-ms-filter: brightness(0.6) contrast(1.7) grayscale(1);
+	-o-filter: brightness(0.6) contrast(1.7) grayscale(1);
+	filter: brightness(0.6) contrast(1.7) grayscale(1); 
+	filter: Gray(); 
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-ms-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
 	transition: all 0.5s ease;
 	opacity: 0.8;
-    filter: Alpha(opacity=80); /* IE8 and earlier */
+    filter: Alpha(opacity=80);
+    
 }
 
-#destinations li img:hover{
+#destinations li:hover img{
 	-webkit-filter: grayscale(0%);
 	-moz-filter: grayscale(0%);
 	-ms-filter: grayscale(0%);
@@ -84,14 +88,14 @@
 	-o-transition: all 0.5s ease;
 	transition: all 0.5s ease;
 		opacity: 1;
-    filter: Alpha(opacity=100); /* IE8 and earlier */
+    filter: Alpha(opacity=100);
 
 }
 
 
 #destinations h2,
 #map h2{
-	font-size: 22px;
+	font-size: 24px;
 }
 
 footer {
@@ -114,7 +118,7 @@ h1 a, h1 a:hover{
 
 h1 img {
 	width: 60%;
-	max-width: 350px;
+	max-width: 400px;
 }
 
 
@@ -132,7 +136,8 @@ a:hover, a:visited {
 }
 
 .slider h2{
-	font-size:30px;
+	font-size:40px;
+	margin-bottom: 10px;
 }
 
 .btn-clear-white{
@@ -160,7 +165,7 @@ a:hover, a:visited {
 		font-size: 20px;
 	}
 }
-@media (min-width: 1200px){
+@media (min-width: 1300px){
 	.swiper-slide, .swiper-slide#slide-1, 
 	.swiper-slide#slide-2, .swiper-slide#slide-3, 
 	.swiper-slide#slide-4, .swiper-slide#slide-5{

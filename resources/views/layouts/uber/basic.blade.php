@@ -32,7 +32,7 @@
 
 </head>
 
-<body id="page uber" onload="javascript: poponload()" style="background-image:url('<?php echo url();?>/images/<?php echo $background; ?>'); background-repeat:no-repeat; background-position: center center fixed; 
+<body id="page uber"  style="background-image:url('<?php echo url();?>/images/<?php echo $background; ?>'); background-repeat:no-repeat; background-position: center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -105,6 +105,7 @@
 	@include('layouts.uber.modal_login')
 	
 	@include('layouts.uber.analytics')
+<!--
 	<script type="text/javascript">
 	function poponload()
 	{
@@ -139,5 +140,6 @@
 
 		}
 	</script>
+-->
 </body>
 </html>
