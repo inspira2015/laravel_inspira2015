@@ -10,7 +10,7 @@
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
 					<h2>Viaja a los mejores lugares con uber e inspira</h2>
-					Los resorts m&aacute;s lujosos rededor del mundo, al precio m&aacute;s bajo<br>
+					Los resorts m&aacute;s lujosos alrededor del mundo, al precio m&aacute;s bajo<br>
 					<br>
 					<div class="row text-center">
 						<a href="{{ url('comprar-certificado') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>

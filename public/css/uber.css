@@ -87,6 +87,8 @@
     filter: Alpha(opacity=100); /* IE8 and earlier */
 
 }
+
+
 #destinations h2,
 #map h2{
 	font-size: 22px;
