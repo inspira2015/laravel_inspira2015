@@ -7,7 +7,9 @@
 	
 	$minifierJs = new MinifyJs();
 	$minifierJs->add('js/jquery.creditCardValidator.js');
+	$minifierJs->add('js/jquery.cookie.js');
 	$minifierJs->minify('js/minify/jquery.creditCardValidator.min.js');
+	
 ?>
 <!DOCTYPE html>
 <html>
@@ -89,7 +91,7 @@
 	{!! HTML::script('js/jquery.maskedinput.min.js') !!}
 	
 	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
-	{!! HTML::script('js/jquery.cookie.js') !!}
+	{!! HTML::script('js/minify/jquery.cookie.js') !!}
 	<script src="http://www.idangero.us/swiper/dist/js/swiper.min.js"></script>
 
 	{!! HTML::script('js/main.js') !!}
