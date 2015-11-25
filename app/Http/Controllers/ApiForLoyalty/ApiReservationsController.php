@@ -34,24 +34,30 @@ class ApiReservationsController extends Controller
 			if($params['apiKey'] == Config::get('extra.inspira.apiKey')){
 
 				$this->reservationDao->exchangeArray($params);
+
 				$user = $this->userDao->getUserByLeisureId($this->reservationDao->leisure_id);
 
-				if(empty($user)){
-					$this->reservationDao->save();
-					$this->actionLog( array( 'users_id' => $user->id, 'description' => 'Stored reservation:'.json_encode($params), 'method' => 'PUT', 'module' => 'Api - Reservation code' ) );
+				$user_id = (!empty($user)) ? $user->id : 0;
+				
+				$this->reservationDao->save();
+				$this->actionLog( array( 'users_id' => $user_id, 'description' => 'Stored reservation:'.json_encode($params), 'method' => 'PUT', 'module' => 'Api - Reservation code' ) );
+				
+				if( $user_id == 0 ){
 					return Response::json([
-						'response'=> [
-							'success' => 'Success',
-							'message' => 'Data Saved Correctly'
-						]
-					],200);
+							'response'=> [
+								'success' => 'Success',
+								'message' => 'Data Saved Correctly'
+							]
+						],200);
 				}
 				
 				$code = $this->codesDao->getFirstActive( $user->id );
 				if($code){
 					//store reservation to table.
+/*
 					$this->reservationDao->save();
 					$this->actionLog( array( 'users_id' => $user->id, 'description' => 'Stored reservation:'.json_encode($params), 'method' => 'PUT', 'module' => 'Api - Reservation code' ) );
+*/
 
 					//Cambiar el codigo a Reedem.
 					$this->codesDao->load( $code->id );
