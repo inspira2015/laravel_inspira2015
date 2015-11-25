@@ -55,10 +55,10 @@
 </div>
 <div class="row bg-light-gray text-left">
 	<div class="row">
-		<div class="col-xs-10 col-md-6">
+		<div class="col-xs-12 col-sm-10 col-md-6">
 			<h2 style="font-size:20px;font-weight: 400;padding: 20px 10px;">DATOS DE COBRO POR TARJETA</h2>
 		</div>
-		<div class="col-xs-2 col-md-6 text-right">
+		<div class="hidden-xs col-sm-2 col-md-6 text-right">
 			<img src="images/markets.png" style="margin-top:10px;margin-right: 20px;">
 		</div>
 	</div>

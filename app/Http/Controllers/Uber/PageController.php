@@ -51,27 +51,27 @@ class PageController extends Controller {
 	}
 		
 	public function goMazatlan(){
-		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1&targetUri=/resortweeks/quickSearch?saved_search=RoRJln63xXF9SOj');
+		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=RoRJln63xXF9SOj');
 		exit;
 	}
 	
 	public function goPuertoVallarta(){
-		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1&targetUri=/resortweeks/quickSearch?rChildren=0&priceTo=&startDate=&minUnitSize=&priceFrom=&doSearch=true&keyword=&rAdults=2&within=60&resortCode=2456,527,938,1972,2358,2463,2659,2672,4105,5121,6671,7717,7831,A870,C251');
+		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=8K8lqf3X6AGnBNx');
 		exit;
 	}
 	
 	public function goLasVegas(){
-		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1&targetUri=/resortweeks/quickSearch?saved_search=sfquSB7ODZVEQqs');
+		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=sfquSB7ODZVEQqs');
 		exit;
 	}
 	
 	public function goMalaga(){
-		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1&targetUri=/resortweeks/quickSearch?saved_search=Pe6eaUuRtO8QB0t');
+		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=Pe6eaUuRtO8QB0t');
 		exit;
 	}
 	
 	public function goDestination(){
-		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1');
+		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346');
 		exit;
 	}
 	

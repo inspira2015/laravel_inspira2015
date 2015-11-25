@@ -154,7 +154,11 @@ a:hover, a:visited {
 	background-size: 7px;
 }
 
-
+@media(max-width: 768px){
+	.table-row > div.table-cell:not(:last-child){
+		padding: 7px 10px 7px 10px!important;	
+	}
+}
 
 @media (max-width: 992px){
 
@@ -206,6 +210,7 @@ a:hover, a:visited {
     text-align: center;
     left: 0;
     right: 0;
+    color:white;
 }
 
 #more-info img{
