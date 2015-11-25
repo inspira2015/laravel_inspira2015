@@ -103,7 +103,7 @@ class ApiReservationsController extends Controller
 			$message = $validator->errors();
 			$member = $validator->errors()->get('member_id');
 
-			if($member[0] == 'The selected member id is invalid.'){
+			if(@$member[0] == 'The selected member id is invalid.'){
 				$this->actionLog( array( 'description' => 'Member_id not found:'.$params['member_id'], 'method' => 'PUT', 'module' => 'Api - Reservation code' ) );
 
 			}
