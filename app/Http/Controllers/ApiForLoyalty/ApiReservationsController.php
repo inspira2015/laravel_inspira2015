@@ -36,6 +36,17 @@ class ApiReservationsController extends Controller
 				$this->reservationDao->exchangeArray($params);
 				$user = $this->userDao->getUserByLeisureId($this->reservationDao->leisure_id);
 
+				if(empty($user)){
+					$this->reservationDao->save();
+					$this->actionLog( array( 'users_id' => $user->id, 'description' => 'Stored reservation:'.json_encode($params), 'method' => 'PUT', 'module' => 'Api - Reservation code' ) );
+					return Response::json([
+						'response'=> [
+							'success' => 'Success',
+							'message' => 'Data Saved Correctly'
+						]
+					],200);
+				}
+				
 				$code = $this->codesDao->getFirstActive( $user->id );
 				if($code){
 					//store reservation to table.
