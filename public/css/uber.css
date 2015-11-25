@@ -15,7 +15,7 @@
 	background-image: url('images/map.png');
 	background-repeat: no-repeat;
 /*	background-size: 600px;*/
-background-size: 60%;
+	background-size: 60%;
 	background-position: center center;
 	font-size: 18px;
 }
@@ -152,6 +152,9 @@ a:hover, a:visited {
 	background-position: calc(100% - 10px) center;
 	background-position-x: 95%;
 	background-size: 7px;
+}
+#register-form{
+	display:none;
 }
 
 @media(max-width: 768px){

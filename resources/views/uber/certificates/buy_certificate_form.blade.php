@@ -1,11 +1,11 @@
 {!! Form::open() !!}
 <div class="row">
-	<div class="col-xs-4 col-sm-3 col-md-2">  
+	<div class="col-xs-5 col-sm-2 col-md-2 nopadding">  
 		<a href="{{ url('/') }}" class="btn-blue-clear btn-medium back">
 			{{ Lang::get('layout.back') }}
 		</a>
 	</div>
-	<div class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8">   
+	<div class="col-xs-5 col-xs-push-2 col-sm-2 col-sm-push-8 col-md-2 col-md-push-8 nopadding">   
 		<div data-role="submit" data-route="{{ url('pagar-certificado') }}" class="btn-blue-clear btn-medium">
 			{{ Lang::get('layout.continue') }}
 		</div>
@@ -46,7 +46,7 @@
 		</div>
 	</div>
 	
-	<div class="col-xs-12 bg-blue text-right" style="font-size: 18px; font-weight: 400;">
+	<div class="col-xs-12 bg-blue text-right" id="price-offer">
 		COSTO TOTAL: $ 5,950 MX
 	</div>
 	<div class="col-xs-12 text-right nopadding" style="margin-top:10px;margin-right: 10px;">
@@ -182,7 +182,7 @@
 </div>
 
 <div clas="row" style="margin-top: 30px;">
-	<div class="col-xs-4 col-sm-3 col-md-2 nopadding">  
+	<div class="col-xs-5 col-sm-3 col-md-2 nopadding">  
 		<a href="{{ url('/') }}" class="btn-blue-clear btn-medium back">
 			{{ Lang::get('layout.back') }}
 		</a>

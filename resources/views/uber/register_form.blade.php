@@ -1,11 +1,11 @@
-{!! Form::open(array('url' => 'payment/addcreditcard')) !!}
+{!! Form::open(array('url' => 'payment/addcreditcard', 'id' => 'register-form')) !!}
 	<div class="row">
-		<div class="col-xs-4 col-sm-3 col-md-2">  
+		<div class="col-xs-5 col-sm-2 col-md-2 nopadding">  
 			<a href="{{ url('/') }}" class="btn-blue-clear btn-medium back">
 				{{ Lang::get('layout.back') }}
 			</a>
 		</div>
-		<div class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8">   
+		<div class="col-xs-5 col-xs-push-2 col-sm-2 col-sm-push-8 col-md-2 col-md-push-8 nopadding">   
 			<div data-role="submit" data-route="{{ url('registrar') }}"  class="btn-blue-clear btn-medium">
 				{{ Lang::get('layout.continue') }}
 			</div>
@@ -19,42 +19,42 @@
 		</div>
 	</div>
 	<div class="row bg-light-gray text-left">
-		<div class="col-xs-12">
+		<div class="col-xs-12 nopadding">
 			<div class="form-group">
-	            <label for="nombre">* Nombre(s):</label>
+	            <label for="nombre">Nombre(s):</label>
 	            <div class="input-group extra-width">
 	              {!! Form::text('name', Input::get('name') ? Input::get('name') : @$name, array('class' => 'form-control','id' => 'name')) !!}                                                
 	            </div>
 			</div>
 		</div>
-		<div class="col-xs-12">
+		<div class="col-xs-12 nopadding">
 			<div class="form-group">
-	            <label for="nombre">* Apellido:</label>
+	            <label for="nombre">Apellido:</label>
 	            <div class="input-group extra-width">
 	              {!! Form::text('last_name', Input::get('last_name') ? Input::get('last_name') : @$last_name, array('class' => 'form-control','id' => 'last_name')) !!}                                                
 	            </div>
 			</div>
 		</div>
-		<div class="col-xs-12">
+		<div class="col-xs-12 nopadding">
 			<div class="form-group">
-	            <label for="nombre">* E-Mail:</label>
+	            <label for="nombre">E-Mail:</label>
 	            <div class="input-group extra-width">
 					{!! Form::email('email', Input::get('email') ? Input::get('email') : @$email, array('class' => 'form-control validate-email','id' => 'email', 'data-route' => url('api/users/exists') )) !!}
                             
 	            </div>
 			</div>
 		</div>
-		<div class="col-xs-12">
+		<div class="col-xs-12 nopadding">
 			<div class="form-group">
-	            <label for="nombre">* Contrase&ntilde;a</label>
+	            <label for="nombre">Contrase&ntilde;a</label>
 	            <div class="input-group extra-width">
 	              {!! Form::password('password', array('class' => 'form-control','id' => 'password')) !!}   
 	            </div>
 			</div>
 		</div>
-		<div class="col-xs-12">
+		<div class="col-xs-12 nopadding">
 			<div class="form-group">
-	            <label for="nombre">* Confirmar Contrase&ntilde;a</label>
+	            <label for="nombre">Confirmar Contrase&ntilde;a</label>
 	            <div class="input-group extra-width">
 	              {!! Form::password('password_confirmation', array('class' => 'form-control','id' => 'password_confirmation')) !!}   
 	            </div>
