@@ -64,10 +64,10 @@
 	
 	
 	<div clas="row" style="margin-top: 30px;">
-		<div class="col-xs-6 col-sm-9" style="padding-left:0px;">
+		<div class="col-xs-12 col-sm-9" style="padding-left:0px;">
 			@include('errors.messages')
 		</div>
-		<div class="col-xs-6  col-sm-3 nopadding">   
+		<div class="col-xs-12  col-sm-3 nopadding">   
 			<div data-role="submit" data-route="{{ url('registrar') }}" class="btn-blue btn-medium">
 				{{ Lang::get('layout.continue') }}
 			</div>

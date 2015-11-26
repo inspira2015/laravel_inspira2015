@@ -51,7 +51,7 @@ class LeisureLoyaltyUser
 		 	"lastName" => $this->objUser->last_name, 
 		 	"email" => $this->objUser->email,
 			"languageCode"=> strtoupper($this->objUser->language),
-			"mtierId"=> (int) $this->objUser->tierId,
+			"mtierId"=> (int) $this->tierId,
 			"memberId"=> $memberId,
 			"memberDays" => $this->membersDays,
 			"remainResortWeeks" => 0

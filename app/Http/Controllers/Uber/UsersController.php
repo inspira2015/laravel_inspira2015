@@ -63,35 +63,41 @@ class UsersController extends Controller {
 				if($this->guard->attempt(['email' => $postData['email'], 'password' => $postData['password']])){
 					$userAuth = Auth::user();
 					$userAuth->password = $postData['password'];
-					$userAuth->tierId = 80;
 					
 					$this->leisureLoyalty->setUser($userAuth);
-					
+					$this->leisureLoyalty->setTierId(80);
+
 					//Update user.	//Guardar el memberId
 					$memberId = $this->leisureLoyalty->createOrRetriveMemberId();
-					$userDao = new UserDao();
-					$userDao->load($userAuth->id);
-					$userDao->leisure_id = $memberId;
-					$userDao->save();
-
-					$this->createLeisureUser->setUser( $userAuth );
-					$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
-																		'type' => 'Create Leisure MemberId',
-																		'description' => 'Create Leisure MemberId',
-																		'json_data' => ''));
-					$this->createLeisureUser->saveData();
-
-					$sent = Mail::send('emails.uber.welcome', array('user' => $userAuth, 'url' => url('/')), function($message) use ($userAuth) {	
-								$full_name = $userAuth->name . ' ' . $userAuth->last_name;		
-						    	$message->to( $userAuth->email, $full_name )
-						    			->to( 'hp_tanya@hotmail.com' , $full_name)
-						    			->subject( "Bienvenido a InspiraMexico, {$full_name}!"  );
-						    	});
-						    	
-					return Response::json(array(
-						'error' => false,
-						'redirect' => url('comprar-certificado')
-					), 200);
+					if($memberId !== FALSE){
+						$userDao = new UserDao();
+						$userDao->load($userAuth->id);
+						$userDao->leisure_id = $memberId;
+						$userDao->save();
+	
+						$this->createLeisureUser->setUser( $userAuth );
+						$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
+																			'type' => 'Create Leisure MemberId',
+																			'description' => 'Create Leisure MemberId',
+																			'json_data' => ''));
+						$this->createLeisureUser->saveData();
+	
+						$sent = Mail::send('emails.uber.welcome', array('user' => $userAuth, 'url' => url('/')), function($message) use ($userAuth) {	
+									$full_name = $userAuth->name . ' ' . $userAuth->last_name;		
+							    	$message->to( $userAuth->email, $full_name )
+							    			->to( 'hp_tanya@hotmail.com' , $full_name)
+							    			->subject( "Bienvenido a InspiraMexico, {$full_name}!"  );
+							    	});
+							    	
+						return Response::json(array(
+							'error' => false,
+							'redirect' => url('comprar-certificado')
+						), 200);
+					}else{
+						//Find another way to Change this.
+						$this->guard->logout();
+						return view('uber.register_form')->withErrors('Por favor de elegir otra direcci&oacute;n de correo electr&oacute;nica')->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
+					}
 				}				
 			}
 			return view('uber.register_form')->withErrors($this->createUser->getErrors())->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
