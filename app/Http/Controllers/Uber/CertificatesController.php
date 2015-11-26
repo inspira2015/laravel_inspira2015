@@ -86,7 +86,7 @@ class CertificatesController extends Controller {
 		$payment = new PaymentValidator();
 		$postData = Request::except('_token');
 		$validator = $payment->validator( $postData, Lang::locale() );
-		$payment = array('amount' => 45, 'currency' => 'MXN');
+		$payment = array('amount' => 5950, 'currency' => 'MXN');
 		$userAuth = Auth::user();
 		if($validator->passes()){
 			//Make payment. 
