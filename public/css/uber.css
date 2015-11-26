@@ -161,6 +161,34 @@ a:hover, a:visited {
 	.table-row > div.table-cell:not(:last-child){
 		padding: 7px 10px 7px 10px!important;	
 	}
+	
+	h1 img {
+	width: 100%;
+	}
+	
+	.slider h2 {
+    font-size: 22px;
+    }
+    
+    .swiper-slide{
+	    font-size:14px!important;
+    }
+    
+    .swiper-slide, .swiper-slide#slide-1, .swiper-slide#slide-2, .swiper-slide#slide-3, .swiper-slide#slide-4, .swiper-slide#slide-5{
+	    padding:110px 20px 150px 20px!important;
+    }
+    
+    #map{
+	    padding: 30px 20px;
+	    font-size:16px;
+    }
+    
+    #destinations {
+	    font-size:16px;
+	}
+	#destinations h2, #map h2 {
+    font-size: 20px;
+	}
 }
 
 @media (max-width: 992px){
