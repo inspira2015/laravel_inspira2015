@@ -1116,6 +1116,9 @@ span.small-super:before{
 	content: ' ';
 }
 
+#register-form label:before {
+	content: "* " !important;
+	}
 
 
 /*MODALS*/
@@ -1177,6 +1180,7 @@ span.small-super:before{
 	
 }
 
+
 @media(max-width: 768px) {
 	div#product-offers .table-row > div.table-cell:not(:last-child){
 	padding: 7px 10px!important;	
@@ -1200,10 +1204,11 @@ span.small-super:before{
 	
 	div[data-role="response"] h2 {
 	 font-size: 18px!important;
-	
+	}
 	.input-group.extra-width {
 	 width: calc(70% - 10px)!important;
 	}
+	
 	div.bg-light-gray > div{
 		padding: 0px!important;
 	}
@@ -1214,7 +1219,7 @@ span.small-super:before{
 	 margin-right: 10px;
 	}
 	
-	#register-form .col-xs-12 {
+	#register-form .col-xs-12:not(#register-box) {
     padding: 0px!important;
 	}
 
