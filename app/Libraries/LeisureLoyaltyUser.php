@@ -29,14 +29,12 @@ class LeisureLoyaltyUser
 	
 	protected function setupTimes( $tier_id )
 	{
-		$tier_id = (int)$tier_id;
-					$this->membersDays = 30;
-
+		$this->membersDays = 30;
 		if ( $tier_id  == 81 )
 		{
 			$this->membersDays = 365;
 		}
-		else if ( $tier_id  == 80 ){
+		if ( $tier_id  == 80 ){
 			$this->membersDays = 7;
 		}
 	}
@@ -44,8 +42,13 @@ class LeisureLoyaltyUser
 	protected function checkCreateLeisureUser()
 	{
 		$memberId = $this->generateLeisureMemberShip();
-		$this->setupTimes(  $this->objUser->tierId );
+		$this->setupTimes(  (int) $this->tierId );
 
+		$string_space = strpos($this->objUser->last_name, ' ');
+		if($string_space !== FALSE) {
+			$this->objUser->last_name = substr($this->objUser->last_name, 0, $string_space);
+		}
+		
 		$postData[0] = array(
 		    "firstName" => $this->objUser->name, 
 		 	"lastName" => $this->objUser->last_name, 
@@ -56,8 +59,7 @@ class LeisureLoyaltyUser
 			"memberDays" => $this->membersDays,
 			"remainResortWeeks" => 0
 		);
-		
-		
+
 		$context = stream_context_create(array(
 		    'http' => array(
 		        'method' => 'POST',
@@ -137,6 +139,10 @@ class LeisureLoyaltyUser
 		return $response->data->resort_weeks;
 	}
 
+	public function getExpirationDate(){
+		$user = $this->getUser();
+		return $user->data->expirationDate;
+	}
 	public function getNewMemberCheck()
 	{
 		return $this->newMemberFlag;
@@ -169,13 +175,17 @@ class LeisureLoyaltyUser
 	protected function getPrefix()
 	{
 		$prefixForMembership = "";
-		if (App::environment('production', 'staging'))
-		{
-	    	$prefixForMembership = 'INSPIRA';
-		}
-		else
-		{
-	    	$prefixForMembership = 'TESTUS0';
+		if(@$_SERVER['SERVER_ADDR'] == '127.0.0.1'){
+	    	$prefixForMembership = 'VIIMDEV0';
+		}else{
+			if (App::environment('production', 'staging'))
+			{
+		    	$prefixForMembership = 'INSPIRA';
+			}
+			else
+			{
+		    	$prefixForMembership = 'VIIM00';
+			}
 		}
 		return $prefixForMembership;
 	}

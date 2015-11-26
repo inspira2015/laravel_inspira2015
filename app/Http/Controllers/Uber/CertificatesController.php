@@ -59,7 +59,8 @@ class CertificatesController extends Controller {
 	public function postUseWeek(){
 		$user = Auth::user();
 		$this->leisureLoyalty->setUser($user);
-		if(count($this->registeredCodeDao->getNotExpired( $user->id )) > 0 && $this->leisureLoyalty->getResortWeeks() > 0 ){
+		$activeDays = $this->timeDiff($this->leisureLoyalty->getExpirationDate(), date('Y-m-d'));
+		if( ( count($this->registeredCodeDao->getNotExpired( $user->id )) > 0 && $this->leisureLoyalty->getResortWeeks() > 0) || $activeDays > 0  ){
 			return Response::json(array(
 				'error' => false,
 				'redirect' => 'http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$user->leisure_id
