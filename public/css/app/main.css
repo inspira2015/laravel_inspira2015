@@ -1205,6 +1205,7 @@ span.small-super:before{
 	div[data-role="response"] h2 {
 	 font-size: 18px!important;
 	}
+	
 	.input-group.extra-width {
 	 width: calc(70% - 10px)!important;
 	}
@@ -1219,9 +1220,12 @@ span.small-super:before{
 	 margin-right: 10px;
 	}
 	
-	#register-form .col-xs-12:not(#register-box) {
+	#register-form .col-xs-12:not(div#register-box) {
     padding: 0px!important;
 	}
 
+	#price-offer{
+		padding: 10px!important;
+	}
 }
 
