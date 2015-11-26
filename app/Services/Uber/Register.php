@@ -24,7 +24,7 @@ class Register
 	{
 		return Validator::make($user_data, [
 			'name' => 'required',
-			'last_name' => 'required|alpha',
+			'last_name' => 'required',
 			'email' => 'required|email|unique:users',
 			'password' => 'required|min:6|confirmed',
 			'password_confirmation' => 'required_with:password',

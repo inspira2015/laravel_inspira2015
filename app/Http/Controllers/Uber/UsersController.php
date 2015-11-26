@@ -96,7 +96,7 @@ class UsersController extends Controller {
 					}else{
 						//Find another way to Change this.
 						$this->guard->logout();
-						return view('uber.register_form')->withErrors('Por favor de elegir otra direcci&oacute;n de correo electr&oacute;nica')->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
+						return view('uber.register_form')->withErrors('Por favor de elegir otra direcci&oacute;n de correo electr&oacute;nico')->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
 					}
 				}				
 			}
