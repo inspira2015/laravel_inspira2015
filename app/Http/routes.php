@@ -54,7 +54,7 @@ Route::group(array('domain' => Config::get('domain.uber')), function(){
 });
 
 Route::group(array('domain' => Config::get('domain.promotions')), function(){
-	Route::get('/', 'Uber\PageController@index');
+	Route::get('/{codigo?}/{name?}', 'Uber\PageController@index');
 	Route::get('useraccount', 'Uber\PageController@index');
 	Route::get('destino/mazatlan', 'Uber\PageController@goMazatlan');
 	Route::get('destino/las-vegas', 'Uber\PageController@goLasVegas');
