@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Uber\Auth;
+<?php namespace App\Http\Controllers\Landings\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;

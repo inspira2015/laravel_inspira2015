@@ -5,7 +5,7 @@ if(@$_SERVER['SERVER_ADDR'] == '127.0.0.1'){
 		'front' => 'dev.inspira', 
 		'uber' => 'uber.inspira',
 		'api' => 'api.inspira',
-		'promotions' => 'promotions.inspira'
+		'promotions' => 'promociones.inspira'
 	);
 }
 else{

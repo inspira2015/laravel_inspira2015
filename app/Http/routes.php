@@ -38,18 +38,18 @@ Route::group(array('domain' => Config::get('domain.uber')), function(){
 	Route::get('api/users/exists', 'Api\UsersController@exists');
 	Route::post('pagar-certificado', 'Uber\CertificatesController@postBuyCertificate');
 
-	Route::post('leisure-login', 'Uber\Auth\AuthController@postLeisureAutologin');
-	Route::post('restablecer-contrasena', 'Uber\Auth\PasswordController@postEmail');
+	Route::post('leisure-login', 'Landings\Auth\AuthController@postLeisureAutologin');
+	Route::post('restablecer-contrasena', 'Landings\Auth\PasswordController@postEmail');
 
-	Route::post('login', 'Uber\Auth\AuthController@postLogin');
-	Route::get('logout', 'Uber\Auth\AuthController@getLogout');
-	Route::post('olvido-contrasena', 'Uber\Auth\AuthController@postForgotPassword');
-// 	Route::post('restablecer-contrasena', 'Uber\Auth\AuthController@postResetPassword');
+	Route::post('login', 'Landings\Auth\AuthController@postLogin');
+	Route::get('logout', 'Landings\Auth\AuthController@getLogout');
+	Route::post('olvido-contrasena', 'Landings\Auth\AuthController@postForgotPassword');
+// 	Route::post('restablecer-contrasena', 'Landings\Auth\AuthController@postResetPassword');
 
 	Route::get('admin', 'Uber\Admin\PageController@index');
 	Route::post('nueva-tarjeta', 'Uber\CertificatesController@newCreditCard');
 	Route::post('tarjeta-registrada', 'Uber\CertificatesController@useCreditCard');
-	Route::post('password/reset', 'Uber\Auth\PasswordController@postReset');
+	Route::post('password/reset', 'Landings\Auth\PasswordController@postReset');
 	
 });
 
@@ -70,18 +70,18 @@ Route::group(array('domain' => Config::get('domain.promotions')), function(){
 	Route::get('api/users/exists', 'Api\UsersController@exists');
 	Route::post('pagar-certificado', 'Uber\CertificatesController@postBuyCertificate');
 
-	Route::post('leisure-login', 'Uber\Auth\AuthController@postLeisureAutologin');
-	Route::post('restablecer-contrasena', 'Uber\Auth\PasswordController@postEmail');
+	Route::post('leisure-login', 'Landings\Auth\AuthController@postLeisureAutologin');
+	Route::post('restablecer-contrasena', 'Landings\Auth\PasswordController@postEmail');
 
-	Route::post('login', 'Uber\Auth\AuthController@postLogin');
-	Route::get('logout', 'Uber\Auth\AuthController@getLogout');
-	Route::post('olvido-contrasena', 'Uber\Auth\AuthController@postForgotPassword');
-// 	Route::post('restablecer-contrasena', 'Uber\Auth\AuthController@postResetPassword');
+	Route::post('login', 'Landings\Auth\AuthController@postLogin');
+	Route::get('logout', 'Landings\Auth\AuthController@getLogout');
+	Route::post('olvido-contrasena', 'Landings\Auth\AuthController@postForgotPassword');
+// 	Route::post('restablecer-contrasena', 'Landings\Auth\AuthController@postResetPassword');
 
 	Route::get('admin', 'Uber\Admin\PageController@index');
 	Route::post('nueva-tarjeta', 'Uber\CertificatesController@newCreditCard');
 	Route::post('tarjeta-registrada', 'Uber\CertificatesController@useCreditCard');
-	Route::post('password/reset', 'Uber\Auth\PasswordController@postReset');
+	Route::post('password/reset', 'Landings\Auth\PasswordController@postReset');
 	
 });
 
