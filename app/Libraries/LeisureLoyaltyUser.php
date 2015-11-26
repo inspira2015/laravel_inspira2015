@@ -57,8 +57,17 @@ class LeisureLoyaltyUser
 			"remainResortWeeks" => 0
 		);
 		
-		$stdResponse = $this->sendData('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH', 'POST',$postData);
 		
+		$context = stream_context_create(array(
+		    'http' => array(
+		        'method' => 'POST',
+		        'header' => "Content-Type: application/json\r\n",
+		        'content' => json_encode($postData)
+		    )
+		));
+
+		$response = file_get_contents('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH', FALSE, $context);
+		$stdResponse = json_decode($response);		
 
 		if ($stdResponse->success == 'OK' )
 		{
