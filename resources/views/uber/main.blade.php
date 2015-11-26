@@ -20,7 +20,7 @@
     				</a>
 					</div>
 				</div>
-				<div class="swiper-slide" id="slide-2">
+				<div class="swiper-slide" id="slide-4">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
 					<h2>VIAJAR ES FÁCIL Y SEGURO CON UBER E INSPIRA</h2>
@@ -35,7 +35,7 @@
     				</a>
 					</div>
 				</div>
-				<div class="swiper-slide" id="slide-3">
+				<div class="swiper-slide" id="slide-5">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
 					<h2>VIAJA CON TODOS TUS AMIGOS CON UBER E INSPIRA</h2>
@@ -50,7 +50,7 @@
     				</a>
 					</div>
 				</div>
-				<div class="swiper-slide" id="slide-4">
+				<div class="swiper-slide" id="slide-2">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
 					<h2>VIAJA POR TODO EL MUNDO CON UBER E INSPIRA</h2>
@@ -65,11 +65,11 @@
     				</a>
 					</div>
 				</div>
-				<div class="swiper-slide" id="slide-5">
+				<div class="swiper-slide" id="slide-3">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
-
+					
 					<h2>UBER E INSPIRA; UNA EXPERIENCIA INOLVIDABLE</h2>
-					EXPERIMENTA UN NUEVO NIVEL COMFORT Y LUJO QU ENUNCA OLVIDAR&Aacute;S<br>
+					EXPERIMENTA UN NUEVO NIVEL COMFORT Y LUJO QUE ENUNCA OLVIDAR&Aacute;S<br>
 					<br>
 					<div class="row text-center">
 						<a href="{{ url('comprar-certificado') }}" class="btn-clear-white">COMPRAR CERTIFICADO</a>
