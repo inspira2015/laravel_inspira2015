@@ -1207,17 +1207,13 @@ span.small-super:before{
 	}
 	
 	.input-group.extra-width {
-	 width: calc(70% - 10px)!important;
+	 width: calc(70% - 30px)!important;
+	 margin-left:30px;
+	 display:inline-block;
 	}
 	
 	div.bg-light-gray > div{
 		padding: 0px!important;
-	}
-	
-	
-	#register-form div.bg-gray label {
-	 color: #465664;
-	 margin-right: 10px;
 	}
 	
 	#register-form .col-xs-12:not(div#register-box) {
