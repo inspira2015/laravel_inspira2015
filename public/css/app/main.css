@@ -27,7 +27,6 @@ div[data-role="submit"] {
 	padding-bottom: 0px;
 }
 
-
 /*Check if these apply on different templates*/
 
 div.informacion h2{
@@ -972,27 +971,9 @@ div.modal.fade.in{
 	text-align: left;
 }
 
-div#product-offers .table-row > div.table-cell:not(:last-child){
+.table-row > div.table-cell:not(:last-child){
 padding: 7px 40px 7px 40px;	
 }
-
-div#price-offer {
-	 font-size: 18px; 
-	 font-weight: 400;
-}
-@media(max-width: 768px) {
-	div#product-offers .table-row > div.table-cell:not(:last-child){
-	padding: 7px 10px!important;	
-	}
-	div#price-offer {
-	 font-size: 15px; 
-	}
-	
-	form input[type="radio"]{
-		margin-bottom:5px;
-	}
-}
-
 
 .table-row > div.table-cell:last-child {
 	padding: 7px 20px;	
@@ -1034,7 +1015,7 @@ div#price-offer {
 }
 
 .input-group.extra-width{
-	width: 70%;
+	width: 70%!important;
 }
 
 div.flat-windows button.close {
@@ -1135,9 +1116,6 @@ span.small-super:before{
 	content: ' ';
 }
 
-#register-form label:before {
-content: "* ";
-}
 
 
 /*MODALS*/
@@ -1179,6 +1157,7 @@ content: "* ";
 	div.flat-windows .modal-dialog{
 		max-width:100%!important;
 	}
+	
 }
 
 @media(max-width: 390px){
@@ -1198,8 +1177,18 @@ content: "* ";
 	
 }
 
-
 @media(max-width: 768px) {
+	div#product-offers .table-row > div.table-cell:not(:last-child){
+	padding: 7px 10px!important;	
+	}
+	div#price-offer {
+	 font-size: 15px; 
+	}
+	
+	form input[type="radio"]{
+		margin-bottom:5px;
+	}
+	
 	#register-form label:before {
 	content: "*" !important;
 	}
