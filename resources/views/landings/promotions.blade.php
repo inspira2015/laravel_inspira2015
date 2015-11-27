@@ -8,7 +8,7 @@
 				<div class="swiper-slide" id="promotions-slide-1">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
-					<h2>Viaja a los mejores lugares con uber e inspira</h2>
+					<h2>Viaja a los mejores lugares con inspira</h2>
 					Los resorts m&aacute;s lujosos alrededor del mundo, al precio m&aacute;s bajo<br>
 					<br>
 					<div class="row text-center">
@@ -23,7 +23,7 @@
 				<div class="swiper-slide" id="promotions-slide-2">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
-					<h2>VIAJAR ES FÁCIL Y SEGURO CON UBER E INSPIRA</h2>
+					<h2>VIAJAR ES FÁCIL Y SEGURO CON INSPIRA</h2>
 					RESERVA F&Aacute;CILMENTE TODO LO NECESARIO PARA TU VIAJE DESDE NUESTRO SITIO<br>
 					<br>
 					<div class="row text-center">
@@ -38,7 +38,7 @@
 				<div class="swiper-slide" id="promotions-slide-3">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
-					<h2>VIAJA CON TODOS TUS AMIGOS CON UBER E INSPIRA</h2>
+					<h2>VIAJA CON TODOS TUS AMIGOS CON INSPIRA</h2>
 					HOSPEDAJE DE HASTA 8 PERSONAS CON UN SOLO CERTIFICADO<br>
 					<br>
 					<div class="row text-center">
@@ -53,7 +53,7 @@
 				<div class="swiper-slide" id="promotions-slide-4">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
-					<h2>VIAJA POR TODO EL MUNDO CON UBER E INSPIRA</h2>
+					<h2>VIAJA POR TODO EL MUNDO CON INSPIRA</h2>
 					LOS RESORTS M&Aacute;S LUJOSOS DE 86 PA&Iacute;SES ALREDEDOR DEL MUNDO<br>
 					<br>
 					<div class="row text-center">
@@ -68,7 +68,7 @@
 				<div class="swiper-slide" id="promotions-slide-5">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 					
-					<h2>UBER E INSPIRA; UNA EXPERIENCIA INOLVIDABLE</h2>
+					<h2>INSPIRA; UNA EXPERIENCIA INOLVIDABLE</h2>
 					EXPERIMENTA UN NUEVO NIVEL COMFORT Y LUJO QUE ENUNCA OLVIDAR&Aacute;S<br>
 					<br>
 					<div class="row text-center">
