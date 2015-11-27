@@ -139,7 +139,7 @@ class CertificatesController extends Controller {
 							//mostrar venana con el error.
 							return Response::json(array(
 								'error' => false,
-								'message' => $cardPayment->getTransactionResponse()->responseMessage,
+								'message' => @$cardPayment->getTransactionResponse()->responseCode,
 								'redirect' => url('/comprar-certificado')
 							), 200);
 						}else{

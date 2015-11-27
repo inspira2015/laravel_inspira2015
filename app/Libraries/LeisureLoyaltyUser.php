@@ -100,8 +100,11 @@ class LeisureLoyaltyUser
 	}
 	
 	public function resortWeek( $week = 0 ){
-		 $url_send = "https://api.leisureloyalty.com/v3/member/addResortWeeks/{$this->objUser['leisure_id']}?resortWeeks={$week}&apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH";
-		return $this->sendData($url_send, 'PUT');
+		if($week != 0){
+			 $url_send = "https://api.leisureloyalty.com/v3/member/addResortWeeks/{$this->objUser['leisure_id']}?resortWeeks={$week}&apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH";
+			return $this->sendData($url_send, 'PUT', 0);
+		}
+		return false;
 	}
 	
 	
