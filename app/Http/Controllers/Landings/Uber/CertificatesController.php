@@ -52,7 +52,7 @@ class CertificatesController extends Controller {
 
 		return view('landings.__common.certificates.buy_certificate')->with('cc', $payInfo)
 											->with( $this->getCCData() )
-											->with('title', 'Comprar certificado' )
+											->with('title', 'Inspira M&eacute;xico | Comprar certificado' )
 											->with('background','beach-girl.jpg');
 	}
 	
@@ -242,7 +242,7 @@ class CertificatesController extends Controller {
 
 				return view('landings.__common.certificates.buy_certificate_form')->withErrors([$cardPayment->getErrors()[0]])
 										->with( $this->getCCData() )
-										->with('title', 'Comprar certificado' )
+										->with('title', 'Inspira M&eacute;xico | Comprar certificado' )
 										->with('background','beach-girl.jpg');
 				
 				
@@ -252,7 +252,7 @@ class CertificatesController extends Controller {
 
 		return view('landings.__common.certificates.buy_certificate_form')->withErrors($validator)
 											->with( $this->getCCData() )
-											->with('title', 'Comprar certificado' )
+											->with('title', 'Inspira M&eacute;xico | Comprar certificado' )
 											->with('background','beach-girl.jpg');
 	}
 	
@@ -276,7 +276,7 @@ class CertificatesController extends Controller {
 		);
 		return view('landings.__common.certificates.buy_certificate_form')->with($data)
 											->with( $this->getCCData() )
-											->with('title', 'Comprar certificado' )
+											->with('title', 'Inspira M&eacute;xico | Comprar certificado' )
 											->with('background','beach-girl.jpg');
 	}
 	

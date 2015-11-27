@@ -37,7 +37,7 @@ class PageController extends Controller {
 	 */
 	public function index()
 	{
-		return view('landings.uber')->with('title', 'Uber' )->with('background','3.jpg');
+		return view('landings.uber')->with('title', 'Inspira M&eacute;xico | Uber' )->with('background','3.jpg');
 	}
 		
 	public function goMazatlan(){
