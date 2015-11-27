@@ -88,6 +88,7 @@ class CertificatesController extends Controller {
 	public function postBuyCertificate(){
 		$payment = new PaymentValidator();
 		$postData = Request::except('_token');
+		$postData['phone'] = $this->sanitizePhone($postData['phone']);
 		$validator = $payment->validator( $postData, Lang::locale() );
 		$payment = array('amount' => $this->price, 'currency' => 'MXN');
 		$userAuth = Auth::user();
@@ -319,4 +320,12 @@ class CertificatesController extends Controller {
 		}
 		return $states->forSelect('name', 'code', array('country' => $country ));
 	}
+	
+	private function sanitizePhone($phone)
+    {  
+        $phone = trim($phone);      
+        $result = str_replace(array( '(', ')','-',' ' ), '', $phone);
+        return $result;
+    }
+
 }

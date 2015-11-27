@@ -70,6 +70,6 @@
 		@include('layouts.__common.tawk')
 	@endif
 	@include('layouts.__common.facebook')
-	@include('layouts.landings.uber.analytics')
+	@include('layouts.landings.promotions.analytics')
 </body>
 </html>

@@ -33,7 +33,8 @@ class PaymentMethodCC
 			'city.required' => 'La ciudad es requerida.',
 			'zip_code.required' => 'El código postal es requerido.',
 			'terms.required' => 'Debes aceptar los términos para continuar.',
-			'privacy.required' => 'Debes aceptar las políticas de privacidad para continuar.'
+			'privacy.required' => 'Debes aceptar las políticas de privacidad para continuar.',
+			'phone.required' => 'El número de teléfono es requerido.'
 		]
 	];
 
@@ -43,6 +44,7 @@ class PaymentMethodCC
 			'ccv' => 'required|numeric',
 			'expiration_date' => array('required', 'regex:/([0-9]{4})\/(0[1-9]|1[0-2])/'),
 			'birthdate' => array('required', 'regex:/([0-9]{4})\/(0[1-9]|1[0-2])\/(0[1-9]|1[0-9]|2[0-9]|3[0-1])/'),
+			'phone' => 'required',
 			'name_on_card' => 'required|min:4',
 			'address' => 'required',
 			'city' => 'required',
