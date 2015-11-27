@@ -19,6 +19,7 @@ class PageController extends Controller {
 	public function index()
 	{
 		$ref_code = Input::get('ref') ? Input::get('ref') : Session::get('ref');
+		$ref_code = strtolower($ref_code);
 		if(in_array($ref_code,Config::get('extra.promotional')) && !empty( $this->codeDao->getByCode( $ref_code ) ) ){
 			$ref = $ref_code;
 		}else{
