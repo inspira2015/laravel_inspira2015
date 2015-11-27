@@ -50,7 +50,7 @@ class PageController extends Controller {
 		exit;
 	}
 	
-	public function goLasOrlando(){
+	public function goOrlando(){
 		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=Y0mTkfbSEAIzqJj');
 		exit;
 	}

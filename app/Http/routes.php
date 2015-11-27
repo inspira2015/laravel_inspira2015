@@ -26,7 +26,7 @@ Route::group(array('domain' => Config::get('domain.promotions')), function(){
 	Route::get('/', 'Landings\Promotions\PageController@index');
 	Route::get('useraccount', 'Landings\Promotions\PageController@index');
 	Route::get('destino/mazatlan', 'Landings\Promotions\PageController@goMazatlan');
-	Route::get('destino/orlando', 'Landings\Promotions\PageController@orlando');
+	Route::get('destino/orlando', 'Landings\Promotions\PageController@goOrlando');
 	Route::get('destino/malaga', 'Landings\Promotions\PageController@goMalaga');
 	Route::get('destino/puerto-vallarta', 'Landings\Promotions\PageController@goPuertoVallarta');
 	Route::get('destino', 'Landings\Promotions\PageController@goDestination');
