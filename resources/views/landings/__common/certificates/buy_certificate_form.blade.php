@@ -47,7 +47,7 @@
 	</div>
 	
 	<div class="col-xs-12 bg-blue text-right" id="price-offer">
-		COSTO TOTAL: $ 5,950 MX
+		COSTO TOTAL: $ {{ $price }} MX
 	</div>
 	<div class="col-xs-12 text-right nopadding" style="margin-top:10px;margin-right: 10px;">
 		<span class="small-super">1</span> Debido a disponibilidad o demanda, algunos cuartos pueden tener un costo adicional

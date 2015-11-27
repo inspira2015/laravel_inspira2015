@@ -53,6 +53,7 @@ class CertificatesController extends Controller {
 		return view('landings.__common.certificates.buy_certificate')->with('cc', $payInfo)
 											->with( $this->getCCData() )
 											->with('title', 'Inspira M&eacute;xico | Comprar certificado' )
+											->with('price', '5,950')
 											->with('background','beach-girl.jpg');
 	}
 	
