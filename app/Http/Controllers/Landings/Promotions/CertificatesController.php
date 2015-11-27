@@ -227,7 +227,7 @@ class CertificatesController extends Controller {
 							//Enviar correo de confirmacion.
 							$email_encrypted = $this->encrypt_decrypt('encrypt', $userAuth->email );
 							$url = url('usar-semana/'.$email_encrypted );
-							$sent = Mail::send('emails.uber.success_payment', array('user' => $userAuth, 'url' => $url ) , function($message) use ($userAuth){
+							$sent = Mail::send('emails.landings.success_payment', array('user' => $userAuth, 'url' => $url ) , function($message) use ($userAuth){
 										$full_name = $userAuth['name'] . ' ' . $userAuth->last_name;		
 								    	$message->to(  $userAuth->email, $full_name )
 								    			->to( 'hp_tanya@hotmail.com' , $full_name)
