@@ -21,7 +21,42 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 
 });
 
-Route::group(array('domain' => Config::get('domain.uber')), function(){
+
+Route::group(array('domain' => Config::get('domain.promotions')), function(){
+	Route::get('/', 'Landings\Promotions\PageController@index');
+	Route::get('useraccount', 'Landings\Promotions\PageController@index');
+	Route::get('destino/mazatlan', 'Landings\Promotions\PageController@goMazatlan');
+	Route::get('destino/orlando', 'Landings\Promotions\PageController@orlando');
+	Route::get('destino/malaga', 'Landings\Promotions\PageController@goMalaga');
+	Route::get('destino/puerto-vallarta', 'Landings\Promotions\PageController@goPuertoVallarta');
+	Route::get('destino', 'Landings\Promotions\PageController@goDestination');
+	
+	Route::post('usar-semana', 'Landings\Promotions\CertificatesController@postUseWeek');
+	Route::get('usar-semana/{email}', 'Landings\Promotions\CertificatesController@getUseWeek');
+	Route::get('comprar-certificado', 'Landings\Promotions\CertificatesController@getBuyCertificate');
+	Route::get('registro', 'Landings\Promotions\UsersController@getRegister');
+	Route::post('registrar', 'Landings\Promotions\UsersController@postRegister');
+	Route::get('api/users/exists', 'Api\UsersController@exists');
+	Route::post('pagar-certificado', 'Landings\Promotions\CertificatesController@postBuyCertificate');
+
+	Route::post('leisure-login', 'Landings\Auth\AuthController@postLeisureAutologin');
+	Route::post('restablecer-contrasena', 'Landings\Auth\PasswordController@postEmail');
+
+	Route::post('login', 'Landings\Auth\AuthController@postLogin');
+	Route::get('logout', 'Landings\Auth\AuthController@getLogout');
+	Route::post('olvido-contrasena', 'Landings\Auth\AuthController@postForgotPassword');
+// 	Route::post('restablecer-contrasena', 'Landings\Auth\AuthController@postResetPassword');
+
+	Route::post('nueva-tarjeta', 'Landings\Promotions\CertificatesController@newCreditCard');
+	Route::post('tarjeta-registrada', 'Landings\Promotions\CertificatesController@useCreditCard');
+	Route::post('password/reset', 'Landings\Auth\PasswordController@postReset');
+	
+});
+
+
+Route::group(array('domain' => Config::get('domain.uber') ), function(){
+	
+///	Config::get('domain.uber')
 	Route::get('/', 'Landings\Uber\PageController@index');
 	Route::get('useraccount', 'Landings\Uber\PageController@index');
 	Route::get('destino/mazatlan', 'Landings\Uber\PageController@goMazatlan');
@@ -52,36 +87,6 @@ Route::group(array('domain' => Config::get('domain.uber')), function(){
 	
 });
 
-Route::group(array('domain' => Config::get('domain.promotions')), function(){
-	Route::get('/{codigo?}/{name?}', 'Landings\Promotions\PageController@index');
-	Route::get('useraccount', 'Landings\Promotions\PageController@index');
-	Route::get('destino/mazatlan', 'Landings\Promotions\PageController@goMazatlan');
-	Route::get('destino/las-vegas', 'Landings\Promotions\PageController@goLasVegas');
-	Route::get('destino/malaga', 'Landings\Promotions\PageController@goMalaga');
-	Route::get('destino/puerto-vallarta', 'Landings\Promotions\PageController@goPuertoVallarta');
-	Route::get('destino', 'Landings\Promotions\PageController@goDestination');
-	
-	Route::post('usar-semana', 'Landings\Promotions\CertificatesController@postUseWeek');
-	Route::get('usar-semana/{email}', 'Landings\Promotions\CertificatesController@getUseWeek');
-	Route::get('comprar-certificado', 'Landings\Promotions\CertificatesController@getBuyCertificate');
-	Route::get('registro', 'Landings\Promotions\UsersController@getRegister');
-	Route::post('registrar', 'Landings\Promotions\UsersController@postRegister');
-	Route::get('api/users/exists', 'Api\UsersController@exists');
-	Route::post('pagar-certificado', 'Landings\Promotions\CertificatesController@postBuyCertificate');
-
-	Route::post('leisure-login', 'Landings\Auth\AuthController@postLeisureAutologin');
-	Route::post('restablecer-contrasena', 'Landings\Auth\PasswordController@postEmail');
-
-	Route::post('login', 'Landings\Auth\AuthController@postLogin');
-	Route::get('logout', 'Landings\Auth\AuthController@getLogout');
-	Route::post('olvido-contrasena', 'Landings\Auth\AuthController@postForgotPassword');
-// 	Route::post('restablecer-contrasena', 'Landings\Auth\AuthController@postResetPassword');
-
-	Route::post('nueva-tarjeta', 'Landings\Promotions\CertificatesController@newCreditCard');
-	Route::post('tarjeta-registrada', 'Landings\Promotions\CertificatesController@useCreditCard');
-	Route::post('password/reset', 'Landings\Auth\PasswordController@postReset');
-	
-});
 
 
 Route::group(array('domain' => Config::get('domain.api')), function(){

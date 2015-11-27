@@ -122,9 +122,9 @@
 					</a>
 				</li>
 				<li>
-					<a href="{{ url('destino/las-vegas') }}" target="_blank">
+					<a href="{{ url('destino/orlando') }}" target="_blank">
 						{!! HTML::image('images/destinations/orlando.jpg', 'Orlando') !!}
-						<span>Las Vegas, E.U.</span>
+						<span>Orlando, E.U.</span>
 					</a>
 				</li>
 				<li>

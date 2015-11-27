@@ -50,8 +50,8 @@ class PageController extends Controller {
 		exit;
 	}
 	
-	public function goLasVegas(){
-		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=sfquSB7ODZVEQqs');
+	public function goLasOrlando(){
+		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=Y0mTkfbSEAIzqJj');
 		exit;
 	}
 	
