@@ -1,5 +1,5 @@
 <?php 
-namespace App\Http\Controllers\Uber;
+namespace App\Http\Controllers\Landings\Uber;
 use App\Http\Controllers\Controller;
 use App\Services\PaymentMethodCC as PaymentValidator;
 use App\Libraries\CardPayment;
@@ -50,7 +50,7 @@ class CertificatesController extends Controller {
 			$payInfo = $usersPayDao->getByUsersId( Auth::user()->id );
 		}
 
-		return view('uber.certificates.buy_certificate')->with('cc', $payInfo)
+		return view('landings.__common.certificates.buy_certificate')->with('cc', $payInfo)
 											->with( $this->getCCData() )
 											->with('title', 'Comprar certificado' )
 											->with('background','beach-girl.jpg');
@@ -109,8 +109,8 @@ class CertificatesController extends Controller {
 								'ccv' => $postData['ccv']
 							]);
 			$cardPayment->setItem([
-					'reference' => 'Item-test-'.time(),
-					'description' => 'Uber Payment TEST'
+					'reference' => 'UBER-'.time(),
+					'description' => 'Uber Certificate Payment'
 			]);
 		
 			if( $cardPayment->checkPaymentData() )
@@ -226,7 +226,7 @@ class CertificatesController extends Controller {
 								    	});
 							return Response::json(array(
 								'error' => false,
-								'html' => htmlspecialchars(view('uber.certificates.success_payment')),
+								'html' => htmlspecialchars(view('landings.__common.certificates.success_payment')),
 								'redirect' => url('http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid='.$userAuth->leisure_id)
 							), 200);
 						}
@@ -240,7 +240,7 @@ class CertificatesController extends Controller {
 				//guardar el mensaje de error. //transaccion.
 				$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'ERROR on Transaction: '.json_encode($cardPayment->getErrors()), 'method' => 'POST', 'module' => 'Certificate' ) );
 
-				return view('uber.certificates.buy_certificate_form')->withErrors([$cardPayment->getErrors()[0]])
+				return view('landings.__common.certificates.buy_certificate_form')->withErrors([$cardPayment->getErrors()[0]])
 										->with( $this->getCCData() )
 										->with('title', 'Comprar certificado' )
 										->with('background','beach-girl.jpg');
@@ -250,7 +250,7 @@ class CertificatesController extends Controller {
 		}
 		$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'ERROR on Transaction: '.json_encode($validator), 'method' => 'POST', 'module' => 'Certificate' ) );
 
-		return view('uber.certificates.buy_certificate_form')->withErrors($validator)
+		return view('landings.__common.certificates.buy_certificate_form')->withErrors($validator)
 											->with( $this->getCCData() )
 											->with('title', 'Comprar certificado' )
 											->with('background','beach-girl.jpg');
@@ -274,7 +274,7 @@ class CertificatesController extends Controller {
 			'address' => $payInfo->address,
 			'birthdate' => date("Y/m/d", strtotime($payInfo->birthdate))
 		);
-		return view('uber.certificates.buy_certificate_form')->with($data)
+		return view('landings.__common.certificates.buy_certificate_form')->with($data)
 											->with( $this->getCCData() )
 											->with('title', 'Comprar certificado' )
 											->with('background','beach-girl.jpg');

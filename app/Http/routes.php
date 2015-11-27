@@ -22,21 +22,21 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 });
 
 Route::group(array('domain' => Config::get('domain.uber')), function(){
-	Route::get('/', 'Uber\PageController@index');
-	Route::get('useraccount', 'Uber\PageController@index');
-	Route::get('destino/mazatlan', 'Uber\PageController@goMazatlan');
-	Route::get('destino/las-vegas', 'Uber\PageController@goLasVegas');
-	Route::get('destino/malaga', 'Uber\PageController@goMalaga');
-	Route::get('destino/puerto-vallarta', 'Uber\PageController@goPuertoVallarta');
-	Route::get('destino', 'Uber\PageController@goDestination');
+	Route::get('/', 'Landings\Uber\PageController@index');
+	Route::get('useraccount', 'Landings\Uber\PageController@index');
+	Route::get('destino/mazatlan', 'Landings\Uber\PageController@goMazatlan');
+	Route::get('destino/las-vegas', 'Landings\Uber\PageController@goLasVegas');
+	Route::get('destino/malaga', 'Landings\Uber\PageController@goMalaga');
+	Route::get('destino/puerto-vallarta', 'Landings\Uber\PageController@goPuertoVallarta');
+	Route::get('destino', 'Landings\Uber\PageController@goDestination');
 	
-	Route::post('usar-semana', 'Uber\CertificatesController@postUseWeek');
-	Route::get('usar-semana/{email}', 'Uber\CertificatesController@getUseWeek');
-	Route::get('comprar-certificado', 'Uber\CertificatesController@getBuyCertificate');
-	Route::get('registro', 'Uber\UsersController@getRegister');
-	Route::post('registrar', 'Uber\UsersController@postRegister');
+	Route::post('usar-semana', 'Landings\Uber\CertificatesController@postUseWeek');
+	Route::get('usar-semana/{email}', 'Landings\Uber\CertificatesController@getUseWeek');
+	Route::get('comprar-certificado', 'Landings\Uber\CertificatesController@getBuyCertificate');
+	Route::get('registro', 'Landings\Uber\UsersController@getRegister');
+	Route::post('registrar', 'Landings\Uber\UsersController@postRegister');
 	Route::get('api/users/exists', 'Api\UsersController@exists');
-	Route::post('pagar-certificado', 'Uber\CertificatesController@postBuyCertificate');
+	Route::post('pagar-certificado', 'Landings\Uber\CertificatesController@postBuyCertificate');
 
 	Route::post('leisure-login', 'Landings\Auth\AuthController@postLeisureAutologin');
 	Route::post('restablecer-contrasena', 'Landings\Auth\PasswordController@postEmail');
@@ -46,29 +46,28 @@ Route::group(array('domain' => Config::get('domain.uber')), function(){
 	Route::post('olvido-contrasena', 'Landings\Auth\AuthController@postForgotPassword');
 // 	Route::post('restablecer-contrasena', 'Landings\Auth\AuthController@postResetPassword');
 
-	Route::get('admin', 'Uber\Admin\PageController@index');
-	Route::post('nueva-tarjeta', 'Uber\CertificatesController@newCreditCard');
-	Route::post('tarjeta-registrada', 'Uber\CertificatesController@useCreditCard');
+	Route::post('nueva-tarjeta', 'Landings\Uber\CertificatesController@newCreditCard');
+	Route::post('tarjeta-registrada', 'Landings\Uber\CertificatesController@useCreditCard');
 	Route::post('password/reset', 'Landings\Auth\PasswordController@postReset');
 	
 });
 
 Route::group(array('domain' => Config::get('domain.promotions')), function(){
-	Route::get('/{codigo?}/{name?}', 'Uber\PageController@index');
-	Route::get('useraccount', 'Uber\PageController@index');
-	Route::get('destino/mazatlan', 'Uber\PageController@goMazatlan');
-	Route::get('destino/las-vegas', 'Uber\PageController@goLasVegas');
-	Route::get('destino/malaga', 'Uber\PageController@goMalaga');
-	Route::get('destino/puerto-vallarta', 'Uber\PageController@goPuertoVallarta');
-	Route::get('destino', 'Uber\PageController@goDestination');
+	Route::get('/{codigo?}/{name?}', 'Landings\Promotions\PageController@index');
+	Route::get('useraccount', 'Landings\Promotions\PageController@index');
+	Route::get('destino/mazatlan', 'Landings\Promotions\PageController@goMazatlan');
+	Route::get('destino/las-vegas', 'Landings\Promotions\PageController@goLasVegas');
+	Route::get('destino/malaga', 'Landings\Promotions\PageController@goMalaga');
+	Route::get('destino/puerto-vallarta', 'Landings\Promotions\PageController@goPuertoVallarta');
+	Route::get('destino', 'Landings\Promotions\PageController@goDestination');
 	
-	Route::post('usar-semana', 'Uber\CertificatesController@postUseWeek');
-	Route::get('usar-semana/{email}', 'Uber\CertificatesController@getUseWeek');
-	Route::get('comprar-certificado', 'Uber\CertificatesController@getBuyCertificate');
-	Route::get('registro', 'Uber\UsersController@getRegister');
-	Route::post('registrar', 'Uber\UsersController@postRegister');
+	Route::post('usar-semana', 'Landings\Promotions\CertificatesController@postUseWeek');
+	Route::get('usar-semana/{email}', 'Landings\Promotions\CertificatesController@getUseWeek');
+	Route::get('comprar-certificado', 'Landings\Promotions\CertificatesController@getBuyCertificate');
+	Route::get('registro', 'Landings\Promotions\UsersController@getRegister');
+	Route::post('registrar', 'Landings\Promotions\UsersController@postRegister');
 	Route::get('api/users/exists', 'Api\UsersController@exists');
-	Route::post('pagar-certificado', 'Uber\CertificatesController@postBuyCertificate');
+	Route::post('pagar-certificado', 'Landings\Promotions\CertificatesController@postBuyCertificate');
 
 	Route::post('leisure-login', 'Landings\Auth\AuthController@postLeisureAutologin');
 	Route::post('restablecer-contrasena', 'Landings\Auth\PasswordController@postEmail');
@@ -78,9 +77,8 @@ Route::group(array('domain' => Config::get('domain.promotions')), function(){
 	Route::post('olvido-contrasena', 'Landings\Auth\AuthController@postForgotPassword');
 // 	Route::post('restablecer-contrasena', 'Landings\Auth\AuthController@postResetPassword');
 
-	Route::get('admin', 'Uber\Admin\PageController@index');
-	Route::post('nueva-tarjeta', 'Uber\CertificatesController@newCreditCard');
-	Route::post('tarjeta-registrada', 'Uber\CertificatesController@useCreditCard');
+	Route::post('nueva-tarjeta', 'Landings\Promotions\CertificatesController@newCreditCard');
+	Route::post('tarjeta-registrada', 'Landings\Promotions\CertificatesController@useCreditCard');
 	Route::post('password/reset', 'Landings\Auth\PasswordController@postReset');
 	
 });

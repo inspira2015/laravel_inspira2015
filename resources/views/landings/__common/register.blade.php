@@ -1,7 +1,7 @@
-@extends('layouts.uber.master')
+@extends('layouts.landings.uber.master')
 
 @section('content')
 <div class="row bg-gray" data-role="response">
-	@include('uber.register_form')
+	@include('landings.__common.register_form')
 </div>
 @endsection

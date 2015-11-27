@@ -18,31 +18,31 @@
 	<div id="product-offers">
 		<div class="table-row">
 			<div class="table-cell">Hospedaje de 7 noches en resort de lujo</div>
-			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Inspira Benefits - Uber') !!}</span></div>
+			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Beneficios Inspira') !!}</span></div>
 		</div>
 		<div class="table-row">
 			<div class="table-cell">Hospedaje de 2 hasta 8 adultos</div>
-			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Inspira Benefits - Uber') !!}</span></div>
+			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Beneficios Inspira') !!}</span></div>
 		</div>
 		<div class="table-row">
 			<div class="table-cell">Opciones de alojamiento en resorts de lujo alrededor del mundo<span class="small-super">1</span></div>
-			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Inspira Benefits - Uber') !!}</span></div>
+			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Beneficios Inspira') !!}</span></div>
 		</div>
 		<div class="table-row">
 			<div class="table-cell">Descuentos en renta de autom&oacute;vil</div>
-			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Inspira Benefits - Uber') !!}</span></span></div>
+			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Beneficios Inspira') !!}</span></span></div>
 		</div>
 		<div class="table-row">
 			<div class="table-cell">Compra de boletos de avi&oacute;n</div>
-			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Inspira Benefits - Uber') !!}</span></div>
+			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Beneficios Inspira') !!}</span></div>
 		</div>
 		<div class="table-row">
 			<div class="table-cell">Descuentos en actividades como tours y excursiones</div>
-			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Inspira Benefits - Uber') !!}</span></div>
+			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Beneficios Inspira') !!}</span></div>
 		</div>
 		<div class="table-row">
 			<div class="table-cell">Precio m&aacute;s bajo en el mercado, GARANTIZADO</div>
-			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Inspira Benefits - Uber') !!}</span></div>
+			<div class="table-cell"><span>{!! HTML::image('images/Paloma.png', 'Beneficios Inspira') !!}</span></div>
 		</div>
 	</div>
 	

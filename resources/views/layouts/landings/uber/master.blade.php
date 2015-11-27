@@ -55,7 +55,7 @@
 
 	@include('layouts.__common.privacy')
 	@include('layouts.__common.terms')
-	@include('layouts.uber.message_modal')
+	@include('layouts.landings.__common.message_modal')
 	
 	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
 	{!! HTML::script('js/minify/jquery.creditCardValidator.min.js') !!}
@@ -70,6 +70,6 @@
 		@include('layouts.__common.tawk')
 	@endif
 	@include('layouts.__common.facebook')
-	@include('layouts.uber.analytics')
+	@include('layouts.landings.uber.analytics')
 </body>
 </html>

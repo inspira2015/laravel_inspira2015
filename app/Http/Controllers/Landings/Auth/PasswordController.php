@@ -50,9 +50,9 @@ class PasswordController extends Controller {
 
         switch ($response) {
             case Password::RESET_LINK_SENT:
-             return view('uber.auth.forgot_password')->withErrors(["Se ha enviado exitosamente el correo. Por favor revise su bandeja."]);
+             return view('landings.__common.auth.forgot_password')->withErrors(["Se ha enviado exitosamente el correo. Por favor revise su bandeja."]);
             case Password::INVALID_USER:
-               return view('uber.auth.forgot_password')->withErrors(['message' => 'El correo es incorrecto. Favor de intentar de nuevo o contacte al administrador en customerservice@inspiramexico.mx']);
+               return view('landings.__common.auth.forgot_password')->withErrors(['message' => 'El correo es incorrecto. Favor de intentar de nuevo o contacte al administrador en customerservice@inspiramexico.mx']);
         }
     }
 }

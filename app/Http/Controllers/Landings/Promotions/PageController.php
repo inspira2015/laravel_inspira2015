@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Uber;
+namespace App\Http\Controllers\Landings\Promotions;
 use App\Model\User;
 use App\Model\Affiliations;
 use App\Model\UserAffiliations;
@@ -37,17 +37,7 @@ class PageController extends Controller {
 	 */
 	public function index()
 	{
-		//if guest.
-		//Session::put('LAST_ACTIVITY', time());
-/*
-		if( Session::get('LAST_ACTIVITY') ){
-			echo "Si existe cookie";
-		}else{
-			Session::put('LAST_ACTIVITY', time());
-			echo "no existe cookie";
-		}
-*/
-		return view('uber.main')->with('title', 'Uber' )->with('background','3.jpg');
+		return view('landings.promotions')->with('title', 'Uber' )->with('background','3.jpg');
 	}
 		
 	public function goMazatlan(){

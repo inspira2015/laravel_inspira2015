@@ -80,7 +80,7 @@ class AuthController extends Controller {
 			}
 			return Response::json(array(
 				'error' => false,
-				'html' => htmlspecialchars(view('uber.auth.options')),
+				'html' => htmlspecialchars(view('landings.__common.auth.options')),
 				'redirect' => url('/')
 			), 200);		
 		}
@@ -88,7 +88,7 @@ class AuthController extends Controller {
 	    if($user){
 		    return Response::json(array(
 				'error' => false,
-				'html' => htmlspecialchars(view('uber.auth.login')->withErrors([ 'message' => 'Contrase&ntilde;a Incorrecta'])),
+				'html' => htmlspecialchars(view('landings.__common.auth.login')->withErrors([ 'message' => 'Contrase&ntilde;a Incorrecta'])),
 				'redirect' => '/'
 			), 200);
 		}else{
@@ -109,7 +109,7 @@ class AuthController extends Controller {
     public function postForgotPassword(){
 		return Response::json(array(
 			'error' => false,
-			'html' => htmlspecialchars(view('uber.auth.forgot_password')),
+			'html' => htmlspecialchars(view('landings.__common.auth.forgot_password')),
 			'redirect' => '/'
 		), 200);
     }
@@ -119,9 +119,9 @@ class AuthController extends Controller {
         
 	    $user = $this->userDao->getUserByEmail( $email );
 	    if($user){
-		    return view('uber.auth.forgot_password')->withErrors(['message' => 'Se ha enviado exitosamente el correo. Por favor revise su bandeja.']);
+		    return view('landings.__common.auth.forgot_password')->withErrors(['message' => 'Se ha enviado exitosamente el correo. Por favor revise su bandeja.']);
 	    }
-	    return view('uber.auth.forgot_password')->withErrors(['message' => 'El correo es incorrecto. Favor de intentar de nuevo o contacte al administrador en customerservice@inspiramexico.mx']);
+	    return view('landings.__common.auth.forgot_password')->withErrors(['message' => 'El correo es incorrecto. Favor de intentar de nuevo o contacte al administrador en customerservice@inspiramexico.mx']);
     }
   
 }

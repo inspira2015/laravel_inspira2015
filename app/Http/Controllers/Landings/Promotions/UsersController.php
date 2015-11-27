@@ -1,5 +1,5 @@
 <?php 
-namespace App\Http\Controllers\Uber;
+namespace App\Http\Controllers\Landings\Promotions;
 use App\Http\Controllers\Controller;
 use App\Libraries\CreateUser\CheckAndSaveUserInfo;
 use App\Services\Uber\Register as RegisterValidator;
@@ -42,7 +42,7 @@ class UsersController extends Controller {
 		if(Auth::check()){
 			return redirect('/');
 		}
-		return view('uber.register')->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
+		return view('landings.__common.register')->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
 	}
 	
 	public function postRegister(){
@@ -96,12 +96,12 @@ class UsersController extends Controller {
 					}else{
 						//Find another way to Change this.
 						$this->guard->logout();
-						return view('uber.register_form')->withErrors('Por favor de elegir otra direcci&oacute;n de correo electr&oacute;nico')->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
+						return view('landings.__common.register_form')->withErrors('Por favor de elegir otra direcci&oacute;n de correo electr&oacute;nico')->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
 					}
 				}				
 			}
-			return view('uber.register_form')->withErrors($this->createUser->getErrors())->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
+			return view('landings.__common.register_form')->withErrors($this->createUser->getErrors())->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
 		}
-		return view('uber.register_form')->withErrors($validator)->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
+		return view('landings.__common.register_form')->withErrors($validator)->with('title', 'Reg&iacute;strate')->with('background' , 'register.jpg');
 	}
 }

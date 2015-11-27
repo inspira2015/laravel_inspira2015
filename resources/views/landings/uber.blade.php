@@ -1,4 +1,4 @@
-@extends('layouts.uber.basic')
+@extends('layouts.landings.uber.basic')
 
 @section('content')
 <div class="col-xs-12">

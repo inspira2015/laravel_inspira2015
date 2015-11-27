@@ -5,7 +5,7 @@
 	    <div class="modal-content">
 	      <div class="modal-body text-center">
 		  	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  		@include('uber.auth.options')
+		  		@include('landings.__common.auth.options')
 	    </div>
 	  </div>
 	</div>
@@ -19,7 +19,7 @@
 		  	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		  		<span><img src="images/member-icon-blue.png"></span>
 		  		<div class="modal-wrapper" data-role="response">
-	  			@include('uber.auth.login')
+	  			@include('landings.__common.auth.login')
 	  			</div>
 	    </div>
 	  </div>
