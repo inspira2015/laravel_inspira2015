@@ -89,7 +89,7 @@ class CertificatesController extends Controller {
 		$payment = new PaymentValidator();
 		$postData = Request::except('_token');
 		$validator = $payment->validator( $postData, Lang::locale() );
-		$payment = array('amount' => 45, 'currency' => 'MXN');
+		$payment = array('amount' => $this->price, 'currency' => 'MXN');
 		$userAuth = Auth::user();
 		if($validator->passes()){
 			//Make payment. 
@@ -110,7 +110,7 @@ class CertificatesController extends Controller {
 								'location' => $location['ip']
 							]);
 			$cardPayment->setAmountData([
-								'value' => 45,
+								'value' => $this->price,
 								'cnumber' => $postData['cnumber'],
 								'expiration_date' => $postData['expiration_date'],
 								'currency' => 'MXN',

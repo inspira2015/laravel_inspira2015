@@ -104,7 +104,7 @@
 	
 	@include('layouts.landings.__common.modal_login')
 	
-	@include('layouts.landings.uber.analytics')
+	@include('layouts.landings.promotions.analytics')
 
 </body>
 </html>

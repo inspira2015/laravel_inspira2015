@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="swiper-container swiper-container-h slider">
 			<div class="swiper-wrapper">
-				<div class="swiper-slide" id="slide-1">
+				<div class="swiper-slide" id="promotions-slide-1">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
 					<h2>Viaja a los mejores lugares con uber e inspira</h2>
@@ -20,7 +20,7 @@
     				</a>
 					</div>
 				</div>
-				<div class="swiper-slide" id="slide-4">
+				<div class="swiper-slide" id="promotions-slide-2">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
 					<h2>VIAJAR ES FÁCIL Y SEGURO CON UBER E INSPIRA</h2>
@@ -35,7 +35,7 @@
     				</a>
 					</div>
 				</div>
-				<div class="swiper-slide" id="slide-5">
+				<div class="swiper-slide" id="promotions-slide-3">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
 					<h2>VIAJA CON TODOS TUS AMIGOS CON UBER E INSPIRA</h2>
@@ -50,7 +50,7 @@
     				</a>
 					</div>
 				</div>
-				<div class="swiper-slide" id="slide-2">
+				<div class="swiper-slide" id="promotions-slide-4">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 
 					<h2>VIAJA POR TODO EL MUNDO CON UBER E INSPIRA</h2>
@@ -65,7 +65,7 @@
     				</a>
 					</div>
 				</div>
-				<div class="swiper-slide" id="slide-3">
+				<div class="swiper-slide" id="promotions-slide-5">
 					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
 					
 					<h2>UBER E INSPIRA; UNA EXPERIENCIA INOLVIDABLE</h2>
@@ -111,7 +111,7 @@
 			<ul>
 				<li>
 					<a href="{{ url('destino/mazatlan') }}" target="_blank">
-						{!! HTML::image('images/destinations/mazatlan.jpg', 'Mazatl&aacute;n, Mex.') !!}
+						{!! HTML::image('images/destinations/mazatlan-2.jpg', 'Mazatl&aacute;n, Mex.') !!}
 						<span>Mazatl&aacute;n, Mex.</span>
 					</a>
 				</li>
