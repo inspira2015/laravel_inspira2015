@@ -25,7 +25,7 @@
 					E-mail: {{ $user->email }}<br>
 					Contrase&ntilde;a: {{ $user->password }}<br><br>
 					Para ingresar a tu cuenta:<br>
-					<a href="http://uber.InspiraMexico.mx" style="color:white;text-decoration:none;">http://Uber.InspiraMexico.mx</a>
+					<a href="{{ $domain }}" style="color:white;text-decoration:none;">{{ $domain }}</a>
 				</div>
 			</div>
 			<div style="display: table-cell;width:30%;text-align:right;">
