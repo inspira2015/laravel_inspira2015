@@ -13,5 +13,6 @@ return [
 					'SANTANDER' => 'Santander'
 				],
 	'cards' => ['Visa', 'MasterCard', 'American Express'],
-	'inspira' => ['apiKey' => '121722689d453a905e02c79477bb79c8']
+	'inspira' => ['apiKey' => '121722689d453a905e02c79477bb79c8'],
+	'promotional' => ['gdljal2015','rkt2015','tijuana2015','inspira']
 ];

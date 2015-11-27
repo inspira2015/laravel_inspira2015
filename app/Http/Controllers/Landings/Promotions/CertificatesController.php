@@ -118,8 +118,8 @@ class CertificatesController extends Controller {
 								'ccv' => $postData['ccv']
 							]);
 			$cardPayment->setItem([
-					'reference' => 'UBER-'.time(),
-					'description' => 'Uber Certificate Payment'
+					'reference' => 'Promotions -'.time(),
+					'description' => 'Promotion Certificate Payment - '.Session::get('ref', 'inspira')
 			]);
 		
 			if( $cardPayment->checkPaymentData() )
@@ -185,7 +185,7 @@ class CertificatesController extends Controller {
 							//Agregar codigo a base de datos.
 							
 							$this->registeredCodeDao->users_id = $userAuth->id;
-							$this->registeredCodeDao->code = "UBER";
+							$this->registeredCodeDao->code = Session::get('ref');
 							$this->registeredCodeDao->status = "Active";
 							$this->registeredCodeDao->expiration_date = $this->extend_period;
 							$this->registeredCodeDao->save();

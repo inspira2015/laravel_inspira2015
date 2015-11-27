@@ -55,7 +55,7 @@ class UsersController extends Controller {
 			Session::put('user',  $postData );
 			$postData['phone'] = '00000';
 			$this->createUser->setUserPost( $postData );
-			$this->createUser->setCodePost( 'UBER' );
+			$this->createUser->setCodePost( Session::get('ref', 'inspira') );
 			$this->createUser->setAffiliationPost( [ 'currency_6' => 'MXN', 'amount_6' => 0, 'affiliation' => 6 ] );
 			$this->createUser->setVacationFundPost( [ 'fondo' => 1, 'amount' => 0, 'currency' => 'MXN' ]  );
 			if ( $this->createUser->saveData() == TRUE )

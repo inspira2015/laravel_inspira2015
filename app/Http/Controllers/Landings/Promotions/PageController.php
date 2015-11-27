@@ -1,42 +1,30 @@
 <?php
 namespace App\Http\Controllers\Landings\Promotions;
-use App\Model\User;
-use App\Model\Affiliations;
-use App\Model\UserAffiliations;
-use App\Model\Code;
-use App\Model\CodesUsed;
-use App\Model\SystemLog;
-use App\Model\PasswordResets;
-use App\Model\UserAddress;
-use App\Model\UserRegisteredPhones;
-use App\Model\UserVacationalFunds;
-use App\Model\VacationFundLog;
+use App\Model\Dao\CodeDao;
 use App\Http\Controllers\Controller;
 
 use Request;
 use Lang;
 use Session;
+use Input;
+use Config;
 
 class PageController extends Controller {
+	private $codeDao;
+	
+	public function __construct(CodeDao $code){
+		$this->codeDao = $code;
+	}
 
-	/*
-	|--------------------------------------------------------------------------
-	| Welcome Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders the "marketing page" for the application and
-	| is configured to only allow guests. Like most of the other sample
-	| controllers, you are free to modify or remove it as you desire.
-	|
-	*/
-
-	/**
-	 * Show the application welcome screen to the user.
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
+		$ref_code = Input::get('ref') ? Input::get('ref') : Session::get('ref');
+		if(in_array($ref_code,Config::get('extra.promotional')) && !empty( $this->codeDao->getByCode( $ref_code ) ) ){
+			$ref = $ref_code;
+		}else{
+			$ref = 'inspira';
+		}
+		Session::put('ref', $ref);
 		return view('landings.promotions')->with('title', 'Inspira M&eacute;xico | Promociones' )->with('background','3.jpg');
 	}
 		
