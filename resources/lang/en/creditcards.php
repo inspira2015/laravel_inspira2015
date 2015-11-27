@@ -6,6 +6,7 @@ return [
 	"card-number" => "Card Number",
 	"ccv" => "CCV", 
 	"what-is" => "What is?",
+	"phone" => "Phone Number",
 	"expiration" => "Expiration date",
 	"expiry" => "YYYY/MM",
 	"name-on-card" => "Name on card",

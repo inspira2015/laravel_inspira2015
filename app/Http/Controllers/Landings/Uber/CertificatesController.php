@@ -28,6 +28,7 @@ class CertificatesController extends Controller {
 	private $leisureLoyalty;
 	private $registeredCodeDao;
 	private $extend_period = 365;
+	private $price = '5950';
 	
 	public function __construct( UserTokenRegistration $sysDao, 
 								CertificateOperation $certificateOperation,
@@ -53,7 +54,7 @@ class CertificatesController extends Controller {
 		return view('landings.__common.certificates.buy_certificate')->with('cc', $payInfo)
 											->with( $this->getCCData() )
 											->with('title', 'Inspira M&eacute;xico | Comprar certificado' )
-											->with('price', '5,950')
+											->with('price', $this->price )
 											->with('background','beach-girl.jpg');
 	}
 	
@@ -100,6 +101,12 @@ class CertificatesController extends Controller {
 								'full_name' => $userAuth->name. ' '.$userAuth->last_name,
 								'id' => $userAuth->id,
 								'email' => $userAuth->email,
+								'city' => $postData['city'],
+								'state' => $postData['state'],
+								'country' => $postData['country'],
+								'address' => $postData['address'],
+								'zip_code' => $postData['zip_code'],
+								'phone' => $postData['phone'],
 								'location' => $location['ip']
 							]);
 			$cardPayment->setAmountData([
@@ -244,6 +251,7 @@ class CertificatesController extends Controller {
 				return view('landings.__common.certificates.buy_certificate_form')->withErrors([$cardPayment->getErrors()[0]])
 										->with( $this->getCCData() )
 										->with('title', 'Inspira M&eacute;xico | Comprar certificado' )
+										->with('price', $this->price )
 										->with('background','beach-girl.jpg');
 				
 				
@@ -254,6 +262,7 @@ class CertificatesController extends Controller {
 		return view('landings.__common.certificates.buy_certificate_form')->withErrors($validator)
 											->with( $this->getCCData() )
 											->with('title', 'Inspira M&eacute;xico | Comprar certificado' )
+											->with('price', $this->price )
 											->with('background','beach-girl.jpg');
 	}
 	
@@ -278,6 +287,7 @@ class CertificatesController extends Controller {
 		return view('landings.__common.certificates.buy_certificate_form')->with($data)
 											->with( $this->getCCData() )
 											->with('title', 'Inspira M&eacute;xico | Comprar certificado' )
+											->with('price', $this->price )
 											->with('background','beach-girl.jpg');
 	}
 	

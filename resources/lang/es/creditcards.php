@@ -6,6 +6,7 @@ return [
 	"card-number" => "N&uacute;mero de tarjeta",
 	"ccv" => "C&oacute;digo CCV",
 	"what-is" => "¿Qu&eacute; es?", 
+	"phone" => "Tel&eacute;fono",
 	"expiration" => "Fecha de Expiraci&oacute;n",
 	"expiry" => "AAAA/MM",
 	"birthdate" => "Fecha de Nacimiento",

@@ -81,9 +81,30 @@ class CardPayment extends InitializePayUCredentials
 			PayUParameters::CURRENCY => $this->amountData['currency'],
 
 			//Ingrese aquí el nombre del pagador.
-			PayUParameters::BUYER_NAME => $this->userData['full_name'],
 			PayUParameters::PAYER_NAME => $this->userData['full_name'],
+			PayUParameters::BUYER_NAME => $this->userData['full_name'],
 			PayUParameters::BUYER_EMAIL => $this->userData['email'],
+			PayUParameters::BUYER_STREET => $this->userData['address'],
+			PayUParameters::BUYER_STREET_2 => "",
+			PayUParameters::BUYER_CITY => $this->userData['city'],
+			PayUParameters::BUYER_STATE => $this->userData['state'],
+			PayUParameters::BUYER_COUNTRY => $this->userData['country'],
+			PayUParameters::BUYER_POSTAL_CODE => $this->userData['zip_code'],
+			
+			
+			PayUParameters::BUYER_PHONE => $this->userData['phone'],
+			
+			PayUParameters::PAYER_NAME => $this->userData['full_name'],
+			PayUParameters::PAYER_EMAIL => $this->userData['email'],
+			PayUParameters::PAYER_STREET => $this->userData['address'],
+			PayUParameters::PAYER_STREET_2 => "",
+			PayUParameters::PAYER_CITY => $this->userData['city'],
+			PayUParameters::PAYER_STATE => $this->userData['state'],
+			PayUParameters::PAYER_COUNTRY => $this->userData['country'],
+			PayUParameters::PAYER_POSTAL_CODE => $this->userData['zip_code'],
+			PayUParameters::PAYER_PHONE => $this->userData['phone'],
+			
+			
 			//Ingrese aquí el documento de identificación del comprador.
 		//	PayUParameters::PAYER_DNI => "5415668464654",
 // 			PayUParameters::PAYER_DOCUMENT_TYPE => "CC",
@@ -112,6 +133,7 @@ class CardPayment extends InitializePayUCredentials
 			PayUParameters::IP_ADDRESS => $this->userData['location']
 		);
 		$this->parameters = $parameters;
+
 		return TRUE;
 	}
 	

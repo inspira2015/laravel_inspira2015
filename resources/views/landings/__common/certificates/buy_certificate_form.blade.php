@@ -126,14 +126,22 @@
 		</div>
 		<div class="col-md-6">
 			<div class="form-group">
+			    <label for="direccion">* {{ Lang::get('creditcards.phone') }}</label>
+			    <div class="input-group extra-width">
+			      {!! Form::text('phone', Input::get('phone') ? Input::get('phone') : @$phone, array('class' => 'form-control','id' => 'phone')) !!}                                                
+			    </div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
 			    <label for="direccion">* {{ Lang::get('creditcards.address') }}</label>
 			    <div class="input-group extra-width">
 			      {!! Form::text('address', Input::get('address') ? Input::get('address') : @$address, array('class' => 'form-control','id' => 'address')) !!}                                                
 			    </div>
 			</div>
 		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
 				<label for="pais">* {{ Lang::get('creditcards.country') }}</label>
@@ -144,6 +152,8 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
                 <label for="state">* {{ Lang::get('creditcards.state') }}</label>
@@ -152,8 +162,6 @@
                 </div>
         	</div>
 		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
 			    <label for="direccion">* {{ Lang::get('creditcards.city') }}</label>

@@ -100,8 +100,13 @@ class CertificatesController extends Controller {
 								'full_name' => $userAuth->name. ' '.$userAuth->last_name,
 								'id' => $userAuth->id,
 								'email' => $userAuth->email,
+								'city' => $postData['city'],
+								'state' => $postData['state'],
+								'country' => $postData['country'],
+								'address' => $postData['address'],
 								'location' => $location['ip']
 							]);
+							
 			$cardPayment->setAmountData([
 								'value' => 45,
 								'cnumber' => $postData['cnumber'],
