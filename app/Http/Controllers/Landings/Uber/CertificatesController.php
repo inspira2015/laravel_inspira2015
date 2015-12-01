@@ -131,7 +131,7 @@ class CertificatesController extends Controller {
 					
 					if( $cardPayment->getToken()->code == 'SUCCESS' )
 					{
-						if($cardPayment->getTransactionResponse()->state == 'DECLINED' && $postData['name_on_card'] != 'APPROVED_INSPIRA_CARD'){
+						if( $cardPayment->getTransactionResponse()->state == 'DECLINED' || $cardPayment->getTransactionResponse()->state == 'PENDING' ){
 							//guardar el mensaje de error de transaccion.
 							$this->actionLog( array( 'users_id' => $userAuth->id, 'description' => 'ERROR on Transaction: '.json_encode($cardPayment->getTransactionResponse()), 'method' => 'POST', 'module' => 'Certificate' ) );
 
