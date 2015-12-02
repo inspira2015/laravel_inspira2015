@@ -6,6 +6,8 @@
 	$minifierCss->minify('css/minify/landings.css');
 	
 	$minifierJs = new MinifyJs();
+	$minifierJs->add('js/jssor-slider.min.js');
+	$minifierJs->minify('js/minify/jssor-slider.min.js');
 	$minifierJs->add('js/jquery.creditCardValidator.js');
 	$minifierJs->minify('js/minify/jquery.creditCardValidator.min.js');
 	
@@ -88,7 +90,8 @@
 	{!! HTML::script('js/jquery-1.10.2.min.js') !!}
 	{!! HTML::script('js/minify/jquery.creditCardValidator.min.js') !!}
 	{!! HTML::script('js/jquery.maskedinput.min.js') !!}
-	
+	{!! HTML::script('js/minify/jssor-slider.min.js') !!}
+
 	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
 	<script src="http://www.idangero.us/swiper/dist/js/swiper.min.js"></script>
 
