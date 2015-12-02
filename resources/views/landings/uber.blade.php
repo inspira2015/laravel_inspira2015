@@ -208,5 +208,5 @@
 		</div>
 	</div>
 </div>
-
+@include('landings.__common.modal_blue_weeks')
 @endsection
