@@ -6,23 +6,57 @@
     background-color:rgba(70,86,100,0.9)!important;
 }
 
+.bg-light-blue{
+	background-color: #76aedb;
+	padding: 15px 0px;
+}
+.bg-light-blue a{
+	color: white;
+}
+.bg-medium-blue{
+	background-color: #586673;
+	letter-spacing: 1px;
+	padding: 40px 0px;
+
+}
+
+.bg-light-blue,.bg-medium-blue{
+	color: white;
+	line-height: 1.5;
+}
+
+.underline{
+	text-decoration: underline;
+}
+
 
 #map {
 	background-color:#4e9cd4;
-	padding: 120px 20px;
+	padding: 40px 20px 60px 20px;
 	color:white;
 	display:block;
 	background-image: url('images/map.png');
 	background-repeat: no-repeat;
 /*	background-size: 600px;*/
-	background-size: 60%;
+	background-size: 50%;
 	background-position: center center;
 	font-size: 18px;
 }
 
 #map h2{
-	padding: 40px 20px 20px 20px;
+	padding: 20px;
 }
+
+
+#map .step{
+	margin-bottom: 20px;
+}
+
+#map .step img{
+	height: 50px;
+	margin-bottom: 20px;
+}
+
 
 #destinations{
 	color: #465663;
@@ -248,4 +282,9 @@ a:hover, a:visited {
 
 #more-info img{
 	width: 30px;
+}
+
+#promotions-slide-6 #steps img{
+	height: 100px;
+	margin-bottom: 20px;
 }

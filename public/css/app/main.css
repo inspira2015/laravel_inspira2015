@@ -1040,6 +1040,28 @@ div.flat-windows div.modal-content .modal-wrapper {
 	display:block;
 }
 
+div.flat-windows div.modal-content .modal-light-blue-wrapper {
+	background-color: #4e9cd4;
+	padding: 30px 15px;
+	margin-bottom: 20px;
+	display:block;
+	background-image: url('images/blue-weeks.png');
+	background-repeat: no-repeat;
+	background-size: 60px;
+	background-position: 10px center;
+}
+
+div.flat-windows div.modal-content .modal-light-blue-wrapper h2{
+	color:white;
+	font-size: 24px!important;
+}
+
+
+div.flat-windows #modal-semanas{
+	color: rgb(70, 86, 99);
+	font-size: 16px;
+}
+
 div.flat-windows div.modal div.modal-body{
 	padding: 0px;
 	margin:0px;
