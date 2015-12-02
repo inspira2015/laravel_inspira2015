@@ -8,7 +8,7 @@
 
 .bg-light-blue{
 	background-color: #76aedb;
-	padding: 15px 0px;
+	padding: 15px 20px;
 }
 .bg-light-blue a{
 	color: white;
@@ -16,8 +16,7 @@
 .bg-medium-blue{
 	background-color: #586673;
 	letter-spacing: 1px;
-	padding: 40px 0px;
-
+	padding: 40px 20px;
 }
 
 .bg-light-blue,.bg-medium-blue{
@@ -282,9 +281,4 @@ a:hover, a:visited {
 
 #more-info img{
 	width: 30px;
-}
-
-#promotions-slide-6 #steps img{
-	height: 100px;
-	margin-bottom: 20px;
 }

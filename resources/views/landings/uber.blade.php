@@ -2,103 +2,133 @@
 
 @section('content')
 <div class="col-xs-12">
-	<div class="row">
-		<div class="swiper-container swiper-container-h slider">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide" id="slide-1">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
-
-					<h2>Viaja a los mejores lugares con uber e inspira</h2>
-					Los resorts m&aacute;s lujosos alrededor del mundo, al precio m&aacute;s bajo<br>
-					<br>
-					<div class="row">
-					<a href="#" data-anchor="more-info" id="more-info">M&aacute;s info<br>
-	    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
-    				</a>
+	<div class="row">    
+	    <div id="jssor-slider">
+	        <div data-u="loading">
+	            <div data-u="filter"></div>
+	            <div data-u="slide-loading"></div>
+	        </div>
+	        <div data-u="slides">
+	            <div data-p="225.00">
+		            <img data-u="image" src="images/slider/slider-1.png" />
+		            <div class="row">
+			            <div data-u="information">
+							<h1 data-u="logo"><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
+							<h2>Viaja a los mejores lugares con uber e inspira</h2>
+							Los resorts m&aacute;s lujosos alrededor del mundo, al precio m&aacute;s bajo<br>
+							<br>							
+			            </div>
+		            </div>
+		            <div class="row">
+						<a href="#" data-anchor="more-info" id="more-info">M&Aacute;S INFO<br>
+		    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
+	    				</a>
 					</div>
-				</div>
-				<div class="swiper-slide" id="slide-4">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
-
-					<h2>VIAJAR ES FÁCIL Y SEGURO CON UBER E INSPIRA</h2>
-					RESERVA F&Aacute;CILMENTE TODO LO NECESARIO PARA TU VIAJE DESDE NUESTRO SITIO<br>
-					<br>
-					<div class="row">
-					<a href="#" data-anchor="more-info" id="more-info">M&aacute;s info<br>
-	    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
-    				</a>
+	            </div>
+	            <div data-p="225.00">
+		            <img data-u="image" src="images/slider/slider-4.png" />
+		            <div class="row">
+			            <div data-u="information">
+							<h1 data-u="logo"><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
+							<h2>VIAJAR ES FÁCIL Y SEGURO CON UBER E INSPIRA</h2>
+							RESERVA F&Aacute;CILMENTE TODO LO NECESARIO PARA TU VIAJE DESDE NUESTRO SITIO<br>
+							<br>
+			            </div>
+		            </div>
+		            <div class="row">
+						<a href="#" data-anchor="more-info" id="more-info">M&Aacute;S INFO<br>
+		    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
+	    				</a>
 					</div>
-				</div>
-				<div class="swiper-slide" id="slide-5">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
-
-					<h2>VIAJA CON TODOS TUS AMIGOS CON UBER E INSPIRA</h2>
-					HOSPEDAJE DE HASTA 8 PERSONAS CON UN SOLO CERTIFICADO<br>
-					<br>
-					<div class="row">
-					<a href="#" data-anchor="more-info" id="more-info">M&aacute;s info<br>
-	    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
-    				</a>
+	            </div>
+	            <div data-p="225.00">
+		            <img data-u="image" src="images/slider/slider-5.png" />
+		            <div class="row">
+			            <div data-u="information">
+							<h1 data-u="logo"><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
+							<h2>VIAJA CON TODOS TUS AMIGOS CON UBER E INSPIRA</h2>
+							HOSPEDAJE DE HASTA 8 PERSONAS CON UN SOLO CERTIFICADO<br>
+							<br>				
+			            </div>
+		            </div>
+		            <div class="row">
+						<a href="#" data-anchor="more-info" id="more-info">M&Aacute;S INFO<br>
+		    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
+	    				</a>
 					</div>
-				</div>
-				<div class="swiper-slide" id="slide-2">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
-
-					<h2>VIAJA POR TODO EL MUNDO CON UBER E INSPIRA</h2>
-					LOS RESORTS M&Aacute;S LUJOSOS DE 86 PA&Iacute;SES ALREDEDOR DEL MUNDO<br>
-					<br>
-					<div class="row">
-					<a href="#" data-anchor="more-info" id="more-info">M&aacute;s info<br>
-	    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
-    				</a>
+	            </div>
+	            <div data-p="225.00">
+		            <img data-u="image" src="images/slider/slider-2.png" />
+		            <div class="row">
+			            <div data-u="information">
+							<h1 data-u="logo"><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
+							<h2>VIAJA POR TODO EL MUNDO CON UBER E INSPIRA</h2>
+							LOS RESORTS M&Aacute;S LUJOSOS DE 86 PA&Iacute;SES ALREDEDOR DEL MUNDO<br>
+							<br>
+			            </div>
+		            </div>
+		            <div class="row">
+						<a href="#" data-anchor="more-info" id="more-info">M&Aacute;S INFO<br>
+		    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
+	    				</a>
 					</div>
-				</div>
-				<div class="swiper-slide" id="slide-3">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
-					
-					<h2>UBER E INSPIRA; UNA EXPERIENCIA INOLVIDABLE</h2>
-					EXPERIMENTA UN NUEVO NIVEL COMFORT Y LUJO QUE ENUNCA OLVIDAR&Aacute;S<br>
-					<br>
-					<div class="row">
-					<a href="#" data-anchor="more-info" id="more-info">M&aacute;s info<br>
-	    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
-    				</a>
+	            </div>
+	            <div data-p="225.00">
+		            <img data-u="image" src="images/slider/slider-3.png" />
+		            <div class="row">
+			            <div data-u="information">
+							<h1 data-u="logo"><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
+							<h2>UBER E INSPIRA; UNA EXPERIENCIA INOLVIDABLE</h2>
+							EXPERIMENTA UN NUEVO NIVEL COMFORT Y LUJO QUE ENUNCA OLVIDAR&Aacute;S<br>
+							<br>
+			            </div>
+		            </div>
+		            <div class="row">
+						<a href="#" data-anchor="more-info" id="more-info">M&Aacute;S INFO<br>
+		    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
+	    				</a>
 					</div>
-				</div>
-				<div class="swiper-slide" id="slide-6">
-					<h1><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
-					
-					<h2>TUS VACACIONES DE ENSUE&Ntilde;O EN SOLO 3 PASOS:</h2>
-					<br>
-					<div class="row" id="steps">
-						<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
-							<div class="row">
-								<div class="col-xs-12 col-sm-4">
-									<div class="row">{!! HTML::image('images/register-check.png', 'Reg&iacute;strate') !!}</div>
-									<div class="row">1. REG&Iacute;STRATE</div>
+	            </div>
+	            <div data-p="225.00">
+		            <img data-u="image" src="images/slider/promotions/slider-6.jpg" />
+		            <div class="row">
+			            <div data-u="information">
+							<h1 data-u="logo"><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
+							<h2>TUS VACACIONES DE ENSUE&Ntilde;O EN SOLO 3 PASOS:</h2>
+							<br>
+							<div class="row" data-u="steps">
+								<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
+									<div class="row">
+										<div class="col-xs-4">
+											<div class="row">{!! HTML::image('images/register-check.png', 'Reg&iacute;strate') !!}</div>
+											<div class="row">1. REG&Iacute;STRATE</div>
+										</div>
+										<div class="col-xs-4">
+											<div class="row">{!! HTML::image('images/cert.png', 'Comprar certificado') !!}</div>
+											<div class="row">2. COMPRA CERTIFICADO</div>
+										</div>
+										<div class="col-xs-4">
+											<div class="row">{!! HTML::image('images/reserv.png', 'Reserva') !!}</div>
+											<div class="row">3. RESERVA</div>
+										</div>
+									</div>
 								</div>
-								<div class="col-xs-12 col-sm-4">
-									<div class="row">{!! HTML::image('images/cert.png', 'Comprar certificado') !!}</div>
-									<div class="row">2. COMPRA CERTIFICADO</div>
-								</div>
-								<div class="col-xs-12 col-sm-4">
-									<div class="row">{!! HTML::image('images/reserv.png', 'Reserva') !!}</div>
-									<div class="row">3. RESERVA</div>
-								</div>
-							</div>
-						</div>
-					</div>				
-					<div class="row">
-					<a href="#" data-anchor="more-info" id="more-info">M&aacute;s info<br>
-	    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
-    				</a>
+							</div>	
+			            </div>
+		            </div>
+		            <div class="row">
+						<a href="#" data-anchor="more-info" id="more-info">M&Aacute;S INFO<br>
+		    				{!! HTML::image('images/more-info.png', 'M&aacute;s informaci&oacute;n') !!}
+	    				</a>
 					</div>
-				</div>
-			</div>
-			<!-- Add Pagination -->
-			<div class="swiper-pagination swiper-pagination-h"></div>
-		</div>
-    
+	            </div>
+	        </div>
+	        <div data-u="navigator" class="jssorb05" data-autocenter="1">
+	            <div data-u="prototype"></div>
+	        </div>
+	        <span data-u="arrowleft" class="jssora22l" data-autocenter="2"></span>
+	        <span data-u="arrowright" class="jssora22r" data-autocenter="2"></span>
+	    </div>
 	</div>
 	<div class="row" id="map" data-id="more-info">
 		<div class="container">

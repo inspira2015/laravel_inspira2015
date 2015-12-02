@@ -1,16 +1,5 @@
 $(document).ready(function(){
 	$('body').inspira();
-	
-	setResizeWindow();
-
-	function setResizeWindow(){
-		var wd = document.documentElement.clientWidth;
-		if($('.swiper-container')) {
-			$('.swiper-container').css('width', wd);
-		}
-	}
-
-	$(window).on('resize orientationChanged', function(){ setResizeWindow(); });
             
     var jssor_1_SlideoTransitions = [
       [{b:5500.0,d:3000.0,o:-1.0,r:240.0,e:{r:2.0}}],
@@ -40,7 +29,7 @@ $(document).ready(function(){
       }
     };
     
-    var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+    var jssor_1_slider = new $JssorSlider$("jssor-slider", jssor_1_options);
     
     //responsive code begin
     //you can remove responsive code if you don't want the slider scales while window resizing
@@ -329,17 +318,6 @@ $(document).ready(function(){
 		if ( feature[method] ) return feature[method].apply(this, Array.prototype.slice.call( arguments, 1 ) );
 		if ( "object" === typeof method || !method ) return feature._init.apply(this, arguments);
 		$.error("Method " + method + " does not exist on jQuery.inspira");
-	}
-	
-	var wd = document.documentElement.clientWidth;
-	var swiperH = new Swiper('.swiper-container-h', {
-		pagination: '.swiper-pagination-h',
-	    paginationClickable: true,
-	    slidesPerView: 1,
-		width:wd,
-	    speed: 500,
- 	    autoplay: 10000
-	});
-	
+	}	
 
 })(jQuery);

@@ -4,6 +4,8 @@
 	$minifierCss->minify('css/minify/main.css');
 	$minifierCss->add('css/landings.css');
 	$minifierCss->minify('css/minify/landings.css');
+	$minifierCss->add('css/jssor-slider.css');
+	$minifierCss->minify('css/minify/jssor-slider.css');
 	
 	$minifierJs = new MinifyJs();
 	$minifierJs->add('js/jssor-slider.min.js');
@@ -29,8 +31,7 @@
 	{!! HTML::style('css/bootstrap/css/slidestyle.css') !!}
 	{!! HTML::style('css/minify/main.css') !!}
 	{!! HTML::style('css/minify/landings.css') !!}
-	{!! HTML::style('css/swiper.css') !!}
-
+	{!! HTML::style('css/minify/jssor-slider.css') !!}
 </head>
 
 <body id="page uber"  style="background-image:url('<?php echo url();?>/images/<?php echo $background; ?>'); background-repeat:no-repeat; background-position: center center fixed; 
@@ -93,7 +94,6 @@
 	{!! HTML::script('js/minify/jssor-slider.min.js') !!}
 
 	{!! HTML::script('css/bootstrap/js/bootstrap.min.js') !!}
-	<script src="http://www.idangero.us/swiper/dist/js/swiper.min.js"></script>
 
 	{!! HTML::script('js/main.js') !!}
 	
