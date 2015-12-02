@@ -6,7 +6,7 @@
 		<div class="swiper-container swiper-container-h slider">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" id="promotions-slide-1">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
+					<h1><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
 
 					<h2>Viaja a los mejores lugares con inspira</h2>
 					Los resorts m&aacute;s lujosos alrededor del mundo, al precio m&aacute;s bajo<br>
@@ -18,7 +18,7 @@
 					</div>
 				</div>
 				<div class="swiper-slide" id="promotions-slide-2">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
+					<h1><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
 
 					<h2>VIAJAR ES FÁCIL Y SEGURO CON INSPIRA</h2>
 					RESERVA F&Aacute;CILMENTE TODO LO NECESARIO PARA TU VIAJE DESDE NUESTRO SITIO<br>
@@ -31,7 +31,7 @@
 					</div>
 				</div>
 				<div class="swiper-slide" id="promotions-slide-3">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
+					<h1><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
 
 					<h2>VIAJA CON TODOS TUS AMIGOS CON INSPIRA</h2>
 					HOSPEDAJE DE HASTA 8 PERSONAS CON UN SOLO CERTIFICADO<br>
@@ -44,7 +44,7 @@
 					</div>
 				</div>
 				<div class="swiper-slide" id="promotions-slide-4">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
+					<h1><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
 
 					<h2>VIAJA POR TODO EL MUNDO CON INSPIRA</h2>
 					LOS RESORTS M&Aacute;S LUJOSOS DE 86 PA&Iacute;SES ALREDEDOR DEL MUNDO<br>
@@ -57,7 +57,7 @@
 					</div>
 				</div>
 				<div class="swiper-slide" id="promotions-slide-5">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
+					<h1><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
 					
 					<h2>INSPIRA; UNA EXPERIENCIA INOLVIDABLE</h2>
 					EXPERIMENTA UN NUEVO NIVEL COMFORT Y LUJO QUE ENUNCA OLVIDAR&Aacute;S<br>
@@ -70,7 +70,7 @@
 					</div>
 				</div>
 				<div class="swiper-slide" id="promotions-slide-6">
-					<h1><a href="{{ url('/') }}"><img src="images/logo_inspira.png"></a></h1><br>
+					<h1><a href="{{ url('/') }}"><img src="images/LogoInspira.png"></a></h1><br>
 					
 					<h2>TUS VACACIONES DE ENSUE&Ntilde;O EN SOLO 3 PASOS:</h2>
 					<br>
