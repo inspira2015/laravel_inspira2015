@@ -445,7 +445,9 @@ pointer-events:none;
 }.swiper-slide#slide-5{
 	background-image:url('../images/slider/slider-5.png');
 }
-
+.swiper-slide#slide-6{
+	background-image:url('../images/slider/promotions/slider-6.jpg');
+}
 
 .swiper-slide#promotions-slide-1{
 	background-image:url('../images/slider/promotions/slider-1.jpg');

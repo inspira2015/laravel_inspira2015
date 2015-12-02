@@ -23,7 +23,6 @@ use App\Model\Dao\RegisteredCodesDao;
 use App\Model\Entity\UserPaymentInfoEntity as UserPayDao;
 
 class CertificatesController extends Controller {
-
 	private $sysTransaction;
 	private $leisureLoyalty;
 	private $registeredCodeDao;
