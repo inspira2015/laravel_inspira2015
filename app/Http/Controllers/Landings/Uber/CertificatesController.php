@@ -148,7 +148,7 @@ class CertificatesController extends Controller {
 							//mostrar venana con el error.
 							return Response::json(array(
 								'error' => false,
-								'message' => @$cardPayment->getTransactionResponse()->responseCode,
+								'message' => 'Su tarjeta ha sido declinada. Paro mayores informes comuníquese con nosotros al: (55) 8526 1061',
 								'redirect' => url('/comprar-certificado')
 							), 200);
 						}else{
