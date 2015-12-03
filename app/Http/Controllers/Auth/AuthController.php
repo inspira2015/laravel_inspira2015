@@ -15,7 +15,9 @@ use App\Libraries\AuthUserWithFacebook;
 use App\Libraries\Interfaces\AuthenticateUserListener;
 use App\Libraries\AccountValidation\CompleteAccountSetup;
 use App\Model\Dao\UserDao;
+use Input;
 
+use Response;
 
 class AuthController extends Controller implements AuthenticateUserListener {
 
@@ -62,9 +64,29 @@ class AuthController extends Controller implements AuthenticateUserListener {
 
     public function getLoginfb(AuthUserWithFacebook $authfb, Request $request)
     {
-	    $user = Socialize::with('facebook')->user();
-	    print_r($user);
-      //  return $authfb->execute($request->has('code'), $this);
+/*
+	    if($request->has('code')){
+		    $fbUser = $authfb->getFacebookUser();
+		    
+		    $user = $this->userDao->getByFacebookId($fbUser);
+			if( empty($user) ){
+				$user = $this->userDao->getByEmail($fbUser->email);
+							
+				$this->userDao->load($user->id);
+				$this->userDao->facebook_id = $fbUser->id;
+				$this->userDao->facebook_avatar = $fbUser->avatar;
+				$this->userDao->save();
+			}else{
+				$this->auth->login($user,true);
+				return $this->userHasLoggedIn($user);	
+			}
+	    }else{
+		   return $authfb->execute($request->has('code'), $this);
+
+	    }
+*/
+return $authfb->execute($request->has('code'), $this);
+
     }
 
 
@@ -147,6 +169,10 @@ class AuthController extends Controller implements AuthenticateUserListener {
      */
     public function redirectUserAccountPath() {
         return property_exists($this, 'redirectTo') ? $this->redirectTo : '/useraccount';
+    }
+    
+    public function redirectPath() {
+        return'/useraccount';
     }
 
    /**

@@ -15,7 +15,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	//All filable cause its used on update to fill
 	protected $fillable = ['leisure_id','email', 'password', 'active','remember_token', 'name', 'last_name','confirmed','language','currency',
 						    'confirmation_code','country','state','facebook_id','facebook_link','gender','facebook_avatar'];
-
+	protected $hidden = [ 'password', 'remember_token', 'created_at', 'updated_at' ];
+    
 	public function funds_log(){
 		return $this->hasMany('App\Model\VacationFundLog', 'users_id', 'id');
 	}
