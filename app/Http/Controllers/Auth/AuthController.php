@@ -161,6 +161,14 @@ return $authfb->execute($request->has('code'), $this);
         $this->session->flash('alert-class', 'alert-danger');
         return redirect('/');
     }
+    
+     public function tryAgain() {
+        $this->session->flash('message', "No se encuentra conectado");
+        $this->session->flash('alert-class', 'alert-danger');
+        return redirect('/');
+    }
+    
+    
 
     /**
      * Get the post register / login redirect path.

@@ -56,6 +56,8 @@ return [
 	"affiliation-payment" => "Affiliation payment",
 	"complete-profile" => "Complete your registration by filling the remaining fields.",
 	"credit-card" => "Credit or Debit Card information",
+	"more-info" => "More info",
+	"fb-link" => "Link to Facebook account",
 	"success" => [
 		"transaction" => "Your payment has been successfully completed."
 	]

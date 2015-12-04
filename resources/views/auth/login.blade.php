@@ -58,10 +58,16 @@
 							</a>
 						</div>
 					</div>
+					<div class="col-xs-12 text-center">
+						<a href="{{ url('auth/loginfb') }}">Conectar con facebook</a>
+					</div>
 					
 				</div>
 			</form>
 	    </div>
     </div>
 </div>
+
+
+
 @endsection

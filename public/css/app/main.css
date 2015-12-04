@@ -1140,8 +1140,23 @@ span.small-super:before{
 
 #register-form label:before {
 	content: "* " !important;
-	}
+}
 
+a.fb-linkto{
+	background-image: url('images/facebook-box-blue.png');
+	background-repeat: no-repeat;
+	background-position: calc(100% - 20px) top;
+	background-size: 30px;
+	height: 35px;
+	display: block;
+	line-height: 2;
+	vertical-align: middle;
+	color:#465664;
+	padding-right: 20px;
+	border-right: 1px solid #465664;
+	font-size: 15px;
+	font-weight: 700;
+}
 
 /*MODALS*/
 @media(min-width:992px) {

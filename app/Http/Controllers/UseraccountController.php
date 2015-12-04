@@ -471,5 +471,13 @@ class UseraccountController extends Controller {
 		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
 		return $user;
 	}
+	
+	public function postFbLink(){
+		//Post con facebook login.
+		$validator = array();
+		return view('useraccount.password')
+			->with( 'user',  $this->details() )
+			->withErrors([ 'message' => Lang::get('userdata.error.transaction') ]);
+	}
 }
 

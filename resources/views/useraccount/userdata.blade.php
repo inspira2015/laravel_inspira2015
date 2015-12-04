@@ -1,6 +1,7 @@
 @extends('layouts.basic')
 
 @section('content')
+
 <div class="row bg-gray-transparent" id="user">
 	<div class="col-xs-12">
 		<div class="row">
@@ -8,20 +9,17 @@
 				<h2 class="text-left">
 					<div class="display:table-cell;">
 						<i class="fa fa-user"></i>
+<!-- 						{!! HTML::image($user->details->facebook_avatar, 'User', array( 'class' => 'img-circle') ) !!} -->
 					</div>
 					<span style="display:table-cell;">{{ Str::upper($user->details->name) }} {{ Str::upper($user->details->last_name) }}</span>
 				</h2>
 			</div>
 	
 			<div class="col-xs-5 col-xs-push-7 col-md-4 col-md-push-2">
-				<div class="row text-right">
-					<a href="{{ url('auth/logout') }} " style="color:#818c95;">Logout <i class="glyphicon glyphicon-log-out"></i></a>
-					<br><br>
-				</div>
 				@if( $user->details->leisure_id !== null )
 				<div class="row">
 					<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={{ $user->details->leisure_id }}" class="btn-blue btn-small">{{ Lang::get('userdata.go-reservations') }}</a>
-				</div>
+				</div>2
 				@endif
 			</div>
 		</div>

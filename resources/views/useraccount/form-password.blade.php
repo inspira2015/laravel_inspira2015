@@ -17,7 +17,9 @@
 	</div>
 	<div class="form-group">
 		<div class="col-xs-4 col-xs-push-8 text-center nopadding">
-			<div data-role="submit" data-route="useraccount/update-password" class="btn-blue btn-small">{{ Lang::get('userdata.save') }}</div>
+			<div data-role="submit" data-route="useraccount/update-password" class="btn-blue btn-small">
+				{{ Lang::get('userdata.save') }}
+			</div>
 		</div>
 	</div>
 {!! Form::close() !!}

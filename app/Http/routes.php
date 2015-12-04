@@ -201,6 +201,8 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 	//Route::get('/', 'WelcomeController@index');
 	
 	Route::get('users', 'UsersController@index');		
+	Route::post('useraccount/fbLink', 'UseraccountController@postFbLink');		
+
 	Route::post('users/registration', 'UsersController@registration');
 	Route::get('users/activation/{code}', 'UsersController@activation');
 	Route::post('users/select-language', 'UsersController@refreshLanguage');

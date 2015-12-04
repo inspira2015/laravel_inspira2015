@@ -33,12 +33,16 @@ class AuthUserWithFacebook
 		{
 			$user = $this->users->getByEmail($fbUser->email);
 
-			$this->users->load($user->id);
-			$this->users->facebook_id = $fbUser->id;
-			$this->users->facebook_avatar = $fbUser->avatar;
-			$this->users->save();
-			
-			$user = $this->users->getByFacebookId( $fbUser );
+			if($user !== FALSE) {
+				$this->users->load($user->id);
+				$this->users->facebook_id = $fbUser->id;
+				$this->users->facebook_avatar = $fbUser->avatar;
+				$this->users->save();
+				
+				$user = $this->users->getByFacebookId( $fbUser );
+			}else{
+				return $listener->tryAgain();
+			}
 		}
 		$this->auth->login($user,true);
 		return $listener->userHasLoggedIn( $user );
