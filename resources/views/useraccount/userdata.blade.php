@@ -19,7 +19,7 @@
 				@if( $user->details->leisure_id !== null )
 				<div class="row">
 					<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={{ $user->details->leisure_id }}" class="btn-blue btn-small">{{ Lang::get('userdata.go-reservations') }}</a>
-				</div>2
+				</div>
 				@endif
 			</div>
 		</div>
