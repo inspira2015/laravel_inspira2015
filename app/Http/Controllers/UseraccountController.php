@@ -470,6 +470,9 @@ class UseraccountController extends Controller implements AuthenticateUserListen
 		
 	private function details(){
 		$user = $this->userDao->getDetails( $this->userAuth->id );
+		if(!$user->details->state){
+			Session::put('complete-profile', false);
+		}
 		$user->details->country_code = $user->details->country;
 		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
 		return $user;
