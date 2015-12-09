@@ -3,7 +3,7 @@ namespace App\Libraries;
 
 
 use Auth;
-// use Laravel\Socialite\Contracts\Factory as Socialite; 
+ use Laravel\Socialite\Contracts\Factory as Socialite; 
 use App\Model\Dao\UserDao;
 // use Socialize;
 use App\Libraries\Interfaces\AuthenticateUserListener;
@@ -14,7 +14,7 @@ class ConnectUserWithFacebook
 	private $socialite;
 	private $auth;
 
-	public function __construct(UserDao $user,Socialize $socialite, Auth $auth)
+	public function __construct(UserDao $user,Socialite $socialite, Auth $auth)
 	{
 		$this->users = $user;
 		$this->socialite = $socialite;

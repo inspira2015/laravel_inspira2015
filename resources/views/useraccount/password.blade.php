@@ -51,7 +51,9 @@
 	<div class="row">
 		<div class="col-xs-8 form-data">
 			@if(!$user->details->facebook_id)
- 				<a href="useraccount/fbLink" class="fb-linkto">{{ Lang::get('userdata.fb-link') }}</a> 
+<!--  				<a href="useraccount/fbLink" class="fb-linkto">{{ Lang::get('userdata.fb-link') }}</a>  -->
+ 				<a data-role="change" data-route="useraccount/fbLink" class="fb-linkto">{{ Lang::get('userdata.fb-link') }}</a> 
+
 			@else
  				<a data-role="change" data-route="useraccount/fb-unlink" class="fb-linkto">{{ Lang::get('userdata.fb-unlink') }}</a> 
 			@endif

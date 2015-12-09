@@ -12,7 +12,7 @@ use Session;
 use Response;
 use Redirect;
 use Request;
-use Socialize;
+// use Socialize;
 
 use App\Model\User;
 use App\Model\Dao\UserDao;
@@ -481,13 +481,13 @@ class UseraccountController extends Controller implements AuthenticateUserListen
     public function getFbLink(ConnectUserWithFacebook $connectFb, Request $request )
     {
 		//echo $connectFb->execute(Input::get('code'), $this);
-		return Socialize::with('facebook')->redirect();
+	//	return Socialize::with('facebook')->redirect();
     }
 	
 	public function postFbLink(ConnectUserWithFacebook $authfb, Request $request){
 		//Post con facebook login.
 		$validator = array();
-		return $authfb->execute($request->has('code'), $this);
+// 		return $authfb->execute($request->has('code'), $this);
 
 
 		return view('useraccount.password')
