@@ -10,8 +10,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
@@ -202,6 +200,8 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 	
 	Route::get('users', 'UsersController@index');		
 	Route::post('useraccount/fbLink', 'UseraccountController@postFbLink');		
+	Route::post('useraccount/fb-unlink', 'UseraccountController@postFbUnlink');		
+	Route::get('useraccount/fbLink', 'UseraccountController@getFbLink');		
 
 	Route::post('users/registration', 'UsersController@registration');
 	Route::get('users/activation/{code}', 'UsersController@activation');
@@ -235,6 +235,7 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 	
 	Route::get('useraccount', 'UseraccountController@index');
 	
+	
 	Route::get('accountsetup', 'UseraccountController@accountSetup');
 	Route::post('useraccount/update-contact', 'UseraccountController@updateAccount');
 	Route::post('useraccount/edit-contact', 'UseraccountController@editAccount');
@@ -243,9 +244,16 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 	Route::post('useraccount/edit-payment', 'UseraccountController@editPayment');
 	Route::post('useraccount/update-payment', 'UseraccountController@updatePayment');
 	Route::post('useraccount/credit-payment', 'UseraccountController@creditPayment');
-	
 	Route::get('useraccount/activation/{code}', 'UseraccountController@activation');
 	
+	Route::get('destination/mazatlan', 'PageController@goMazatlan');
+	Route::get('destination/mazanillo', 'PageController@goManzanillo');
+	Route::get('destination/las-vegas', 'PageController@goLasVegas');
+	Route::get('destination/malaga', 'PageController@goMalaga');
+	Route::get('destination/puerto-vallarta', 'PageController@goPuertoVallarta');
+	Route::get('destination', 'PageController@goDestination');
+	Route::get('useraccount/reservations', 'PageController@goDestination');
+
 	Route::post('codes/check', 'CodesController@check');
 	
 	Route::post('/language', array(

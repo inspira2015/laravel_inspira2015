@@ -57,7 +57,13 @@ return [
 	"complete-profile" => "Complete su registro llenando los campos restantes.",
 	"credit-card" => "Información de Tarjeta de Crédito o Débito",
 	"more-info" => "M&aacute;s info",
-	"fb-link" => "Ligar cuenta a facebook",
+	"fb-link" => "Ligar cuenta a Facebook",
+	"fb-unlink" => "Desconectar cuenta",
+	"destination" => "destino",
+	"payment-history" => "HISTORIAL DE PAGOS",
+	"view" => "Ver",
+	"fb-title-modal" => "¿ Cuentas con facebook ?",
+	"fb-description-modal" => "Al ligar tu cuenta inspira con Facebook el acceso a esta es mucho más fácil y rápido ya que no es necesario que ingreses contraseña. Además podrás recibir promociones Inspira y más directamente a tu cuenta de Facebook. Da clic al botón ligar cuenta a Facebook para llevar este paso a cabo.",
 	"success" => [
 		"transaction" => "Su pago se ha completado con éxito."
 	]

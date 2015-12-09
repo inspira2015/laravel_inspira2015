@@ -232,6 +232,11 @@ footer > .container > div:nth-child(3){
     margin-right: 20px;
 }
 
+.btn-blue-clear:hover{
+	color: inherit;
+	cursor:pointer;
+}
+
 
 .back{
 	background-position: left center;
@@ -286,7 +291,7 @@ div.bg-gray{
 }
 
 div.bg-light-gray{
-	background-color: #F6F7F7;
+	background-color: rgba(255,255,255,0.7);
 	padding: 15px;
 }
 
@@ -306,6 +311,8 @@ div.bg-gray label{
 div.bg-gray-transparent{
 	background-color:rgba(229,231,233,0.4); 
 	padding:40px; 
+	color: rgb(70, 86, 100);
+	font-weight: 400;
 }
 
 div.container > div.bg-gray-transparent:nth-child(1){
@@ -632,7 +639,7 @@ div#vacational-box p{
 }
 
 .bg-light-gray-transparent{
-	background-color: white;
+	background-color: rgba(255,255,255,0.7);
 	margin-left: 5px;
 	margin-top: 15px;
 	margin-right: 5px;
@@ -646,7 +653,7 @@ div#vacational-box p{
 	margin-bottom: 100px;
 }
 #user h2{
-	 font-size:32px;  color:#818c95; display:table;
+	 font-size:32px;  display:table;
 }
 
 #user h3{
@@ -654,6 +661,7 @@ div#vacational-box p{
     margin-bottom: 20px;
     padding-left: 15px;
     padding-right: 15px;
+    font-size: 18px!important;
 }
 
 #user .fa.fa-user{
@@ -662,6 +670,7 @@ div#vacational-box p{
 	font-size: 40px;
 	text-align:center;
 	margin-right:20px;
+	color:#818c95;
 }
 
 
@@ -669,6 +678,13 @@ div#vacational-box p{
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
+.row.form-data label,
+form label {
+    color: #465664!important;
+}
+
+
 .form-data > div {
 	padding-left: 15px;
 	padding-right:15px;
@@ -694,11 +710,12 @@ div#vacational-box p{
 }
 
 #user  div.promo {
-	padding:1px; margin:0 0;
+	padding:1px; 
+	margin: 0 0 10px 0;
 }
 
 #user  div.promo img{
-	width:100%;
+	width: calc(100% - 10px);
 }
 
 #user div.promo span{
@@ -712,6 +729,10 @@ div#vacational-box p{
 	line-height: 25px;
 	font-size: 16px!important;
 	padding: 3px 15px 3px 10px;
+}
+
+.btn-blue:hover {
+	color: white;
 }
 
 #promotion-box div.promotion{
@@ -732,7 +753,6 @@ div#vacational-box p{
 	padding: 5px 15px;
 	font-size: 14px;
 	height: 60px;
-	margin-left: 20px;
 	max-width: calc(100% - 70px);
 
 }
@@ -783,7 +803,8 @@ div#account-details,
 div#contact-info,
 div#account-affiliation,
 div#account-funds,
-div#account-bonus{
+div#account-bonus,
+div#history-payments{
 	background-size: 35px 35px;
 	background-repeat: no-repeat;
 	background-position:  calc(100% - 20px) 20px;
@@ -794,6 +815,13 @@ div#inspira-points{
 	background-image: url('images/info.png');	
 }
 
+div#inspira-points h3,
+#history-payments h3{
+	padding: 0;
+    text-align: left;
+    display: inline-block;
+    margin: 0;
+}
 
 div#account-convert{
 	background-image: url('images/convert.png');	
@@ -1196,6 +1224,14 @@ a.fb-linkto{
 	
 	div.flat-windows .modal-dialog{
 		max-width:100%!important;
+	}
+	
+	div.bg-gray-transparent{
+		padding: 20px 10px;
+	}
+	
+	.btn-blue.btn-big{
+		margin-top: 20px;
 	}
 	
 }

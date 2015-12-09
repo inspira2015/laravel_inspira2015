@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Session\Store as Session;
-use Laravel\Socialite\Contracts\Factory as Socialite; 
 use App\Model\UserRepository; use UserRequest; 
 use App\Libraries\AuthUserWithFacebook;
 use App\Libraries\Interfaces\AuthenticateUserListener;
@@ -28,7 +27,6 @@ class AuthController extends Controller implements AuthenticateUserListener {
      */
     protected $auth;
     private $session;
-    private $socialite;
     private $checkAccountSetup;
     private $userDao;
     /**
@@ -40,13 +38,11 @@ class AuthController extends Controller implements AuthenticateUserListener {
      */
     public function __construct( Guard $auth, 
                                  Session $session,
-                                 Socialite $socialite,
                                  CompleteAccountSetup $checkUser,
                                  UserDao $userdao ) {
         $this->auth = $auth;
         $this->session = $session;
         $this->middleware('guest', ['except' => 'getLogout']);
-        $this->socialite = $socialite;
         $this->checkAccountSetup = $checkUser;
         $this->userDao = $userdao;
         $this->setLanguage();
@@ -85,7 +81,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 
 	    }
 */
-return $authfb->execute($request->has('code'), $this);
+		return $authfb->execute($request->has('code'), $this);
 
     }
 

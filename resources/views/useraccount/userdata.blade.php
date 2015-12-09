@@ -5,20 +5,21 @@
 <div class="row bg-gray-transparent" id="user">
 	<div class="col-xs-12">
 		<div class="row">
-			<div class="col-md-6 nopadding">
+			<div class="col-sm-6 nopadding">
 				<h2 class="text-left">
 					<div class="display:table-cell;">
 						<i class="fa fa-user"></i>
-<!-- 						{!! HTML::image($user->details->facebook_avatar, 'User', array( 'class' => 'img-circle') ) !!} -->
 					</div>
-					<span style="display:table-cell;">{{ Str::upper($user->details->name) }} {{ Str::upper($user->details->last_name) }}</span>
+					<span style="display:table-cell;">
+						{{ Str::upper($user->details->name) }} {{ Str::upper($user->details->last_name) }}
+					</span>
 				</h2>
 			</div>
 	
-			<div class="col-xs-5 col-xs-push-7 col-md-4 col-md-push-2">
+			<div class="col-xs-12 col-sm-6  col-md-5 col-md-push-1">
 				@if( $user->details->leisure_id !== null )
 				<div class="row">
-					<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={{ $user->details->leisure_id }}" class="btn-blue btn-small">{{ Lang::get('userdata.go-reservations') }}</a>
+					<a href="{{ url('useraccount/reservations') }}" class="btn-blue btn-big">{{ Lang::get('userdata.go-reservations') }}</a>
 				</div>
 				@endif
 			</div>
@@ -58,7 +59,7 @@
 						<div class="col-xs-6">
 							<strong>{{ Lang::get('userdata.language') }}</strong>: &nbsp;{{ Str::upper($user->details->language) }}
 						</div>
-						<div class="col-xs-4 col-xs-push-2 text-center">
+						<div class="col-xs-5 col-xs-push-1 text-center">
 							<a data-role="change" data-route="api/user/change-language" class="btn-blue btn-small">
 								{{ Lang::get('userdata.change') }}
 							</a>
@@ -68,7 +69,7 @@
 						<div class="col-xs-6">
 							<strong>{{ Lang::get('userdata.currency') }}</strong>: &nbsp;{{ $user->details->currency }}						
 						</div>
-						<div class="col-xs-4 col-xs-push-2 text-center">
+						<div class="col-xs-5 col-xs-push-1 text-center">
 							<a href="#"  data-toggle="modal" data-target="#currency" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>
@@ -76,14 +77,24 @@
 						<div class="col-xs-6">
 							<strong>{{ Lang::get('userdata.credit-card') }}</strong>				
 						</div>
-						<div class="col-xs-4 col-xs-push-2 text-center">
+						<div class="col-xs-5 col-xs-push-1 text-center">
 							<a href="{{ url('creditcardinfo/update') }}"  class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>
 				</div>
 				<div class="row bg-light-gray-transparent text-center" id="inspira-points">
-					{{ Lang::get('userdata.inspira-points') }} 
+					<h3>{{ Lang::get('userdata.inspira-points') }} </h3>
 					<span class="pink">{{ $inspiraPointsBalance }}  {{ Lang::get('userdata.points') }}</span>
+				</div>
+				<div class="row bg-light-gray-transparent" id="history-payments">
+					<div class="col-xs-7 nopadding">
+						<h3>{{ Lang::get('userdata.payment-history') }} </h3>
+					</div>
+					<div class="col-xs-4 text-center">
+						<a class="btn-blue btn-small" data-toggle="modal" data-target="#payment-history" href="#">
+							{{ Lang::get('userdata.view') }}
+						</a>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -160,24 +171,24 @@
 				</div>
 				<div class="row" style="margin-top:30px;">
 					
-					<div class="col-xs-10 col-xs-offset-1">
+					<div class="col-xs-10 col-xs-offset-1 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 ">
 						<h3 class="row">{{ Lang::get('userdata.monthly-promotions')}}</h3>
 						<div class="row">
-							<div class="col-xs-3 col-md-6 promo">
-								{!! HTML::image('images/manzanillo.png', 'Manzanillo - InspiraMexico') !!}
-								<span>Manzanillo</span>
+							<div class="col-xs-6 col-sm-3 col-md-6 promo">
+								<a href="{{ url('destination/mazanillo') }}">{!! HTML::image('images/manzanillo.png', 'Manzanillo - Inspira Mexico') !!}</a>
+								<span>Manzanillo, MX</span>
 							</div>
-							<div class="col-xs-3 col-md-6 promo">
-								{!! HTML::image('images/mazatlan.png', 'Mazatlan - InspiraMexico') !!}
-								<span>Mazatlan</span>
+							<div class="col-xs-6 col-sm-3 col-md-6 promo">
+								<a href="{{ url('destination/mazatlan') }}">{!! HTML::image('images/mazatlan.png', 'Mazatlan - Inspira Mexico') !!}</a>
+								<span>Mazatl&aacute;n, MX</span>
 							</div>
-							<div class="col-xs-3 col-md-6 promo">
-								{!! HTML::image('images/lasvegas.png', 'Las Vegas - InspiraMexico') !!}
-								<span>Las Vegas</span>
+							<div class="col-xs-6 col-sm-3 col-md-6 promo">
+								<a href="{{ url('destination/las-vegas') }}">{!! HTML::image('images/lasvegas.png', 'Las Vegas - Inspira Mexico') !!}</a>
+								<span>Las Vegas, E.U.</span>
 							</div>
-							<div class="col-xs-3 col-md-6 promo">
-								{!! HTML::image('images/malaga.png', 'Malaga - InspiraMexico') !!}
-								<span>Malaga</span>
+							<div class="col-xs-6 col-sm-3 col-md-6 promo">
+								<a href="{{ url('destination/malaga') }}">{!! HTML::image('images/malaga.png', 'Malaga - Inspira Mexico') !!}</a>
+								<span>Malaga, Esp.</span>
 							</div>
 						</div>
 					</div>
@@ -192,13 +203,14 @@
 		</div>
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
-				<a href="http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={{ $user->details->leisure_id }}" class="btn-blue">{{ Lang::get('userdata.go-reservations') }}</a>
+				<a href="{{ url('useraccount/reservations') }}" class="btn-blue">{{ Lang::get('userdata.go-reservations') }}</a>
 			</div>
 		</div>
 		@endif
 	</div>
 </div>
 @include('useraccount.currency_modal')
+@include('useraccount.payment_history_modal')
 @include('useraccount.affiliation_modal')
 
 @stop

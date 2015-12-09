@@ -58,6 +58,12 @@ return [
 	"credit-card" => "Credit or Debit Card information",
 	"more-info" => "More info",
 	"fb-link" => "Link to Facebook account",
+	"fb-unlink" => "Unlink Facebook account",
+	"destination" => "destination",
+	"payment-history" => "PAYMENT HISTORY",
+	"view" => "View",
+	"fb-title-modal" => "Do you have a Facebook Account?",
+	"fb-description-modal" => "By linking your Inspira account with Facebook signing in is much faster and easier; you don't need to write in your password every time you want to log-in. Also, you receive special Inspira promotions and more directly in your Facebook account. Click the link to Facebook button to continue with this process.",
 	"success" => [
 		"transaction" => "Your payment has been successfully completed."
 	]

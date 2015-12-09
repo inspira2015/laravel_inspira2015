@@ -11,6 +11,8 @@ use GeoIP;
 use Session;
 use Response;
 use Redirect;
+use Request;
+use Socialize;
 
 use App\Model\User;
 use App\Model\Dao\UserDao;
@@ -30,7 +32,7 @@ use App\Services\UserPassword;
 use App\Services\UserDetails;
 use App\Services\Payment as PaymentValidator;
 use App\Services\PaymentCC as PaymentMethodCC;
-
+use App\Libraries\ConnectUserWithFacebook;
 use App\Libraries\ConvertMoneyAmountToPoints;
 use App\Libraries\AccountValidation\CompleteAccountSetup;
 use App\Libraries\GeneratePaymentsDates;
@@ -43,8 +45,9 @@ use App\Libraries\AddInspiraPoints;
 use App\Libraries\GetLastBalance;
 
 use App\Model\Entity\UserAffiliationPaymentEntity;
+use App\Libraries\Interfaces\AuthenticateUserListener;
 
-class UseraccountController extends Controller {
+class UseraccountController extends Controller implements AuthenticateUserListener{
 	
 	private $userDao;
 	private $countryDao;
@@ -472,12 +475,37 @@ class UseraccountController extends Controller {
 		return $user;
 	}
 	
-	public function postFbLink(){
+    public function getFbLink(ConnectUserWithFacebook $connectFb, Request $request )
+    {
+		//echo $connectFb->execute(Input::get('code'), $this);
+		return Socialize::with('facebook')->redirect();
+    }
+	
+	public function postFbLink(ConnectUserWithFacebook $authfb, Request $request){
 		//Post con facebook login.
 		$validator = array();
+		return $authfb->execute($request->has('code'), $this);
+
+
 		return view('useraccount.password')
 			->with( 'user',  $this->details() )
 			->withErrors([ 'message' => Lang::get('userdata.error.transaction') ]);
+	}
+	
+	public function postFbUnlink(){
+		//Post con facebook login.
+		$this->userDao->load($this->userAuth->id);
+		$this->userDao->facebook_id = null;
+		$this->userDao->save();
+		
+		
+		$validator = array();
+		return view('useraccount.password')
+			->with( 'user',  $this->details() );
+	}	
+	
+	public function userHasLoggedIn($user){
+		return "hola";
 	}
 }
 
