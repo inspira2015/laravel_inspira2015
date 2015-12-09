@@ -815,6 +815,10 @@ div#inspira-points{
 	background-image: url('images/info.png');	
 }
 
+div#history-payments{
+	background-image: url('images/historyicon.png');	
+}
+
 div#inspira-points h3,
 #history-payments h3{
 	padding: 0;
@@ -1171,10 +1175,10 @@ span.small-super:before{
 }
 
 a.fb-linkto{
-	background-image: url('images/facebook-box-blue.png');
+	background-image: url('images/fb-icon.png');
 	background-repeat: no-repeat;
-	background-position: calc(100% - 20px) top;
-	background-size: 30px;
+	background-position: calc(100% - 20px) 5px;
+	background-size: 20px;
 	height: 35px;
 	display: block;
 	line-height: 2;
