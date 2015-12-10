@@ -82,7 +82,13 @@ class UsersController extends Controller {
 		{
 			return Redirect::to('codes/1');
 		}
-
+		
+		if( $this->checkFacebook() == TRUE ){
+			return Redirect::to('users/registration');
+		}
+		
+		//Saves user fb data to session.
+		
 		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
 		$locale = Lang::getLocale();
 		
@@ -107,6 +113,12 @@ class UsersController extends Controller {
 					->with('background','2.jpg');
 	}
 
+	public function checkFacebook(){
+		if(Session::get('creation-ref')){
+			return TRUE;			
+		}
+		return FALSE;
+	}
 
 	public function checkSession()
 	{
@@ -144,6 +156,40 @@ class UsersController extends Controller {
 			Session::put('users',  $post_data );
 			return Redirect::to('affiliation');
 		}
+		
+		$locale = Lang::getLocale();
+		$data['country_list'] = $this->getCountryArray();
+		$data['lan_list'] = $this->getLanguaje();
+		$data['currency_list'] = $this->getCurrency();
+		$data['location_info'] = $this->getLocationInfo($post_data['country']);
+
+        return view('users.user')
+		        ->with('title', Lang::get('registry.title') )
+		        ->with('background','2.jpg')
+		        ->with($data)
+		        ->withErrors($validator)
+		        ->withInput($post_data);
+	}
+	
+	public function getRegistration(){
+		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
+
+		$post_data = Request::all();
+		$user_check = new UserRegistration();
+		
+		//Connect with facebook.
+		$post_data['cellphone_number'] = 000000000;
+		$post_data['country'] = 'MX';
+		$post_data['cellphone_number'] = $this->sanitizePhone($post_data['cellphone_number']);
+		$validator = $user_check->validator($post_data, Lang::getLocale());
+		$post_data['currency'] = 'USD';
+/*
+		if($validator->passes()) 
+		{
+*/
+			Session::put('users',  $post_data );
+			return Redirect::to('affiliation');
+//		}
 		
 		$locale = Lang::getLocale();
 		$data['country_list'] = $this->getCountryArray();

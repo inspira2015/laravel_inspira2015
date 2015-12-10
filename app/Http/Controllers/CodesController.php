@@ -9,7 +9,6 @@ use App\Services\ServiceCode as ServiceCode;
 use App\Libraries\CodeValidator as CodeValidator;
 use Input;
 
-
 class CodesController extends Controller {
 
 	private $codeDao;
@@ -25,6 +24,11 @@ class CodesController extends Controller {
 
 	public function Index($reset = FALSE) 
 	{
+		$ref = Input::get('ref');
+		if($ref == 'fb'){
+			Session::put('creation-ref', 'fb');
+		}
+		
 		if( $reset == FALSE )
 		{
 			$this->deleteSessionData();

@@ -96,15 +96,12 @@
 
 	{!! HTML::script('js/main.js') !!}
 	
-	@if(!$app->environment('local'))
-		@include('layouts.__common.tawk')
-	@endif
-	
 	@include('layouts.__common.facebook')
 	
 	@include('layouts.landings.__common.modal_login')
 	
 	@include('layouts.landings.uber.analytics')
+	@include('layouts.__common.tawk')
 
 </body>
 </html>
