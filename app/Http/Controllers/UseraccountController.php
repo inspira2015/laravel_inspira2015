@@ -47,7 +47,7 @@ use App\Libraries\GetLastBalance;
 use App\Model\Entity\UserAffiliationPaymentEntity;
 use App\Libraries\Interfaces\AuthenticateUserListener;
 
-class UseraccountController extends Controller implements AuthenticateUserListener{
+class UseraccountController extends Controller{
 	
 	private $userDao;
 	private $countryDao;
@@ -480,7 +480,7 @@ class UseraccountController extends Controller implements AuthenticateUserListen
 	
     public function getFbLink(ConnectUserWithFacebook $connectFb, Request $request )
     {
-		//echo $connectFb->execute(Input::get('code'), $this);
+		 print_r($connectFb->execute(Input::get('code'), $this));
 	//	return Socialize::with('facebook')->redirect();
     }
 	

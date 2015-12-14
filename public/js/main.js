@@ -76,8 +76,10 @@ $(document).ready(function(){
 				feature._change_language( _language );
 				feature._apply_bonus( _radio_bonus );
 				feature._apply_anchor( _anchor );
-
+				
 				$.ajaxSetup({headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')	}});
+				
+// 				$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 
 			});
 		}, 

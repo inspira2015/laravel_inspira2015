@@ -13,7 +13,7 @@ class VerifyCsrfToken extends BaseVerifier {
 	 * @return mixed
 	 */
 	protected $except = [
- 			'v1/*', 'api/*',  'useraccount/*', 'https://www.facebook.com/'
+ 			'v1/*', 'api/*',
 	];
 
 	public function handle($request, Closure $next)

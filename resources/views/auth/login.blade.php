@@ -59,7 +59,7 @@
 						</div>
 					</div>
 					<div class="col-xs-12 text-center">
-						<a href="{{ url('auth/loginfb') }}">Conectar con facebook</a>
+						<a href="{{ url('auth/loginfb') }}" style="background-color:#3b5998;color:white;padding: 10px 15px;">Conectar con Facebook</a>
 					</div>
 					
 				</div>

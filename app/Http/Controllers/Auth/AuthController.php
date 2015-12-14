@@ -42,7 +42,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
                                  UserDao $userdao ) {
         $this->auth = $auth;
         $this->session = $session;
-        $this->middleware('guest', ['except' => 'getLogout']);
+        $this->middleware('guest', ['except' => ['getLogout', 'getLoginfb']]);
         $this->checkAccountSetup = $checkUser;
         $this->userDao = $userdao;
         $this->setLanguage();

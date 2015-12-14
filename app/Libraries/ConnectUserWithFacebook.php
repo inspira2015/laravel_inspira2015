@@ -2,11 +2,11 @@
 namespace App\Libraries;
 
 
-use Auth;
- use Laravel\Socialite\Contracts\Factory as Socialite; 
+use Illuminate\Contracts\Auth\Guard as Auth;
+use Laravel\Socialite\Contracts\Factory as Socialite; 
 use App\Model\Dao\UserDao;
 // use Socialize;
-use App\Libraries\Interfaces\AuthenticateUserListener;
+// use App\Libraries\Interfaces\AuthenticateUserListener;
 
 class ConnectUserWithFacebook
 {
@@ -21,15 +21,21 @@ class ConnectUserWithFacebook
 		$this->auth = $auth;
 	}
 
-	public function execute($hasCode,AuthenticateUserListener $listener)
+	public function execute($hasCode)
 	{
 		if ( ! $hasCode )
 		{
 			return $this->getAuthorizationFirst();
 		}
 
-/*
-		$fbUser = $this->getFacebookUser();
+		try{
+			$fbUser = $this->getFacebookUser();
+		}catch (Exception $e) {
+           echo $e;
+           exit;
+        }
+
+
 		$user = $this->users->getByFacebookId( $fbUser );
 		if ( $user === FALSE )
 		{
@@ -48,7 +54,7 @@ class ConnectUserWithFacebook
 		}
 	//	$this->auth->login($user,true);
 		return $listener->userHasLoggedIn( $user );
-*/
+
 
 	}
 
