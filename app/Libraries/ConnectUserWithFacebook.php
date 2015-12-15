@@ -7,6 +7,7 @@ use Laravel\Socialite\Contracts\Factory as Socialite;
 use App\Model\Dao\UserDao;
 // use Socialize;
 use App\Libraries\Interfaces\AuthenticateUserListener;
+use Session;
 
 class ConnectUserWithFacebook
 {
@@ -31,10 +32,12 @@ class ConnectUserWithFacebook
 		$fbUser = $this->getFacebookUser();
 		$user = $this->users->getByFacebookId( $fbUser );
 		
+		Session::set('facebook_user', $fbUser->user);
+
 		if ( $user === FALSE )
 		{
 			$user = $this->users->getByEmail($fbUser->email);
-
+			
 			if($user !== FALSE) {
 				$this->users->load($user->id);
 				$this->users->facebook_id = $fbUser->id;
@@ -43,7 +46,7 @@ class ConnectUserWithFacebook
 				
 				$user = $this->users->getByFacebookId( $fbUser );
 			}else{
-				return $listener->tryAgain();
+				return $fbUser->user;
 			}
 		}
 		$this->auth->login($user,true);

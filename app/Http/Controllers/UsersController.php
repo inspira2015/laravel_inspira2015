@@ -19,8 +19,6 @@ use App\Libraries\Referer\CheckReferer;
 
 use App\Libraries\Interfaces\AuthenticateUserListener;
 use App\Libraries\ConnectUserWithFacebook;
-use App\Libraries\CreateUserWithFacebook;
-
 
 use Auth;
 use App\Libraries\UpdateDataBaseLeisureMember;
@@ -178,15 +176,22 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		        ->withInput($post_data);
 	}
 	
-	public function getRegistration(CreateUserWithFacebook $fb){
+	public function getRegistration(ConnectUserWithFacebook $authfb, Request $request){
 		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
 
 		$post_data = Request::all();
 		$user_check = new UserRegistration();
 		
 		//Connect with facebook.
-		return $fb->execute(Request::get('code'),$this);
+// 		return $fb->execute(Request::get('code'),$this);
 		
+    	$user = (array)$authfb->execute(Request::get('code'), $this);	
+
+		print_r($user);
+    	$post_data['name'] = $user['name'];
+    	$post_data['last_name'] = $user['last_name'];
+    	$post_data['email'] = $user['email'];
+    	$post_data['facebook_id'] = $user['id'];
 		$post_data['cellphone_number'] = 000000000;
 		$post_data['country'] = 'MX';
 		$post_data['cellphone_number'] = $this->sanitizePhone($post_data['cellphone_number']);
@@ -196,6 +201,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		if($validator->passes()) 
 		{
 */
+			return $post_data;
 			Session::put('users',  $post_data );
 			return Redirect::to('affiliation');
 //		}
@@ -380,7 +386,8 @@ class UsersController extends Controller implements AuthenticateUserListener {
         return redirect()->intended($this->redirectPath());
     }
     
-    public function tryAgain(){
+    public function tryAgain(ConnectUserWithFacebook $authfb){
+    	return $authfb->execute(Request::get('code'), $this);	
 	    return "User doesnt exist, want to create an account?";
     }
     
