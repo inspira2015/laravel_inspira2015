@@ -37,6 +37,8 @@ use App\Libraries\ConvertMoneyAmountToPoints;
 use App\Libraries\AccountValidation\CompleteAccountSetup;
 use App\Libraries\GeneratePaymentsDates;
 use App\Libraries\CardPayment;
+use App\Libraries\CashPayment;
+
 use App\Libraries\SystemTransactions\CreateCashReceipt;
 
 use App\Libraries\ExchangeRate\ExchangeMXNUSD;

@@ -135,7 +135,7 @@ class CashPayment extends InitializePayUCredentials
 			case 'BANCOMER':
 				$method = PaymentMethods::BANCOMER;
 				break;
-			case 'SEVEN_ELVEN':
+			case 'SEVEN_ELEVEN':
 				$method = PaymentMethods::SEVEN_ELEVEN;
 				break;
 			case 'SANTANDER':
