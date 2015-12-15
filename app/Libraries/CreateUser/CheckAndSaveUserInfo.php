@@ -108,11 +108,6 @@ class CheckAndSaveUserInfo
 					  'currency' => $this->storeData['Affiliation']['currency_' . $temp_id],
 			);
 	}
-	
-	public function userEx(){
-				return $this->userDao->exchangeArray( $this->storeData['User'] );
-
-	}
 
 
 	public function saveData()
