@@ -210,6 +210,8 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 	Route::get('users/activation/{code}', 'UsersController@activation');
 	Route::post('users/select-language', 'UsersController@refreshLanguage');
 	
+	Route::get('users/fbConnect', 'UsersController@fbConnect');
+
 	Route::get('affiliation', 'AffiliationController@index');
 	Route::post('affiliation/add', 'AffiliationController@create');
 	Route::get('affiliation/update/{affiliation?}', 'AffiliationController@changeaffiliation');
@@ -247,7 +249,8 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 	Route::post('useraccount/edit-payment', 'UseraccountController@editPayment');
 	Route::post('useraccount/update-payment', 'UseraccountController@updatePayment');
 	Route::post('useraccount/credit-payment', 'UseraccountController@creditPayment');
-	Route::get('useraccount/activation/{code}', 'UseraccountController@activation');
+	
+	Route::get('useraccount/activation/{code}', 'UsersController@activation');
 	
 	Route::get('destination/mazatlan', 'PageController@goMazatlan');
 	Route::get('destination/mazanillo', 'PageController@goManzanillo');

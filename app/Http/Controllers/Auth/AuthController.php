@@ -42,7 +42,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
                                  UserDao $userdao ) {
         $this->auth = $auth;
         $this->session = $session;
-        $this->middleware('guest', ['except' => ['getLogout', 'getLoginfb']]);
+        $this->middleware('guest', ['except' => 'getLogout']);
         $this->checkAccountSetup = $checkUser;
         $this->userDao = $userdao;
         $this->setLanguage();
@@ -60,31 +60,9 @@ class AuthController extends Controller implements AuthenticateUserListener {
 
     public function getLoginfb(AuthUserWithFacebook $authfb, Request $request)
     {
-/*
-	    if($request->has('code')){
-		    $fbUser = $authfb->getFacebookUser();
-		    
-		    $user = $this->userDao->getByFacebookId($fbUser);
-			if( empty($user) ){
-				$user = $this->userDao->getByEmail($fbUser->email);
-							
-				$this->userDao->load($user->id);
-				$this->userDao->facebook_id = $fbUser->id;
-				$this->userDao->facebook_avatar = $fbUser->avatar;
-				$this->userDao->save();
-			}else{
-				$this->auth->login($user,true);
-				return $this->userHasLoggedIn($user);	
-			}
-	    }else{
-		   return $authfb->execute($request->has('code'), $this);
-
-	    }
-*/
 		return $authfb->execute($request->has('code'), $this);
 
     }
-
 
     public function userHasLoggedIn($user)
     {
@@ -112,7 +90,6 @@ class AuthController extends Controller implements AuthenticateUserListener {
         $credentials2['email'] =  trim($credentials['email']);
         $credentials2['password'] =  trim($credentials['password']);
 
-
         if ($this->auth->attempt($credentials2, $request->has('remember'))) {
             $this->session->flash('message', "Ha iniciado sesión con éxito");
             $this->session->flash('alert-class', 'alert-success');
@@ -134,7 +111,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
                 
 
             }
-           
+                       
             return redirect()->intended($this->redirectUserAccountPath());
 
         }

@@ -478,29 +478,11 @@ class UseraccountController extends Controller{
 		return $user;
 	}
 	
-    public function getFbLink(ConnectUserWithFacebook $connectFb, Request $request )
-    {
-		 print_r($connectFb->execute(Input::get('code'), $this));
-	//	return Socialize::with('facebook')->redirect();
-    }
-	
-	public function postFbLink(ConnectUserWithFacebook $authfb, Request $request){
-		//Post con facebook login.
-		$validator = array();
-// 		return $authfb->execute($request->has('code'), $this);
-
-
-		return view('useraccount.password')
-			->with( 'user',  $this->details() )
-			->withErrors([ 'message' => Lang::get('userdata.error.transaction') ]);
-	}
-	
 	public function postFbUnlink(){
 		//Post con facebook login.
 		$this->userDao->load($this->userAuth->id);
 		$this->userDao->facebook_id = null;
 		$this->userDao->save();
-		
 		
 		$validator = array();
 		return view('useraccount.password')

@@ -33,23 +33,12 @@ class ConnectUserWithFacebook
 		
 		if ( $user === FALSE )
 		{
-			$user = $this->users->getByEmail($fbUser->email);
-
-			if($user !== FALSE) {
-				$this->users->load($user->id);
-				$this->users->facebook_id = $fbUser->id;
-				$this->users->facebook_avatar = $fbUser->avatar;
-				$this->users->save();
-				
-				$user = $this->users->getByFacebookId( $fbUser );
-			}else{
-				return $listener->tryAgain();
-			}
+			//Crear usuario
+			return "Create user";
+			
+		}else{
+			return "Buuuh, mensaje de error ";
 		}
-		$this->auth->login($user,true);
-		return $listener->userHasLoggedIn( $user );
-
-
 	}
 
 	private function getAuthorizationFirst()

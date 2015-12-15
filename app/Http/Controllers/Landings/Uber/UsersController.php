@@ -63,6 +63,7 @@ class UsersController extends Controller {
 				if($this->guard->attempt(['email' => $postData['email'], 'password' => $postData['password']])){
 					$userAuth = Auth::user();
 					$userAuth->password = $postData['password'];
+					$userAuth->save();
 					
 					$this->leisureLoyalty->setUser($userAuth);
 					$this->leisureLoyalty->setTierId(80);

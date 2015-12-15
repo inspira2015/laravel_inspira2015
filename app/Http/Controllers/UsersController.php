@@ -17,7 +17,12 @@ use App\Model\Dao\StatesDao;
 use App\Libraries\CodeValidator as CodeValidator;
 use App\Libraries\Referer\CheckReferer;
 
+use App\Libraries\Interfaces\AuthenticateUserListener;
+use App\Libraries\ConnectUserWithFacebook;
+use App\Libraries\CreateUserWithFacebook;
 
+
+use Auth;
 use App\Libraries\UpdateDataBaseLeisureMember;
 use App\Model\Entity\UserAffiliation;
 
@@ -31,7 +36,7 @@ use GeoIP;
 
 
 
-class UsersController extends Controller {
+class UsersController extends Controller implements AuthenticateUserListener {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -61,7 +66,9 @@ class UsersController extends Controller {
 								CodesUsedEntity $codesUsed,
 								CodeDao $codeDao)
 	{
-		$this->middleware('guest', ['except' => 'activation'] );
+
+		$this->middleware('both', ['only' => 'fbConnect']);
+
 		$this->userDao = $userDao;
 		$this->userPhone = $userphone;
 		$this->codesUsed = $codesUsed;
@@ -82,7 +89,7 @@ class UsersController extends Controller {
 		{
 			return Redirect::to('codes/1');
 		}
-		
+
 		if( $this->checkFacebook() == TRUE ){
 			return Redirect::to('users/registration');
 		}
@@ -171,13 +178,15 @@ class UsersController extends Controller {
 		        ->withInput($post_data);
 	}
 	
-	public function getRegistration(){
+	public function getRegistration(CreateUserWithFacebook $fb){
 		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
 
 		$post_data = Request::all();
 		$user_check = new UserRegistration();
 		
 		//Connect with facebook.
+		return $fb->execute(Request::get('code'),$this);
+		
 		$post_data['cellphone_number'] = 000000000;
 		$post_data['country'] = 'MX';
 		$post_data['cellphone_number'] = $this->sanitizePhone($post_data['cellphone_number']);
@@ -221,6 +230,9 @@ class UsersController extends Controller {
 	 */
 	public function activation($code = FALSE)
 	{
+		if(!Auth::check()){
+			return redirect('auth/login');
+		}
 		if($code == FALSE)
 		{
 			//Error page
@@ -348,5 +360,37 @@ class UsersController extends Controller {
 			'redirect' => url('users')
 		), 200);
 	}
+	
+	
+    public function fbConnect(ConnectUserWithFacebook $authfb, Request $request)
+    {
+    	return $authfb->execute(Request::get('code'), $this);	
+    }
+    
+    public function redirectPath() {
+        return'/useraccount';
+    }
+    
+    
+    public function userHasLoggedIn($user)
+    {
+        Session::flash('message', "Ha iniciado sesión con éxito");
+        Session::flash('alert-class', 'alert-success');
+
+        return redirect()->intended($this->redirectPath());
+    }
+    
+    public function tryAgain(){
+	    return "User doesnt exist, want to create an account?";
+    }
+    
+    public function userAlreadyExists($user)
+    {
+
+        return "buh";
+    }
+
+
+
 	
 }
