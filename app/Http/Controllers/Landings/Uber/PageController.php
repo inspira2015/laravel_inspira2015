@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use Lang;
 use Session;
+use Response;
 
 class PageController extends Controller {
 
@@ -37,7 +38,8 @@ class PageController extends Controller {
 	 */
 	public function index()
 	{
-		return view('landings.uber')->with('title', 'Inspira M&eacute;xico | Uber' )->with('background','3.jpg');
+		$modal = Session::get('logged_user') ? true : false;
+		return view('landings.uber')->with('title', 'Inspira M&eacute;xico | Uber' )->with('background','3.jpg')->with('modal', $modal);
 	}
 		
 	public function goMazatlan(){

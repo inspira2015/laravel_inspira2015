@@ -709,6 +709,10 @@ form label {
 	background-color: #EBEDEE!important;
 }
 
+
+div.input-group select.form-control {
+	width: 115%!important;
+}
 #user  div.promo {
 	padding:1px; 
 	margin: 0 0 10px 0;

@@ -103,5 +103,11 @@
 	@include('layouts.landings.uber.analytics')
 	@include('layouts.__common.tawk')
 
+	@if($modal)
+		<script>
+		$(document).ready(function() { $('#modal-options').modal() });
+		</script>
+	@endif
+
 </body>
 </html>

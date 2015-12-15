@@ -41,7 +41,6 @@ class AuthController extends Controller {
 	public function postLogin(){
         $credentials = Request::only('email', 'password');
         $credentials['email'] =  trim($credentials['email']);
-
 		if($this->auth->attempt($credentials)){
 			$userAuth = Auth::user();
 			$this->leisureLoyalty->setUser( $userAuth );
@@ -78,10 +77,12 @@ class AuthController extends Controller {
 					}		
 				}
 			}
+			Session::flash('logged_user', true);
+
 			return Response::json(array(
 				'error' => false,
-				'html' => htmlspecialchars(view('landings.__common.auth.options')),
 				'redirect' => url('/')
+			//	'html' => htmlspecialchars(view('landings.__common.auth.options'))
 			), 200);		
 		}
 		$user = $this->userDao->getUserByEmail(  $credentials['email']  );

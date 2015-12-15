@@ -180,6 +180,8 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 	Route::get('api/users/details', 'Api\UsersController@all');
 	Route::get('api/users/exists', 'Api\UsersController@exists');
 	Route::post('api/states', 'Api\StatesController@getByCountryCode');
+	Route::post('creditcardinfo/api/states', 'Api\StatesController@getByCountryCode');
+
 	Route::post('api/user/change-language', 'Api\UsersController@changeLanguage');
 	Route::post('api/user/change-currency', 'Api\UsersController@changeCurrency');
 	

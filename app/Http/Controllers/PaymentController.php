@@ -41,6 +41,7 @@ use Redirect;
 use Auth;
 use Lang;
 use Response;
+use GeoIP;
 
 class PaymentController extends Controller {
 
@@ -571,9 +572,33 @@ exit;*/
 					   'user' => Auth::user(),
 					   'yearsList' => $this->getArrayYears(),
 					   'country_list' => $this->getCountryArray($locale),
-					   'states' => $this->getStatesArray($locale)
+					   'states' => $this->getStatesArray($locale),
+					   'location_info' => $this->getLocationInfo()
 			);
 	}
+	
+		
+	protected function getLocationInfo( $country_code = FALSE, $state = FALSE )
+	{
+		$countryDao = new CountryDao();
+		if( $country_code == FALSE ) {
+			$location = GeoIP::getLocation();
+			$country_code = $location['isoCode'];
+			$state = $location['state'];
+		}
+		$country = $countryDao->getCountryByCode( $country_code );
+		$data['states'] = $this->getStatesArray( $country_code );
+		$data['state_code'] = $state;
+		$data['country_code'] = $country_code;
+		if( ! Session::has('users.language') ){
+			Session::put('users.language' , $country['language']);
+		}
+		$data['language'] = Session::get('users.language' , $country['language']);
+		$data['currency'] = $country['currency'];
+		$this->setLanguage();
+		return $data;
+	}
+	
 
 
 	private function getArrayMonths()

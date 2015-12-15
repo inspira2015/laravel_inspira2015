@@ -25,8 +25,10 @@ class PageController extends Controller {
 		}else{
 			$ref = 'inspira';
 		}
+		
+		$modal = Session::get('logged_user') ? true : false;
 		Session::put('ref', $ref);
-		return view('landings.promotions')->with('title', 'Inspira M&eacute;xico | Promociones' )->with('background','3.jpg');
+		return view('landings.promotions')->with('title', 'Inspira M&eacute;xico | Promociones' )->with('background','3.jpg')->with('modal', $modal);
 	}
 		
 	public function goMazatlan(){

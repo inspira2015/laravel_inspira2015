@@ -143,7 +143,7 @@
 			</div>
 		</div>
 		<div class="col-md-6">
-			<div class="form-group">
+<div class="form-group">
 				<label for="pais">* {{ Lang::get('creditcards.country') }}</label>
 				<div class="input-group extra-width">
 					{!! Form::select('country', [
