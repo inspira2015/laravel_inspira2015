@@ -552,7 +552,7 @@ exit;*/
 			$blade = 'payment.card';
 		}
 		
-		return view($blade)->with('user' , Auth::user() );
+		return view($blade)->with('user' , Auth::user() )->with( $this->getCCData() );
 	}
 
 

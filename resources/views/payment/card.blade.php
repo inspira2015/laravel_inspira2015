@@ -19,12 +19,6 @@
 			<div class="input-group">
 				{!! Form::text('expiration_date', Input::get('expiration_date') ? Input::get('expiration_date') : @$expiration_date, array('class' => 'form-control', 'size' => '7', 'maxlength' => '7', 'data-mask-type' => 'expiration', 'placeholder' => Lang::get('creditcards.expiry'))) !!}
 			</div>
-		</div>			
-		<div class="form-group">
-            <label for="nombre">{{ Lang::get('creditcards.name-on-card') }}</label>
-            <div class="input-group">
-              {!! Form::text('name_on_card', Input::get('name_on_card') ? Input::get('name_on_card') : @$name_on_card, array('class' => 'form-control','id' => 'name_on_card')) !!}                                                
-            </div>
 		</div>
 		<div class="form-group">
             <label for="nombre">{{ Lang::get('creditcards.birthdate') }}</label>
@@ -32,7 +26,57 @@
               {!! Form::text('birthdate', Input::get('birthdate') ? Input::get('birthdate') : @$birthdate, array('class' => 'form-control', 'data-mask-type' => 'date', 'placeholder' => Lang::get('creditcards.birthdate-format') )) !!}                                                
             </div>
 		</div>
+		<div class="form-group">
+            <label for="nombre">{{ Lang::get('creditcards.name-on-card') }}</label>
+            <div class="input-group">
+              {!! Form::text('name_on_card', Input::get('name_on_card') ? Input::get('name_on_card') : @$name_on_card, array('class' => 'form-control','id' => 'name_on_card')) !!}                                                
+            </div>
+		</div>
+		<div class="form-group">
+		    <label for="direccion">{{ Lang::get('creditcards.phone') }}</label>
+		    <div class="input-group extra-width">
+		      {!! Form::text('phone', Input::get('phone') ? Input::get('phone') : @$phone, array('class' => 'form-control','id' => 'phone', 'data-mask-type' => 'celular' )) !!}                                                
+		    </div>
+		</div>
+			
+		<div class="form-group">
+		    <label for="direccion">{{ Lang::get('creditcards.address') }}</label>
+		    <div class="input-group">
+		      {!! Form::text('address', Input::get('address') ? Input::get('address') : @$address, array('class' => 'form-control','id' => 'address')) !!}                                                
+		    </div>
+		</div>
 		
+		<div class="form-group">
+			<label for="pais">{{ Lang::get('creditcards.country') }}</label>
+			<div class="input-group">
+				{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : ( Lang::locale() == 'es' ? 'MX' : 'US' ) , array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state', 'data-route' => url('api/states'))) !!}
+			</div>
+		</div>
+		
+		<div class="form-group">
+            <label for="state">{{ Lang::get('creditcards.state') }}</label>
+            <div class="input-group select-state">
+				@if( in_array( Input::get('country') ? Input::get('country') : 'MX' , Config::get('extra.countries') ))
+				{!! Form::select('state', $states, Input::get('country') ? Input::get('country') : 'MX', array('class' => 'form-control' ) ) !!}
+				@else
+				{!! Form::text( 'state',  Input::get('country') ? Input::get('country') : 'MX' , array('class' => 'form-control')) !!}
+				@endif
+            </div>
+    	</div>
+			
+		<div class="form-group">
+		    <label for="direccion">{{ Lang::get('creditcards.city') }}</label>
+		    <div class="input-group">
+		      {!! Form::text('city', Input::get('city') ? Input::get('city') : @$city, array('class' => 'form-control','id' => 'city')) !!}                                                
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label for="direccion">{{ Lang::get('creditcards.zip-code') }}</label>
+		    <div class="input-group">
+		      {!! Form::text('zip_code', Input::get('zip_code') ? Input::get('zip_code') : @$zip_code, array('class' => 'form-control','id' => 'zip_code')) !!}                                                
+		    </div>
+		</div>
+
 		<div class="form-group" style="line-height: 2;">
 			<label for="amount">{{ Lang::get('userdata.amount') }}:   $</label>
 			<div class="input-group">
