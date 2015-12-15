@@ -23,7 +23,7 @@ use App\Model\Dao\UserRegisteredPhoneDao;
 class CheckAndSaveUserInfo
 {
 
-	protected $storeData;
+	public $storeData;
 	protected $userDao;
 	protected $codeDao;
 	protected $affDao;
@@ -32,7 +32,7 @@ class CheckAndSaveUserInfo
 	protected $codesUsed;
 	protected $codeOperations;
 	protected $errorArray;
-
+	
 	public function __construct(UserDao $userDao,CodeDao $codeDao, 
 								UserAffiliation $affiliationDao,UserVacFundLog $vacationDao, 
 								UserRegisteredPhoneDao $userPh,CodesUsedEntity $usedCodes)
@@ -107,6 +107,11 @@ class CheckAndSaveUserInfo
 					  'amount' => (float)$this->storeData['Affiliation']['amount_' . $temp_id],
 					  'currency' => $this->storeData['Affiliation']['currency_' . $temp_id],
 			);
+	}
+	
+	public function userEx(){
+				return $this->userDao->exchangeArray( $this->storeData['User'] );
+
 	}
 
 

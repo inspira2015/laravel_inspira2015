@@ -58,12 +58,15 @@ class UsersController extends Controller {
 			$this->createUser->setCodePost( 'UBER' );
 			$this->createUser->setAffiliationPost( [ 'currency_6' => 'MXN', 'amount_6' => 0, 'affiliation' => 6 ] );
 			$this->createUser->setVacationFundPost( [ 'fondo' => 1, 'amount' => 0, 'currency' => 'MXN' ]  );
+						
+			
 			if ( $this->createUser->saveData() == TRUE )
 			{
+
 				if($this->guard->attempt(['email' => $postData['email'], 'password' => $postData['password']])){
 					$userAuth = Auth::user();
 					$userAuth->password = $postData['password'];
-					$userAuth->save();
+				//	$userAuth->save();
 					
 					$this->leisureLoyalty->setUser($userAuth);
 					$this->leisureLoyalty->setTierId(80);
