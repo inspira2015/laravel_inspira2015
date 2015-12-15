@@ -28,7 +28,7 @@ class CertificatesController extends Controller {
 	private $leisureLoyalty;
 	private $registeredCodeDao;
 	private $extend_period = 365;
-	private $price = '45';
+	private $price = '5950';
 	
 	public function __construct( UserTokenRegistration $sysDao, 
 								CertificateOperation $certificateOperation,
