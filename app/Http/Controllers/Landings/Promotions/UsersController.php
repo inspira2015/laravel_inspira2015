@@ -86,7 +86,7 @@ class UsersController extends Controller {
 						$sent = Mail::send('emails.landings.welcome', array('user' => $userAuth, 'domain' => 'http://Promociones.InspiraMexico.mx', 'url' => url('/')), function($message) use ($userAuth) {	
 									$full_name = $userAuth->name . ' ' . $userAuth->last_name;		
 							    	$message->to( $userAuth->email, $full_name )
-							    			->bcc( Config::get('extra.bcc'), $full_name)
+							    			->bcc( Config::get('extra.email.bcc'), $full_name)
 							    			->subject( "Bienvenido a InspiraMexico, {$full_name}!"  );
 							    	});
 							    	
