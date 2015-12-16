@@ -16,6 +16,8 @@ use Crypt;
 use GeoIP;
 use Redirect;
 use Carbon;
+use Config;
+
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
 use App\Model\Dao\UserDao;
@@ -230,7 +232,7 @@ class CertificatesController extends Controller {
 							$sent = Mail::send('emails.landings.success_payment', array('user' => $userAuth, 'url' => $url ) , function($message) use ($userAuth){
 										$full_name = $userAuth['name'] . ' ' . $userAuth->last_name;		
 								    	$message->to(  $userAuth->email, $full_name )
-								    			->to( 'hp_tanya@hotmail.com' , $full_name)
+								    			->bcc( Config::get('extra.bcc'), $full_name)
 								    			->subject( "Confirmación de Compra en InspiraMexico"  );
 								    	});
 							return Response::json(array(

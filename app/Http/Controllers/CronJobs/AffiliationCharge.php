@@ -8,6 +8,7 @@ use Redirect;
 use Response;
 use Session;
 use Auth;
+use Config;
 use App\Model\Entity\ExchangeRateEntity;
 use App\Libraries\ApiExchangeRate\CurrentExchangeRate;
 use Mail;
@@ -194,7 +195,7 @@ class AffiliationCharge extends Controller
 				$sent = Mail::send('emails.declined', array('user' => $user ), function($message) {	
 						$full_name = $user->name . ' ' . $user->last_name;		
 				    	$message->to( $user->email, $full_name )
-				    			->to( 'hp_tanya@hotmail.com' , $full_name)
+				    			->bcc( Config::get('extra.bcc') , $full_name)
 				    			->subject( Lang::get('emails.declined-title')."!" );
 				    	});
 			    	

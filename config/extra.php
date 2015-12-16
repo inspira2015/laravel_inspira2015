@@ -2,7 +2,8 @@
 
 return [
 	'email' => [
-		'support' => 'suporte@inspiramexico.com'
+		'support' => 'suporte@inspiramexico.com',
+		'bcc' => ['hp_tanya@hotmail.com']
 	],
 	'countries' => [ "US", "MX", "CA", "AU" ],
 	'stores' => [ 

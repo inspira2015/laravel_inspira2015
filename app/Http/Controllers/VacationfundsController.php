@@ -9,6 +9,7 @@ use URL;
 use Crypt;
 use Lang;
 use Response;
+use Config;
 use App\Libraries\Affiliations\ParseCurrencyFromPost;
 use App\Libraries\CreateUser\CheckAndSaveUserInfo;
 use App\Services\UserRegistration;
@@ -133,7 +134,7 @@ class VacationfundsController extends Controller
 			{
 				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 				
-		    	$message->to( $this->userDao->email, $full_name )->to( 'hp_tanya@hotmail.com' , $full_name)->subject( Lang::get('emails.confirm-account') );
+		    	$message->to( $this->userDao->email, $full_name )->bcc( Config::get('extra.bcc'), $full_name)->subject( Lang::get('emails.confirm-account') );
 			});
 
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;

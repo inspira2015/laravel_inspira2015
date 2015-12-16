@@ -15,6 +15,8 @@ use Response;
 use Request;
 use Session;
 use Redirect;
+use Config;
+
 
 class UsersController extends Controller {
 	private $createUser;
@@ -89,7 +91,7 @@ class UsersController extends Controller {
 						$sent = Mail::send('emails.landings.welcome', array('user' => $userAuth,  'domain' => 'http://Uber.InspiraMexico.mx', 'url' => url('/')), function($message) use ($userAuth) {	
 									$full_name = $userAuth->name . ' ' . $userAuth->last_name;		
 							    	$message->to( $userAuth->email, $full_name )
-							    			->to( 'hp_tanya@hotmail.com' , $full_name)
+							    			->bcc( Config::get('extra.email.bcc'), $full_name)
 							    			->subject( "Bienvenido a InspiraMexico, {$full_name}!"  );
 							    	});
 							    	
