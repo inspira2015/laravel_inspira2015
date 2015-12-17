@@ -297,10 +297,36 @@ class CertificatesController extends Controller {
 	private function getCCData()
 	{
 		$locale = Lang::locale();
+		$location_info =  $this->getLocationInfo();
 		return array(  'background' => '2.jpg',
 					   'country_list' => $this->getCountryArray($locale),
-					   'states' => $this->getStatesArray($locale)
+					   'states' => $location_info['states'],
+					   'location_info' => $location_info
+
 			);
+			
+			
+	}
+	
+	protected function getLocationInfo( $country_code = FALSE, $state = FALSE )
+	{
+		$countryDao = new CountryDao();
+		if( $country_code == FALSE ) {
+			$location = GeoIP::getLocation();
+			$country_code = $location['isoCode'];
+			$state = $location['state'];
+		}
+		$country = $countryDao->getCountryByCode( $country_code );
+		$data['states'] = $this->getStatesArray( $country_code );
+		$data['state_code'] = $state;
+		$data['country_code'] = $country_code;
+		if( ! Session::has('users.language') ){
+			Session::put('users.language' , $country['language']);
+		}
+		$data['language'] = Session::get('users.language' , $country['language']);
+		$data['currency'] = $country['currency'];
+		$this->setLanguage();
+		return $data;
 	}
 	
 	

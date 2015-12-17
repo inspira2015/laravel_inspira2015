@@ -146,9 +146,7 @@
 <div class="form-group">
 				<label for="pais">* {{ Lang::get('creditcards.country') }}</label>
 				<div class="input-group extra-width">
-					{!! Form::select('country', [
-					   'MX' => 'M&eacute;xico'],'MX', array('class' => 'form-control' )
-					) !!}
+					{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : $location_info['country_code'], array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state')) !!}
 				</div>
 			</div>
 		</div>
@@ -158,7 +156,7 @@
 			<div class="form-group">
                 <label for="state">* {{ Lang::get('creditcards.state') }}</label>
                 <div class="input-group select-state extra-width">
-					{!! Form::select('state', $states, @$state, array('class' => 'form-control' ) ) !!}
+					{!! Form::select('state', $location_info['states'], @$state, array('class' => 'form-control' ) ) !!}
                 </div>
         	</div>
 		</div>

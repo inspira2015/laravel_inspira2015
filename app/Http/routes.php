@@ -48,6 +48,8 @@ Route::group(array('domain' => Config::get('domain.promotions')), function(){
 	Route::post('nueva-tarjeta', 'Landings\Promotions\CertificatesController@newCreditCard');
 	Route::post('tarjeta-registrada', 'Landings\Promotions\CertificatesController@useCreditCard');
 	Route::post('password/reset', 'Landings\Auth\PasswordController@postReset');
+	Route::post('api/states', 'Api\StatesController@getByCountryCode');
+
 	
 });
 
@@ -82,7 +84,7 @@ Route::group(array('domain' => Config::get('domain.uber') ), function(){
 	Route::post('nueva-tarjeta', 'Landings\Uber\CertificatesController@newCreditCard');
 	Route::post('tarjeta-registrada', 'Landings\Uber\CertificatesController@useCreditCard');
 	Route::post('password/reset', 'Landings\Auth\PasswordController@postReset');
-	
+	Route::post('api/states', 'Api\StatesController@getByCountryCode');
 });
 
 
