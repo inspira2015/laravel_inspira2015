@@ -81,7 +81,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
 	 *
 	 * @return Response
 	 */
-	public function Index()
+	public function Index(ConnectUserWithFacebook $authfb)
 	{
 		if ( $this->checkSession() == FALSE )
 		{
@@ -89,7 +89,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		}
 
 		if( $this->checkFacebook() == TRUE ){
-			return Redirect::to('users/registration');
+    		return $authfb->execute(Request::get('code'), $this);	
 		}
 		
 		//Saves user fb data to session.
@@ -185,9 +185,8 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		//Connect with facebook.
 // 		return $fb->execute(Request::get('code'),$this);
 		
-    	$user = (array)$authfb->execute(Request::get('code'), $this);	
+    	return $authfb->execute(Request::get('code'), $this);	
 
-		print_r($user);
     	$post_data['name'] = $user['name'];
     	$post_data['last_name'] = $user['last_name'];
     	$post_data['email'] = $user['email'];
@@ -395,6 +394,52 @@ class UsersController extends Controller implements AuthenticateUserListener {
     {
 
         return "buh";
+    }
+    
+    public function registry( Array $user ){
+	    JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
+		$default_number = 1234567890;
+		$post_data['cellphone_number'] = $default_number;
+		$post_data = Request::all();
+		$user_check = new UserRegistration();
+		
+		//Connect with facebook.
+// 		return $fb->execute(Request::get('code'),$this);
+		$location = $this->getLocationInfo();
+
+		$random_pass = str_random(8);
+    	$post_data['name'] = $user['first_name'];
+    	$post_data['password'] = $random_pass;
+    	$post_data['password_confirmation'] = $random_pass;
+    	$post_data['last_name'] = $user['last_name'];
+    	$post_data['email'] = $user['email'];
+    	$post_data['facebook_id'] = $user['id'];
+		$post_data['cellphone_number'] = $default_number."00";
+		$post_data['country'] =  $location['country_code'];
+		$post_data['state'] = array_pull($location['states'], $location['state_code']);
+		$post_data['cellphone_number'] = $this->sanitizePhone($post_data['cellphone_number']);
+		$validator = $user_check->validator($post_data, Lang::getLocale());
+		$post_data['currency'] = $location['currency'];
+		$post_data['language'] = $location['language'];
+		
+		if($validator->passes()) 
+		{
+			Session::put('users',  $post_data );
+			return Redirect::to('affiliation');
+		}
+		
+		$locale = Lang::getLocale();
+		$data['country_list'] = $this->getCountryArray();
+		$data['lan_list'] = $this->getLanguaje();
+		$data['currency_list'] = $this->getCurrency();
+		$data['location_info'] = $this->getLocationInfo($post_data['country']);
+
+        return view('users.user')
+		        ->with('title', Lang::get('registry.title') )
+		        ->with('background','2.jpg')
+		        ->with($data)
+		        ->withErrors($validator)
+		        ->withInput($post_data);
     }
 
 
