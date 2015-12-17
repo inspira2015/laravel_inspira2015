@@ -93,7 +93,7 @@
 		<div class="col-md-6">
 			<div class="form-group">
 				<label for="country">* {{ Lang::get('registry.country') }}</label>
-				<div class="input-group">
+				<div class="input-group extra-width">
 				{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : $location_info['country_code'], array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state')) !!}
 				</div>
 			</div>
