@@ -250,7 +250,7 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 	Route::post('useraccount/update-password', 'UseraccountController@updatePassword');
 	Route::post('useraccount/edit-payment', 'UseraccountController@editPayment');
 	Route::post('useraccount/update-payment', 'UseraccountController@updatePayment');
-	Route::post('useraccount/credit-payment', 'UseraccountController@creditPayment');
+	Route::post('useraccount/credit-payment', 'PaymentController@creditPayment');
 	
 	Route::get('useraccount/activation/{code}', 'UsersController@activation');
 	

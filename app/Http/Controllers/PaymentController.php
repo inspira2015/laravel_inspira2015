@@ -27,10 +27,11 @@ use App\Libraries\SystemTransactions\CreateLeisureUser;
 use App\Libraries\AddInspiraPoints;
 use App\Libraries\UpdateDataBaseLeisureMember;
 use App\Model\Entity\CodesUsedEntity;
-
-
 use App\Libraries\ExchangeRate\ExchangeMXNUSD;
 use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
+use App\Libraries\CardPayment;
+use App\Model\Entity\UserVacationalFunds;
+use App\Model\Dao\SystemTransactionDao;
 
 
 use App\Libraries\PayU\PayUReports;
@@ -76,6 +77,7 @@ class PaymentController extends Controller {
 	private $ccpayment;
 	private $exchange;
 	private $convertHelper;
+	private $userAuth;
 
 
 	public function __construct( UserTokenRegistration $sysDao,
@@ -92,6 +94,7 @@ class PaymentController extends Controller {
 	{
 		//echo base_path();
 		$this->middleware('auth');
+		$this->userAuth = Auth::user();
 		$this->sysTransaction = $sysDao;
 		$this->createToken = new CreateToken();
 		$this->transactionBill = $billable;
@@ -107,6 +110,7 @@ class PaymentController extends Controller {
 		$this->exchange = $exchangeMXNUSD;
 		$this->convertHelper = new ConvertCurrencyHelper();
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
+		$this->convertHelper->setCurrencyShow( $this->userAuth['currency'] );
 		$this->setLanguage();
 
 
@@ -645,6 +649,139 @@ exit;*/
 			$country = 'US';
 		}
 		return $states->forSelect('name', 'code', array('country' => $country ));
+	}
+	
+	public function creditPayment(){
+		$data = Input::except('_token');
+		//Validar
+		$paymentMethodCC = new PaymentMethodCC();
+		$validator = $paymentMethodCC->validator( $data, Lang::locale() );
+		
+		$location = GeoIP::getLocation();
+		
+		if ( $validator->passes() ) 
+        {
+			$cardPayment = new CardPayment();
+			
+/*
+			$cardPayment->setUserData([
+								'full_name' => $this->userAuth->name. ' '.$this->userAuth->last_name,
+								'id' => $this->userAuth->id,
+								'email' => $this->userAuth->email,
+								'location' => $location['ip']
+							]);
+			$cardPayment->setAmountData([
+								'value' => $data['amount'],
+								'cnumber' => $data['cnumber'],
+								'expiration_date' => $data['expiration_date'],
+								'currency' => $data['currency'],
+								'ccv' => $data['ccv']
+							]);
+			$cardPayment->setItem([
+					'reference' => 'Item-test-'.time(),
+					'description' => 'Test dresciption',
+					'method' => 'VISA'
+				]);
+		
+*/
+		
+			$location = GeoIP::getLocation();
+
+			$cardPayment->setUserData([
+								'full_name' => $this->userAuth->name. ' '.$this->userAuth->last_name,
+								'id' => $this->userAuth->id,
+								'email' => $this->userAuth->email,
+								'city' => $data['city'],
+								'state' => $data['state'],
+								'country' => $data['country'],
+								'address' => $data['address'],
+								'zip_code' => $data['zip_code'],
+								'phone' => $data['phone'],
+								'location' => $location['ip']
+							]);
+			$cardPayment->setAmountData([
+								'value' => $data['amount'],
+								'cnumber' => $data['cnumber'],
+								'expiration_date' => $data['expiration_date'],
+								'currency' => $data['currency'],
+								'ccv' => $data['ccv']
+							]);
+			$cardPayment->setItem([
+					'reference' => 'Additional Bonus -'.time(),
+					'description' => 'User Bonus Payment'
+			]);
+			
+			
+			if( $cardPayment->checkPaymentData() )
+			{
+				
+				if( $cardPayment->doToken() ){
+					$response = $cardPayment->getToken();
+					$responseArray = (array) $response;
+					
+					if( $cardPayment->getToken()->code == 'SUCCESS' )
+					{
+						$userVacationFundDao = new UserVacationalFunds();
+						$sysTransactionDao = new SystemTransactionDao();
+						$this->convertHelper->setCost( $data['amount'] );
+						$this->convertHelper->setCurrencyOfCost( $data['currency'] );
+						$formatedAmount = $this->convertHelper->getFomattedAmount();
+							
+						
+
+						$this->sysTransaction->setUser( $this->userAuth );
+						$this->sysTransaction->setTransactionInfo( array('users_id' => $this->userAuth->id,
+																'code' => 'Success',
+																'type' => 'Register CC Payment Transaction',
+																'description' => 'Payment ready',
+																'json_data' => json_encode($responseArray),
+																'amount' => $data['amount'],
+																'currency' => $data['currency'],
+																'payu_transaction_id' => $cardPayment->getTransactionId() ) );
+						$this->sysTransaction->saveData();	
+						//Save to VacationalFund step.
+						$this->sysTransaction = $sysTransactionDao->getLastTransaction($this->userAuth->id);
+						
+						$userVacationlArray = array();
+						$this->lastUserBalance->setUserId( $this->userAuth->id );
+						$lastBalance = $this->lastUserBalance->getCurrentBalance();
+						$total = $lastBalance + $data['amount'];
+						
+						$userVacationlArray['transaction_id'] = $this->sysTransaction->id;
+						$userVacationlArray['description'] = 'Bonus Payment';
+						$userVacationlArray['added_amount'] = $data['amount'];
+						$userVacationlArray['substracted_amount'] = 0; 
+						$userVacationlArray['currency'] = $data['currency'];
+						$userVacationlArray['balance'] = $total;
+						$userVacationlArray['users_id'] = $this->userAuth->id;
+		
+						$userVacationFundDao->exchangeArray( $userVacationlArray );
+						$userVacationFundDao->save();
+									
+						return view('useraccount.payment')
+									->with( 'success' , Lang::get('userdata.success.transaction') )
+									->with('user', $this->userAuth );
+					
+					}else{
+						$this->sysTransaction->setUser( $this->userAuth );
+						$this->sysTransaction->setTransactionInfo( array('users_id' => $this->userAuth->id,
+																'code' => $cardPayment->getTransactionResponse()->state,
+																'type' => 'Register CC Payment Transaction',
+																'description' => $cardPayment->getTransactionResponse()->responseCode,
+																'json_data' => json_encode($responseArray),
+																'amount' => $data['amount'],
+																'currency' => $data['currency'],
+																'payu_transaction_id' => $cardPayment->getTransactionId() ) );
+						$this->sysTransaction->saveData();	
+					}
+				}else{
+					return view('payment.card')->withErrors($cardPayment->getErrors())->with('user', $this->userAuth );
+				}
+			}
+		}
+		return view('payment.card')->withErrors($validator)->with('user', $this->userAuth )->with( $this->getCCData() );
+		
+
 	}
 
 }
