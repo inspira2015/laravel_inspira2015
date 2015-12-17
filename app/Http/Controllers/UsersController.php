@@ -175,50 +175,6 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		        ->withErrors($validator)
 		        ->withInput($post_data);
 	}
-	
-	public function getRegistration(ConnectUserWithFacebook $authfb, Request $request){
-		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
-
-		$post_data = Request::all();
-		$user_check = new UserRegistration();
-		
-		//Connect with facebook.
-// 		return $fb->execute(Request::get('code'),$this);
-		
-    	return $authfb->execute(Request::get('code'), $this);	
-
-    	$post_data['name'] = $user['name'];
-    	$post_data['last_name'] = $user['last_name'];
-    	$post_data['email'] = $user['email'];
-    	$post_data['facebook_id'] = $user['id'];
-		$post_data['cellphone_number'] = 000000000;
-		$post_data['country'] = 'MX';
-		$post_data['cellphone_number'] = $this->sanitizePhone($post_data['cellphone_number']);
-		$validator = $user_check->validator($post_data, Lang::getLocale());
-		$post_data['currency'] = 'USD';
-/*
-		if($validator->passes()) 
-		{
-*/
-			return $post_data;
-			Session::put('users',  $post_data );
-			return Redirect::to('affiliation');
-//		}
-		
-		$locale = Lang::getLocale();
-		$data['country_list'] = $this->getCountryArray();
-		$data['lan_list'] = $this->getLanguaje();
-		$data['currency_list'] = $this->getCurrency();
-		$data['location_info'] = $this->getLocationInfo($post_data['country']);
-
-        return view('users.user')
-		        ->with('title', Lang::get('registry.title') )
-		        ->with('background','2.jpg')
-		        ->with($data)
-		        ->withErrors($validator)
-		        ->withInput($post_data);
-	}
-	
 
 	private function sanitizePhone($phone)
     {  
@@ -403,8 +359,6 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		$post_data = Request::all();
 		$user_check = new UserRegistration();
 		
-		//Connect with facebook.
-// 		return $fb->execute(Request::get('code'),$this);
 		$location = $this->getLocationInfo();
 
 		$random_pass = str_random(8);

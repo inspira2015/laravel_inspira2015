@@ -86,6 +86,8 @@
 					<h3>{{ Lang::get('userdata.inspira-points') }} </h3>
 					<span class="pink">{{ $inspiraPointsBalance }}  {{ Lang::get('userdata.points') }}</span>
 				</div>
+				
+<!--
 				<div class="row bg-light-gray-transparent" id="history-payments">
 					<div class="col-xs-7 nopadding">
 						<h3>{{ Lang::get('userdata.payment-history') }} </h3>
@@ -96,6 +98,7 @@
 						</a>
 					</div>
 				</div>
+-->
 			</div>
 			<div class="col-md-6">
 				<div class="row bg-light-gray-transparent" id="account-affiliation">
