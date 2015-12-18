@@ -132,49 +132,7 @@
 	        <span data-u="arrowright" class="jssora22r" data-autocenter="2"></span>
 	    </div>
 	</div>
-	<div class="row" id="map" data-id="more-info">
-		<div class="container">
-			<div class="row">
-				<h2>¿ QU&Eacute; ES UN CERTIFICADO ?</h2>
-
-				<p>Un certificado equivale a hospedaje por una semana, para hasta 8 personas, en el resort de lujo de tu <br>
-				elección entre 86 países alrededor del mundo. Tú eliges la fecha de hospedaje, con un límite de tiempo de <br>
-				1 año para hacer la reservación desde la compra de tu certificado *</p>
-			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<h2>COMO FUNCIONA</h2>
-				</div>
-				<div class="col-xs-12 step">
-					<div class="row">
-						<div class="col-xs-12 col-sm-4">
-							<div class="row">{!! HTML::image('images/register-checkcolor.png', 'Reg&iacute;strate') !!}</div>
-							<div class="row">1. REG&Iacute;STRATE</div>
-						</div>
-						<div class="col-xs-12 col-sm-4">
-							<div class="row">{!! HTML::image('images/certcolor.png', 'Comprar certificado') !!}</div>
-							<div class="row">2. COMPRA CERTIFICADO</div>
-						</div>
-						<div class="col-xs-12 col-sm-4">
-							<div class="row">{!! HTML::image('images/reservcolor.png', 'Reserva') !!}</div>
-							<div class="row">3. RESERVA</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-12">
-					Conoce todos los resorts disponibles, dando clic en alguno de los destinos que se presentan abajo.
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row bg-light-blue">
-		<div class="container">
-			<div class="row">
-				* Solo la reservaci&oacute;n deber ser durante el periodo de un a&ntilde;o a partir de la compra, la fecha de tu vacaci&oacute;n no tiene limite de tiempo. Ejemplo: tu servicio debe ser durante el periodo del 2016, pero puedes llevar a cabo tu vacación en el 2017. <a href="#modal-semanas" data-toggle="modal" data-target="#modal-semanas"><span class="underline">ALTA DEMANDA O SEMANAS AZULES</span>&nbsp;&rsaquo;</a>
-			</div>
-		</div>
-	</div>
-	<div class="row text-center" id="destinations">
+		<div class="row text-center" id="destinations">
 		<div class="col-xs-12">
 			<h2>ALGUNOS DE NUESTROS DESTINOS</h2>
 			Da clic en la imagen para ver resorts disponibles de cada destino
@@ -205,13 +163,57 @@
 						<span>M&aacute;laga, Esp.</span>
 					</a>
 				</li>
-				<li>
+				<li class="hidden-xs">
 					<a href="{{ url('destino') }}" target="_blank">
 						{!! HTML::image('images/destinations/donde-quieres-ir.jpg', '&iquest; A d&oacute;nde quieres ir ?') !!}
 						<span>&iquest; A d&oacute;nde quieres ir ?</span>
 					</a>
 				</li>
 			</ul>
+		</div>
+	</div>
+	<div class="row" id="map" data-id="more-info">
+		<div class="container">
+			<div class="row">
+				<h2>¿ QU&Eacute; ES UN CERTIFICADO ?</h2>
+
+				<p>Un certificado equivale a hospedaje por una semana, para hasta 8 personas, en el resort de lujo de tu <br>
+				elección entre 86 países alrededor del mundo. Tú eliges la fecha de hospedaje, con un límite de tiempo de <br>
+				1 año para hacer la reservación desde la compra de tu certificado *</p>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>COMO FUNCIONA</h2>
+				</div>
+				<div class="col-xs-12 step">
+					<div class="row">
+						<div class="col-xs-12 col-sm-4">
+							<div class="row">{!! HTML::image('images/register-checkcolor.png', 'Reg&iacute;strate') !!}</div>
+							<div class="row">1. REG&Iacute;STRATE</div>
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="row">{!! HTML::image('images/certcolor.png', 'Comprar certificado') !!}</div>
+							<div class="row">2. COMPRA CERTIFICADO</div>
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="row">{!! HTML::image('images/reservcolor.png', 'Reserva') !!}</div>
+							<div class="row">3. RESERVA</div>
+						</div>
+					</div>
+				</div>
+<!--
+				<div class="col-xs-12">
+					Conoce todos los resorts disponibles, dando clic en alguno de los destinos que se presentan abajo.
+				</div>
+-->
+			</div>
+		</div>
+	</div>
+	<div class="row bg-light-blue">
+		<div class="container">
+			<div class="row">
+				* Solo la reservaci&oacute;n deber ser durante el periodo de un a&ntilde;o a partir de la compra, la fecha de tu vacaci&oacute;n no tiene limite de tiempo. Ejemplo: tu servicio debe ser durante el periodo del 2016, pero puedes llevar a cabo tu vacación en el 2017. <a href="#modal-semanas" data-toggle="modal" data-target="#modal-semanas"><span class="underline">ALTA DEMANDA O SEMANAS AZULES</span>&nbsp;&rsaquo;</a>
+			</div>
 		</div>
 	</div>
 	<div class="row bg-medium-blue">

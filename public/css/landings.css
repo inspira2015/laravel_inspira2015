@@ -258,7 +258,12 @@ a:hover, a:visited {
 @media (max-width: 992px){
 
 	#destinations li {
-		display:list-item!important;
+		display: inline-block!important;
+		width: 50%;
+	}
+	
+	#destinations li:nth-child(5){
+		display:none!important;
 	}
 	#destinations li a{
 		font-size: 20px;
