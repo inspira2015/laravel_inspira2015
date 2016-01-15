@@ -335,15 +335,9 @@ class CertificatesController extends Controller {
 		
 	}
 	
-	protected function getStatesArray($language = FALSE)
+	protected function getStatesArray($country)
 	{
 		$states = new StatesDao();
-		//default MX - check if its gonna be changed.
-		if($language== 'es' || $language==FALSE){
-			$country = 'MX';
-		}else{
-			$country = 'US';
-		}
 		return $states->forSelect('name', 'code', array('country' => $country ));
 	}
 	

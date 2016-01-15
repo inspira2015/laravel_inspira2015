@@ -16,7 +16,7 @@ use Request;
 use Session;
 use Redirect;
 use Config;
-
+use GeoIP;
 
 class UsersController extends Controller {
 	private $createUser;
@@ -55,6 +55,7 @@ class UsersController extends Controller {
 		
 		if($validator->passes()){
 			Session::put('user',  $postData );
+			$location = GeoIP::getLocation();
 			$postData['phone'] = '00000';
 			$this->createUser->setUserPost( $postData );
 			$this->createUser->setCodePost( 'UBER' );
@@ -71,6 +72,7 @@ class UsersController extends Controller {
 					
 					$this->leisureLoyalty->setUser($userAuth);
 					$this->leisureLoyalty->setTierId(80);
+					$this->leisureLoyalty->setCountryCode($location['isoCode']);
 
 					//Update user.	//Guardar el memberId
 					$memberId = $this->leisureLoyalty->createOrRetriveMemberId();

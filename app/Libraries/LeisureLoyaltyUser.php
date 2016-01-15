@@ -11,6 +11,7 @@ class LeisureLoyaltyUser
 	protected $objUser;
 	protected $membersDays;
 	protected $tierId;
+	protected $countryCode;
 
 	public function __construct(UserAffiliation $userAffiliationDao)
 	{
@@ -38,6 +39,10 @@ class LeisureLoyaltyUser
 			$this->membersDays = 7;
 		}
 	}
+	
+	public function setCountryCode($code){
+		$this->countryCode = $code;
+	}
 
 	protected function checkCreateLeisureUser()
 	{
@@ -56,6 +61,7 @@ class LeisureLoyaltyUser
 			"languageCode"=> strtoupper($this->objUser->language),
 			"mtierId"=> (int) $this->tierId,
 			"memberId"=> $memberId,
+			"countryCode" => $this->countryCode,
 			"memberDays" => $this->membersDays,
 			"remainResortWeeks" => 0
 		);
