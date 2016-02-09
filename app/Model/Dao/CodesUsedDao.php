@@ -3,6 +3,7 @@
 namespace App\Model\Dao;
 
 use App\Model\CodesUsed as Code;
+use App\Model\Codes as Codes;
 
 class CodesUsedDao implements ICrudOperations 
 {
@@ -44,7 +45,5 @@ class CodesUsedDao implements ICrudOperations
 		}
 		return $codesUsed[0];
 	}
-
 	
-
 }

@@ -46,7 +46,7 @@
 				</div>
 				<div class="divider"></div>
 				<div class="row">
-					<div class="col-xs-4 col-xs-offset-4">
+					<div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4">
 						<div class="row">
 							<button type="submit" class="btn-light-blue btn-medium">
 								{{ Lang::get('auth.login') }}
@@ -57,11 +57,13 @@
 								{{ Lang::get('auth.forgot-password') }}
 							</a>
 						</div>
+						<div class="row">
+							<a href="{{ url('users/fbConnect') }}" style="background-color:#3b5998;color:white;padding: 10px 15px;">
+								Conectar con Facebook
+							</a>
+
+						</div>
 					</div>
-					<div class="col-xs-12 text-center">
-						<a href="{{ url('users/fbConnect') }}" style="background-color:#3b5998;color:white;padding: 10px 15px;">Conectar con Facebook</a>
-					</div>
-					
 				</div>
 			</form>
 	    </div>

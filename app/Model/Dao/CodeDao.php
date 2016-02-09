@@ -45,5 +45,4 @@ class CodeDao implements ICrudOperations
 		return Code::where('code', $code)->get();
 	}
 
-
 }

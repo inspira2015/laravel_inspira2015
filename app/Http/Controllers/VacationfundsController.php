@@ -69,7 +69,10 @@ class VacationfundsController extends Controller
 			return Redirect::to('codes/1');
 		}
 
+
 		$this->parseAff->setAffiliationPost( Session::get( 'affiliation' ) );
+		
+		
 		$userData = Session::get('users');
 
 

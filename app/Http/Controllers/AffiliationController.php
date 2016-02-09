@@ -176,6 +176,7 @@ class AffiliationController extends Controller
 		}
 		$post_data = Request::all();
 		
+	
 		if( !isset($post_data['affiliation']) ){
 			if( Lang::getLocale() == 'es' ){
 				$message = 'Por favor seleccione el tipo de afiliaci&oacute;n.';
@@ -185,6 +186,10 @@ class AffiliationController extends Controller
 			return Redirect::back()->withErrors(array('message' => $message ));
 		}else{
 			Session::put('affiliation',  $post_data );
+
+			if($post_data['affiliation'] == 1 ){
+			
+			}
 			return Redirect::to('vacationfund');	
 		}
 	}

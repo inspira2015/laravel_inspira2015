@@ -140,14 +140,13 @@ class UserDao extends UserEntity implements ICrudOperations
  	{
  		return  User::where( 'email', '=', $email )->first();
  	}
-
+ 	
 
  	public function getUserAffiliatonPayment()
  	{
  		$now = Carbon::now();
  		$minimumDay = Carbon::now()->subDays(5);     
-
- 		return User::has('affiliations')->where( 'billable_day', '>=',$minimumDay->day  )->where( 'billable_day', '<=',$now->day )->get();
+ 		return User::has('affiliations')->where( 'billable_day', '>=',$minimumDay->day  )->where( 'billable_day', '<=',$now->day )->where('days_overdue', '<=',5)->get();
  	}
 
 
@@ -155,10 +154,7 @@ class UserDao extends UserEntity implements ICrudOperations
  	{
  		$now = Carbon::now();
  		$minimumDay = Carbon::now()->subDays(5);     
-
-		
-
- 		return User::has('affiliations')->where( 'id', '=',79  )->first();
+ 		return User::has('affiliations')->where( 'id', '=', 209  )->first();
  	}
 
 

@@ -99,10 +99,13 @@ class PrepareTransacionArray
 	public function generateBuyerInfo()
 	{
 		$user = $this->userDao->getUserPhoneType( $this->storeData['userId'], 'cellphone' );
+/*
+		exit;
 		if ( empty( $user ) )
 		{
 			throw new \Exception('Invalid User id or User not Found');
 		}
+*/
 		return $user;
 	}
 
@@ -151,7 +154,6 @@ class PrepareTransacionArray
 						//Ingrese aquí el email del comprador.
 						PayUParameters::BUYER_EMAIL =>  $buyerUser->email,
 						//Ingrese aquí el teléfono de contacto del comprador.
-/*
 						PayUParameters::BUYER_CONTACT_PHONE => $buyerUser->phones[0]->number,
 						//Ingrese aquí el documento de contacto del comprador.
 						PayUParameters::BUYER_DNI => "",
@@ -173,7 +175,6 @@ class PrepareTransacionArray
 						PayUParameters::PAYER_CONTACT_PHONE => $buyerUser->phones[0]->number,
 						//Ingrese aquí el documento de contacto del pagador.
 						PayUParameters::PAYER_DNI => "234234234",
-*/
 						//OPCIONAL fecha de nacimiento del pagador YYYY-MM-DD, importante para autorización de pagos en México.
 						PayUParameters::PAYER_BIRTHDATE => $payerUser->birthdate,
 

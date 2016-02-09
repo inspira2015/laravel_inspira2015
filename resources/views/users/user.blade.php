@@ -67,7 +67,7 @@
 					<div class="form-group">
 						<label for="country">* {{ Lang::get('registry.country') }}</label>
 						<div class="input-group">
-						{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : $location_info['country_code'], array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state')) !!}
+						{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : $location_info['country_code'], array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state', 'readonly' => 'readonly')) !!}
 						</div>
 					</div>
 				</div>
@@ -77,7 +77,7 @@
 						<label for="state">* {{ Lang::get('registry.state') }}</label>
 						<div class="input-group select-state">
 							@if( in_array( $location_info['country_code'] , Config::get('extra.countries') ))
-							{!! Form::select('state', $location_info['states'], $location_info['state_code'], array('class' => 'form-control') ) !!}
+							{!! Form::select('state', $location_info['states'], $location_info['state_code'], array('class' => 'form-control', 'readonly' => 'readonly') ) !!}
 							@else
 							{!! Form::text( 'state',  '', array('class' => 'form-control')) !!}
 							@endif
@@ -114,7 +114,7 @@
 						{{ Lang::get('layout.back') }}
 					</a>
 				</div>
-				<div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-6 col-md-push-7 nopadding">   
+				<div class="col-xs-6 col-xs-push-2 col-sm-3 col-sm-push-6 col-md-push-7 nopadding">   
 					<div data-role="submit" class="btn-blue btn-medium">
 						{{ Lang::get('layout.continue') }}
 					</div>

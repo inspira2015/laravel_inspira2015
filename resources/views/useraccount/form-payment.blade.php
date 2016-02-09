@@ -2,7 +2,7 @@
 	<div class="form-group" style="line-height: 2;">
 		<label for="amount">{{ Lang::get('userdata.amount') }}:   $</label>
 		<div class="input-group">
-			<input type="text" name="amount" class="form-control" style="width:calc(75% - 10px)!important;display:inline-block;margin-right: 10px;">{{ $user->currency }}
+			<input type="text" name="amount" class="form-control">{{ $user->currency }}
 		</div>
 	</div>
 	<div class="form-group">

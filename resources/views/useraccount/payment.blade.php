@@ -1,20 +1,20 @@
 {!! Form::open(array('url' => url('payment/bonus') , 'class' => 'form-data' )) !!}
 
 <div class="row less-margin" id="bonus">
-	<div class="col-xs-4 col-xs-push-2">
+	<div class="col-xs-5 col-xs-push-1 col-sm-4 col-sm-push-2">
 		{{ Lang::get('userdata.payment-type.store') }}<br>
 		<input type="radio" name="type" value="1"/>
 	</div>
-	<div class="col-xs-4 col-xs-push-2">
+	<div class="col-xs-5 col-xs-push-1 col-sm-4 col-sm-push-2">
 		{{ Lang::get('userdata.payment-type.online') }}<br>
 		<input type="radio" name="type" value="2"/>
 	</div>
 </div>
 <div class="row margin-top">
-	<div class="col-xs-8 text-center ">
+	<div class="col-xs-6 col-sm-8 text-center">
 		<img src="images/markets.png">
 	</div>
-	<div class="col-xs-4 text-center">
+	<div class="col-xs-6 col-sm-4 text-center">
 		<a class="btn-blue-clear btn-small underline">M&aacute;s Info</a>
 	</div>
 </div>
@@ -43,15 +43,3 @@
 	</div>
 </div>	
 @endif
-
-<style>
-	.underline {
-		text-decoration: underline;
-	}
-	.less-margin {
-		margin-top: -15px;
-	}
-	.margin-top {
-		margin-top: 15px;
-	}
-</style>

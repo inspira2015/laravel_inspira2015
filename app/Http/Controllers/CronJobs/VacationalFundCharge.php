@@ -98,7 +98,7 @@ class VacationalFundCharge extends Controller
 
 	public function Montlypayment()
 	{
-		$user = $this->userDao->getUserAffiliatonPaymentTEST();
+		$user = $this->userDao->getUserAffiliatonPayment();
 		$this->convertHelper->setCurrencyShow( 'MXN' );
 
 		//foreach( $users as $user )

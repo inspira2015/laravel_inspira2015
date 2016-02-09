@@ -1,7 +1,7 @@
 <?php
 
 return [
-	"copyright" => "Inspira M&eacute;xico rights reserved &copy; 2015",
+	"copyright" => "Inspira M&eacute;xico Rights Reserved &copy; 2016",
 	"privacy-policy" => "Privacy policy and terms of service",
 	"follow-us" => "Follow us",
 	"continue" => "Continue",

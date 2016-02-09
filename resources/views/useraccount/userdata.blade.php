@@ -7,10 +7,8 @@
 		<div class="row">
 			<div class="col-sm-6 nopadding">
 				<h2 class="text-left">
-					<div class="display:table-cell;">
-						<i class="fa fa-user"></i>
-					</div>
-					<span style="display:table-cell;">
+					<i class="fa fa-user"></i>
+					<span>
 						{{ Str::upper($user->details->name) }} {{ Str::upper($user->details->last_name) }}
 					</span>
 				</h2>
@@ -83,8 +81,8 @@
 					</div>
 				</div>
 				<div class="row bg-light-gray-transparent text-center" id="inspira-points">
-					<h3>{{ Lang::get('userdata.inspira-points') }} </h3>
-					<span class="pink">{{ $inspiraPointsBalance }}  {{ Lang::get('userdata.points') }}</span>
+					<h3>{{ Lang::get('userdata.inspira-points') }} <span class="pink">{{ $inspiraPointsBalance }}  {{ Lang::get('userdata.points') }}</span></h3>
+					
 				</div>
 				
 <!--
@@ -113,7 +111,7 @@
 					</div>
 
 					<div class="row">
-						<div class="col-xs-10 col-xs-offset-1 col-md-12  col-md-offset-0 upgrade" id="promotion-box">							
+						<div class="col-sm-10 col-sm-offset-1 col-md-12  col-md-offset-0 upgrade" id="promotion-box">							
 							<div class="promotion">
 								<a href="#" data-toggle="modal" data-target="#change-affiliation"> 
 									<span>{{ Lang::get('userdata.upgrade') }}</span><br>
@@ -139,7 +137,7 @@
 					</div>
 					<div class="row" data-role="response">
 						@if( $vacational_fund->amount == '0' )
-						<div class="col-xs-10 col-xs-offset-1 col-md-12 col-md-offset-0 subscribe" id="promotion-box">		
+						<div class="col-sm-10 col-sm-offset-1 col-md-12 col-md-offset-0 subscribe" id="promotion-box">		
 							<div class="promotion">
 								<a href="{{ url('vacationfund/update', ['vacationfund' => $vacational_fund->id ]) }}">
 									<span>{{ Lang::get('userdata.subscribe') }}</span><br>
