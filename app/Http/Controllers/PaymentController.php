@@ -43,6 +43,7 @@ use Auth;
 use Lang;
 use Response;
 use GeoIP;
+use URL;
 
 class PaymentController extends Controller {
 
@@ -374,8 +375,8 @@ exit;*/
 			$userAuth = Auth::user();
 
 	        $exp_date = explode('/',$postData['expiration_date']);
-	        $postData['exp_month'] = $exp_date[1];
-	        $postData['exp_year'] = $exp_date[0];
+	        $postData['exp_year'] = $exp_date[1];
+	        $postData['exp_month'] = $exp_date[0];
 	        array_forget($postData, 'expiration_date');
         	
 			$this->createToken->setAuthUser( $userAuth  );
@@ -541,7 +542,12 @@ exit;*/
 				'redirect' => url('useraccount')
 			), 200);
         }     
-        return view($blade)->with( $this->getCCData() )->withErrors($validator)->withInput( $postData );
+
+		return Response::json(array(
+			'error' => false,
+			'message' => implode(' ',$validator->errors()->all()),
+			'redirect' => 'false'
+		), 200);
 	}
 	
 	public function getAddCreditCard(){

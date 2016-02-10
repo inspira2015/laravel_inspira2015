@@ -32,6 +32,6 @@
 	</div>
 </div>
 
-<div class="col-xs-5 col-xs-push-7 text-center">
+<div class="col-xs-6 col-xs-push-6 col-sm-5 col-sm-push-7 text-center">
 	<a data-role="change" data-route="useraccount/edit-contact" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
 </div>

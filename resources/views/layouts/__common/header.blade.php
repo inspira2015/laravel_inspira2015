@@ -1,5 +1,5 @@
 <div class="header">
-	<div class="container nopadding">
+	<div class="col-md-10 col-md-offset-1 nopadding">
 	    <div class="navbar-header text-center">
 		    @if(Auth::check())
 		        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">

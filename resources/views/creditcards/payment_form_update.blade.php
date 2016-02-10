@@ -6,12 +6,12 @@
 			{{  Lang::get('creditcards.card-information') }}
 		</h2>
 	</div>
-	<div class="col-xs-4 col-sm-3 col-sm-2">  
+	<div class="col-xs-5 col-sm-3 col-md-2">  
 		<a href="{{ url('useraccount') }}" class="btn-blue-clear btn-medium back">
 			{{ Lang::get('layout.back') }}
 		</a>
 	</div>
-	<div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-9 col-md-2 col-md-push-8">   
+	<div class="col-xs-6 col-xs-push-1 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8">   
 		<div data-role="submit" data-route="addcreditcard" class="btn-blue-clear btn-medium">
 			{{ Lang::get('layout.continue') }}
 		</div>
@@ -91,7 +91,7 @@
 			<div class="form-group">
 				<label for="country">* {{ Lang::get('registry.country') }}</label>
 				<div class="input-group extra-width">
-				{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : $location_info['country_code'], array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state')) !!}
+				{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : $location_info['country_code'], array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state', 'data-route' => url('api/states') )) !!}
 				</div>
 			</div>
 		</div>

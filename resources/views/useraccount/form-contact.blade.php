@@ -63,7 +63,7 @@
 	@include('errors.messages')
 	</div>
 	<div class="form-group">
-		<div class="col-xs-4 col-xs-push-8 text-center nopadding">
+		<div class="col-xs-5 col-xs-push-7 col-sm-4 col-sm-push-8 text-center nopadding">
 			<div data-role="submit" data-route="useraccount/update-contact" class="btn-blue btn-small">{{ Lang::get('userdata.save') }}</a>
 		</div>
 	</div>

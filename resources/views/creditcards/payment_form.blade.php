@@ -7,7 +7,7 @@
 		</h2>
 	</div>
 	@if($user->days_overdue != 5)
-	<div class="col-xs-4 col-xs-push-8 col-sm-3 col-sm-push-9 col-md-2 col-md-push-10">   
+	<div class="col-xs-6 col-xs-push-6 col-sm-3 col-sm-push-9 col-md-2 col-md-push-10">   
 		<div data-role="submit" data-route="addcreditcard" class="btn-blue-clear btn-medium">
 			{{ Lang::get('layout.continue') }}
 		</div>
@@ -94,7 +94,7 @@
 			<div class="form-group">
 				<label for="country">* {{ Lang::get('registry.country') }}</label>
 				<div class="input-group extra-width">
-				{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : $location_info['country_code'], array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state')) !!}
+				{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : $location_info['country_code'], array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state', 'data-route' => url('api/states') )) !!}
 				</div>
 			</div>
 		</div>

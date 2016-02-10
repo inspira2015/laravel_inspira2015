@@ -3,7 +3,7 @@
 @section('content')   
 
 <div class="row" data-role="response">    
-    <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 bg-gray">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 bg-gray">
 	    <div class="row">
 		    <h2>{{ Lang::get('auth.login') }}</h2>
 	    </div>

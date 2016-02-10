@@ -13,6 +13,10 @@ body#page footer{
 	display:table-row;
 	height:60px
 }
+div.header{
+	padding-left: 50px;
+    padding-right: 50px;
+}
 
 div.container {
 	height: 100%;
@@ -28,7 +32,6 @@ div[data-role="submit"] {
 }
 
 /*Check if these apply on different templates*/
-
 div.informacion h2{
 	padding-bottom: 20px;
 }
@@ -948,7 +951,7 @@ button.close{
 }
 
 div.modal-content{
-	border-radius: 10px;
+	border-radius: 0px;
 }
 
 div.modal.fade.in{
@@ -1226,7 +1229,13 @@ a.fb-linkto{
 .navbar-nav {
 	text-align: center;
 }
+.nav a { 
+	z-index: 0;
+}
 
+.navbar-toggle {
+    padding: 9px 0px;
+}
 /*MODALS*/
 @media(min-width:992px) {
 	div.modal#privacy div.modal-dialog,
@@ -1253,6 +1262,9 @@ a.fb-linkto{
 }
 
 @media (max-width: 767px){
+	div.header{
+		padding:0px;
+	}
 	div#vacational-box {
 		padding: 15px 10px;
 		background-size: auto calc(80% - 20px);
@@ -1386,11 +1398,7 @@ a.fb-linkto{
 	 margin-left:30px;
 	 display:inline-block;
 	}
-	
-	div.bg-light-gray > div{
-		padding: 0px!important;
-	}
-	
+
 	#register-form .col-xs-12:not(div#register-box) {
     padding: 0px!important;
 	}
@@ -1414,6 +1422,10 @@ a.fb-linkto{
 	
 	#loading-inspira .brand-logo img{
 		width: 80%;
+	}
+	
+	.vacational {
+		padding-left: 0px;
 	}
 }
 

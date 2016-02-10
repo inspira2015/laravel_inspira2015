@@ -8,7 +8,7 @@ return [
 	"what-is" => "What is?",
 	"phone" => "Phone Number",
 	"expiration" => "Expiration date",
-	"expiry" => "YYYY/MM",
+	"expiry" => "MM/YYYY",
 	"name-on-card" => "Name on card",
 	"birthdate" => "Birthdate",
 	"birthdate-format" => "YYYY/MM/DD",

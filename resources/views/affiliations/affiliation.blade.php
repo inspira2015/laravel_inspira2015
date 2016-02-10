@@ -11,7 +11,7 @@
 					{{ Lang::get('layout.back') }}
 				</a>
 			</div>
-			<div class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8 nopadding">   
+			<div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8 nopadding">   
 				<div data-role="submit" class="btn-blue-clear btn-medium">
 					{{ Lang::get('layout.continue') }}
 				</div>
@@ -119,7 +119,7 @@
 					{{ Lang::get('layout.back') }}
 				</a>
 			</div>
-			<div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-7">   
+			<div class="col-xs-6 col-xs-push-2 col-sm-3 col-sm-push-7">   
 				<div data-role="submit" class="btn-blue btn-medium">
 					{{ Lang::get('layout.continue') }}
 				</div>

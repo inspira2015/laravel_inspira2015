@@ -8,7 +8,7 @@ return [
 	"what-is" => "¿Qu&eacute; es?", 
 	"phone" => "Tel&eacute;fono",
 	"expiration" => "Fecha de Expiraci&oacute;n",
-	"expiry" => "AAAA/MM",
+	"expiry" => "MM/AAAA",
 	"birthdate" => "Fecha de Nacimiento",
 	"birthdate-format" => "AAAA/MM/DD",
 	"name-on-card" => "Nombre en Tarjeta",

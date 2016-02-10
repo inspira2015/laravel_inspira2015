@@ -57,7 +57,7 @@
 						<div class="col-xs-6">
 							<strong>{{ Lang::get('userdata.language') }}</strong>: &nbsp;{{ Str::upper($user->details->language) }}
 						</div>
-						<div class="col-xs-5 col-xs-push-1 text-center">
+						<div class="col-xs-6 col-sm-5 col-sm-push-1 text-center">
 							<a data-role="change" data-route="api/user/change-language" class="btn-blue btn-small">
 								{{ Lang::get('userdata.change') }}
 							</a>
@@ -67,7 +67,7 @@
 						<div class="col-xs-6">
 							<strong>{{ Lang::get('userdata.currency') }}</strong>: &nbsp;{{ $user->details->currency }}						
 						</div>
-						<div class="col-xs-5 col-xs-push-1 text-center">
+						<div class="col-xs-6 col-sm-5 col-sm-push-1 text-center">
 							<a href="#"  data-toggle="modal" data-target="#currency" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>
@@ -75,7 +75,7 @@
 						<div class="col-xs-6">
 							<strong>{{ Lang::get('userdata.credit-card') }}</strong>				
 						</div>
-						<div class="col-xs-5 col-xs-push-1 text-center">
+						<div class="col-xs-6 col-sm-5 col-sm-push-1 text-center">
 							<a href="{{ url('creditcardinfo/update') }}"  class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>

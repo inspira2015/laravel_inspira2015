@@ -139,8 +139,11 @@ $(document).ready(function(){
 							$('#message #text').html(_ajax_response.message);
 							$('#message').modal('show');
 							$('#message').on('hidden.bs.modal', function () {
-								window.location.href = _ajax_response.redirect;
+								if(_ajax_response.redirect!='false') {
+									window.location.href = _ajax_response.redirect;
+								}
 							});
+							return false;
 						}else{
 							window.location.href = _ajax_response.redirect;	
 						}
@@ -237,7 +240,7 @@ $(document).ready(function(){
 				var _type = _this.data('mask-type');
 				var _mask = '';
 				if(_type == 'expiration'){
-					_mask = "9999/99";
+					_mask = "99/9999";
 				}
 				else if(_type == 'date'){
 					_mask = "9999/99/99";
