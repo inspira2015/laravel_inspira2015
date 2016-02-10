@@ -145,7 +145,7 @@ class AddInspiraPoints
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 		$result = curl_exec($ch);
 		curl_close($ch);
-		print_r($result);
+// 		print_r($result);
 		return $result;
 	}
 

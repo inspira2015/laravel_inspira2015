@@ -159,6 +159,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		if($validator->passes()) 
 		{
 			Session::put('users',  $post_data );
+			Session::put('registrySession', $this->rand_string( 8 ) );
 			return Redirect::to('affiliation');
 		}
 		
@@ -396,6 +397,19 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		        ->withInput($post_data);
     }
 
+	private  function rand_string( $length ) 
+	{
+		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";	
+
+		$size = strlen( $chars );
+		$str = '';
+		for( $i = 0; $i < $length; $i++ ) 
+		{
+			$str .= $chars[ rand( 0, $size - 1 ) ];
+		}
+
+		return $str;
+	}
 
 
 	

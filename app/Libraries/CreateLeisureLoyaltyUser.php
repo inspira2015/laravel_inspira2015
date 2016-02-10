@@ -80,7 +80,7 @@ class CreateLeisureLoyaltyUser
 			$this->newMemberFlag = TRUE;
 			return $memberId;
 		}
-		return FALSE;
+// 		return FALSE;
 		return $this->checkMemberIdByEmail();
 	} 
 

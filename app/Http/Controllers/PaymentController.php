@@ -149,7 +149,6 @@ class PaymentController extends Controller {
 	{
         $userAuth = Auth::user();
 
-        
 		$this->createLeisureUser->setUser( $userAuth );
 		$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
 																'type' => 'Create Leisure MemberId',

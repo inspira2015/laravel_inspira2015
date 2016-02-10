@@ -4,7 +4,7 @@
 <div class="row bg-gray-transparent" id="user">
 	<div class="col-xs-12">
 		<div class="row">
-			<div class="col-sm-6 nopadding">
+			<div class="col-sm-5 col-md-6 nopadding">
 				<h2 class="text-left">
 					<i class="fa fa-user"></i>
 					<span>
@@ -13,9 +13,11 @@
 				</h2>
 			</div>
 	
-			<div class="col-xs-12 col-sm-6">
+			<div class="col-xs-12 col-sm-7 col-md-6">
 				@if( $user->details->leisure_id !== null )
-					<a href="{{ url('useraccount/reservations') }}" class="btn-blue btn-big">{{ Lang::get('userdata.go-reservations') }}</a>
+					<a href="{{ url('useraccount/reservations') }}" class="btn-blue btn-big">
+						{{ Lang::get('userdata.go-reservations') }}
+					</a>
 				@endif
 			</div>
 		</div>

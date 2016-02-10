@@ -94,7 +94,7 @@ class VacationfundsController extends Controller
 		$post_data = Request::all();
 		Session::put('vacationfund',  $post_data );
 		$user = Session::get( 'users' );
-
+	
 		$userValidator = new UserRegistration();		
 		$userValidation = $userValidator->validator( $user , Lang::getLocale() );
 
@@ -115,13 +115,13 @@ class VacationfundsController extends Controller
 		$this->createUser->setAffiliationPost( Session::get( 'affiliation' ) );
 		$this->createUser->setVacationFundPost( Session::get( 'vacationfund' ) );
 
-
-
+		//Verificar que el codigo este activo
 		if ( $this->createUser->saveData()== FALSE )
 		{
 			return Redirect::to('codes');
 
 		}
+		
 		$credentials = array();
 		$sessionUser = Session::get('users');
 		
