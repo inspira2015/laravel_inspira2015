@@ -139,6 +139,7 @@ class UseraccountController extends Controller{
 			return Redirect::to('payment');
 		}
 		
+		
 		return view('useraccount.userdata')
 			->with( 'title' ,  Lang::get('userdata.title') )
 			->with( 'background' , '1.png')
@@ -253,12 +254,12 @@ class UseraccountController extends Controller{
 		}
 		
 		$user = $this->details();
-		return view( 'useraccount.form-contact')
-				->with( 'user' , $user )
-				->with( 'countries' , $this->countryDao->forSelect('name', 'code'))
-				->with( 'states', $this->statesDao->forSelect('name', 'code', array('country' => $user->details->country_code ) ))
-				->withErrors($validator);
-
+		
+		return Response::json(array(
+			'error' => false,
+			'message' => implode(' ',$validator->errors()->all()),
+			'redirect' => 'false'
+		), 200);
 	}
 	
 	public function editPayment(){
@@ -363,9 +364,12 @@ class UseraccountController extends Controller{
 			return view('useraccount.password')
 				->with( 'user', $this->details() );
 		}
-		return view('useraccount.form-password')
-			->with( 'user',  $this->details() )
-			->withErrors($validator);
+			
+		return Response::json(array(
+			'error' => false,
+			'message' => implode(' ',$validator->errors()->all()),
+			'redirect' => 'false'
+		), 200);
 	}
 		
 	private function details(){

@@ -1,7 +1,6 @@
 @extends('layouts.basic')
 
 @section('content')
-
 <div class="row bg-gray-transparent" id="user">
 	<div class="col-xs-12">
 		<div class="row">
@@ -14,7 +13,7 @@
 				</h2>
 			</div>
 	
-			<div class="col-xs-12 col-sm-6  col-md-5 col-md-push-1">
+			<div class="col-xs-12 col-sm-6">
 				@if( $user->details->leisure_id !== null )
 					<a href="{{ url('useraccount/reservations') }}" class="btn-blue btn-big">{{ Lang::get('userdata.go-reservations') }}</a>
 				@endif
@@ -97,6 +96,7 @@
 -->
 			</div>
 			<div class="col-md-6">
+				
 				<div class="row bg-light-gray-transparent" id="account-affiliation">
 					<div class="row">
 						<h3>{{ Lang::get('userdata.affiliation-type') }}:<br>
@@ -107,9 +107,9 @@
 							@endif 
 						</h3>
 					</div>
-
+					@if($affiliation->id < 3 )
 					<div class="row">
-						<div class="col-sm-10 col-sm-offset-1 col-md-12  col-md-offset-0 upgrade" id="promotion-box">							
+						<div class="col-sm-10 col-sm-offset-1 col-md-12  col-md-offset-0 upgrade" id="promotion-box">					
 							<div class="promotion">
 								<a href="#" data-toggle="modal" data-target="#change-affiliation"> 
 									<span>{{ Lang::get('userdata.upgrade') }}</span><br>
@@ -119,7 +119,8 @@
 							<div class="arrow"></div>
 						</div>
 					</div>
-
+					@endif
+					
 					<div class="row" data-role="response">
 						<div class="col-xs-12">
 							{{ Lang::get('userdata.expiration-date') }}:<br>

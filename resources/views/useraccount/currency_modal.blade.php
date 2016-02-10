@@ -44,8 +44,6 @@
 								 $ {{ number_format($total_fund, 2, '.', '') }} {{ $currency_change_to }}
 		
 							</div>
-		
-		
 						</div>
 					</div>
 					<hr>
@@ -53,7 +51,7 @@
 						<div class="col-xs-4 col-md-3 text-left">
 							<button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('userdata.cancel') }}</button>
 						</div>
-						<div class="col-xs-4 col-xs-push-4 col-md-4 col-md-push-5">
+						<div class="col-xs-5 col-xs-push-3 col-md-4 col-md-push-5">
 							<a class="btn btn-blue btn-small" data-role="change" data-route="api/user/change-currency">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>
