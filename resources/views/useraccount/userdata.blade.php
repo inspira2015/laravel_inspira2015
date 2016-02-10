@@ -16,9 +16,7 @@
 	
 			<div class="col-xs-12 col-sm-6  col-md-5 col-md-push-1">
 				@if( $user->details->leisure_id !== null )
-				<div class="row">
 					<a href="{{ url('useraccount/reservations') }}" class="btn-blue btn-big">{{ Lang::get('userdata.go-reservations') }}</a>
-				</div>
 				@endif
 			</div>
 		</div>

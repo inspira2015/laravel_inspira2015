@@ -64,9 +64,10 @@ class AffiliationController extends Controller
 		$this->checkAff = $checkAff;
 		$this->affiDao = $affil;
 		$this->exchange = $exchange;
-		$userData = Session::get('users');
+		$userData = Session::get('users' );
+		$currency = Auth::check() ? Auth::user()->currency : $userData['currency'];
 		$this->convertHelper = new ConvertCurrencyHelper();
-		$this->convertHelper->setCurrencyShow( $userData['currency'] );
+		$this->convertHelper->setCurrencyShow( $currency );
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
 		$this->codesUsedDao =  $codesUsed;
 		$this->updateUserAffiliation = $updateUser;
@@ -150,7 +151,7 @@ class AffiliationController extends Controller
 		Session::forget('currentAffiliation');
 
 		$affiliation_id = $post_data['affiliation']; 
-		$type = $post_data["name_$affiliation_id"]; 
+		$type = @$post_data["name_$affiliation_id"]; 
 		$payment = $post_data["amount_$affiliation_id"]; 
 		$currency = $post_data["currency_$affiliation_id"];
 		

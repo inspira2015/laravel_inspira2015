@@ -16,7 +16,7 @@
 						<div class="col-xs-4 col-md-3 text-left">
 							<button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('userdata.cancel') }}</button>
 						</div>
-						<div class="col-xs-4 col-xs-push-4 col-md-4 col-md-push-5">
+						<div class="col-xs-5 col-xs-push-3 col-md-4 col-md-push-5">
 							<a class="btn btn-blue btn-small" href="{{ url('affiliation/update', ['affiliation' => $userAffiliation->id]) }}">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>

@@ -34,7 +34,7 @@
 		</div>
 		<div class="form-group">
 		    <label for="direccion">{{ Lang::get('creditcards.phone') }}</label>
-		    <div class="input-group extra-width">
+		    <div class="input-group">
 		      {!! Form::text('phone', Input::get('phone') ? Input::get('phone') : @$phone, array('class' => 'form-control','id' => 'phone', 'data-mask-type' => 'celular' )) !!}                                                
 		    </div>
 		</div>
