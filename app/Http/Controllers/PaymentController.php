@@ -150,13 +150,12 @@ class PaymentController extends Controller {
         $userAuth = Auth::user();
 
         
-		/*$this->createLeisureUser->setUser( $userAuth );
+		$this->createLeisureUser->setUser( $userAuth );
 		$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
 																'type' => 'Create Leisure MemberId',
 																'description' => 'Create Leisure MemberId',
 																'json_data' => ''));
 		$this->createLeisureUser->saveData();
-		exit;*/
 
 		/*$this->inspiraPoints->setDate( date('Y-m-d') );
 		$this->inspiraPoints->setUserId( $userAuth->id );
@@ -535,6 +534,15 @@ exit;*/
 			if(!Request::get('is_update')){
 				Session::put('complete-profile', 'false');
 			}
+			
+			
+/*
+			$userDao = new UserDao();
+			$userDao->load($userAuth->id);
+			$userDao->leisure_id = 'x';
+			$userDao->save();
+			
+*/
 
 			return Response::json(array(
 				'error' => false,
