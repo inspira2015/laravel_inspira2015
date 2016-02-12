@@ -24,5 +24,9 @@ return [
 	"title" => "Vacational Fund Program",
 	"welcome" => "<p>Welcome to our Vacational Fund Program.</p>
 				  <p>Your Monthly Fee is $:amount :currency.</p>
-				  <p>Next payment date :payment_date.</p>"
+				  <p>Next payment date :payment_date.</p>",
+	"affmessage" => "The VACATION FUND program is only available with PLATINUM and DIAMOND affiliations. If you would like to
+participate in this program please upgrade your affiliation for one of these two options.",
+	"continue-without-fund" => "Continue without Fund",
+	"change-affiliation" => "Change Affiliation"
 ];

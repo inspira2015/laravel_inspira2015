@@ -92,6 +92,11 @@ abstract class Controller extends BaseController {
 			Session::forget('users');			
 		}
 
+		if ( Session::has('full_name') )
+		{
+			Session::forget('full_name');	
+		}
+		
 		if ( Session::has('affiliation') )
 		{
 			Session::forget('affiliation');			

@@ -123,7 +123,9 @@ $(document).ready(function(){
 							$('#message div[class=modal-body]').html(htmlDecode(_ajax_response.html));
 							$('#message').modal('show');
 							$('#message').on('hidden.bs.modal', function () {
-								window.location.href = _ajax_response.redirect;
+								if(_ajax_response.redirect!='false') {
+									window.location.href = _ajax_response.redirect;
+								}
 							});
 								
 							function htmlDecode(input){
@@ -257,8 +259,9 @@ $(document).ready(function(){
 				var _amount_input = $('input[name="amount"]');
 				var _disabled = _this.val() == 1 ? false : true;
 				var _value = _disabled == true ? '0.00' : '0.00';
+
 				_amount_input.val(_value);
-				_amount_input.attr( 'placeholder', _value );
+				_amount_input.attr('placeholder', _value );
 				_amount_input.prop('disabled', _disabled );
 			});
 		},

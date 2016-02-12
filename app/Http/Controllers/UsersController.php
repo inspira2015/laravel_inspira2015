@@ -117,6 +117,15 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		return view('users.user',$data)
 					->with('background','2.jpg');
 	}
+	
+	public function confirmation(){	
+		if(Session::get('full_name')){
+			
+			return view('users.emailconfirmation',array( 'full_name' => Session::get('full_name')))->with('title', Lang::get('emails.email-confirmation') )->with('background','2.jpg');
+		}
+		
+		return Redirect::to('codes');
+	}
 
 	public function checkFacebook(){
 		if(Session::get('creation-ref')){
@@ -160,7 +169,11 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		{
 			Session::put('users',  $post_data );
 			Session::put('registrySession', $this->rand_string( 8 ) );
-			return Redirect::to('affiliation');
+
+			return Response::json(array(
+				'error' => false,
+				'redirect' => 'affiliation'
+			), 200);
 		}
 		
 		$locale = Lang::getLocale();
@@ -169,12 +182,11 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		$data['currency_list'] = $this->getCurrency();
 		$data['location_info'] = $this->getLocationInfo($post_data['country']);
 
-        return view('users.user')
-		        ->with('title', Lang::get('registry.title') )
-		        ->with('background','2.jpg')
-		        ->with($data)
-		        ->withErrors($validator)
-		        ->withInput($post_data);
+		return Response::json(array(
+			'error' => false,
+			'message' => implode(' ',$validator->errors()->all()),
+			'redirect' => 'false'
+		), 200);
 	}
 
 	private function sanitizePhone($phone)

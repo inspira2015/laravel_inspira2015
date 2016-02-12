@@ -180,6 +180,7 @@ footer > .container > div:nth-child(3){
 	font-weight: 200;
 	padding-top: 5px;
 	width: 100%;
+	text-align:center;
 	padding-bottom: 5px;
 	display: inline-block;
 	text-decoration: none;
@@ -215,12 +216,13 @@ footer > .container > div:nth-child(3){
 .btn-pink-clear,
 .btn-blue-clear{
 	display: inline-block;
-	width: 100%;
+	width: 100%;text-align:center;
 	font-size: 24px;
 	text-decoration: none;
 	background-color: none!important;
 	background-repeat: no-repeat;
 	background-position: right center;
+	padding: 5px;
 }
 
 .btn-xsmall{
@@ -1083,7 +1085,7 @@ div.flat-windows button.close {
 }
 
 div.flat-windows .modal-dialog{
-	max-width: 400px;
+	max-width: 475px;
 }
 div.flat-windows div.modal-content {
     border-radius: 0px;
@@ -1340,10 +1342,9 @@ a.fb-linkto{
 		display:block;
 	}
 	
-	.btn-blue-clear{
+	div:not('modal-body') .btn-blue-clear{
 		margin:10px auto;
 	}
-	
 }
 
 

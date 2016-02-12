@@ -213,6 +213,7 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 
 	Route::get('users/activation/{code}', 'UsersController@activation');
 	Route::post('users/select-language', 'UsersController@refreshLanguage');
+	Route::get('users/confirmation', 'UsersController@confirmation');
 	
 	Route::get('users/fbConnect', 'UsersController@fbConnect');
 

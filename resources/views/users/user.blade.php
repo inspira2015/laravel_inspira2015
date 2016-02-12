@@ -10,7 +10,7 @@
 				</a>
 			</div>
 			<div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8 nopadding">   
-				<div data-role="submit" class="btn-blue-clear btn-medium">
+				<div data-role="submit" class="btn-blue-clear btn-medium" data-route="{{ url('users/registration') }}">
 					{{ Lang::get('layout.continue') }}
 				</div>
 			</div>
@@ -115,7 +115,7 @@
 					</a>
 				</div>
 				<div class="col-xs-6 col-xs-push-2 col-sm-3 col-sm-push-6 col-md-push-7 nopadding">   
-					<div data-role="submit" class="btn-blue btn-medium">
+					<div data-role="submit" class="btn-blue btn-medium" data-route="{{ url('users/registration') }}">
 						{{ Lang::get('layout.continue') }}
 					</div>
 					<div class="col-xs-12 text-right nopadding" id="mandatory">

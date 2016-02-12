@@ -12,5 +12,6 @@ return [
 	"terms" => "Terms of Service",
 	"close" => "Close",
 	"loading" => "Loading",
-	"with-code" => "Enter code"
+	"with-code" => "Enter code",
+	"change-affiliation" => "Change Affiliation"
 ];

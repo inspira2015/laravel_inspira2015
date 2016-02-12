@@ -6,13 +6,13 @@
 	{!! Form::open(array('url' => 'affiliation/add')) !!}
 	<div class="row">
 		<div class="col-xs-12">
-			<div class="col-xs-4 col-sm-3 col-md-2">  
+			<div class="col-xs-5 col-sm-3 col-md-2 nopadding">  
 				<a href="{{ url('users') }}" class="btn-blue-clear btn-medium back">
 					{{ Lang::get('layout.back') }}
 				</a>
 			</div>
-			<div class="col-xs-5 col-xs-push-3 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8 nopadding">   
-				<div data-role="submit" class="btn-blue-clear btn-medium">
+			<div class="col-xs-5 col-xs-push-2 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8 nopadding">   
+				<div data-role="submit" class="btn-blue-clear btn-medium" data-route="{{ url('affiliation/add') }}">
 					{{ Lang::get('layout.continue') }}
 				</div>
 			</div>
@@ -20,9 +20,6 @@
 			<div class="divider"></div>	
 			<div class="col-xs-12 text-left" style="text-transform: uppercase; font-size: 16px;">
 				<p>{{ Lang::get('affiliations.select') }} </p><br>
-			</div>
-			<div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2">
-				@include('errors.messages')
 			</div>
 		</div>
 	</div>
@@ -114,13 +111,13 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4 col-sm-3 col-md-2">  
+			<div class="col-xs-5 col-sm-3 col-md-2">  
 				<a href="{{ url('users') }}" class="btn-blue-clear btn-medium back">
 					{{ Lang::get('layout.back') }}
 				</a>
 			</div>
-			<div class="col-xs-6 col-xs-push-2 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8">   
-				<div data-role="submit" class="btn-blue btn-medium">
+			<div class="col-xs-6 col-xs-push-1 col-sm-3 col-sm-push-6 col-md-2 col-md-push-8">   
+				<div data-role="submit" class="btn-blue btn-medium" data-route="{{ url('affiliation/add') }}">
 					{{ Lang::get('layout.continue') }}
 				</div>
 			</div>

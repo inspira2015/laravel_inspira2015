@@ -69,12 +69,9 @@ class VacationfundsController extends Controller
 			return Redirect::to('codes/1');
 		}
 
-
 		$this->parseAff->setAffiliationPost( Session::get( 'affiliation' ) );
 		
-		
 		$userData = Session::get('users');
-
 
 		return view('vacationfunds.vacationfund')->with(array('title' => Lang::get('vacationfund.title') ,
 															  'background' =>'4.jpg',
@@ -89,12 +86,26 @@ class VacationfundsController extends Controller
 	{
 		if ( $this->checkSession() == FALSE )
 		{
-			return Redirect::to('codes');
+			return Response::json(array(
+				'error' => false,
+				'redirect' => url('codes')
+			), 200);
 		}
 		$post_data = Request::all();
+
 		Session::put('vacationfund',  $post_data );
 		$user = Session::get( 'users' );
-	
+		
+		$affiliation = Session::get('affiliation');
+		Session::flash('back', true);
+		if( $affiliation['affiliation'] == 1 &&  @$post_data['fondo'] > 0){
+			return Response::json(array(
+				'error' => false,
+				'html' => htmlspecialchars(view('vacationfunds.affiliationtype_modal', array('hide' => true ))),
+				'redirect' => 'false'
+			), 200);
+		}
+		
 		$userValidator = new UserRegistration();		
 		$userValidation = $userValidator->validator( $user , Lang::getLocale() );
 
@@ -102,10 +113,18 @@ class VacationfundsController extends Controller
 		$fundValidation = $fundValidator->validator(Session::get( 'vacationfund' ), Lang::getLocale());
 		
 		if( ! $userValidation->passes() ){
-			return Redirect::to('vacationfund')->withErrors($userValidation);
+			return Response::json(array(
+				'error' => false,
+				'message' => $userValidation->errors()->all(),
+				'redirect' => 'false'
+			), 200);
 		}
 		if(! $fundValidation->passes() ){
-			return Redirect::to('vacationfund')->withErrors($fundValidation);
+			return Response::json(array(
+				'error' => false,
+				'message' => $fundValidation->errors()->all(),
+				'redirect' => 'false'
+			), 200);
 		}
 
 		$affiliation = Session::get( 'affiliation' );	
@@ -118,7 +137,10 @@ class VacationfundsController extends Controller
 		//Verificar que el codigo este activo
 		if ( $this->createUser->saveData()== FALSE )
 		{
-			return Redirect::to('codes');
+			return Response::json(array(
+				'error' => false,
+				'redirect' => url('codes')
+			), 200);
 
 		}
 		
@@ -141,8 +163,14 @@ class VacationfundsController extends Controller
 			});
 
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
-		$data = array('full_name'=> $full_name);
-		return view('users.emailconfirmation',$data)->with('title', Lang::get('emails.email-confirmation') )->with('background','2.jpg');
+
+		Session::flash('full_name' , $full_name);
+		Lang::get('emails.email-confirmation');
+		
+		return Response::json(array(
+			'error' => false,
+			'redirect' => url('users/confirmation')
+		), 200);
 	}
 
 	public function changevacationalfund($vacationfund = FALSE)

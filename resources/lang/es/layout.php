@@ -12,5 +12,6 @@ return [
 	"terms" => "T&eacute;rminos y Condiciones",
 	"close" => "Cerrar",
 	"loading" => "Cargando",
-	"with-code" => "Ingresar Código"
+	"with-code" => "Ingresar Código",
+	"change-affiliation" => "Cambiar Afiliación"
 ];

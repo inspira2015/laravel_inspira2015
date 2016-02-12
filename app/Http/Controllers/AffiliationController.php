@@ -184,14 +184,23 @@ class AffiliationController extends Controller
 			}else{
 				$message = 'Please select affiliation type.';
 			}
-			return Redirect::back()->withErrors(array('message' => $message ));
+			
+			return Response::json(array(
+				'error' => false,
+				'message' => $message,
+				'redirect' => 'false'
+			), 200);
 		}else{
 			Session::put('affiliation',  $post_data );
 
 			if($post_data['affiliation'] == 1 ){
 			
 			}
-			return Redirect::to('vacationfund');	
+// 			return Redirect::to('vacationfund');	
+			return Response::json(array(
+				'error' => false,
+				'redirect' => url('vacationfund')
+			), 200);
 		}
 	}
 	

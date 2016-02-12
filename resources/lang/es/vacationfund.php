@@ -23,5 +23,8 @@ return [
 	"title" => "Programa Fondo Vacacional",
 	"welcome" => "<p>Bienvenido al programa de fondo Vacacional. </p>
 				  <p>Su ahorro mensual es de $:amount :currency.</p>
-				  <p>Próxima fecha de pago :payment_date.</p>"
+				  <p>Próxima fecha de pago :payment_date.</p>",
+	"affmessage" => "El programa FONDO VACACIONAL solo esta disponible para las afiliaciones PLATINO y DIAMANTE. Si gusta ser parte de este programa favor seleccione alguna de estas dos opciones de afiliación.",
+	"continue-without-fund" => "Continuar sin Fondo",
+	"change-affiliation" => "Cambiar Afiliación"
 ];
