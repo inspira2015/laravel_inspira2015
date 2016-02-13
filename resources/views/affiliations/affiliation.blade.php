@@ -30,7 +30,10 @@
 		<div class="col-md-{{ (12/$suscription_count) }} {{ strtolower($obj->getAffiliationName()) }}">
 			<div class="row margin">
 				<h2 class="affiliation-header">
-	  			{{ $obj->getAffiliationName() }}
+				<?php $special_cards = array('INSPIRACARD' => 'INSPIRA CARD', 'vipcard' => 'VIP CARD'); 
+					$affiliation_name = array_key_exists($obj->getAffiliationName(), $special_cards) ? $special_cards[$obj->getAffiliationName()] : $obj->getAffiliationName();  
+				?>
+	  			{{ $affiliation_name }}
 	  			</h2>
 			</div>
 			<div class="bg-light-gray margin row nopadding">
@@ -91,7 +94,7 @@
 	                ?>
 	                <div class="form-group text-left">
 	                	{!! Form::radio('affiliation', $obj->getAffiliationId(), $radio_select ) !!}
-	                	<div style="display:table-cell;padding-left:10px;">{{ Lang::get('affiliations.affconfirm', array('affiliation' => $obj->getAffiliationName())) }}</div>
+	                	<div style="display:table-cell;padding-left:10px;">{{ Lang::get('affiliations.affconfirm', array('affiliation' => $affiliation_name )) }}</div>
 	                </div>
 	
 				</div>

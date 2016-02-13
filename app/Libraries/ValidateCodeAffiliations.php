@@ -13,7 +13,7 @@ class ValidateCodeAffiliations implements Ivalidate
 
 	public function  __construct()
 	{
-		$this->affiliations = array('discover','bronze','gold','platinum','diamond');
+		$this->affiliations = array('discover','bronze','gold','platinum','diamond', 'inspiracard', 'vipcard');
 		$this->error_array = FALSE;
 	}
 

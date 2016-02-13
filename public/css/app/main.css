@@ -541,7 +541,11 @@ div.modal-body  li li li{
 .platinum .form-group,
 .platino .form-group,
 .discover .form-group,
-.descubre .form-group{
+.descubre .form-group, 
+.inspiracard .form-group,
+.tarjeta.inspira .form-group,
+.vipcard .form-group,
+.tarjeta.vip .form-group{
 	text-transform: uppercase;
 	display:table!important;
 	margin-top: 5px;
@@ -577,6 +581,29 @@ div.modal-body  li li li{
 .descubre .form-group{
 	color: #529ad3;
 }
+
+.inspiracard .form-group,
+.tarjeta.inspira .form-group {
+	color: #ea732d;
+}
+
+.vipcard .form-group,
+.tarjeta.vip .form-group,
+{
+	color: #2d383f;
+}
+
+
+.tarjeta.vip .affiliation-header,
+.vipcard  .affiliation-header{
+	background-color: #2d383f;
+}
+
+.inspiracard .affiliation-header,
+.tarjeta.inspira .affiliation-header{
+	background-color: #ea732d;
+}
+
 .margin{
 	margin: 0 10px;
 }
@@ -1079,8 +1106,6 @@ padding: 7px 40px 7px 40px;
 }
 
 div.flat-windows button.close {
-	margin-right: -20px;
-    margin-top: -20px;
     color:transparent;
 }
 

@@ -181,12 +181,8 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		$data['lan_list'] = $this->getLanguaje();
 		$data['currency_list'] = $this->getCurrency();
 		$data['location_info'] = $this->getLocationInfo($post_data['country']);
-
-		return Response::json(array(
-			'error' => false,
-			'message' => implode(' ',$validator->errors()->all()),
-			'redirect' => 'false'
-		), 200);
+		
+		return $this->htmlResponseContinue( implode(' ',$validator->errors()->all()) );
 	}
 
 	private function sanitizePhone($phone)

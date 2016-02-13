@@ -95,7 +95,7 @@ class AffiliationController extends Controller
 			$aff = Session::get('affiliation');
 			$affiliation = $aff['affiliation'];
 		}
-
+		
 		return view('affiliations.affiliation')->with( array( 'title' => Lang::get('affiliations.title'),
 															  'background' =>'3.jpg',
 															  'affiliation' => $affiliation,
@@ -185,18 +185,13 @@ class AffiliationController extends Controller
 				$message = 'Please select affiliation type.';
 			}
 			
-			return Response::json(array(
-				'error' => false,
-				'message' => $message,
-				'redirect' => 'false'
-			), 200);
+			return $this->htmlResponseContinue( $message );
 		}else{
 			Session::put('affiliation',  $post_data );
 
 			if($post_data['affiliation'] == 1 ){
 			
 			}
-// 			return Redirect::to('vacationfund');	
 			return Response::json(array(
 				'error' => false,
 				'redirect' => url('vacationfund')

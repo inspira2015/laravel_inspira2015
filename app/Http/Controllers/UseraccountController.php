@@ -16,6 +16,7 @@ use Request;
 
 use App\Model\User;
 use App\Model\Dao\UserDao;
+use App\Model\Dao\CodeDao;
 use App\Model\Dao\CountryDao;
 use App\Model\Dao\StatesDao;
 use App\Model\Dao\AffiliationsDao;
@@ -139,7 +140,6 @@ class UseraccountController extends Controller{
 			return Redirect::to('payment');
 		}
 		
-		
 		return view('useraccount.userdata')
 			->with( 'title' ,  Lang::get('userdata.title') )
 			->with( 'background' , '1.png')
@@ -157,6 +157,10 @@ class UseraccountController extends Controller{
 		$vacationalFund = new UserVacationalFunds();
 		$vacFundTotal = $vacationalFund->getLatestByUserId($this->userAuth->id);
 		$vacFundTotal = isset($vacFundTotal->balance) ? $vacFundTotal->balance : 0;
+		$code = $this->userDao->getUsersCode( $this->userAuth->id );
+		$codeDao = new CodeDao();
+		$code = $codeDao->getById($code->code_used->codes_id);
+		//print_r($code);
 		
 		$this->accountSetup->setUsersID( $this->userAuth->id );
 		$this->accountSetup->checkValidAccount();
@@ -182,6 +186,8 @@ class UseraccountController extends Controller{
 			$pointBalance = (int)$userPoints->balance;
 
 		}
+		
+		
 		$data = array(
 			'affiliation_cost' => $this->convertHelper->getFomattedAmount(),
 			'affiliation_currency' => $this->convertHelper->getCurrencyShow(),
@@ -254,12 +260,8 @@ class UseraccountController extends Controller{
 		}
 		
 		$user = $this->details();
-		
-		return Response::json(array(
-			'error' => false,
-			'message' => implode(' ',$validator->errors()->all()),
-			'redirect' => 'false'
-		), 200);
+
+		return $this->htmlResponseContinue( implode(' ',$validator->errors()->all()) );
 	}
 	
 	public function editPayment(){
@@ -365,11 +367,7 @@ class UseraccountController extends Controller{
 				->with( 'user', $this->details() );
 		}
 			
-		return Response::json(array(
-			'error' => false,
-			'message' => implode(' ',$validator->errors()->all()),
-			'redirect' => 'false'
-		), 200);
+		return $this->htmlResponseContinue( implode(' ',$validator->errors()->all()) );
 	}
 		
 	private function details(){

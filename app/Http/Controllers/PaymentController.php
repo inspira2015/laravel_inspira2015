@@ -363,6 +363,7 @@ exit;*/
 								
 				return Response::json(array(
 					'error' => false,
+					
 						'message' => 'Make process for inspira credit - Inspira Card',
 						'redirect' => url('useraccount')
 					), 200);
@@ -542,19 +543,10 @@ exit;*/
 			$userDao->save();
 			
 */
-
-			return Response::json(array(
-				'error' => false,
-				'message' => Lang::get('creditcards.message'),
-				'redirect' => url('useraccount')
-			), 200);
+			return $this->htmlResponseContinue( Lang::get('creditcards.message') , url('useraccount') );
         }     
-
-		return Response::json(array(
-			'error' => false,
-			'message' => implode(' ',$validator->errors()->all()),
-			'redirect' => 'false'
-		), 200);
+		
+		return $this->htmlResponseContinue( implode(' ',$validator->errors()->all()) );
 	}
 	
 	public function getAddCreditCard(){

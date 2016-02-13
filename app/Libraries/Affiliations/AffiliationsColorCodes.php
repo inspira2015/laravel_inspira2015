@@ -23,10 +23,14 @@ class AffiliationsColorCodes
 									'DISCOVER' => '#529ad3',
 									'PLATINUM' => '#a4ce3a',
 									'DIAMOND' => '#cc4b9b',
-
+									'INSPIRA CARD' => '#ea732d',
+									'VIP CARD' => '#2d383f',
+									
 									'DESCUBRE' => '#529ad3',
 									'PLATINO' => '#a4ce3a',
 									'DIAMANTE' => '#cc4b9b',
+									'TARJETA INSPIRA' => '#ea732d',
+									'TARJETA VIP' => '#2d383f'
 			);
 
 	}

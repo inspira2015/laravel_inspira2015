@@ -112,19 +112,11 @@ class VacationfundsController extends Controller
 		$fundValidator = new VacationFund();
 		$fundValidation = $fundValidator->validator(Session::get( 'vacationfund' ), Lang::getLocale());
 		
-		if( ! $userValidation->passes() ){
-			return Response::json(array(
-				'error' => false,
-				'message' => $userValidation->errors()->all(),
-				'redirect' => 'false'
-			), 200);
+		if( ! $userValidation->passes() ){			
+			return $this->htmlResponseContinue( implode(' ',$userValidation->errors()->all()) );
 		}
 		if(! $fundValidation->passes() ){
-			return Response::json(array(
-				'error' => false,
-				'message' => $fundValidation->errors()->all(),
-				'redirect' => 'false'
-			), 200);
+			return $this->htmlResponseContinue( implode(' ',  $fundValidation->errors()->all() ) );
 		}
 
 		$affiliation = Session::get( 'affiliation' );	

@@ -9,6 +9,7 @@ use Auth;
 use App;
 use Lang;
 use Session;
+use Response;
 
 abstract class Controller extends BaseController {
 	protected $logDao;
@@ -106,5 +107,13 @@ abstract class Controller extends BaseController {
 		{
 			Session::forget('vacationfund');			
 		}
+	}
+	
+	protected function htmlResponseContinue( $message, $redirect  = 'false' ) {
+		return Response::json(array(
+			'error' => false,
+			'html' => htmlspecialchars( view('layouts.__common.message_continue', array('message' => $message )) ),
+			'redirect' => $redirect
+		), 200);
 	}
 }

@@ -113,6 +113,7 @@ class UserDao extends UserEntity implements ICrudOperations
  		return User::where( 'id', $id )->with('code_used')->first();
 
  	}
+ 	
 
  	public function getUserByEmailCode( $code = FALSE )
 	{

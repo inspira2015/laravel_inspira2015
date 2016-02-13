@@ -25,6 +25,8 @@ class CreateTableCodes extends Migration {
 			$table->integer('platinum');
 			$table->integer('diamond');
 			$table->integer('points');
+			$table->integer('inspira_card');
+			$table->integer('vip_card');
 			$table->tinyInteger('reuse');
 			$table->tinyInteger('used');
 			$table->timestamps();
