@@ -10,7 +10,7 @@
 		        </button> 
 	        @endif
 	        <div class="logo">
-				<a href="{{ url('/') }}">
+				<a href="{{ url(Config::get('domain.front')) }}">
 					{!! HTML::image('css/bootstrap/css/images/logo.png', 'Inspira Mexico - Logo') !!}
 				</a>
 	        </div>

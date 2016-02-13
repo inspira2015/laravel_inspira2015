@@ -183,7 +183,6 @@ class UseraccountController extends Controller{
 		if(!empty( $userPoints ))
 		{
 			$pointBalance = (int)$userPoints->balance;
-
 		}
 		
 		

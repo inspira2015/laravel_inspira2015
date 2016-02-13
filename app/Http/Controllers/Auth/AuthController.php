@@ -17,6 +17,7 @@ use App\Model\Dao\UserDao;
 use Input;
 
 use Response;
+use Config;
 
 class AuthController extends Controller implements AuthenticateUserListener {
 
@@ -122,6 +123,52 @@ class AuthController extends Controller implements AuthenticateUserListener {
                             'email' => 'Estas credenciales no coinciden con nuestros registros.',
         ]);
     }
+    
+    public function getWplogin(Request $request) {
+
+       
+        $this->validate($request, [
+            'email' => 'required', 'password' => 'required',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+        $credentials2['email'] =  trim($credentials['email']);
+        $credentials2['password'] =  trim($credentials['password']);
+
+        if ($this->auth->attempt($credentials2, $request->has('remember'))) {
+            $this->session->flash('message', "Ha iniciado sesión con éxito");
+            $this->session->flash('alert-class', 'alert-success');
+
+          // $this->checkAccountSetup->setUsersID
+            //$data = $this->session->all();
+            $user = $this->userDao->getUserByEmail( $credentials['email'] );
+            $this->checkAccountSetup->setUsersID( $user->id );
+            $userpayment = $this->checkAccountSetup->checkCreditCard();
+
+      
+
+
+
+            if( empty( $userpayment ) )
+            {
+                //return redirect()->intended($this->redirectPaymentInfoPath());
+                return Redirect::to('payment');
+                
+
+            }
+                       
+            return redirect()->intended($this->redirectUserAccountPath());
+
+        }
+
+        return redirect('/auth/login')
+                        ->withInput($request->only('email'))
+                        ->withErrors([
+                            'email' => 'Estas credenciales no coinciden con nuestros registros.',
+        ]);
+    }
+    
+    
 
     /**
      * Log the user out of the application.
@@ -132,13 +179,13 @@ class AuthController extends Controller implements AuthenticateUserListener {
         $this->auth->logout();
         $this->session->flash('message', "Ha cerrado sesión con éxito");
         $this->session->flash('alert-class', 'alert-danger');
-        return redirect('/');
+        return redirect('http://'.Config::get('domain.front'));
     }
     
      public function tryAgain() {
         $this->session->flash('message', "No se encuentra conectado");
         $this->session->flash('alert-class', 'alert-danger');
-        return redirect('/');
+        return redirect('http://'.Config::get('domain.front'));
     }
     
     

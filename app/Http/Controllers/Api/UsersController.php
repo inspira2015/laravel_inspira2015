@@ -149,4 +149,11 @@ class UsersController extends Controller
 			'data' => array( 'exists' => $exists, 'message' => $message )
 		), 200);
 	}
+	
+	public function register(){
+		return Response::json(array(
+			'error' => false,
+			'data' => array( 'message' => 'Algo' )
+		), 200);
+	}
 }

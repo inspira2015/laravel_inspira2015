@@ -267,6 +267,8 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 
 	Route::post('codes/check', 'CodesController@check');
 	
+	Route::get('auth/wplogin', 'Auth\AuthController@getWplogin');
+
 	Route::post('/language', array(
 		'before' => 'csrf',
 		'as'    =>  'language-choose',
