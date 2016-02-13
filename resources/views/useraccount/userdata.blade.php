@@ -110,7 +110,7 @@
 						</h3>
 					</div>
 					
-					@if($affiliation->id != $code->max_level )
+					@if(($affiliation->id != $code->max_level ) && $code->code != 'inspiraold')
 					<div class="row">
 						<div class="col-sm-10 col-sm-offset-1 col-md-12  col-md-offset-0 upgrade" id="promotion-box">					
 							<div class="promotion">
