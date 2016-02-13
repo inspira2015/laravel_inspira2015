@@ -19,7 +19,7 @@ return [
 	"affconfirm" => "make me a :affiliation affiliate",
 	"title" => "Affiliations",
 	"today-rate" => 'Current price in pesos. Considering that the exchange rate of the day:',
-	"changed" => "<p>Your affiliation change to :type was successful.</p>
+	"changed" => '<p>Your affiliation change to :type was successful.</p>
 			  <p>Now your monthly payment is  $:payment :currency. </p>
-			  <p>Next payment date :payment_date.</p>"
+			  <p>Next payment date :payment_date.</p>'
 ];

@@ -18,7 +18,9 @@ use App\Model\Entity\UserVacFundLog;
 use Auth;
 use App\Libraries\CreateUser\UpdateVacationalFund;
 use App\Libraries\GeneratePaymentsDates;
-
+use App\Model\Dao\UserAffiliationDao;
+use App\Model\Dao\AffiliationsDao;
+use App\Model\Entity\UserAffiliation;
 
 
 class VacationfundsController extends Controller 
@@ -185,6 +187,9 @@ class VacationfundsController extends Controller
 
 	public function dochange()
 	{
+		$affiliationsDao = new AffiliationsDao();
+		$userAff = new UserAffiliation();
+
 		$paymentDate = new GeneratePaymentsDates();
 		$paymentDate->setDate( \date('Y-m-d') );
 
@@ -193,6 +198,20 @@ class VacationfundsController extends Controller
 		$post_data['amount'] = isset($post_data['amount']) ? $post_data['amount'] : 0;
 		
 		$userCurrentVacationalFund = Session::get('currentVacationalFund');
+		
+/*
+		$userAffiliation = $userAff->getCurrentUserAffiliationByUserId(  $userAuth->id );
+		$affiliation = $affiliationsDao->getById( $userAffiliation->affiliations_id );
+
+		if( $affiliation['affiliation'] == 1 &&  @$post_data['fondo'] > 0){
+			return Response::json(array(
+				'error' => false,
+				'html' => htmlspecialchars(view('vacationfunds.affiliationtype_modal', array('hide' => true ))),
+				'redirect' => 'false'
+			), 200);
+		}
+*/
+		
 		if( !is_numeric( $userCurrentVacationalFund ) )
 		{
 			return Response::json(array(
@@ -209,6 +228,7 @@ class VacationfundsController extends Controller
 		Session::forget('currentVacationalFund');		
 		$vacLog = $this->userVacationalFundLog->getCurrentUserVacFundLogByUserId( $userAuth->id );
 		$date =  "date here";
+		
 		if( $post_data['amount']>0 ){
 			return Response::json(array(
 				'error' => false,

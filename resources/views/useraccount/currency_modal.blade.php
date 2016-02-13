@@ -48,11 +48,11 @@
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-xs-4 col-md-3 text-left">
-							<button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('userdata.cancel') }}</button>
+						<div class="col-xs-5 col-md-4 text-left">
+							<button type="button" class="btn btn-blue-clear back btn-small" data-dismiss="modal">{{ Lang::get('userdata.cancel') }}</button>
 						</div>
-						<div class="col-xs-5 col-xs-push-3 col-md-4 col-md-push-5">
-							<a class="btn btn-blue btn-small" data-role="change" data-route="api/user/change-currency">{{ Lang::get('userdata.change') }}</a>
+						<div class="col-xs-5 col-xs-push-2 col-md-4 col-md-push-4">
+							<a class="btn-light-blue btn-small" data-role="change" data-route="api/user/change-currency">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>
 				</div>

@@ -155,6 +155,7 @@ class AffiliationController extends Controller
 		$payment = $post_data["amount_$affiliation_id"]; 
 		$currency = $post_data["currency_$affiliation_id"];
 		
+
 		return Response::json(array(
 			'error' => false,
 			'message' => Lang::get('affiliations.changed', ['type'=> $type, 
@@ -164,6 +165,7 @@ class AffiliationController extends Controller
 														]),
 			'redirect' => url('useraccount')
 		), 200);
+
 			
 			
 	}

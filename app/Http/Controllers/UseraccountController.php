@@ -160,7 +160,6 @@ class UseraccountController extends Controller{
 		$code = $this->userDao->getUsersCode( $this->userAuth->id );
 		$codeDao = new CodeDao();
 		$code = $codeDao->getById($code->code_used->codes_id);
-		//print_r($code);
 		
 		$this->accountSetup->setUsersID( $this->userAuth->id );
 		$this->accountSetup->checkValidAccount();
@@ -170,10 +169,10 @@ class UseraccountController extends Controller{
 		
 		$this->convertHelper->setCost($userAffiliation->amount);
 		$this->convertHelper->setCurrencyOfCost($userAffiliation->currency);
-				
+		
 		$userVacationalFundLog = $vacationalFundLog->getCurrentUserVacFundLogByUserId( $this->userAuth->id );
 		$affiliation = $affiliationsDao->getById( $userAffiliation->affiliations_id );
-				
+
 		$paymentDate->setDate( $userAffiliation->created_at->format('Y-m-d') );
 		$paymentAffiliationDate = $paymentDate->getNextPaymentDateHumanRead();
 		$paymentDate->setDate( $userVacationalFundLog->created_at->format('Y-m-d') );
@@ -191,7 +190,6 @@ class UseraccountController extends Controller{
 		$data = array(
 			'affiliation_cost' => $this->convertHelper->getFomattedAmount(),
 			'affiliation_currency' => $this->convertHelper->getCurrencyShow(),
-			'affiliation' => $userAffiliation,
 			'vacational_fund_total' => $vacFundTotal,
 			'vacational_fund_amount' => $userVacationalFundLog->amount,
 			'vacational_fund_currency' => $userVacationalFundLog->currency,
@@ -204,6 +202,7 @@ class UseraccountController extends Controller{
 			'next_payment_date' => $paymentAffiliationDate,
 			'next_payment_vacation_date' => $paymentVacationDate,
 			'convertHelper' => $this->convertHelper,
+			'code' => $code
 		);
 		
 		return $data;

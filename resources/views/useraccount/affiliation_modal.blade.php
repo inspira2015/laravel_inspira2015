@@ -19,7 +19,7 @@
 							</a>
 						</div>
 						<div class="col-xs-6 col-md-4 col-md-push-4">
-							<a class="btn btn-light-blue btn-small" href="{{ url('affiliation/update', ['affiliation' => $userAffiliation->id]) }}">{{ Lang::get('userdata.change') }}</a>
+							<a class="btn-light-blue btn-small" href="{{ url('affiliation/update', ['affiliation' => $userAffiliation->id]) }}">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>
 				</div>
