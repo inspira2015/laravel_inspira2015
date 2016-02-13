@@ -219,7 +219,7 @@ footer > .container > div:nth-child(3){
 	width: 100%;text-align:center;
 	font-size: 24px;
 	text-decoration: none;
-	background-color: none!important;
+	background-color: transparent!important;
 	background-repeat: no-repeat;
 	background-position: right center;
 	padding: 5px;
@@ -227,6 +227,10 @@ footer > .container > div:nth-child(3){
 
 .btn-xsmall{
 	font-size: 14px;
+}
+
+.btn-big{
+	font-size: 24px;
 }
 		
 .btn-white-clear {
@@ -281,7 +285,8 @@ footer > .container > div:nth-child(3){
 	clear:both;
 }
 
-div.inputs input[name="code"]{
+div.inputs input[name="code"],
+div.inputs input[name="email"]{
 	width:100%; 
 	border:12px solid #465664; 
 	background-color:#bec4c9; 

@@ -7,5 +7,9 @@ return [
 	'login' => 'Login',
 	'remember-me' => 'Remember Me',
 	'forgot-password' => 'Forgot Password?',
-	'sign-in' => 'Sign In'
+	'sign-in' => 'Sign In',
+	'reset-password-message' => 'If you have forgotten your password, please enter the email you have registered with us and we will send the password to that email.',
+	'reset-link' => 'Reset Password‏',
+	'reset-link-sent' => 'Your password reset link has been sent. Please check your e-mail inbox.',
+	'invalid-user' => 'Your e-mail is incorrect. Please try again or contact the administrator customerservice@inspiramexico.mx'
 ];

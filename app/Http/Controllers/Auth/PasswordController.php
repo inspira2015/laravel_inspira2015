@@ -4,6 +4,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
+use Lang;
+use Session;
 
 class PasswordController extends Controller {
 
@@ -36,4 +41,20 @@ class PasswordController extends Controller {
 		$this->setLanguage();
 	}
 
+ 	public function postEmail(Request $request)
+    {
+        $this->validate($request, ['email' => 'required|email']);
+
+        $response = Password::sendResetLink($request->only('email'), function (Message $message) {
+            $message->subject( Lang::get('auth.reset-link') );
+        });
+
+        switch ($response) {
+            case Password::RESET_LINK_SENT:
+            	Session::flash('status', Lang::get('auth.reset-link-sent'));
+            	return view('auth.password');
+            case Password::INVALID_USER:
+            	return view('auth.password')->withErrors([ Lang::get('auth.reset-link-sent') ]);
+        }
+    }
 }

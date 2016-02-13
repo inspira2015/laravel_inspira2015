@@ -13,11 +13,13 @@
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-xs-4 col-md-3 text-left">
-							<button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('userdata.cancel') }}</button>
+						<div class="col-xs-6 col-md-4 text-left">
+							<a href="#" class="btn btn-blue-clear btn-medium back" data-dismiss="modal">
+								{{ Lang::get('userdata.cancel') }}
+							</a>
 						</div>
-						<div class="col-xs-5 col-xs-push-3 col-md-4 col-md-push-5">
-							<a class="btn btn-blue btn-small" href="{{ url('affiliation/update', ['affiliation' => $userAffiliation->id]) }}">{{ Lang::get('userdata.change') }}</a>
+						<div class="col-xs-6 col-md-4 col-md-push-4">
+							<a class="btn btn-light-blue btn-small" href="{{ url('affiliation/update', ['affiliation' => $userAffiliation->id]) }}">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>
 				</div>
