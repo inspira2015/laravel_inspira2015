@@ -8,6 +8,7 @@ use App\Model\Code;
 use App\Services\ServiceCode as ServiceCode;
 use App\Libraries\CodeValidator as CodeValidator;
 use Input;
+use Auth;
 
 class CodesController extends Controller {
 
@@ -16,7 +17,7 @@ class CodesController extends Controller {
 
 	public function __construct(CodeDao $dao) 
 	{
-		$this->middleware('guest');
+		$this->middleware('both');
 		$this->codeDao = $dao;
 		$this->check = new CodeValidator();
 		$this->setLanguage();
@@ -24,6 +25,11 @@ class CodesController extends Controller {
 
 	public function Index($reset = FALSE) 
 	{
+		if(Auth::check()){
+			Auth::logout();
+		}
+		
+		
 		$ref = Input::get('ref');
 		if($ref == 'fb'){
 			Session::put('creation-ref', 'fb');

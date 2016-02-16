@@ -37,10 +37,18 @@ class PasswordController extends Controller {
 		$this->auth = $auth;
 		$this->passwords = $passwords;
 
-		$this->middleware('guest');
+		$this->middleware('both');
 		$this->setLanguage();
 	}
 
+	public function getEmail(){
+		if($this->auth->check()){
+			$this->auth->logout();
+		}
+		
+		return view('auth.password');
+	}
+	
  	public function postEmail(Request $request)
     {
         $this->validate($request, ['email' => 'required|email']);
