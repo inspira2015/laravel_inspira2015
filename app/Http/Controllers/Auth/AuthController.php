@@ -43,7 +43,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
                                  UserDao $userdao ) {
         $this->auth = $auth;
         $this->session = $session;
-        $this->middleware('guest', ['except' => 'getLogout']);
+        $this->middleware('both', ['only' => 'getLogin']);
         $this->checkAccountSetup = $checkUser;
         $this->userDao = $userdao;
         $this->setLanguage();
@@ -56,6 +56,9 @@ class AuthController extends Controller implements AuthenticateUserListener {
      */
     public function getLogin() 
     {
+	    if($this->auth->check()){
+		   $this->auth->logout();
+	    }
         return view('auth.login')->with('title', 'Login' )->with('background','3.jpg');
     }
 
@@ -81,8 +84,10 @@ class AuthController extends Controller implements AuthenticateUserListener {
      * @return \Illuminate\Http\Response
      */
     public function postLogin(Request $request) {
-
-       
+	    if($this->auth->check()){
+		   $this->auth->logout();
+	    }
+	    
         $this->validate($request, [
             'email' => 'required', 'password' => 'required',
         ]);
@@ -100,19 +105,8 @@ class AuthController extends Controller implements AuthenticateUserListener {
             $user = $this->userDao->getUserByEmail( $credentials['email'] );
             $this->checkAccountSetup->setUsersID( $user->id );
             $userpayment = $this->checkAccountSetup->checkCreditCard();
-
-      
-
-
-
-            if( empty( $userpayment ) )
-            {
-                //return redirect()->intended($this->redirectPaymentInfoPath());
-                return Redirect::to('payment');
-                
-
-            }
-                       
+			$affiliation = $this->checkAccountSetup->checkAffiliation();
+		           
             return redirect()->intended($this->redirectUserAccountPath());
 
         }
@@ -125,8 +119,10 @@ class AuthController extends Controller implements AuthenticateUserListener {
     }
     
     public function getWplogin(Request $request) {
-
-       
+	    if($this->auth->check()){
+		   $this->auth->logout();
+	    }
+	    
         $this->validate($request, [
             'email' => 'required', 'password' => 'required',
         ]);
@@ -144,10 +140,6 @@ class AuthController extends Controller implements AuthenticateUserListener {
             $user = $this->userDao->getUserByEmail( $credentials['email'] );
             $this->checkAccountSetup->setUsersID( $user->id );
             $userpayment = $this->checkAccountSetup->checkCreditCard();
-
-      
-
-
 
             if( empty( $userpayment ) )
             {
