@@ -550,7 +550,10 @@ div.modal-body  li li li{
 .inspiracard .form-group,
 .tarjeta.inspira .form-group,
 .vipcard .form-group,
-.tarjeta.vip .form-group{
+.tarjeta.vip .form-group,
+.bronze .form-group,
+.gold .form-group,
+.oro .form-group{
 	text-transform: uppercase;
 	display:table!important;
 	margin-top: 5px;
@@ -598,6 +601,24 @@ div.modal-body  li li li{
 	color: #2d383f;
 }
 
+.bronze .affiliation-header{
+	background-color:#cd7f32;
+}
+
+.bronze .form-group
+{
+	color: #cd7f32;
+}
+.gold .affiliation-header,
+.oro .affiliation-header{
+	background-color: #FFD700;
+}
+
+.gold .form-group,
+.oro .form-group,
+{
+	color: #FFD700;
+}
 
 .tarjeta.vip .affiliation-header,
 .vipcard  .affiliation-header{
