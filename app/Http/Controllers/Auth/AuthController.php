@@ -139,15 +139,6 @@ class AuthController extends Controller implements AuthenticateUserListener {
             //$data = $this->session->all();
             $user = $this->userDao->getUserByEmail( $credentials['email'] );
             $this->checkAccountSetup->setUsersID( $user->id );
-            $userpayment = $this->checkAccountSetup->checkCreditCard();
-
-            if( empty( $userpayment ) )
-            {
-                //return redirect()->intended($this->redirectPaymentInfoPath());
-                return Redirect::to('payment');
-                
-
-            }
                        
             return redirect()->intended($this->redirectUserAccountPath());
 

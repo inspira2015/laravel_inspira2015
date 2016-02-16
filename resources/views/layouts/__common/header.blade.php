@@ -12,7 +12,7 @@
 -->
 	        @endif
 	        <div class="logo">
-				<a href="http://{{ url(Config::get('domain.front')) }}">
+				<a href="//{{ Config::get('domain.front') }}">
 					{!! HTML::image('css/bootstrap/css/images/logo.png', 'Inspira Mexico - Logo') !!}
 				</a>
 	        </div>
