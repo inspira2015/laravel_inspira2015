@@ -49,6 +49,9 @@ use App\Libraries\GetLastBalance;
 
 use App\Model\Entity\UserAffiliationPaymentEntity;
 use App\Libraries\Interfaces\AuthenticateUserListener;
+use App\Libraries\SystemTransactions\CreateLeisureUser;
+use App\Libraries\LeisureLoyaltyUser;
+
 
 class UseraccountController extends Controller{
 	
@@ -64,6 +67,8 @@ class UseraccountController extends Controller{
 	private $exchange;
 	private $userAffiliationPayment;
 	private $lastUserBalance;
+	private $createLeisureUser;
+	private $leisureLoyaltyUser;
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -91,7 +96,10 @@ class UseraccountController extends Controller{
 								 UsersPointsEntity $userPoints,
 								 UserAffiliationPaymentEntity $userAffPayment,
 								 ExchangeMXNUSD $exchange,
-								 GetLastBalance $lastBalance)
+								 GetLastBalance $lastBalance,
+								 CreateLeisureUser $createLeisureUser,
+								 LeisureLoyaltyUser $leisureLoyaltyUser
+								 )
 	{
 		$this->middleware('auth');
 		$this->userDao = $userDao;
@@ -107,6 +115,7 @@ class UseraccountController extends Controller{
 		$this->convertHelper->setCurrencyShow( $this->userAuth['currency'] );
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
 		$this->userAffiliationPayment = $userAffPayment;
+		$this->createLeisureUser = $createLeisureUser;
 		$this->setLanguage();
 		$this->convertMoneyToPoints = new ConvertMoneyAmountToPoints();
 		$this->lastUserBalance = $lastBalance;
@@ -131,6 +140,19 @@ class UseraccountController extends Controller{
 		
 		if($this->userAuth->days_overdue == 5){
 			return Redirect::to('payment/credit-card');
+		}
+		
+		
+		$userObj = $this->userAuth->toArray();
+		
+
+		$this->createLeisureUser->setUser( $this->userAuth );
+		if(!$this->userAuth->leisure_id ) {
+			$this->createLeisureUser->setTransactionInfo( array('users_id' => $this->userAuth->id,
+																	'type' => 'Create Leisure MemberId',
+																	'description' => 'Create Leisure MemberId',
+																	'json_data' => ''));
+			$this->createLeisureUser->saveData();
 		}
 		
 		$this->accountSetup->setUsersID( $this->userAuth->id );
