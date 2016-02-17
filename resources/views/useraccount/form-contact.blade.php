@@ -44,9 +44,9 @@
 	</div>
 	
 	<div class="form-group">
-		<label for="country">{{ Lang::get('userdata.country') }}:</label>
-		<div class="input-group">
-			{!! Form::select('country', $countries, $user->details->country_code, array('class' => 'select-country form-control', 'data-change' => 'select-state', 'data-route' => url('api/states'))) !!}
+		<div class="row">
+		<div class="col-xs-4"><label for="country">{{ Lang::get('userdata.country') }}:</label></div>
+		<div class="col-xs-8 nopadding">&nbsp;&nbsp;&nbsp;{{ $user->details->country }}</div>
 		</div>
 	</div>
 	<div class="form-group">

@@ -267,7 +267,6 @@ class UseraccountController extends Controller{
 			$this->userDao->load( $this->userAuth->id );
 			$this->userDao->address = $data['address'];
 			$this->userDao->city = $data['city'];		
-			$this->userDao->country = $data['country'];
 			$this->userDao->state = $data['state'];
 			$this->userDao->save();		
 			

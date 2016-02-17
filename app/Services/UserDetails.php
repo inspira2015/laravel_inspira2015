@@ -12,7 +12,6 @@ class UserDetails
 			'office.numeric' => 'El teléfono de oficina sólo puede contener números.',
 			'phone.numeric' => 'El teléfono sólo puede contener números.',
 			'state.required' => 'El campo de estado es requerido.',
-			'country.required' => 'El campo de país es requerido.',
 			'city.required' => 'El campo de ciudad es requerido.'
 		]
 	];
@@ -25,7 +24,6 @@ class UserDetails
 			'phone' => 'numeric',
 			'office' => 'numeric',
 			'city' => 'alpha',
-			'country' => 'required',
 			'state' => 'required'
 		], $this->messages[$lang]);
 	}
