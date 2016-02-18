@@ -28,7 +28,7 @@
 		<strong>{{ Lang::get('userdata.country') }}</strong>: {{ $user->details->country }}
 	</div>
 	<div class="row form-data">
-		<strong>{{ Lang::get('userdata.state') }}</strong>: {{ $user->details->state }} </p>
+		<strong>{{ Lang::get('userdata.state') }}</strong>: {{ $user->details->state->name }} </p>
 	</div>
 </div>
 

@@ -359,12 +359,6 @@ class UsersController extends Controller implements AuthenticateUserListener {
 	    return "User doesnt exist, want to create an account?";
     }
     
-    public function userAlreadyExists($user)
-    {
-
-        return "buh";
-    }
-    
     public function registry( Array $user ){
 	    JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
 		$default_number = 1234567890;

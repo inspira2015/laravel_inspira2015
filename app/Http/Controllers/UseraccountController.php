@@ -161,7 +161,7 @@ class UseraccountController extends Controller{
 		if(! $this->accountSetup->checkValidAccount() && $data['userAffiliation']['amount'] > 0 ){
 			return Redirect::to('payment');
 		}
-		
+
 		return view('useraccount.userdata')
 			->with( 'title' ,  Lang::get('userdata.title') )
 			->with( 'background' , '1.png')
@@ -396,6 +396,8 @@ class UseraccountController extends Controller{
 		}
 		$user->details->country_code = $user->details->country;
 		$user->details->country = $this->countryDao->getNameByCode($user->details->country);
+		$user->details->state_code = $user->details->state;
+		$user->details->state = $this->statesDao->getNameByCode($user->details->state_code);
 		return $user;
 	}
 	

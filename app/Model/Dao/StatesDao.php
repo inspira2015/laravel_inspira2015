@@ -32,4 +32,9 @@ class StatesDao
 	{
 		return State::where( 'country', $country )->get();
 	}
+	
+	public function getNameByCode( $code = FALSE ){
+		return State::where( 'code', $code )->first();
+	}
+
 }
