@@ -28,7 +28,7 @@ abstract class Controller extends BaseController {
 		else if( Session::get('users.language') ){
 			$lang = Session::get('users.language');
 		}
-		
+				
 		App::setLocale($lang);
 	}
 	

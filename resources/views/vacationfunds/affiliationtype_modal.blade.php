@@ -5,12 +5,12 @@
 </div>
 <hr>
 <div class="row">
-	<div class="col-xs-6 col-md-4">
+	<div class="col-xs-6 ">
 		<a href="{{ url('affiliation') }}" class="btn-light-blue btn-small">
 			{{ Lang::get('vacationfund.change-affiliation') }}
 		</a>
 	</div>
-	<div class="col-xs-6 col-md-4 col-md-push-4">
+	<div class="col-xs-6 ">
 		{!! Form::open(array('url' => 'vacationfund/add')) !!}
 
 		<div class="btn-blue-clear btn-small underline" data-route="{{ url('vacationfund/add') }}" data-role="submit">

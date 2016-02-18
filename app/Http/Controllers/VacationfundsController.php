@@ -142,11 +142,6 @@ class VacationfundsController extends Controller
 		$sessionUser = Session::get('users');
 		
 		$url = url( 'auth/autologin', array( 'email' => $user['email'], 'encryptedPassword' => Crypt::encrypt($user['password']) ));
-	
-		Session::forget('code');
-		Session::forget('users');
-		Session::forget('affiliation');
-		Session::forget('vacationfund');
 
 		$this->userDao = $this->createUser->getUserDao();
 		$sent =Mail::send('emails.user_confirmation', array('user' => $this->userDao, 'url' => $url ), function($message)

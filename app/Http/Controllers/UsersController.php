@@ -119,8 +119,12 @@ class UsersController extends Controller implements AuthenticateUserListener {
 	}
 	
 	public function confirmation(){	
+
 		if(Session::get('full_name')){
-			
+			Session::forget('code');
+			Session::forget('users');
+			Session::forget('affiliation');
+			Session::forget('vacationfund');
 			return view('users.emailconfirmation',array( 'full_name' => Session::get('full_name')))->with('title', Lang::get('emails.email-confirmation') )->with('background','2.jpg');
 		}
 		

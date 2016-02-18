@@ -67,7 +67,7 @@
 					<div class="form-group">
 						<label for="country">* {{ Lang::get('registry.country') }}</label>
 						<div class="input-group">
-						{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : $location_info['country_code'], array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state', 'readonly' => 'readonly', 'data-route' => url('api/states') )) !!}
+						{!! Form::select('country', $country_list, Input::get('country') ? Input::get('country') : $location_info['country_code'], array('class' => 'select-country form-control inspira-select', 'data-change' => 'select-state', 'disabled' => 'disabled', 'data-route' => url('api/states') )) !!}
 						</div>
 					</div>
 				</div>
@@ -77,7 +77,7 @@
 						<label for="state">* {{ Lang::get('registry.state') }}</label>
 						<div class="input-group select-state">
 							@if( in_array( $location_info['country_code'] , Config::get('extra.countries') ))
-							{!! Form::select('state', $location_info['states'], $location_info['state_code'], array('class' => 'form-control', 'readonly' => 'readonly') ) !!}
+							{!! Form::select('state', $location_info['states'], $location_info['state_code'], array('class' => 'form-control') ) !!}
 							@else
 							{!! Form::text( 'state',  '', array('class' => 'form-control')) !!}
 							@endif
@@ -100,6 +100,7 @@
 						<label for="currency">* {{ Lang::get('registry.currency') }}</label>
 						<div class="input-group">
 							{!! Form::select('currency', $currency_list,Input::get('currency')   ? Input::get('currency') : $location_info['currency'], array('class' => 'form-control','id' => 'currency')) !!}
+							{!! Form::hidden('country', $location_info['country_code'] ) !!}
 						</div>
 					</div>
 				</div>
