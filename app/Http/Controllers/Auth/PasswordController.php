@@ -32,16 +32,17 @@ class PasswordController extends Controller {
 	 * @param  \Illuminate\Contracts\Auth\PasswordBroker  $passwords
 	 * @return void
 	 */
-	public function __construct(Guard $auth, PasswordBroker $passwords)
+	public function __construct(Guard $auth, PasswordBroker $passwords, Request $request)
 	{
 		$this->auth = $auth;
 		$this->passwords = $passwords;
 
 		$this->middleware('both');
-		$this->setLanguage();
+		$this->setLanguage($request->get('lang'));		
 	}
 
-	public function getEmail(){
+	public function getEmail(Request $request){
+
 		if($this->auth->check()){
 			$this->auth->logout();
 		}
@@ -62,7 +63,7 @@ class PasswordController extends Controller {
             	Session::flash('status', Lang::get('auth.reset-link-sent'));
             	return view('auth.password');
             case Password::INVALID_USER:
-            	return view('auth.password')->withErrors([ Lang::get('auth.reset-link-sent') ]);
+            	return view('auth.password')->withErrors(['message' => Lang::get('auth.invalid-user')]);
         }
     }
 }

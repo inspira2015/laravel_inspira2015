@@ -17,9 +17,9 @@ abstract class Controller extends BaseController {
 	use DispatchesCommands, ValidatesRequests;
 
 	
-	public function setLanguage()
+	public function setLanguage( $locale = null )
 	{
-		$lang = Lang::locale();
+		$lang = (!empty($locale)) ? $locale : Lang::locale();
 		
 		if( Auth::check() )
 		{

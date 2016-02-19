@@ -31,13 +31,14 @@ class PasswordController extends Controller {
 	 * @param  \Illuminate\Contracts\Auth\PasswordBroker  $passwords
 	 * @return void
 	 */
-	public function __construct(Guard $auth, PasswordBroker $passwords)
+	public function __construct(Guard $auth, PasswordBroker $passwords, Request $request)
 	{
 		$this->auth = $auth;
 		$this->passwords = $passwords;
 
 		$this->middleware('guest');
-		$this->setLanguage();
+		$this->setLanguage($request->get('lang'));
+
 	}
 
  	public function postEmail(Request $request)
@@ -50,9 +51,9 @@ class PasswordController extends Controller {
 
         switch ($response) {
             case Password::RESET_LINK_SENT:
-             return view('landings.__common.auth.forgot_password')->withErrors(["Se ha enviado exitosamente el correo. Por favor revise su bandeja."]);
+             return view('landings.__common.auth.forgot_password')->withErrors([ Lang::get('auth.reset-link-sent') ]);
             case Password::INVALID_USER:
-               return view('landings.__common.auth.forgot_password')->withErrors(['message' => 'El correo es incorrecto. Favor de intentar de nuevo o contacte al administrador en customerservice@inspiramexico.mx']);
+               return view('landings.__common.auth.forgot_password')->withErrors(['message' => Lang::get('auth.invalid-user')]);
         }
     }
 }

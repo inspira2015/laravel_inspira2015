@@ -46,7 +46,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
         $this->middleware('both', ['only' => 'getLogin']);
         $this->checkAccountSetup = $checkUser;
         $this->userDao = $userdao;
-        $this->setLanguage();
+		$this->setLanguage();
     }
 
     /**
