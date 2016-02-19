@@ -12,6 +12,7 @@ class LeisureLoyaltyUser
 	protected $membersDays;
 	protected $tierId;
 	protected $countryCode;
+	protected $phones;
 
 	public function __construct(UserAffiliation $userAffiliationDao)
 	{
@@ -44,6 +45,9 @@ class LeisureLoyaltyUser
 		$this->countryCode = $code;
 	}
 
+	public function setPhones( $phones){
+		$this->phone = $phones;
+	}
 	protected function checkCreateLeisureUser()
 	{
 		$memberId = $this->generateLeisureMemberShip();
@@ -205,5 +209,30 @@ class LeisureLoyaltyUser
 		return (string)$this->leisureLoyaltyResponse;
 	}
 
+	public function updateMember(){
+		$data = array(
+		 	"email" => $this->objUser->email,
+			"languageCode"=> strtoupper($this->objUser->language),
+			"countryCode"=> strtoupper($this->objUser->country),
+			"currencyCode" => $this->objUser->currency,
+			"cityName" => $this->objUser->city,
+			"provinceName" => $this->objUser->state,
+			"address1" => $this->objUser->address,
+			"homePhone" => $this->phone->phone,
+			"workPhone" => $this->phone->office,
+			"cellPhone" => $this->phone->cellphone
+	);
 
+
+		$url_send = "https://api.leisureloyalty.com/v3/members/{$this->objUser['leisure_id']}?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH";
+		
+		$this->sendData($url_send, 'PUT', $data);
+		$response = json_decode($this->getResponseJson());		
+		
+		if($response->success == 'OK'){
+			return TRUE;
+		}
+
+		return FALSE;
+	}
 }

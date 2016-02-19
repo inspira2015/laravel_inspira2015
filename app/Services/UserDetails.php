@@ -23,7 +23,7 @@ class UserDetails
 			'cell' => 'numeric',
 			'phone' => 'numeric',
 			'office' => 'numeric',
-			'city' => 'alpha',
+			'city' => 'required',
 			'state' => 'required'
 		], $this->messages[$lang]);
 	}

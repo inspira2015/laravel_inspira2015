@@ -1,14 +1,20 @@
 <?php
 namespace App\Http\Controllers;
+use App\Libraries\LeisureLoyaltyUser;
+use App\Model\Dao\UserRegisteredPhoneDao as UserRegisteredPhone;
 use Auth;
 
 class PageController extends Controller {
 
 	private $user;
+	private $leisureUser;
+	private $phoneDao;
 	
-	public function __construct(){
+	public function __construct( LeisureLoyaltyUser $leisureUser, UserRegisteredPhone $registeredPhoneDao ){
+		$this->leisureUser = $leisureUser;
 		if( Auth::check() ){
 			$this->user = Auth::user();
+			$this->phoneDao = $registeredPhoneDao;
 		}
 		$this->user->leisure_id = $this->user->leisure_id ? $this->user->leisure_id : 'VIIM1346';
 		
@@ -40,6 +46,17 @@ class PageController extends Controller {
 	}
 	
 	public function goDestination(){
+		if(Auth::check()){
+			$authUser = Auth::user();
+			$this->leisureUser->setUser( $authUser );
+			$phones = new \stdClass();
+			$phones->cellphone = $this->phoneDao->findByUserType( $authUser->id, 'cellphone');
+			$phones->phone = $this->phoneDao->findByUserType( $authUser->id, 'phone');
+			$phones->office = $this->phoneDao->findByUserType( $authUser->id, 'office');
+			
+			$this->leisureUser->setPhones( $phones );
+			$this->leisureUser->updateMember();
+		}
 		header('Location: '.$this->autoLogin());
 		exit;
 	}
@@ -53,4 +70,5 @@ class PageController extends Controller {
 	private function autoLogin(){
 		return "http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=".$this->user->leisure_id;
 	}
+	
 }
