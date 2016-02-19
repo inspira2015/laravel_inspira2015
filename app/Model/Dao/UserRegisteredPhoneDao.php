@@ -50,7 +50,7 @@ class UserRegisteredPhoneDao extends UserRegisteredPhoneEntity implements ICrudO
  	{
 	 	$phone = UserRegisteredPhones::where('users_id', $users_id )->where('type', $type )->first();
 	 	if( empty($phone) )
-	 		return FALSE;
+	 		return null;
 	 	return $phone->number;
 	 	
  	}
