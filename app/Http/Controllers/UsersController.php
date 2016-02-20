@@ -338,7 +338,8 @@ class UsersController extends Controller implements AuthenticateUserListener {
 	
     public function fbConnect(ConnectUserWithFacebook $authfb, Request $request)
     {
-    	return $authfb->execute(Request::get('code'), $this);	
+	    return $authfb->execute(Request::get('code'), $this);
+    	//return $authfb->execute(Request::get('code'), $this);	
     }
     
     public function redirectPath() {

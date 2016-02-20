@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\Guard as Authenticator;
 use Laravel\Socialite\Contracts\Factory as Socialite; 
 use App\Model\Dao\UserDao;
 use App\Libraries\Interfaces\AuthenticateUserListener;
+use Session;
 
 class AuthUserWithFacebook
 {
@@ -29,7 +30,8 @@ class AuthUserWithFacebook
 
 		$fbUser = $this->getFacebookUser();
 		$user = $this->users->getByFacebookId( $fbUser );
-		if ( $user === FALSE )
+		
+		if ( $user === FALSE)
 		{
 			$user = $this->users->getByEmail($fbUser->email);
 
@@ -44,7 +46,11 @@ class AuthUserWithFacebook
 				return $listener->tryAgain();
 			}
 		}
-		$this->auth->login($user,true);
+		
+		if(!Session::get('creation-ref')){
+			$this->auth->login($user,true);
+		}
+
 		return $listener->userHasLoggedIn( $user );
 
 	}

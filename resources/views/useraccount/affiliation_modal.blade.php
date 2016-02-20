@@ -2,8 +2,8 @@
 	<div class="modal fade" id="change-affiliation" tabindex="-1" role="dialog" >
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 					<div class="modal-wrapper">
 						<div class="row text-center">
 							<div class="col-xs-12">
