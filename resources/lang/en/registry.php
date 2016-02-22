@@ -14,7 +14,7 @@ return [
 	*/
 
 	"title" => "User Registry",
-	"name" => "Name",
+	"name" => "First Name",
 	"last_name" => "Last Name",
 	"password" => "Password",
 	"retype_pwd" => "Password Confirmation",

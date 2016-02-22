@@ -12,7 +12,7 @@ class PaymentMethodCC
 			'expiration_date.required' => 'The expiration date field is required.',
 			'expiration_date.regex' => 'The expiration date format must be MM/YYYY.',
 			'birthdate.required' => 'The birthdate field is required.',
-			'birthdate.regex' => 'The expiration date format must be YYYY/MM/DD.',
+			'birthdate.regex' => 'The birthdate format must be YYYY/MM/DD.',
 			'name_on_card.required' => 'The name on card field is required.',
 			'zip_code.required' => 'The zip code field is required.',
 			'terms.required' => 'You must accept Terms and Conditions to continue.',

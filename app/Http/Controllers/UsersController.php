@@ -18,7 +18,7 @@ use App\Libraries\CodeValidator as CodeValidator;
 use App\Libraries\Referer\CheckReferer;
 
 use App\Libraries\Interfaces\AuthenticateUserListener;
-use App\Libraries\ConnectUserWithFacebook;
+use App\Libraries\CreateUserWithFacebook;
 
 use Auth;
 use App\Libraries\UpdateDataBaseLeisureMember;
@@ -81,7 +81,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
 	 *
 	 * @return Response
 	 */
-	public function Index(ConnectUserWithFacebook $authfb)
+	public function Index(CreateUserWithFacebook $authfb)
 	{
 		if ( $this->checkSession() == FALSE )
 		{
@@ -92,7 +92,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
 
 
 		if( $this->checkFacebook() == TRUE ){
-    		return $authfb->execute(Request::get('code'), $this);	
+    		return $authfb->execute(Request::get('code'), $this);
 		}
 		
 
@@ -340,7 +340,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
 	}
 	
 	
-    public function fbConnect(ConnectUserWithFacebook $authfb, Request $request)
+    public function fbConnect(CreateUserWithFacebook $authfb, Request $request)
     {
 	    return $authfb->execute(Request::get('code'), $this);
     	//return $authfb->execute(Request::get('code'), $this);	
@@ -359,7 +359,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
         return redirect()->intended($this->redirectPath());
     }
     
-    public function tryAgain(ConnectUserWithFacebook $authfb){
+    public function tryAgain(CreateUserWithFacebook $authfb){
     	return $authfb->execute(Request::get('code'), $this);	
 	    return "User doesnt exist, want to create an account?";
     }

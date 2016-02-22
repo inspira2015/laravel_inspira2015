@@ -8,7 +8,7 @@ use App\Model\Dao\UserDao;
 // use Socialize;
 use App\Libraries\Interfaces\AuthenticateUserListener;
 
-class ConnectUserWithFacebook
+class CreateUserWithFacebook
 {
 	private $users;
 	private $socialite;
@@ -34,10 +34,10 @@ class ConnectUserWithFacebook
 		if ( $user === FALSE )
 		{
 			//Crear usuario
-			return "Create user";
+			return TRUE;
 			
 		}else{
-			return "Buuuh, mensaje de error ";
+			return view('codes.facebook_exists')->with('background','codigo-background.jpg');
 		}
 	}
 
