@@ -7,7 +7,7 @@
 	<div class="row bg-gray-transparent" style="border-top:150px;">
 		<div class="col-sm-12 col-sm-pull-1 col-sm-offset-1 text-justify " style="font-size:24px;">
 			<div class="row">
-				<div class="col-sm-5 col-sm-push-7 col-md-4 col-md-push-8 nopadding">				
+				<div class="col-xs-10 col-xs-push-2 col-sm-5 col-sm-push-7 col-md-4 col-md-push-8 nopadding">				
 					<button type="submit" class="btn btn-blue-clear btn-medium">
 						{{ Lang::get('auth.reset-password') }}
 					</button>

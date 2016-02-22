@@ -38,7 +38,10 @@ class PasswordController extends Controller {
 		$this->passwords = $passwords;
 
 		$this->middleware('both');
-		$this->setLanguage($request->get('lang'));		
+		if($request->get('lang')){
+			Session::put('lang', $request->get('lang'));
+		}
+		$this->setLanguage(Session::get('lang'));		
 	}
 
 	public function getEmail(Request $request){
