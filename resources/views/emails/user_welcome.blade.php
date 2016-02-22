@@ -26,7 +26,12 @@
 					E-mail: {{ $user->email }}<br>
 					{{ Lang::get('emails.password') }}: {{ $user->password }}<br><br>
 					{{ Lang::get('emails.welcome.login') }}:<br>
+
+					@if(Lang::getLocale() == 'es')
 					<a href="http://InspiraMexico.mx" style="color:white;text-decoration:none;">http://InspiraMexico.mx</a>
+					@else
+					<a href="http://InspiraMexico.mx/en" style="color:white;text-decoration:none;">http://InspiraMexico.mx/en</a>
+					@endif
 				</div>
 			</div>
 			<div style="display: table-cell;width:30%;text-align:right;">

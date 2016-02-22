@@ -4,11 +4,11 @@ return [
 	"email-confirmation" => "Account Confirmation",
 	"confirm" => "Please confirm that this is your email, to complete the registration of membership just click the button below",
 	"welcome" => [
-		"message" => "Annual vacations are essential for the health and wellness",
-		"you-worth" => "YOU'RE WORTH A VACATION",
-		"we-are" => "AND WE'RE HERE TO HELP",
-		"affiliation-info-is" => "Your membership information is:",
-		"login" => "To log in to your account please go to"
+		"message" => "Annual vacations are essential for health and wellness",
+		"you-worth" => "YOU ARE WORTH A VACATION",
+		"we-are" => "AND WE ARE HERE TO HELP",
+		"affiliation-info-is" => "Your account information is:",
+		"login" => "To log in to your account please go to:"
 	],
 	"confirm-now" => "Confirm Now",
 	"not-mine" => "Not my account",

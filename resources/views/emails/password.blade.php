@@ -33,8 +33,14 @@
                             {{ Lang::get('layout.copyright') }}
                             </div>
                             <div style="display:table-cell;width:30%;text-align: left;padding-left:10px;">
+	                        @if(Lang::getLocale() == 'es')
                             &middot; (55) 8526-1061 ext 1007<br>
                             &middot; <a href="http://InspiraMexico.mx" style="color:white!important;text-decoration:none!important;">InspiraMexico.mx</a>
+                            @else
+                            &middot; (55) 1.855.INSPIRA<br>
+							&middot; <a href="http://InspiraMexico.mx/en" style="color:white!important;text-decoration:none!important;">InspiraMexico.mx/en</a>
+
+                            @endif
                             </div>
                             <div style="display:table-cell;width:20%;text-align: right;border-left:1px solid white;">
                                {{ Lang::get('layout.follow-us') }}: <a href="https://www.facebook.com/inspiramexico.mx" target="_blank"><img src="http://inspiramexico.mx/mailcontent/booking/facebook-icon.png" style="vertical-align: middle;margin-left: 10px;width: 30px;"></a>

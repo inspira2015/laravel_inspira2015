@@ -1,6 +1,10 @@
 <div style="display: table;height:100%;width:100%;background-color:#e5e7e9;font-size:20px;color:#465664;font-family: 'LondonBetween', Calibri;">
 	<div style="background-color:#465664;display: table-row;text-align: center;">
+		@if(Lang::getLocale() == 'es')
 		<img  src="https://inspiramexico.mx/mailcontent/email-confirm-header.png" style="width:100%; height:auto;" />
+		@else
+		<img  src="https://inspiramexico.mx/mailcontent/email-confirm-header-english.jpg" style="width:100%; height:auto;" />
+		@endif
 	</div>
 	<div style="display: table-row;text-align: center;">
 		<div style="padding: 40px 20px 0px 20px;text-transform: uppercase;font-size: 26px; vertical-align:top;"><img src="https://inspiramexico.mx/mailcontent/email-usericon.png" style="display:inline-block;margin-right: 15px;">
@@ -43,12 +47,20 @@
 	<div style="background-color:#465664;display: table-row;text-align: center;">
 		<div style="display: table;text-align:center;width:100%;color:white;font-size:18px;"> 
 			<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">
+				@if(Lang::getLocale() == 'es')
 				<a href="//inspiramexico.mx" style="color: white; text-decoration: none;padding-right: 10px;">InspiraMexico.mx</a>
+				@else
+				<a href="//inspiramexico.mx/en" style="color: white; text-decoration: none;padding-right: 10px;">InspiraMexico.mx/en</a>
+				@elseif
 			</div>
 			<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">
 				<a href="mailto:Info@inspiramexico.mx?Subject=Info" target="_top" style="color: white; text-decoration: none;padding-right: 10px;">Info@inspiramexico.mx</a>
 			</div>
-			<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">55.8526.1061 ext. 1007</div>
+			@if(Lang::getLocale() == 'es')
+				<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">55.8526.1061 ext. 1007</div>
+			@else
+				<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">1.855.INSPIRA</div>
+			@elseif
 		</div>
 	</div>
 </div>
