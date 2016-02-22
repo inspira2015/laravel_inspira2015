@@ -81,7 +81,7 @@ class AffiliationController extends Controller
 	 * @return Response
 	 */
 	public function Index()
-	{	
+	{			
 		if ( $this->checkSession() == FALSE )
 		{
 			return Redirect::to('codes/1');

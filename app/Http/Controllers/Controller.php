@@ -10,6 +10,7 @@ use App;
 use Lang;
 use Session;
 use Response;
+use Request;
 
 abstract class Controller extends BaseController {
 	protected $logDao;
@@ -17,17 +18,22 @@ abstract class Controller extends BaseController {
 	use DispatchesCommands, ValidatesRequests;
 
 	
-	public function setLanguage( $locale = null )
+	public function setLanguage()
 	{
-		$lang = (!empty($locale)) ? $locale : Lang::locale();
+		if(Request::get('lang')){
+			Session::put('lang', Request::get('lang'));
+		}
+		
+		$lang = (!empty(Session::get('lang'))) ? Session::get('lang') : Lang::locale();
 		
 		if( Auth::check() )
 		{
 			$lang =  Auth::user()->language;
 		}
-		else if( Session::get('users.language') ){
+		else if( Session::get('users.language')){
 			$lang = Session::get('users.language');
 		}
+		
 				
 		App::setLocale($lang);
 	}

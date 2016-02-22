@@ -25,7 +25,7 @@ class CodesController extends Controller {
 
 	public function Index($reset = FALSE) 
 	{
-		$this->setLanguage(Request::get('lang'));
+		$this->setLanguage();
 
 		if(Auth::check()){
 			Auth::logout();
