@@ -87,11 +87,15 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		{
 			return Redirect::to('codes/1');
 		}
+		
+		echo $this->checkFacebook();
+
 
 		if( $this->checkFacebook() == TRUE ){
     		return $authfb->execute(Request::get('code'), $this);	
 		}
 		
+
 		//Saves user fb data to session.
 		
 		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
@@ -382,7 +386,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		$post_data['cellphone_number'] = $this->sanitizePhone($post_data['cellphone_number']);
 		$validator = $user_check->validator($post_data, Lang::getLocale());
 		$post_data['currency'] = $location['currency'];
-		$post_data['language'] = $location['language'];
+		$post_data['language'] = Session::get('lang');
 		
 		if($validator->passes()) 
 		{
