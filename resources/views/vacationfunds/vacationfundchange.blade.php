@@ -24,13 +24,9 @@
 		
 	
 		<div class="bg-bright-green text-justify row" id="vacational-box">
-			
-			<h2 class="col-xs-12"> 
-	            	{{ Lang::get('vacationfund.title') }}  
-	        </h2>
 			<div class="col-xs-8">
-				
-				{!! Lang::get('vacationfund.information') !!}
+				<h2> {{ Lang::get('vacationfund.title') }}   </h2>
+	        	{!! Lang::get('vacationfund.information') !!}
 			</div>
 			<div class="col-xs-4">
 			</div>

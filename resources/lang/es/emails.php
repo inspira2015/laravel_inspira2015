@@ -18,7 +18,7 @@ return [
 	"modify-data" => "Modificar datos",
 	"welcome-to" => "Bienvenido a",
 	"reset-password" => "Restablecer contraseña",
-	"password-message" => "Favor de dar clic en el siguiente enlace para restablecer contrase&ntilde;a.",
+	"password-message" => "De clic al bot&oacute;n para restablecer su contrase&ntilde;a.",
 	"confirm-message" => "Por Favor revisa tu correo para confirmar tu cuenta",
 	"password" => "Contraseña",
 	"confirm-account" => "Confirma tu cuenta de InspiraMexico‏",

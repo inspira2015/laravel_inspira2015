@@ -1,4 +1,4 @@
-@extends('layouts.basic', array( 'title' => Lang::get('code.title'), 'background' => 'codigo-background.jpg' ))
+@extends('layouts.basic', array( 'title' => Lang::get('auth.reset-link'), 'background' => 'codigo-background.jpg' ))
 
 @section('content')
 

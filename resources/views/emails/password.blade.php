@@ -1,13 +1,17 @@
 <div style="display: table;height:100%;width:100%;background-color:#e5e7e9;font-size:20px;color:#465664;font-family: 'LondonBetween', Calibri;">
 	<div style="display: table-row;text-align: center;">
+	@if(Lang::getLocale() == 'es')
     <a href="{{ url() }}">
-		<img  src="https://inspiramexico.mx/mailcontent/bg-recover-pass.png" style="width:100%; height:auto;" />
+		<img  src="https://inspiramexico.mx/mailcontent/RecoverPass_Espanol.jpg" style="width:100%; height:auto;" />
     </a>
+    @else
+    <a href="{{ url() }}/en">
+		<img  src="https://inspiramexico.mx/mailcontent/RecoverPass_English.jpg" style="width:100%; height:auto;" />
+    </a>    @endif
 	</div>
 	<div style="display: table-row;text-align: center;">
-		<div style="font-size: 26px; vertical-align:top;width:100%;text-align:center;padding-top:40px;">
-			<div style="vertical-align:top;"><img src="http://www.bettercloud.com/wp-content/uploads/reset-passwords-grey1.png" style="width:50px;height:50px;">
-				{{ Lang::get('emails.reset-password') }}
+		<div style="font-size: 26px; vertical-align:top;width:100%;text-align:center;padding-top:20px;">
+			<div style="vertical-align:top;"><img src="https://inspiramexico.mx/mailcontent/secure-lock.png" style="width:50px;height:50px;">
 			</div>
 		</div>	
 		<div style="font-size: 20px; padding-right:20px; padding-left:20px;">
