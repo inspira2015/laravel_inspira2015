@@ -145,7 +145,6 @@ class UseraccountController extends Controller{
 		
 		$userObj = $this->userAuth->toArray();
 		
-
 		$this->createLeisureUser->setUser( $this->userAuth );
 		if(!$this->userAuth->leisure_id ) {
 			$this->createLeisureUser->setTransactionInfo( array('users_id' => $this->userAuth->id,

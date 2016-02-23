@@ -62,6 +62,7 @@ return [
 	"destination" => "destino",
 	"payment-history" => "HISTORIAL DE PAGOS",
 	"view" => "Ver",
+	"fb-success" => 'Tu cuenta de facebook ha sido ligada exitosamente!',
 	"fb-title-modal" => "¿ Cuentas con facebook ?",
 	"fb-description-modal" => "Al ligar tu cuenta inspira con Facebook el acceso a esta es mucho más fácil y rápido ya que no es necesario que ingreses contraseña. Además podrás recibir promociones Inspira y más directamente a tu cuenta de Facebook. Da clic al botón ligar cuenta a Facebook para llevar este paso a cabo.",
 	"success" => [

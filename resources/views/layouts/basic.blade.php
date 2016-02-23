@@ -69,6 +69,12 @@
 		@include('layouts.__common.analytics')
 		
 	@endif
+	
+	@if(Session::get('facebook_user'))
+		@include('useraccount.facebook-connect-modal')
+		<script>$(document).ready(function(){ $('#linkfb').modal(); });</script>
+	@endif
+
 	@include('layouts.__common.facebook')
 </body>
 </html>
