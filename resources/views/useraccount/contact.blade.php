@@ -9,14 +9,15 @@
 	</h3>
 </div>
 <div class="col-xs-12 form-data">
+
 	<div class="row  form-data">
-		<strong>{{ Lang::get('userdata.cell') }}</strong>: {{ $user->phones->cell['number'] }}
+		<strong>{{ Lang::get('userdata.cell') }}</strong>: {{ $user->phones->cell }}
 	</div>
 	<div class="row form-data">
-		<strong>{{ Lang::get('userdata.phone') }}</strong>: {{ $user->phones->phone['number'] }}
+		<strong>{{ Lang::get('userdata.phone') }}</strong>: {{ $user->phones->phone }}
 	</div>
 	<div class="row form-data">
-		<strong>{{ Lang::get('userdata.office') }}</strong>: {{ $user->phones->office['number'] }}
+		<strong>{{ Lang::get('userdata.office') }}</strong>: {{ $user->phones->office }}
 	</div>
 	<div class="row form-data">
 		<strong>{{ Lang::get('userdata.address') }}</strong>: {{ $user->details->address }}

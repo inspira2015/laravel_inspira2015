@@ -372,7 +372,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
     
     public function registry( Array $user ){
 	    JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
-		$default_number = 1234567890;
+		$default_number = 123456789;
 		$post_data['cellphone_number'] = $default_number;
 		$post_data = Request::all();
 		$user_check = new UserRegistration();
@@ -386,9 +386,11 @@ class UsersController extends Controller implements AuthenticateUserListener {
     	$post_data['last_name'] = $user['last_name'];
     	$post_data['email'] = $user['email'];
     	$post_data['facebook_id'] = $user['id'];
+    	$post_data['facebook_avatar'] = $user['avatar'];
+    	$post_data['gender'] = $user['gender'];
 		$post_data['cellphone_number'] = $default_number."00";
 		$post_data['country'] =  $location['country_code'];
-		$post_data['state'] = array_pull($location['states'], $location['state_code']);
+		$post_data['state'] = $location['state_code'];
 		$post_data['cellphone_number'] = $this->sanitizePhone($post_data['cellphone_number']);
 		$validator = $user_check->validator($post_data, Lang::getLocale());
 		$post_data['currency'] = $location['currency'];

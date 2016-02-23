@@ -149,12 +149,14 @@ class PaymentController extends Controller {
 	{
         $userAuth = Auth::user();
 
+/*
 		$this->createLeisureUser->setUser( $userAuth );
 		$this->createLeisureUser->setTransactionInfo( array('users_id' => $userAuth->id,
 																'type' => 'Create Leisure MemberId',
 																'description' => 'Create Leisure MemberId',
 																'json_data' => ''));
 		$this->createLeisureUser->saveData();
+*/
 
 		/*$this->inspiraPoints->setDate( date('Y-m-d') );
 		$this->inspiraPoints->setUserId( $userAuth->id );

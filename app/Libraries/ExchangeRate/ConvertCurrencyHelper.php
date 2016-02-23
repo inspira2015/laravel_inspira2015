@@ -68,7 +68,7 @@ class ConvertCurrencyHelper
 			$exchangeRate = (1 / $this->storeData['RateUSDMXN']);
 		}
 
-		return $this->storeData['cost'] * $exchangeRate;
+		return $this->storeData['cost'] * @$exchangeRate;
 	}
 
 

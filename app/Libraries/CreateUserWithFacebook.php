@@ -30,18 +30,19 @@ class CreateUserWithFacebook
 		}
 
 		$fbUser = $this->getFacebookUser();
+
 		$user = $this->users->getByFacebookId( $fbUser );
 		
 		if ( $user === FALSE )
 		{
 			//Tiene que es registro? 
-			if($this->checkFacebookRegistry()){
+			if(!$this->checkFacebookRegistry()){
+				$fbUser->user['avatar'] = $fbUser->avatar;
 				return $listener->registry( (array)$fbUser->user );
 			}
 			
-		}else{
-			return view('codes.facebook_exists')->with('background','codigo-background.jpg');
 		}
+		return view('codes.facebook_exists')->with('background','codigo-background.jpg')->with('avatar', $fbUser->avatar);
 	}
 	
 	private function checkFacebookRegistry(){

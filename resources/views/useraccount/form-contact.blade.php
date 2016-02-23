@@ -11,21 +11,21 @@
 	<div class="form-group">
 		<label for="cell">{{ Lang::get('userdata.cell') }}:</label>
 		<div class="input-group">
-			{!! Form::text( 'cellphone',  $user->phones->cell['number'] , array('class' => 'form-control') ) !!}
+			{!! Form::text( 'cellphone',  $user->phones->cell , array('class' => 'form-control') ) !!}
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for="cell">{{ Lang::get('userdata.phone') }}:</label>
 		<div class="input-group">
-			{!! Form::text( 'phone',  $user->phones->phone['number'], array('class' => 'form-control')) !!}
+			{!! Form::text( 'phone',  $user->phones->phone, array('class' => 'form-control')) !!}
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for="cell">{{ Lang::get('userdata.office') }}:</label>
 		<div class="input-group">
-			{!! Form::text( 'office',  $user->phones->office['number'], array('class' => 'form-control')) !!}
+			{!! Form::text( 'office',  $user->phones->office, array('class' => 'form-control')) !!}
 		</div>
 	</div>
 	

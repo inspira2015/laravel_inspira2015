@@ -9,6 +9,7 @@ class PageController extends Controller {
 	private $user;
 	private $leisureUser;
 	private $phoneDao;
+	private $leisure_id;
 	
 	public function __construct( LeisureLoyaltyUser $leisureUser, UserRegisteredPhone $registeredPhoneDao ){
 		$this->leisureUser = $leisureUser;
@@ -16,8 +17,7 @@ class PageController extends Controller {
 			$this->user = Auth::user();
 			$this->phoneDao = $registeredPhoneDao;
 		}
-		$this->user->leisure_id = $this->user->leisure_id ? $this->user->leisure_id : 'VIIM1346';
-		
+		$this->leisure_id = isset($this->user->leisure_id) ? $this->user->leisure_id : 'VIIM1346';
 	}
 	
 	public function index()
@@ -68,7 +68,7 @@ class PageController extends Controller {
 	
 	
 	private function autoLogin(){
-		return "http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=".$this->user->leisure_id;
+		return "http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=".$this->leisure_id;
 	}
 	
 }

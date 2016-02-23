@@ -25,8 +25,7 @@ class CodesController extends Controller {
 
 	public function Index($reset = FALSE) 
 	{
-		Session::flush();
-
+		Session::forget('creation-ref');
 		$this->setLanguage();
 
 		if(Auth::check()){
@@ -55,7 +54,7 @@ class CodesController extends Controller {
 									 ->with('code',$code);
 	}
 
-	public function Check() 
+	public function postCheck() 
 	{		
 		$data = Request::all();
 		$validator = ServiceCode::validator($data);

@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 
 
 Route::group(array('domain' => Config::get('domain.promotions')), function(){
-	Route::get('/', 'Landings\Promotions\PageController@index');
+// 	Route::get('/', 'Landings\Promotions\PageController@index');
 	Route::get('useraccount', 'Landings\Promotions\PageController@index');
 	Route::get('destino/mazatlan', 'Landings\Promotions\PageController@goMazatlan');
 	Route::get('destino/orlando', 'Landings\Promotions\PageController@goOrlando');
@@ -57,7 +57,7 @@ Route::group(array('domain' => Config::get('domain.promotions')), function(){
 Route::group(array('domain' => Config::get('domain.uber') ), function(){
 	
 ///	Config::get('domain.uber')
-	Route::get('/', 'Landings\Uber\PageController@index');
+// 	Route::get('/', 'Landings\Uber\PageController@index');
 	Route::get('useraccount', 'Landings\Uber\PageController@index');
 	Route::get('destino/mazatlan', 'Landings\Uber\PageController@goMazatlan');
 	Route::get('destino/las-vegas', 'Landings\Uber\PageController@goLasVegas');
@@ -90,10 +90,12 @@ Route::group(array('domain' => Config::get('domain.uber') ), function(){
 
 
 Route::group(array('domain' => Config::get('domain.api')), function(){
+/*
 	Route::any('/', function(){
 		return json_encode(['message' => 'Please use api key']);
 	});
 	
+*/
 	//Route::put('reservation', function(){ echo "Entra aqui"; });
 	Route::put('v1/reservation', 'ApiForLoyalty\ApiReservationsController@putReservation');
 });
@@ -265,7 +267,7 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 	Route::get('destination', 'PageController@goDestination');
 	Route::get('useraccount/reservations', 'PageController@goDestination');
 
-	Route::post('codes/check', 'CodesController@check');
+	Route::post('codes/check', 'CodesController@postCheck');
 	
 	Route::get('auth/wplogin', 'Auth\AuthController@getWplogin');
 

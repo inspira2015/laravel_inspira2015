@@ -80,7 +80,8 @@ class UserDao extends UserEntity implements ICrudOperations
  	
  	public function getPhoneType( $id, $type )
  	{
-	 	return $this->getById( $id )->phones->where('type', $type)->first();
+	 	$phone = $this->getById( $id )->phones->where('type', $type)->first();
+	 	return isset($phone['number']) ? $phone['number'] : null;
  	}
  	
 

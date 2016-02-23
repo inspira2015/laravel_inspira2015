@@ -194,19 +194,19 @@ class VacationfundsController extends Controller
 		
 		$userCurrentVacationalFund = Session::get('currentVacationalFund');
 		
-/*
+
 		$userAffiliation = $userAff->getCurrentUserAffiliationByUserId(  $userAuth->id );
+
 		$affiliation = $affiliationsDao->getById( $userAffiliation->affiliations_id );
 
-		if( $affiliation['affiliation'] == 1 &&  @$post_data['fondo'] > 0){
+		if( $affiliation['id'] == 1 &&  @$post_data['fondo'] > 0){
 			return Response::json(array(
 				'error' => false,
-				'html' => htmlspecialchars(view('vacationfunds.affiliationtype_modal', array('hide' => true ))),
-				'redirect' => 'false'
+				'html' => htmlspecialchars(view('vacationfunds.affiliationtypemodify_modal', array('hide' => true , 'affiliation_id' => $userAffiliation['id']))),
+				'redirect' => '/'
 			), 200);
 		}
-*/
-		
+
 		if( !is_numeric( $userCurrentVacationalFund ) )
 		{
 			return Response::json(array(
