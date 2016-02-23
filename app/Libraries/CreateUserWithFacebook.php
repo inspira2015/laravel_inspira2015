@@ -7,6 +7,7 @@ use Laravel\Socialite\Contracts\Factory as Socialite;
 use App\Model\Dao\UserDao;
 // use Socialize;
 use App\Libraries\Interfaces\AuthenticateUserListener;
+use Session;
 
 class CreateUserWithFacebook
 {
@@ -33,12 +34,22 @@ class CreateUserWithFacebook
 		
 		if ( $user === FALSE )
 		{
-			//Crear usuario
-			return TRUE;
+			//Tiene que es registro? 
+			if($this->checkFacebookRegistry()){
+				return $listener->registry( (array)$fbUser->user );
+			}
 			
 		}else{
 			return view('codes.facebook_exists')->with('background','codigo-background.jpg');
 		}
+	}
+	
+	private function checkFacebookRegistry(){
+		if(Session::get('creation-ref')){
+			Session::forget('creation-ref');
+			return TRUE;			
+		}
+		return FALSE;
 	}
 
 	private function getAuthorizationFirst()

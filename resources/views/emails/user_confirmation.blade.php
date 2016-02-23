@@ -51,7 +51,7 @@
 				<a href="//inspiramexico.mx" style="color: white; text-decoration: none;padding-right: 10px;">InspiraMexico.mx</a>
 				@else
 				<a href="//inspiramexico.mx/en" style="color: white; text-decoration: none;padding-right: 10px;">InspiraMexico.mx/en</a>
-				@elseif
+				@endif
 			</div>
 			<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">
 				<a href="mailto:Info@inspiramexico.mx?Subject=Info" target="_top" style="color: white; text-decoration: none;padding-right: 10px;">Info@inspiramexico.mx</a>
@@ -60,7 +60,7 @@
 				<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">55.8526.1061 ext. 1007</div>
 			@else
 				<div style="display: table-cell;padding-top:30px;padding-bottom:30px;">1.855.INSPIRA</div>
-			@elseif
+			@endif
 		</div>
 	</div>
 </div>

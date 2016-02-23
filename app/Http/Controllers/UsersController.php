@@ -343,7 +343,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
 	
     public function fbConnect(ConnectUserWithFacebook $authfb, Request $request, CreateUserWithFacebook $createfb)
     {
-	    if( $this->checkFacebook() ){
+	    if( $this->checkFacebook() == TRUE ){
 		    Session::forget('creation-ref');
 		   	return $createfb->execute(Request::get('code'), $this);
 
