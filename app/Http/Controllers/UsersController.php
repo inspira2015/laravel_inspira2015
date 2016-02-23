@@ -101,7 +101,6 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		
 		JavaScript::put([ 'countries' => Config::get('extra.countries') ]);
 		$locale = Lang::getLocale();
-		
 		$data = array(	'title' => Lang::get('registry.title') ,
 						'background' =>'2.jpg',
 						'country_list' => $this->getCountryArray(),
@@ -304,7 +303,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		$data['state_code'] = $state;
 		$data['country_code'] = $country_code;
 		if( ! Session::has('users.language') ){
-			Session::put('users.language' , $country['language']);
+			Session::put('users.language' , Session::get('lang'));
 		}
 		$data['language'] = Session::get('users.language' , $country['language']);
 		$data['currency'] = $country['currency'];

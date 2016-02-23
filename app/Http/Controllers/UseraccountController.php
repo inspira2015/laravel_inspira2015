@@ -206,7 +206,6 @@ class UseraccountController extends Controller{
 			$pointBalance = (int)$userPoints->balance;
 		}
 		
-		
 		$data = array(
 			'affiliation_cost' => $this->convertHelper->getFomattedAmount(),
 			'affiliation_currency' => $this->convertHelper->getCurrencyShow(),

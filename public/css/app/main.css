@@ -1258,7 +1258,7 @@ span.small-super:before{
 a.fb-linkto{
 	background-image: url('images/fb-icon.png');
 	background-repeat: no-repeat;
-	background-position: calc(100% - 20px) 5px;
+	background-position: calc(100% - 20px) 50%;
 	background-size: 20px;
 	height: 35px;
 	display: block;
@@ -1318,6 +1318,11 @@ a.fb-linkto{
 }
 
 @media (max-width: 767px){
+	a.fb-linkto{
+	    background-position: calc(100% - 10px) 50%;
+	    padding-right: 25px;
+	    line-height: 20px;
+	}
 	div.header{
 		padding:0px;
 	}
