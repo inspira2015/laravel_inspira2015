@@ -148,7 +148,7 @@ class VacationfundsController extends Controller
 			{
 				$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
 				
-		    	$message->to( $this->userDao->email, $full_name )->bcc( Config::get('extra.email.bcc'), $full_name)->subject( Lang::get('emails.confirm-account') );
+		    	$message->to( $this->userDao->email, $full_name )->subject( Lang::get('emails.confirm-account') );
 			});
 
 		$full_name = $this->userDao->name . ' ' . $this->userDao->last_name;
