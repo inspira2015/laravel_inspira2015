@@ -104,7 +104,7 @@
 	</div>
 		<div class="row">
 			<div class="col-xs-12">
-				@if($convertHelper->getCurrencyShow() == "USD")
+				@if($convertHelper->getCurrencyShow() != "USD")
 				<div class="divider"></div>
 				<div class="row">
 					*{{ Lang::get('affiliations.today-rate') }} ${{ round($exchangeMXN,2) }} MXN

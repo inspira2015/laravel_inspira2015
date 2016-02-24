@@ -60,16 +60,15 @@
 					$convertHelper->setCurrencyOfCost($obj->getCurrency());
 					?>
 	
-					@if($convertHelper->getCurrencyShow() == "USD")
+					@if($convertHelper->getCurrencyShow() == "USD" && ($obj->getCurrency()!= 'USD'))
 						${{ $obj->getAffiliationPrice() }} MXN
-						({{ $convertHelper->getFomattedAmount()}}
+						({{ $convertHelper->getFomattedAmount() }}
 						{{$convertHelper->getCurrencyShow() }}* )
 					
 					@else
-						{{ $convertHelper->getFomattedAmount()}}
-						{{$convertHelper->getCurrencyShow() }}
+						{{ $convertHelper->getFomattedAmount() }}
+						{{ $convertHelper->getCurrencyShow() }}
 					@endif
-
 	
 					{!! Form::hidden('name_' . $obj->getAffiliationId(), $obj->getAffiliationName() ) !!}
 					{!! Form::hidden('currency_' . $obj->getAffiliationId(), $obj->getCurrency() ) !!}
@@ -105,7 +104,7 @@
 	</div>
 		<div class="row">
 			<div class="col-xs-12">
-				@if($convertHelper->getCurrencyShow() == "USD")
+				@if($convertHelper->getCurrencyShow() == "USD" && ($obj->getCurrency()!= 'USD'))
 				<div class="divider"></div>
 				<div class="row">
 					*{{ Lang::get('affiliations.today-rate') }} ${{ round($exchangeMXN,2) }} MXN

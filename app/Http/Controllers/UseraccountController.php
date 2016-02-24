@@ -182,7 +182,7 @@ class UseraccountController extends Controller{
 		$code = $this->userDao->getUsersCode( $this->userAuth->id );
 		$codeDao = new CodeDao();
 		$code = $codeDao->getById($code->code_used->codes_id);
-		
+
 		$this->accountSetup->setUsersID( $this->userAuth->id );
 		$this->accountSetup->checkValidAccount();
 		

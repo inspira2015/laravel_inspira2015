@@ -62,6 +62,7 @@
 							</a>
 						</div>					
 					</div>
+					@if($code->currency == 'MXN')
 					<div class="row form-data" data-role="response">
 						<div class="col-xs-6">
 							<strong>{{ Lang::get('userdata.currency') }}</strong>: &nbsp;{{ $user->details->currency }}						
@@ -70,6 +71,7 @@
 							<a href="#"  data-toggle="modal" data-target="#currency" class="btn-blue btn-small">{{ Lang::get('userdata.change') }}</a>
 						</div>
 					</div>
+					@endif
 					<div class="row form-data" data-role="response">
 						<div class="col-xs-6">
 							<strong>{{ Lang::get('userdata.credit-card') }}</strong>				
