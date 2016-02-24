@@ -69,6 +69,7 @@
 						{{ $convertHelper->getFomattedAmount()}}
 						{{$convertHelper->getCurrencyShow() }}
 					@endif
+
 	
 					{!! Form::hidden('name_' . $obj->getAffiliationId(), $obj->getAffiliationName() ) !!}
 					{!! Form::hidden('currency_' . $obj->getAffiliationId(), $obj->getCurrency() ) !!}
