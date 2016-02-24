@@ -230,7 +230,6 @@ class CertificatesController extends Controller {
 							$sent = Mail::send('emails.landings.success_payment', array('user' => $userAuth, 'url' => $url ) , function($message) use ($userAuth){
 										$full_name = $userAuth['name'] . ' ' . $userAuth->last_name;		
 								    	$message->to(  $userAuth->email, $full_name )
-								    			->bcc( Config::get('extra.email.bcc') , $full_name)
 								    			->subject( "Confirmación de Compra en InspiraMexico"  );
 								    	});
 							return Response::json(array(
