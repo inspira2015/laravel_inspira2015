@@ -33,8 +33,6 @@ class ConnectUserWithFacebook
 		$fbUser = $this->getFacebookUser();
 		$user = $this->users->getByFacebookId( $fbUser );
 		
-		Session::flash('facebook_user', $fbUser->user);
-
 		if ( $user === FALSE )
 		{
 			$user = $this->users->getByEmail($fbUser->email);
@@ -46,8 +44,7 @@ class ConnectUserWithFacebook
 				$this->users->save();
 				
 				$user = $this->users->getByFacebookId( $fbUser );
-				
-		
+				Session::flash('facebook_user', $fbUser->user);
 			}else{
 				//Tiene que es registro? 
 				if($this->checkFacebookRegistry()){

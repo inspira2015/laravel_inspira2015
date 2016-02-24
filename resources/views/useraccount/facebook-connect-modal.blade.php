@@ -2,8 +2,8 @@
 	<div class="modal fade" id="linkfb" tabindex="-1" role="dialog">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 	      <div class="modal-body text-center">
-		  	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<div class="modal-wrapper text-center">
 				<div  id="text">
 						 {{ Lang::get("userdata.fb-success") }}		
