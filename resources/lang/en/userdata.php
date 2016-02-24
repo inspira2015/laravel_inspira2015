@@ -63,6 +63,7 @@ return [
 	"payment-history" => "PAYMENT HISTORY",
 	"view" => "View",
 	"fb-success" => "Your Facebook account has been successfully linked!",
+	"fb-different" => "The Facebook account that you are trying to link, doesn't match the email that you have registered with your affiliation. To continue, please sign out of the active Facebook account in your computer and sign in to the one registered with your email.",
 	"fb-title-modal" => "Do you have a Facebook Account?",
 	"fb-description-modal" => "By linking your Inspira account with Facebook signing in is much faster and easier; you don't need to write in your password every time you want to log-in. Also, you receive special Inspira promotions and more directly in your Facebook account. Click the link to Facebook button to continue with this process.",
 	"success" => [
