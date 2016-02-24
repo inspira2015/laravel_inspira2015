@@ -10,7 +10,10 @@ use App\Model\Entity\CodesUsedEntity;
 use App\Libraries\AddInspiraPoints;
 use App\Libraries\UpdateDataBaseLeisureMember;
 
+use App\Libraries\LeisureLoyaltyUser;
+
 use App;
+use Auth;
 
 class CreateLeisureUser extends AbstractTransactions 
 {
@@ -24,14 +27,15 @@ class CreateLeisureUser extends AbstractTransactions
 	private $inspiraPoints;
 	private $leisureLoyaltyResponse;
 	private $updateDBLeisuerMember;
-
+	private $leisureUser;
 
 	public function  __construct( SystemTransactionEntity $systemTransactions,
 								  UserDao $userDao,
 								  UserAffiliation $userAffDao,
 								  CodesUsedEntity $codesUsed,
 								  AddInspiraPoints $inspiraPoints,
-								  UpdateDataBaseLeisureMember $updateDbLeisure )
+								  UpdateDataBaseLeisureMember $updateDbLeisure,
+								  LeisureLoyaltyUser $leisureUser )
 	{
 		parent::__construct( $systemTransactions );
 		$this->userAffiliationDao = $userAffDao;
@@ -39,6 +43,7 @@ class CreateLeisureUser extends AbstractTransactions
 		$this->codesUsedDao = $codesUsed;
 		$this->inspiraPoints = $inspiraPoints;
 		$this->updateDBLeisuerMembere = $updateDbLeisure;
+		$this->leisureUser = $leisureUser;
 	}
 
 
@@ -58,6 +63,12 @@ class CreateLeisureUser extends AbstractTransactions
 		}
 		return $points;
 	}
+	
+	public function getLeisurePoints()
+	{
+		$this->leisureUser->setUser($this->objUser);
+		return $this->leisureUser->getPointsBalance();
+	}
 
 
 
@@ -68,11 +79,42 @@ class CreateLeisureUser extends AbstractTransactions
 		$this->inspiraPoints->setPoints( $this->getCodePoints() );
 		$this->inspiraPoints->setReferenceNumber( 'CREATEUSER' . $this->objUser->id );
 		$this->inspiraPoints->setDescription('Points Added From Registration Code');
+		if($this->comparePoints() != 0){
+			$this->inspiraPoints->AddUserPoints();
+		}
+		$this->inspiraPoints->saveToDatabase( $transaction_id );
+        return $this->inspiraPoints->getApiResponse();
+	}
+	
+	private function AddPointsToDB( $transaction_id )
+	{
+		$this->inspiraPoints->setDate( date('Y-m-d') );
+		$this->inspiraPoints->setUserId( $this->objUser->id );
+		$this->inspiraPoints->setPoints( $this->getCodePoints() );
+		$this->inspiraPoints->setReferenceNumber( 'CREATEUSER' . $this->objUser->id );
+		$this->inspiraPoints->setDescription('Points Added From Registration Code');
+		$this->inspiraPoints->saveToDatabase( $transaction_id );
+        return $this->inspiraPoints->getApiResponse();
+	}
+	
+	private function comparePoints() {
+		$points = $this->getCodePoints();
+		$leisurePoints = $this->getLeisurePoints();
+		$totalPoints = $points - $leisurePoints;
+		return $totalPoints;
+	}
+	private function UpdatePoints($transaction_id )
+	{
+		$this->inspiraPoints->setDate( date('Y-m-d') );
+		$this->inspiraPoints->setUserId( $this->objUser->id );
+		$this->inspiraPoints->setPoints( $this->getCodePoints() );
+		$this->inspiraPoints->setRemovedPoints( $this->comparePoints() );
+		$this->inspiraPoints->setReferenceNumber( 'SETUSER' . $this->objUser->id );
+		$this->inspiraPoints->setDescription('Points Removed From Registration Code');
 		$this->inspiraPoints->AddUserPoints();
 		$this->inspiraPoints->saveToDatabase( $transaction_id );
         return $this->inspiraPoints->getApiResponse();
 	}
-
 
 	public function saveData()
 	{
@@ -104,12 +146,24 @@ class CreateLeisureUser extends AbstractTransactions
 
 		$points = $this->getCodePoints();
 
+
 /*
+	
 		if ( $newMember )
 		{
-*/
 			$this->AddPoints( $this->transactionId );
-//		}
+		}else{
+*/
+		//		$this->AddPoints( $this->transactionId );
+
+
+			if($this->comparePoints() != 0){
+				$this->UpdatePoints($this->transactionId);
+			}else {
+				$this->AddPoints( $this->transactionId );
+			}
+
+	//	}
 
 			
 		return TRUE;

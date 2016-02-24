@@ -6,7 +6,7 @@ use App\Model\Entity\UserAffiliation;
 use App\Model\Entity\UsersPointsEntity;
 use App\Libraries\GetPointsLastBalance;
 
-class AddInspiraPoints 
+class InspiraPoints 
 {
 	
 	private $inputDate;
@@ -24,8 +24,8 @@ class AddInspiraPoints
 	private $apiResponse;
 	private $apiResponseJson;
 	private $pointsBalance;
-	private $pointsToBeRemoved = 0;
-	
+
+
 	public function  __construct( UserDao $userDao, 
 								  UserAffiliation $userAffiliation,
 								  UsersPointsEntity $usersPoints,
@@ -68,12 +68,6 @@ class AddInspiraPoints
 	{
 		$this->pointsToBeAdded = (int)$number;
 	}
-	
-	public function setRemovedPoints($number = FALSE)
-	{
-		$this->pointsToBeRemoved = (int)$number;
-	}
-
 
 
 	public function setReferenceNumber($reference)
@@ -125,11 +119,10 @@ class AddInspiraPoints
 
 		}
 		
-		$points = $this->pointsToBeRemoved != 0 ? $this->pointsToBeRemoved : $this->pointsToBeAdded;
 		$postData[0] = array(
 			"id" => $id,
 			"memberId" => (string)$user->leisure_id,
-			"memberPoints" => $points,
+			"memberPoints" => $this->pointsToBeAdded,
 			"txDateFormat" => $date,
 			"txRefNo" => $referenceNumber,
 			"txNotes" => $this->description,

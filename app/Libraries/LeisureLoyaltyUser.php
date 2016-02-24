@@ -48,6 +48,7 @@ class LeisureLoyaltyUser
 	public function setPhones( $phones){
 		$this->phone = $phones;
 	}
+	
 	protected function checkCreateLeisureUser()
 	{
 		$memberId = $this->generateLeisureMemberShip();
@@ -124,7 +125,7 @@ class LeisureLoyaltyUser
 		return $this->sendData($url_send, 'PUT', $data);
 	}
 	
-	protected function checkMemberIdByEmail()
+	public function checkMemberIdByEmail()
 	{
 		$json = file_get_contents('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH');
 		$obj = json_decode($json, true);
@@ -135,6 +136,21 @@ class LeisureLoyaltyUser
 			{
 				$this->newMemberFlag = FALSE;
 				return  $user['memberId'];
+			}
+		}
+		return FALSE;
+	}
+	
+	public function checkMemberByEmail()
+	{
+		$json = file_get_contents('https://api.leisureloyalty.com/v3/members?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH');
+		$obj = json_decode($json, true);
+		$data= $obj['data'];
+		foreach($data as $user)
+		{
+			if( strcasecmp( $user['userId'], $this->objUser->email ) == 0 )
+			{
+				return $user;
 			}
 		}
 		return FALSE;
@@ -156,6 +172,12 @@ class LeisureLoyaltyUser
 		$user = $this->getUser();
 		return $user->data->expirationDate;
 	}
+	
+	public function getPointsBalance(){
+		$user = $this->checkMemberByEmail();
+		return $user['pointsBalance'];
+	}
+	
 	public function getNewMemberCheck()
 	{
 		return $this->newMemberFlag;
