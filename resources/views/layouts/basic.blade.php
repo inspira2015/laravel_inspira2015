@@ -73,6 +73,9 @@
 	@if(Session::get('facebook_user'))
 		@include('useraccount.facebook-connect-modal')
 		<script>$(document).ready(function(){ $('#linkfb').modal(); });</script>
+	@elseif(Session::get('facebook_user_different'))
+		@include('useraccount.facebook-connect-different-modal')
+		<script>$(document).ready(function(){ $('#linkfb-different').modal(); });</script>
 	@endif
 
 	@include('layouts.__common.facebook')

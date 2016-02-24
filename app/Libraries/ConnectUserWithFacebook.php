@@ -46,6 +46,12 @@ class ConnectUserWithFacebook
 				$user = $this->users->getByFacebookId( $fbUser );
 				Session::flash('facebook_user', $fbUser->user);
 			}else{
+				
+				if($this->auth->check()){
+					Session::flash('facebook_user', $fbUser->user);
+		
+					$listener->userHasLoggedIn( $user );
+				}
 				//Tiene que es registro? 
 				if($this->checkFacebookRegistry()){
 					return $listener->registry( (array)$fbUser->user );
@@ -56,7 +62,13 @@ class ConnectUserWithFacebook
                             'email' => 'Estas credenciales no coinciden con nuestros registros.']);
 			}
 		}
-		$this->auth->login($user,true);
+		
+		if( $this->auth->check() && $this->auth->user()->email != $fbUser->email){
+			Session::flash('facebook_user_different', $fbUser->user);
+		}else{
+			$this->auth->login($user,true);
+		}
+		
 		return $listener->userHasLoggedIn( $user );
 
 
