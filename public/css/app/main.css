@@ -552,6 +552,7 @@ div.modal-body  li li li{
 .vipcard .form-group,
 .tarjeta.vip .form-group,
 .bronze .form-group,
+.bronce .form-group,
 .gold .form-group,
 .oro .form-group{
 	text-transform: uppercase;
@@ -601,11 +602,13 @@ div.modal-body  li li li{
 	color: #2d383f;
 }
 
-.bronze .affiliation-header{
+.bronze .affiliation-header,
+.bronce .affiliation-header{
 	background-color:#cd7f32;
 }
 
-.bronze .form-group
+.bronze .form-group,
+.bronce .form-group
 {
 	color: #cd7f32;
 }
