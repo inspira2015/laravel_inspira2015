@@ -141,8 +141,13 @@ class VacationfundsController extends Controller
 		$credentials = array();
 		$sessionUser = Session::get('users');
 		
-		$url = url( 'auth/autologin', array( 'email' => $user['email'], 'encryptedPassword' => Crypt::encrypt($user['password']) ));
+		$url['confirm'] = url( 'auth/autologin', array( 'email' => $user['email'], 'encryptedPassword' => Crypt::encrypt($user['password']) ));
 
+		$url['cancel'] = url( 'auth/cancel', array( 'email' => $user['email'], 'encryptedPassword' => Crypt::encrypt($user['password']) ));
+
+		$url['not-mine'] = url( 'auth/not-mine', array( 'email' => $user['email'], 'encryptedPassword' => Crypt::encrypt($user['password']) ));
+
+		
 		$this->userDao = $this->createUser->getUserDao();
 		$sent =Mail::send('emails.user_confirmation', array('user' => $this->userDao, 'url' => $url ), function($message)
 			{

@@ -15,7 +15,6 @@ return [
 	"cancel" => "Cancel",
 	"help" => "Help",
 	"login" => "Login", 
-	"modify-data" => "Modify Data",
 	"welcome-to" => "Welcome to",
 	"reset-password" => "Restore Password",
 	"password-message" => "Click the button below to restore your password.",

@@ -14,7 +14,7 @@
 			{{ Lang::get('emails.confirm') }}
 		</div>
 		<div style="padding: 20px 20px 30px 20px;">			
-			<a href="{{ $url }}" style="padding: 10px 35px 10px 40px; background-color: #4D9AD4; color:white; text-decoration: none;"> {{ Lang::get('emails.confirm-now') }}			 <img src="https://inspiramexico.mx/mailcontent/arrow.png" style="margin-left: 10px;width: 9px;height:13px;"></a>
+			<a href="{{ $url['confirm'] }}" style="padding: 10px 35px 10px 40px; background-color: #4D9AD4; color:white; text-decoration: none;"> {{ Lang::get('emails.confirm-now') }}			 <img src="https://inspiramexico.mx/mailcontent/arrow.png" style="margin-left: 10px;width: 9px;height:13px;"></a>
 			
 		</div>
 		<div style="padding: 0 10%;">
@@ -24,20 +24,13 @@
 			<div style="display: table-cell;text-align:center;padding-bottom: 40px;padding-left: 20px;padding-top:20px;">
 				&nbsp;
 			</div>
-			<div style="display: table-cell;text-align:center; padding-bottom: 40px;">
-				<a href="{{ url() }}/useraccount" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.modify-data') }}</a>
-			</div>
 			<div style="display:table-cell;width:15px;padding-left:5px;padding-right:5px;">|</div>
 			<div style="display: table-cell;text-align:center; padding-bottom: 40px;">
-				<a href="#" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.help') }}</a>
-			</div>
-			<div style="display:table-cell;width:15px;padding-left:5px;padding-right:5px;">|</div>
-			<div style="display: table-cell;text-align:center; padding-bottom: 40px;">
-				<a href="#" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.cancel') }}</a>
+				<a href="{{ $url['cancel'] }}" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.cancel') }}</a>
 			</div>
 			<div style="display:table-cell;width:15px;padding-left:5px;padding-right:5px;">|</div>
 			<div style="display: table-cell;text-align:center;padding-bottom: 40px;">
-				<a href="#" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.not-mine') }}</a>
+				<a href="{{ $url['not-mine'] }}" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.not-mine') }}</a>
 			</div>
 			<div style="display: table-cell;text-align:center;padding-bottom: 40px;padding-right: 20px;">
 				&nbsp;

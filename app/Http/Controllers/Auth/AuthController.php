@@ -18,6 +18,7 @@ use Input;
 
 use Response;
 use Config;
+use Lang;
 
 class AuthController extends Controller implements AuthenticateUserListener {
 
@@ -114,7 +115,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
         return redirect('/auth/login')
                         ->withInput($request->only('email'))
                         ->withErrors([
-                            'email' => 'Estas credenciales no coinciden con nuestros registros.',
+                            'email' => Lang::get('auth.wrong-credentials'),
         ]);
     }
     
@@ -182,6 +183,11 @@ class AuthController extends Controller implements AuthenticateUserListener {
         return property_exists($this, 'redirectTo') ? $this->redirectTo : '/useraccount';
     }
     
+    public function redirectMain() {
+        return Config::get('domain.front');
+    }
+    
+    
     public function redirectPath() {
         return'/useraccount';
     }
@@ -196,6 +202,70 @@ class AuthController extends Controller implements AuthenticateUserListener {
         return  $this->redirectTo;
     }
    	
+   	public function getCancel(Request $request,  $email , $encryptedPassword) {
+		$password = Crypt::decrypt($encryptedPassword);
+		$credentials = ['email' => $email, 'password' => $password];
+		
+		UserSession::put(array('email' => $email , 'password' => $encryptedPassword));
+		
+        if ($this->auth->attempt( $credentials )) {  
+			$this->setLanguage();
+			//Su proceso de registro ha sido cancelado.
+			//Registration of your account has bee canceled.
+
+			$user_id = $this->auth->user()->id;
+			$this->auth->logout();
+			
+			$this->userDao->delete($user_id);
+			return view('auth.cancel_account');
+		}
+		
+		return redirect('auth/login')
+                ->withInput( [ 'email' => $email ])
+                ->withErrors([ 'message' => Lang::get('auth.wrong-credentials') ]);
+       	
+	}
+	
+	public function getNotMine(Request $request,  $email , $encryptedPassword) {
+		$password = Crypt::decrypt($encryptedPassword);
+		$credentials = ['email' => $email, 'password' => $password];
+		
+		UserSession::put(array('email' => $email , 'password' => $encryptedPassword));
+		
+        if ($this->auth->attempt( $credentials )) {  
+			$this->setLanguage();
+			
+			$user_id = $this->auth->user()->id;
+			$this->auth->logout();
+			
+			$this->userDao->delete($user_id);
+			return redirect()->intended($this->redirectMain());
+
+		}
+		
+		return redirect('auth/login')
+                ->withInput( [ 'email' => $email ])
+                ->withErrors([ 'message' => Lang::get('auth.wrong-credentials') ]);
+       	
+	}
+	
+	
+	public function getModifyData(Request $request,  $email , $encryptedPassword){
+				$password = Crypt::decrypt($encryptedPassword);
+		$credentials = ['email' => $email, 'password' => $password];
+		
+		UserSession::put(array('email' => $email , 'password' => $encryptedPassword));
+		
+        if ($this->auth->attempt( $credentials )) {  
+			return redirect('useraccount/modify');
+		}
+		
+		return redirect('auth/login')
+                ->withInput( [ 'email' => $email ])
+                ->withErrors([ 'message' => Lang::get('auth.wrong-credentials') ]);
+       	
+	}
+	
 	public function getAutologin(Request $request,  $email , $encryptedPassword) {
 		$password = Crypt::decrypt($encryptedPassword);
 		$credentials = ['email' => $email, 'password' => $password];
@@ -209,7 +279,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 		}
 		return redirect('auth/login')
                 ->withInput( [ 'email' => $email ])
-                ->withErrors([ 'message' => 'Estas credenciales no coinciden con nuestros registros.' ]);
+                ->withErrors([ 'message' => Lang::get('auth.wrong-credentials') ]);
        	
 	}
 

@@ -15,7 +15,6 @@ return [
 	"cancel" => "Cancelar",
 	"help" => "Ayuda",
 	"login" => "Ingresar", 
-	"modify-data" => "Modificar datos",
 	"welcome-to" => "Bienvenido a",
 	"reset-password" => "Restablecer contraseña",
 	"password-message" => "De clic al bot&oacute;n para restablecer su contrase&ntilde;a.",

@@ -24,9 +24,6 @@
 			<div style="display: table-cell;text-align:center;padding-bottom: 40px;padding-left: 20px;padding-top:20px;">
 				&nbsp;
 			</div>
-			<div style="display: table-cell;text-align:center; padding-bottom: 40px;">
-				<a href="{{ url() }}/useraccount" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.modify-data') }}</a>
-			</div>
 			<div style="display:table-cell;width:15px;padding-left:5px;padding-right:5px;">|</div>
 			<div style="display: table-cell;text-align:center; padding-bottom: 40px;">
 				<a href="#" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.help') }}</a>
