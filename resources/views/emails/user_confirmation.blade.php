@@ -24,12 +24,11 @@
 			<div style="display: table-cell;text-align:center;padding-bottom: 40px;padding-left: 20px;padding-top:20px;">
 				&nbsp;
 			</div>
-			<div style="display:table-cell;width:15px;padding-left:5px;padding-right:5px;">|</div>
-			<div style="display: table-cell;text-align:center; padding-bottom: 40px;">
+			<div style="display: table-cell;text-align:center; padding-bottom: 40px;width:40%;">
 				<a href="{{ $url['cancel'] }}" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.cancel') }}</a>
 			</div>
 			<div style="display:table-cell;width:15px;padding-left:5px;padding-right:5px;">|</div>
-			<div style="display: table-cell;text-align:center;padding-bottom: 40px;">
+			<div style="display: table-cell;text-align:center;padding-bottom: 40px;width:40%;">
 				<a href="{{ $url['not-mine'] }}" style="color: #465664; text-decoration: none;">{{ Lang::get('emails.not-mine') }}</a>
 			</div>
 			<div style="display: table-cell;text-align:center;padding-bottom: 40px;padding-right: 20px;">
