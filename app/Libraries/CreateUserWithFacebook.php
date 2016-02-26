@@ -40,7 +40,6 @@ class CreateUserWithFacebook
 				$fbUser->user['avatar'] = $fbUser->avatar;
 				return $listener->registry( (array)$fbUser->user );
 			}
-			
 		}
 		return view('codes.facebook_exists')->with('background','codigo-background.jpg')->with('avatar', $fbUser->avatar);
 	}

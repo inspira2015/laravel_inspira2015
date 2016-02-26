@@ -20,6 +20,7 @@ use Response;
 use Config;
 use Lang;
 
+
 class AuthController extends Controller implements AuthenticateUserListener {
 
     /**
@@ -44,7 +45,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
                                  UserDao $userdao ) {
         $this->auth = $auth;
         $this->session = $session;
-        $this->middleware('both', ['only' => 'getLogin']);
+        $this->middleware('both', ['only' => 'getLogin', 'getWpCheckfb']);
         $this->checkAccountSetup = $checkUser;
         $this->userDao = $userdao;
 		$this->setLanguage();
@@ -117,6 +118,18 @@ class AuthController extends Controller implements AuthenticateUserListener {
                         ->withErrors([
                             'email' => Lang::get('auth.wrong-credentials'),
         ]);
+    }
+    
+    public function getWpCheckfb(Request $request){
+	    if($this->auth->check()){
+		   $this->auth->logout();
+	    }
+	    
+	    
+	    $this->session->put('creation-ref', 'fb');
+	    
+	        
+	    return redirect('users/fbConnect');
     }
     
     public function getWplogin(Request $request) {
@@ -265,6 +278,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
                 ->withErrors([ 'message' => Lang::get('auth.wrong-credentials') ]);
        	
 	}
+	
 	
 	public function getAutologin(Request $request,  $email , $encryptedPassword) {
 		$password = Crypt::decrypt($encryptedPassword);

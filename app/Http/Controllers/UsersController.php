@@ -88,9 +88,6 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		{
 			return Redirect::to('codes/1');
 		}
-		
-		echo $this->checkFacebook();
-
 
 		if( $this->checkFacebook() == TRUE ){
     		return $authfb->execute(Request::get('code'), $this);
@@ -343,9 +340,8 @@ class UsersController extends Controller implements AuthenticateUserListener {
     public function fbConnect(ConnectUserWithFacebook $authfb, Request $request, CreateUserWithFacebook $createfb)
     {
 	    if( $this->checkFacebook() == TRUE ){
-		    Session::forget('creation-ref');
+		  //  Session::forget('creation-ref');
 		   	return $createfb->execute(Request::get('code'), $this);
-
 	    }else{
     		return $authfb->execute(Request::get('code'), $this);	
 	    }
