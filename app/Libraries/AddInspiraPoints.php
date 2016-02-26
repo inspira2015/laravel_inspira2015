@@ -42,7 +42,9 @@ class AddInspiraPoints
 										  4 => 558,
 										  5 => 559,
 										  6 => 560,
-										  7 => 0 );
+										  7 => 0,
+										  8 => 0,
+										  9 => 0 );
 	}
 
 
@@ -116,6 +118,7 @@ class AddInspiraPoints
 		$user = $this->getUser();
 		$userAffiliation = $this->getAffiliation();
 		$id = $this->inspiraOfferArray[$userAffiliation->affiliations_id];
+		echo $id;
 		$date = $this->inputDate->toDateString();
 		$referenceNumber = '';
 
