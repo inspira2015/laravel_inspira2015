@@ -128,11 +128,10 @@ class AddInspiraPoints
 
 		}
 		
-		$points = $this->pointsToBeRemoved != 0 ? $this->pointsToBeRemoved : $this->pointsToBeAdded;
 		$postData[0] = array(
 			"id" => $id,
 			"memberId" => (string)$user->leisure_id,
-			"memberPoints" => $points,
+			"memberPoints" => $this->pointsToBeAdded,
 			"txDateFormat" => $date,
 			"txRefNo" => $referenceNumber,
 			"txNotes" => $this->description,

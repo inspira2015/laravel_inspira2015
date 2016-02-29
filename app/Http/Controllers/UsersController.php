@@ -20,6 +20,7 @@ use App\Libraries\Referer\CheckReferer;
 use App\Libraries\Interfaces\AuthenticateUserListener;
 use App\Libraries\CreateUserWithFacebook;
 use App\Libraries\ConnectUserWithFacebook;
+use App\Libraries\CheckUserWithFacebook;
 
 use Auth;
 use App\Libraries\UpdateDataBaseLeisureMember;
@@ -337,12 +338,17 @@ class UsersController extends Controller implements AuthenticateUserListener {
 	}
 	
 	
-    public function fbConnect(ConnectUserWithFacebook $authfb, Request $request, CreateUserWithFacebook $createfb)
+    public function fbConnect(ConnectUserWithFacebook $authfb, 
+    						  CreateUserWithFacebook $createfb,
+    						  CheckUserWithFacebook $checkfb,
+    						  Request $request)
     {
 	    if( $this->checkFacebook() == TRUE ){
 		  //  Session::forget('creation-ref');
 		   	return $createfb->execute(Request::get('code'), $this);
-	    }else{
+	    } else if( Session::get('check-ref') ){
+		    return $checkfb->execute(Request::get('code'), $this);	
+		}else {
     		return $authfb->execute(Request::get('code'), $this);	
 	    }
     }

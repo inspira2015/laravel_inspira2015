@@ -126,9 +126,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 	    }
 	    
 	    
-	    $this->session->put('creation-ref', 'fb');
-	    
-	        
+	    $this->session->put('check-ref', 'fb');    
 	    return redirect('users/fbConnect');
     }
     
