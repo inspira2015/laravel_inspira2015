@@ -5,7 +5,6 @@ use App\Model\Dao\UserDao;
 use App\Model\Entity\UserAffiliation;
 use App\Model\Entity\UsersPointsEntity;
 use App\Libraries\GetPointsLastBalance;
-
 class AddInspiraPoints 
 {
 	
@@ -15,7 +14,6 @@ class AddInspiraPoints
 	private $pointsToBeAdded;
 	private $referenceNumber;
 	private $description;
-
 	private $userDao;
 	private $UserAffiliationDao;
 	private $inspiraOfferArray;
@@ -46,26 +44,18 @@ class AddInspiraPoints
 										  8 => 0,
 										  9 => 1508);
 	}
-
-
 	public function setTransactionId($transactionId)
 	{
 		$this->transactionId = $transactionId;
 	}
-
-
 	public function setDate($date)
 	{
 		$this->inputDate = Carbon::createFromFormat('Y-m-d', $date);
 	}
-
-
 	public function setUserId( $user_id )
 	{
 		$this->userId = $user_id;
 	}
-
-
 	public function setPoints($number = FALSE)
 	{
 		$this->pointsToBeAdded = (int)$number;
@@ -75,21 +65,14 @@ class AddInspiraPoints
 	{
 		$this->pointsToBeRemoved = (int)$number;
 	}
-
-
-
 	public function setReferenceNumber($reference)
 	{
 		$this->referenceNumber = $reference;
 	}
-
-
 	public function setDescription($description)
 	{
 		$this->description = $description;
 	}
-
-
 	private function getUser()
 	{
 		$user = $this->userDao->getById( $this->userId );
@@ -99,8 +82,6 @@ class AddInspiraPoints
 		}
 		return FALSE;
 	}
-
-
 	private function getAffiliation()
 	{
 		$userAffiliation = $this->UserAffiliationDao->getByUsersId( $this->userId );
@@ -108,42 +89,33 @@ class AddInspiraPoints
 		{
 			return $userAffiliation[0];
 		}
-
 		return FALSE;
 	}
-
-
 	private function doPostToApi()
 	{
 		$user = $this->getUser();
 		$userAffiliation = $this->getAffiliation();
 		$id = $this->inspiraOfferArray[$userAffiliation->affiliations_id];
-		echo $id;
 		$date = $this->inputDate->toDateString();
 		$referenceNumber = '';
-
 		if ( !empty( $this->referenceNumber ) )
 		{
 			$referenceNumber = $this->referenceNumber ;
-
 		}
 		
+		$points = $this->pointsToBeRemoved != 0 ? $this->pointsToBeRemoved : $this->pointsToBeAdded;
 		$postData[0] = array(
 			"id" => $id,
 			"memberId" => (string)$user->leisure_id,
-			"memberPoints" => $this->pointsToBeAdded,
+			"memberPoints" => $points,
 			"txDateFormat" => $date,
 			"txRefNo" => $referenceNumber,
 			"txNotes" => $this->description,
-
 		);
 		$json = json_encode($postData);
-
 		$headers = array( 'Content-Type: application/json' );
-
 		$url = 'https://api.leisureloyalty.com/v3/award/offer?apiKey=usJ7X9B00sNpaoKVtVXrLG8A63PK7HiRC3rmG8SAl02y8ZR1qH&';
 		$ch = curl_init();
-
 		// Set the url, number of GET vars, GET data
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_POST, true);
@@ -157,8 +129,6 @@ class AddInspiraPoints
 // 		print_r($result);
 		return $result;
 	}
-
-
 	private function checkApiCall()
 	{
 		$this->apiResponseJson = $this->doPostToApi();
@@ -170,27 +140,17 @@ class AddInspiraPoints
 			return;
 		}
 		$this->apiResponse = FALSE;
-
 	}
-
-
-
 	public function getApiResponse()
 	{
 		return $this->apiResponse;
 	}
-
-
 	public function getApiResponseJson()
 	{
 		return $this->apiResponseJson;
 	}
-
-
-
 	public function saveToDatabase( $transactionId )
 	{
-
 		//if($this->apiResponse)
 		//{
 			$this->pointsBalance->setUserId( $this->userId );
@@ -202,27 +162,14 @@ class AddInspiraPoints
 														'added_points' => $this->pointsToBeAdded,
 														'substracted_points' => $this->pointsToBeRemoved,
 														'balance' => $balanceNow );
-
-
 			$this->userPointsDao->exchangeArray( $userpoints );
 			$this->userPointsDao->save();
 			return TRUE;
 		//}
 		return FALSE;
 	}
-
-
-
 	public function AddUserPoints()
 	{
 		return $this->checkApiCall();
 	}
-
-
-	public function getResponse()
-	{
-
-	}
-
-
 }

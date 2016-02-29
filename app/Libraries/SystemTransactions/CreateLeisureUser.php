@@ -79,18 +79,13 @@ class CreateLeisureUser extends AbstractTransactions
 		$this->inspiraPoints->setPoints( $this->getCodePoints() );
 		$this->inspiraPoints->setReferenceNumber( 'CREATEUSER' . $this->objUser->id );
 		$this->inspiraPoints->setDescription('Points Added From Registration Code');
-	//	if($this->comparePoints() > 0){
+		if($this->comparePoints() != 0){
 			$this->inspiraPoints->AddUserPoints();
-	//	}
-	
+		}
 		$this->inspiraPoints->saveToDatabase( $transaction_id );
         return $this->inspiraPoints->getApiResponse();
 	}
 	
-	
-	public function getResponse(){
-		return $this->inspiraPoints->getApiResponseJson();	
-	}
 	private function AddPointsToDB( $transaction_id )
 	{
 		$this->inspiraPoints->setDate( date('Y-m-d') );
@@ -102,7 +97,7 @@ class CreateLeisureUser extends AbstractTransactions
         return $this->inspiraPoints->getApiResponse();
 	}
 	
-	public function comparePoints() {
+	private function comparePoints() {
 		$points = $this->getCodePoints();
 		$leisurePoints = $this->getLeisurePoints();
 		$totalPoints = $points - $leisurePoints;
@@ -161,8 +156,8 @@ class CreateLeisureUser extends AbstractTransactions
 */
 		//		$this->AddPoints( $this->transactionId );
 
-		
-			if($this->comparePoints() < 0){
+
+			if($this->comparePoints() != 0){
 				$this->UpdatePoints($this->transactionId);
 			}else {
 				$this->AddPoints( $this->transactionId );

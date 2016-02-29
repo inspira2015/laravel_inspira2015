@@ -152,8 +152,7 @@ class UseraccountController extends Controller{
 																	'description' => 'Create Leisure MemberId',
 																	'json_data' => ''));
 			$this->createLeisureUser->saveData();
-			return (string)$this->createLeisureUser->getResponse();
-			//return redirect('useraccount');
+			return redirect('useraccount');
 		}
 		
 		$this->accountSetup->setUsersID( $this->userAuth->id );
