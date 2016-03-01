@@ -155,12 +155,8 @@ class AuthController extends Controller implements AuthenticateUserListener {
             return redirect()->intended($this->redirectUserAccountPath());
 
         }
-
-        return redirect('/auth/login')
-                        ->withInput($request->only('email'))
-                        ->withErrors([
-                            'email' => 'Estas credenciales no coinciden con nuestros registros.',
-        ]);
+        
+        return redirect(Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
     }
     
     
