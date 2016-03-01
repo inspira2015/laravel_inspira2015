@@ -34,6 +34,9 @@ class CheckUserWithFacebook
 
 		$user = $this->users->getByFacebookId( $fbUser );
 		
+		
+		Session::forget('check-ref');
+
 		if ( $user === FALSE )
 		{
 			//Tiene que es registro? 
@@ -43,6 +46,7 @@ class CheckUserWithFacebook
 				return redirect('codes?ref=fb');
 			}
 		}
+
 		$view = htmlentities(view('codes.facebook_exists')->with('avatar', $fbUser->avatar));
 		$message = urlencode("Esta cuenta de FB ya se encuentra registrada. 
 	Para continuar salga de esta cuenta e inicie sesión a la cuenta deseada. Una vez hecho esto de click al botón “Registrarse con FB” una vez mas.");
