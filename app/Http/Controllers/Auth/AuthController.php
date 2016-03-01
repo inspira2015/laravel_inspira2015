@@ -231,9 +231,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 			return view('auth.cancel_account');
 		}
 		
-		return redirect('auth/login')
-                ->withInput( [ 'email' => $email ])
-                ->withErrors([ 'message' => Lang::get('auth.wrong-credentials') ]);
+		return redirect(Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
        	
 	}
 	
@@ -253,10 +251,8 @@ class AuthController extends Controller implements AuthenticateUserListener {
 			return redirect()->intended($this->redirectMain());
 
 		}
-		
-		return redirect('auth/login')
-                ->withInput( [ 'email' => $email ])
-                ->withErrors([ 'message' => Lang::get('auth.wrong-credentials') ]);
+				
+		return redirect(Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
        	
 	}
 	
