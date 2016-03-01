@@ -8,6 +8,7 @@ use App\Model\Dao\UserDao;
 // use Socialize;
 use App\Libraries\Interfaces\AuthenticateUserListener;
 use Session;
+use Config;
 
 class CheckUserWithFacebook
 {
@@ -42,8 +43,14 @@ class CheckUserWithFacebook
 				return redirect('codes');
 			}
 		}
-		
-		return view('codes.facebook_exists')->with('background','codigo-background.jpg')->with('avatar', $fbUser->avatar);
+		$view = htmlentities(view('codes.facebook_exists')->with('avatar', $fbUser->avatar));
+		$message = urlencode("Esta cuenta de FB ya se encuentra registrada. 
+	Para continuar salga de esta cuenta e inicie sesión a la cuenta deseada. Una vez hecho esto de click al botón “Registrarse con FB” una vez mas.");
+	
+		$link = "<script>this.window.close(); var myWindow = window.open('http://inspiramexico.mx?error_message={$message}#openModal', '_self');myWindow.focus();</script>";
+
+		echo $link;
+		return '';
 	}
 	
 	private function checkFacebookRegistry(){

@@ -226,8 +226,6 @@ class AuthController extends Controller implements AuthenticateUserListener {
 		
         if ($this->auth->attempt( $credentials )) {  
 			$this->setLanguage();
-			//Su proceso de registro ha sido cancelado.
-			//Registration of your account has bee canceled.
 
 			$user_id = $this->auth->user()->id;
 			$this->auth->logout();
@@ -236,6 +234,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 			return view('auth.cancel_account');
 		}
 		
+		$url = '//'.Config::get('domain.front');
 		return redirect('//'.Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
        	
 	}

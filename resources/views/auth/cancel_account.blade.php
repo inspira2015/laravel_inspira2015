@@ -15,9 +15,15 @@
 		<div class="divider"></div>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
-				<a href="//{{ Config::get('domain.front') }}" class="btn-light-blue btn-medium">
-					{{ Lang::get('layout.continue') }}
-				</a>
+				@if(Lang::getLocale() == 'es')
+					<a href="//{{ Config::get('domain.front') }}" class="btn-light-blue btn-medium">
+						{{ Lang::get('layout.continue') }}
+					</a>
+				@else
+					<a href="//{{ Config::get('domain.front') }}/en" class="btn-light-blue btn-medium">
+						{{ Lang::get('layout.continue') }}
+					</a>
+				@endif
 			</div>
 		</div>
 	</div>
