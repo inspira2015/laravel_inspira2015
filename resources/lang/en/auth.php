@@ -13,5 +13,6 @@ return [
 	'reset-link-sent' => 'Your password restore link has been sent. Please check your e-mail inbox.',
 	'invalid-user' => 'Your e-mail is incorrect. Please try again or contact the administrator customerservice@inspiramexico.mx',
 	'cancel-account' => 'Registration of your account has been canceled.',
-	'wrong-credentials' => 'These credentials do not match our records.'
+	'wrong-credentials' => 'These credentials do not match our records.',
+	'check-facebook-error' => 'This FB account is already registered. To continue please sign-out of current account and log-in to the one you would like to register. Clic the "Register with Facebook button" again to continue process.'
 ];

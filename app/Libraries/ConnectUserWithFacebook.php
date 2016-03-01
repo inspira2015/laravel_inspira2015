@@ -10,6 +10,7 @@ use App\Libraries\Interfaces\AuthenticateUserListener;
 use Session;
 use Request;
 use Lang; 
+use Config;
 
 class ConnectUserWithFacebook
 {

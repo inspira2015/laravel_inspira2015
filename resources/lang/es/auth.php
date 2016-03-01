@@ -13,5 +13,7 @@ return [
 	'reset-link-sent' => 'Se ha enviado exitosamente el correo. Por favor revise su bandeja.',
 	'invalid-user' => 'El correo es incorrecto. Favor de intentar de nuevo o contacte al administrador en customerservice@inspiramexico.mx',
 	'cancel-account' => 'Su proceso de registro ha sido cancelado.',
-	'wrong-credentials' => 'Estas credenciales no coinciden con nuestros registros.'
+	'wrong-credentials' => 'Estas credenciales no coinciden con nuestros registros.',
+	'check-facebook-error' => 'Esta cuenta de FB ya se encuentra registrada. Para continuar salga de esta cuenta e inicie 
+								sesión a la cuenta deseada. Una vez hecho esto de click al botón "Registrarse con FB" una vez más.'
 ];

@@ -353,6 +353,7 @@ class UsersController extends Controller implements AuthenticateUserListener {
 		   	return $createfb->execute(Request::get('code'), $this);
 	    }
 	    if( Session::get('check-ref') ){
+		    Session::forget('check-ref');
 		    return $checkfb->execute(Request::get('code'), $this);	
 		}else {
     		return $authfb->execute(Request::get('code'), $this);	

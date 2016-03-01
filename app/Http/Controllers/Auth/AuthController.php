@@ -130,8 +130,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 	    if($this->auth->check()){
 		   $this->auth->logout();
 	    }
-	    
-	    
+	   
 	    $this->session->put('check-ref', 'fb');    
 	    return redirect('users/fbConnect');
     }

@@ -9,6 +9,7 @@ use App\Model\Dao\UserDao;
 use App\Libraries\Interfaces\AuthenticateUserListener;
 use Session;
 use Config;
+use Lang;
 
 class CheckUserWithFacebook
 {
@@ -48,11 +49,15 @@ class CheckUserWithFacebook
 		}
 
 		$view = htmlentities(view('codes.facebook_exists')->with('avatar', $fbUser->avatar));
-		$message = urlencode("Esta cuenta de FB ya se encuentra registrada. 
-	Para continuar salga de esta cuenta e inicie sesión a la cuenta deseada. Una vez hecho esto de click al botón “Registrarse con FB” una vez mas.");
+		$message = urlencode(Lang::get('auth.check-facebook-error'));
 	
+		$url = '//'.Config::get('domain.front');
+        if(Lang::getLocale() == 'en'){
+	        $url.= '/en';
+        }
+        
 	    //Change this later - it works in production.
-		$link = "<script>this.window.close(); var myWindow = window.open('http://inspiramexico.mx?error_message={$message}#openModal', '_self');myWindow.focus();</script>";
+		$link = "<script>this.window.close(); var myWindow = window.open('http://{$url}?error_message={$message}#openModal', '_self');myWindow.focus();</script>";
 
 		echo $link;
 		return '';
