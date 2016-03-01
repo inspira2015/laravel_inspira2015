@@ -207,7 +207,12 @@ class UsersController extends Controller implements AuthenticateUserListener {
 	public function activation($code = FALSE)
 	{
 		if(!Auth::check()){
-			return redirect('auth/login');
+			$url = '//'.Config::get('domain.front');
+	        if(Lang::getLocale() == 'en'){
+		        $url.= '/en';
+	        }
+	        //Change this later - it works in production.
+	        return redirect($url.'#openModal2');
 		}
 		if($code == FALSE)
 		{

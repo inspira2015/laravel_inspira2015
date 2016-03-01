@@ -2,6 +2,7 @@
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Lang;
 
 class Authenticate {
 
@@ -40,7 +41,15 @@ class Authenticate {
 			}
 			else
 			{
-				return redirect()->guest('auth/login');
+// 				return redirect()->guest('auth/login');
+				$url = '//'.Config::get('domain.front');
+		        if(Lang::getLocale() == 'en'){
+			        $url.= '/en';
+		        }
+		        //Change this later - it works in production.
+		        return redirect($url.'#openModal2');
+	        
+	        
 			}
 		}
 

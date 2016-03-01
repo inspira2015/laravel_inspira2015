@@ -8,7 +8,8 @@ use App\Model\Dao\UserDao;
 // use Socialize;
 use App\Libraries\Interfaces\AuthenticateUserListener;
 use Session;
-use Request; 
+use Request;
+use Lang; 
 
 class ConnectUserWithFacebook
 {
@@ -59,10 +60,14 @@ class ConnectUserWithFacebook
 					if($this->checkFacebookRegistry()){
 						return $listener->registry( (array)$fbUser->user );
 					}
-					return redirect('/auth/login')
-	                        ->withInput(Request::only('email'))
-	                        ->withErrors([
-	                            'email' => 'Estas credenciales no coinciden con nuestros registros.']);
+					
+	                            
+					$url = '//'.Config::get('domain.front');
+			        if(Lang::getLocale() == 'en'){
+				        $url.= '/en';
+			        }
+			        //Change this later - it works in production.
+					return redirect($url.'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
 				}
 			}
 	
