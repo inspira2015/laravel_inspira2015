@@ -154,10 +154,10 @@ class AuthController extends Controller implements AuthenticateUserListener {
             return redirect()->intended($this->redirectUserAccountPath());
 
         }
-        if($request->get('lang')){
-			$this->session->put('lang', $request->get('lang'));
+        if($request->get('lang','es')){
+			$this->session->put('lang', $request->get('lang', 'es'));
 		}
-		$this->setLanguage($this->session->get('lang'));	
+		$this->setLanguage($this->session->get('lang','es'));	
 		
         $url = '//'.Config::get('domain.front');
         if($request->get('lang') == 'en'){
