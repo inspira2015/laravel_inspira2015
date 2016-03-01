@@ -20,7 +20,6 @@ use Response;
 use Config;
 use Lang;
 
-
 class AuthController extends Controller implements AuthenticateUserListener {
 
     /**
@@ -155,8 +154,18 @@ class AuthController extends Controller implements AuthenticateUserListener {
             return redirect()->intended($this->redirectUserAccountPath());
 
         }
+        if($request->get('lang')){
+			$this->session->put('lang', $request->get('lang'));
+		}
+		$this->setLanguage($this->session->get('lang'));	
+		
+        $url = '//'.Config::get('domain.front');
+        if($request->get('lang') == 'en'){
+	        $url.= '/en';
+        }
         
-        return redirect('//'.Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+        return redirect($url.'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+        
     }
     
     
