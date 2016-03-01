@@ -68,7 +68,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 	    if($this->auth->check()){
 		   $this->auth->logout();
 	    }
-	    
+	    Session::put('login-fb', true);
 		return $authfb->execute($request->has('code'), $this);
 
     }
@@ -116,11 +116,14 @@ class AuthController extends Controller implements AuthenticateUserListener {
 
         }
 
-        return redirect('/auth/login')
-                        ->withInput($request->only('email'))
-                        ->withErrors([
-                            'email' => Lang::get('auth.wrong-credentials'),
-        ]);
+		$url = '//'.Config::get('domain.front');
+        if($request->get('lang') == 'en'){
+	        $url.= '/en';
+        }
+        
+        //Change this later - it works in production.
+        return redirect($url.'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+        
     }
     
     public function getWpCheckfb(Request $request){
@@ -278,9 +281,13 @@ class AuthController extends Controller implements AuthenticateUserListener {
 			return redirect('useraccount/modify');
 		}
 		
-		return redirect('auth/login')
-                ->withInput( [ 'email' => $email ])
-                ->withErrors([ 'message' => Lang::get('auth.wrong-credentials') ]);
+		$url = '//'.Config::get('domain.front');
+        if($request->get('lang') == 'en'){
+	        $url.= '/en';
+        }
+        
+        //Change this later - it works in production.
+        return redirect($url.'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
        	
 	}
 	
@@ -296,9 +303,14 @@ class AuthController extends Controller implements AuthenticateUserListener {
 			return redirect('useraccount');
 
 		}
-		return redirect('auth/login')
-                ->withInput( [ 'email' => $email ])
-                ->withErrors([ 'message' => Lang::get('auth.wrong-credentials') ]);
+		
+		$url = '//'.Config::get('domain.front');
+        if($request->get('lang') == 'en'){
+	        $url.= '/en';
+        }
+        
+        //Change this later - it works in production.
+        return redirect($url.'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
        	
 	}
 
