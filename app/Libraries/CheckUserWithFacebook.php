@@ -40,7 +40,7 @@ class CheckUserWithFacebook
 			if(!$this->checkFacebookRegistry()){
 			//	$fbUser->user['avatar'] = $fbUser->avatar;
 			//	return $listener->registry( (array)$fbUser->user );
-				return redirect('codes');
+				return redirect('codes?ref=fb');
 			}
 		}
 		$view = htmlentities(view('codes.facebook_exists')->with('avatar', $fbUser->avatar));
