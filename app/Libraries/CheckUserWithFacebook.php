@@ -48,8 +48,7 @@ class CheckUserWithFacebook
 			}
 		}
 
-		$view = htmlentities(view('codes.facebook_exists')->with('avatar', $fbUser->avatar));
-		$message = urlencode(Lang::get('auth.check-facebook-error'));
+		$view = urlencode(view('codes.facebook_exists')->with('avatar', $fbUser->avatar));
 	
 		$url = '//'.Config::get('domain.front');
         if(Lang::getLocale() == 'en'){
@@ -57,7 +56,7 @@ class CheckUserWithFacebook
         }
         
 	    //Change this later - it works in production.
-		$link = "<script>this.window.close(); var myWindow = window.open('{$url}?error_message={$message}#openModal', '_self');myWindow.focus();</script>";
+		$link = "<script>this.window.close(); var myWindow = window.open('{$url}?error_message={$view}#openModal', '_self');myWindow.focus();</script>";
 
 		echo $link;
 		return '';
