@@ -33,44 +33,42 @@ class ConnectUserWithFacebook
 		$fbUser = $this->getFacebookUser();
 		$user = $this->users->getByFacebookId( $fbUser );
 		
-		if ( $user === FALSE )
-		{
-			$user = $this->users->getByEmail($fbUser->email);
-			
-			if($user !== FALSE) {
-				$this->users->load($user->id);
-				$this->users->facebook_id = $fbUser->id;
-				$this->users->facebook_avatar = $fbUser->avatar;
-				$this->users->save();
-				
-				$user = $this->users->getByFacebookId( $fbUser );
-				Session::flash('facebook_user', $fbUser->user);
-			}else{
-				
-				if($this->auth->check()){
-					Session::flash('facebook_user', $fbUser->user);
-		
-					$listener->userHasLoggedIn( $user );
-				}
-				//Tiene que es registro? 
-				if($this->checkFacebookRegistry()){
-					return $listener->registry( (array)$fbUser->user );
-				}
-				return redirect('/auth/login')
-                        ->withInput(Request::only('email'))
-                        ->withErrors([
-                            'email' => 'Estas credenciales no coinciden con nuestros registros.']);
-			}
-		}
-		
 		if( $this->auth->check() && $this->auth->user()->email != $fbUser->email){
 			Session::flash('facebook_user_different', $fbUser->user);
-		}else{
+		}else {
+			if ( $user === FALSE )
+			{
+				$user = $this->users->getByEmail($fbUser->email);
+				
+				if($user !== FALSE) {
+					$this->users->load($user->id);
+					$this->users->facebook_id = $fbUser->id;
+					$this->users->facebook_avatar = $fbUser->avatar;
+					$this->users->save();
+					
+					$user = $this->users->getByFacebookId( $fbUser );
+					Session::flash('facebook_user', $fbUser->user);
+				}else{
+					
+					if($this->auth->check()){
+						Session::flash('facebook_user', $fbUser->user);
+			
+						$listener->userHasLoggedIn( $user );
+					}
+					//Tiene que es registro? 
+					if($this->checkFacebookRegistry()){
+						return $listener->registry( (array)$fbUser->user );
+					}
+					return redirect('/auth/login')
+	                        ->withInput(Request::only('email'))
+	                        ->withErrors([
+	                            'email' => 'Estas credenciales no coinciden con nuestros registros.']);
+				}
+			}
+	
 			$this->auth->login($user,true);
 		}
-		
 		return $listener->userHasLoggedIn( $user );
-
 
 	}
 	
