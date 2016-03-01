@@ -68,7 +68,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 	    if($this->auth->check()){
 		   $this->auth->logout();
 	    }
-	    Session::put('login-fb', true);
+	    $this->session->put('login-fb', true);
 		return $authfb->execute($request->has('code'), $this);
 
     }
