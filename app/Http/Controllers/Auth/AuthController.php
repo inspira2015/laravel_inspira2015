@@ -65,6 +65,10 @@ class AuthController extends Controller implements AuthenticateUserListener {
 
     public function getLoginfb(AuthUserWithFacebook $authfb, Request $request)
     {
+	    if($this->auth->check()){
+		   $this->auth->logout();
+	    }
+	    
 		return $authfb->execute($request->has('code'), $this);
 
     }
@@ -164,6 +168,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 	        $url.= '/en';
         }
         
+        //Change this later - it works in production.
         return redirect($url.'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
         
     }
@@ -235,6 +240,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 		}
 		
 		$url = '//'.Config::get('domain.front');
+		//Change this later - it works in production.
 		return redirect('//'.Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
        	
 	}
@@ -255,7 +261,8 @@ class AuthController extends Controller implements AuthenticateUserListener {
 			return redirect()->intended($this->redirectMain());
 
 		}
-				
+		
+		//Change this later - it works in production.
 		return redirect('//'.Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
        	
 	}
