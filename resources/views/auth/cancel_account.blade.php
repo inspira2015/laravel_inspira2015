@@ -1,4 +1,4 @@
-@extends('layouts.basic', array('title' => 'Cancel Account', 'background' => '1.jpg'))
+@extends('layouts.basic', array('title' => Lang::get('auth.cancel-account-title'), 'background' => '2.jpg' ))
 
 @section('content')
 
