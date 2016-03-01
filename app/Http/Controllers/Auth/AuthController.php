@@ -156,7 +156,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 
         }
         
-        return redirect(Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+        return redirect('//'.Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
     }
     
     
@@ -170,13 +170,13 @@ class AuthController extends Controller implements AuthenticateUserListener {
         $this->auth->logout();
         $this->session->flash('message', "Ha cerrado sesión con éxito");
         $this->session->flash('alert-class', 'alert-danger');
-        return redirect('http://'.Config::get('domain.front'));
+        return redirect('//'.Config::get('domain.front'));
     }
     
      public function tryAgain() {
         $this->session->flash('message', "No se encuentra conectado");
         $this->session->flash('alert-class', 'alert-danger');
-        return redirect('http://'.Config::get('domain.front'));
+        return redirect('//'.Config::get('domain.front'));
     }
     
     
@@ -191,7 +191,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
     }
     
     public function redirectMain() {
-        return Config::get('domain.front');
+        return '//'.Config::get('domain.front');
     }
     
     
@@ -227,7 +227,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 			return view('auth.cancel_account');
 		}
 		
-		return redirect(Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+		return redirect('//'.Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
        	
 	}
 	
@@ -248,7 +248,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
 
 		}
 				
-		return redirect(Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+		return redirect('//'.Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
        	
 	}
 	
