@@ -57,7 +57,7 @@ class CheckUserWithFacebook
         }
         
 	    //Change this later - it works in production.
-		$link = "<script>this.window.close(); var myWindow = window.open('http://{$url}?error_message={$message}#openModal', '_self');myWindow.focus();</script>";
+		$link = "<script>this.window.close(); var myWindow = window.open('{$url}?error_message={$message}#openModal', '_self');myWindow.focus();</script>";
 
 		echo $link;
 		return '';
