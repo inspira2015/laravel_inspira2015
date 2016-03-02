@@ -109,7 +109,7 @@ class VacationfundsController extends Controller
 			), 200);
 		}
 				
-		if(	Session::get('creation-ref') ){
+		if(	Session::get('fb-ref') ){
 			$userValidator = new UserRegistrationFacebook();
 			$userValidation = $userValidator->validator( $user , Lang::getLocale() );
 

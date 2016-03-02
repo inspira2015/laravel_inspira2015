@@ -38,6 +38,7 @@ class CreateUserWithFacebook
 			//Tiene que es registro? 
 			if(!$this->checkFacebookRegistry()){
 				$fbUser->user['avatar'] = $fbUser->avatar;
+				Session::put('fb-ref', 'fb');
 				return $listener->registry( (array)$fbUser->user );
 			}
 		}
