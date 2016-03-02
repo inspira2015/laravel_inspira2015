@@ -2,7 +2,7 @@
 
 use Validator;
 
-class UserRegistration
+class UserRegistrationFacebook
 {
 	private $messages = array(
 		'en' => [],
@@ -19,9 +19,7 @@ class UserRegistration
 			'password.min' => 'La contraseña debe tener como mínimo 6 caracteres.',
 			'password.required' => 'La contraseña es requerida.',
 			'password.confirmed' => 'Las contraseñas no coinciden.',
- 			'password_confirmation.required' => 'La confirmación de contraseña es requerida.',
- 			'cellphone_number.min' => 'El número de celular debe tener como mínimo 10 dígitos.',
-			'cellphone_number.required' => 'El número de celular es requerido.'
+ 			'password_confirmation.required' => 'La confirmación de contraseña es requerida.'
 		]
 	);
 
@@ -34,7 +32,6 @@ class UserRegistration
 			'password' => 'required|min:6|confirmed',
 			'password_confirmation' => 'required',
 			'state' => 'required|alpha',
-			'cellphone_number' => 'required|numeric|min:10'
 		], $this->messages[$lang]);
 	}
 

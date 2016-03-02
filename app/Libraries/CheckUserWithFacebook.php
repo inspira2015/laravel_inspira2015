@@ -64,7 +64,6 @@ class CheckUserWithFacebook
 	
 	private function checkFacebookRegistry(){
 		if(Session::get('creation-ref')){
-			Session::forget('creation-ref');
 			return TRUE;			
 		}
 		return FALSE;

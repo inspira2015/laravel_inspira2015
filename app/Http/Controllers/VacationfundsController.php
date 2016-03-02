@@ -13,6 +13,7 @@ use Config;
 use App\Libraries\Affiliations\ParseCurrencyFromPost;
 use App\Libraries\CreateUser\CheckAndSaveUserInfo;
 use App\Services\UserRegistration;
+use App\Services\UserRegistrationFacebook;
 use App\Services\VacationFund;
 use App\Model\Entity\UserVacFundLog;
 use Auth;
@@ -107,16 +108,31 @@ class VacationfundsController extends Controller
 				'redirect' => 'false'
 			), 200);
 		}
-		
-		$userValidator = new UserRegistration();		
-		$userValidation = $userValidator->validator( $user , Lang::getLocale() );
+				
+/*
+		if(	!Session::get('creation-ref') ){
+			$userValidator = new UserRegistrationFacebook();
+			$userValidator = new UserRegistration();	
+			$userValidation = $userValidator->validator( $user , Lang::getLocale() );
+
+			if( ! $userValidation->passes() ){			
+				return $this->htmlResponseContinue( implode(' ',$userValidation->errors()->all()) );
+			}
+				
+		}else{
+			$userValidator = new UserRegistration();	
+			$userValidation = $userValidator->validator( $user , Lang::getLocale() );
+
+			if( ! $userValidation->passes() ){			
+				return $this->htmlResponseContinue( implode(' ',$userValidation->errors()->all()) );
+			}
+		}
+*/
 
 		$fundValidator = new VacationFund();
 		$fundValidation = $fundValidator->validator(Session::get( 'vacationfund' ), Lang::getLocale());
 		
-		if( ! $userValidation->passes() ){			
-			return $this->htmlResponseContinue( implode(' ',$userValidation->errors()->all()) );
-		}
+
 		if(! $fundValidation->passes() ){
 			return $this->htmlResponseContinue( implode(' ',  $fundValidation->errors()->all() ) );
 		}
