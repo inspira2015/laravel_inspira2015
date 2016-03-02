@@ -109,7 +109,6 @@ class VacationfundsController extends Controller
 			), 200);
 		}
 				
-/*
 		if(	!Session::get('creation-ref') ){
 			$userValidator = new UserRegistrationFacebook();
 			$userValidator = new UserRegistration();	
@@ -127,7 +126,6 @@ class VacationfundsController extends Controller
 				return $this->htmlResponseContinue( implode(' ',$userValidation->errors()->all()) );
 			}
 		}
-*/
 
 		$fundValidator = new VacationFund();
 		$fundValidation = $fundValidator->validator(Session::get( 'vacationfund' ), Lang::getLocale());
