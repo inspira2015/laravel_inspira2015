@@ -13,6 +13,7 @@ return [
 	'reset-link-sent' => 'Your password restore link has been sent. Please check your e-mail inbox.',
 	'invalid-user' => 'Your e-mail is incorrect. Please try again or contact the administrator customerservice@inspiramexico.mx',
 	'cancel-account' => 'Registration of your account has been canceled.',
+	'cancel-confirmed' => 'Your account has already been activated. To cancel it or for more info contact us at customerservcie@inspiramexico.mx or call us Toll Free:1.855.INSPIRA',
 	'cancel-account-title' => 'Cancel Account',
 	'wrong-credentials' => 'These credentials do not match our records.',
 	'check-facebook-error' => 'This FB account is already registered. To continue please sign-out of current account and 

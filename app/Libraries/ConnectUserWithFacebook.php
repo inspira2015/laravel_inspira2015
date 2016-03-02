@@ -68,7 +68,7 @@ class ConnectUserWithFacebook
 				        $url.= '/en';
 			        }
 			        //Change this later - it works in production.
-					return redirect($url.'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+					return redirect($url.'?error_message='.Lang::get('auth.wrong-credentials').'#openModal2');
 				}
 			}
 	

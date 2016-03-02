@@ -3,6 +3,7 @@
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Lang;
+use Config;
 
 class Authenticate {
 

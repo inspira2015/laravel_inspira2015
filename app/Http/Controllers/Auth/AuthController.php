@@ -122,7 +122,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
         }
         
         //Change this later - it works in production.
-        return redirect($url.'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+        return redirect($url.'?error_message='.Lang::get('auth.wrong-credentials').'#openModal2');
         
     }
     
@@ -171,7 +171,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
         }
         
         //Change this later - it works in production.
-        return redirect($url.'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+        return redirect($url.'?error_message='.Lang::get('auth.wrong-credentials').'#openModal2');
         
     }
     
@@ -235,15 +235,23 @@ class AuthController extends Controller implements AuthenticateUserListener {
 			$this->setLanguage();
 
 			$user_id = $this->auth->user()->id;
-			$this->auth->logout();
 			
-			$this->userDao->delete($user_id);
-			return view('auth.cancel_account');
+			if( $this->auth->user()->confirmed ){
+				return view('auth.cancel_confirmed');
+			}else{
+				$this->auth->logout();
+				$this->userDao->delete($user_id);
+				return view('auth.cancel_account');
+			}
+
 		}
 		
 		$url = '//'.Config::get('domain.front');
-		//Change this later - it works in production.
-		return redirect('//'.Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+        if(Lang::getLocale() == 'en'){
+	        $url.= '/en';
+        }
+   		//Change this later - it works in production.
+		return redirect($url.'?error_message='.Lang::get('auth.wrong-credentials').'#openModal2');
        	
 	}
 	
@@ -253,19 +261,26 @@ class AuthController extends Controller implements AuthenticateUserListener {
 		
 		UserSession::put(array('email' => $email , 'password' => $encryptedPassword));
 		
+		
+		$url = '//'.Config::get('domain.front');
+        if(Lang::getLocale() == 'en'){
+	        $url.= '/en';
+        }
+        
         if ($this->auth->attempt( $credentials )) {  
 			$this->setLanguage();
 			
 			$user_id = $this->auth->user()->id;
+			if( $this->auth->user()->confirmed ){
+				return redirect($url.'?error_message='.Lang::get('auth.cancel-confirmed').'#openModal2');
+			}
 			$this->auth->logout();
-			
 			$this->userDao->delete($user_id);
 			return redirect()->intended($this->redirectMain());
-
 		}
 		
 		//Change this later - it works in production.
-		return redirect('//'.Config::get('domain.front').'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+		return redirect($url.'?error_message='.Lang::get('auth.wrong-credentials').'#openModal2');
        	
 	}
 	
@@ -286,7 +301,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
         }
         
         //Change this later - it works in production.
-        return redirect($url.'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+        return redirect($url.'?error_message='.Lang::get('auth.wrong-credentials').'#openModal2');
        	
 	}
 	
@@ -304,12 +319,12 @@ class AuthController extends Controller implements AuthenticateUserListener {
 		}
 		
 		$url = '//'.Config::get('domain.front');
-        if($request->get('lang') == 'en'){
+        if(Lang::getLocale() == 'en'){
 	        $url.= '/en';
         }
         
         //Change this later - it works in production.
-        return redirect($url.'?error_message=<b%20style="color:red">'.Lang::get('auth.wrong-credentials').'</b>#openModal2');
+        return redirect($url.'?error_message='.Lang::get('auth.wrong-credentials').'#openModal2');
        	
 	}
 

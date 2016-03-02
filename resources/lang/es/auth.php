@@ -13,6 +13,7 @@ return [
 	'reset-link-sent' => 'Se ha enviado exitosamente el correo. Por favor revise su bandeja.',
 	'invalid-user' => 'El correo es incorrecto. Favor de intentar de nuevo o contacte al administrador en customerservice@inspiramexico.mx',
 	'cancel-account' => 'Su proceso de registro ha sido cancelado.',
+	'cancel-confirmed' => 'Su cuenta ya ha sido dada de alta. Para cancelar o mayores informes favor de comunicarse con nosotros a customerservice@inspiramexico.mx o llamarnos al tel. 55.8526.1061',
 	'cancel-account-title' => 'Registration of your account has been canceled.',
 	'wrong-credentials' => 'Estas credenciales no coinciden con nuestros registros.',
 	'check-facebook-error' => 'Esta cuenta de FB ya se encuentra registrada. Para continuar salga de esta cuenta e inicie 
