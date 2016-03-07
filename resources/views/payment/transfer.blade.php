@@ -35,7 +35,7 @@
 		<img src="images/markets.png">
 	</div>
 	<div class="col-xs-8 col-sm-4 text-center">
-		<a class="btn-blue-clear btn-small underline">M&aacute;s Info</a>
+		<a class="btn-blue-clear btn-small underline">{{ Lang::get('userdata.more-info') }}</a>
 	</div>
 </div>
 {!! Form::close() !!}
