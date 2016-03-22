@@ -8,7 +8,7 @@ class PaymentMethodCC
 	private $messages = [
 		'en' => [
 			'cnumber.required' => 'The Card Number field is required.',
-			'codigo.required' => 'The CCV field is required.',
+			'ccv.required' => 'The CCV field is required.',
 			'expiration_date.required' => 'The expiration date field is required.',
 			'expiration_date.regex' => 'The expiration date format must be MM/YYYY.',
 			'birthdate.required' => 'The birthdate field is required.',
@@ -21,8 +21,8 @@ class PaymentMethodCC
 		'es' => [
 			'cnumber.required' => 'El número de tarjeta es requerido.',
 			'cnumber.numeric' => 'El número de tarjeta sólo puede contener números.',
-			'codigo.required' => 'El código CCV es requerido.',
-			'codigo.numeric' => 'El teléfono de oficina sólo puede contener números.',
+			'ccv.required' => 'El código CCV es requerido.',
+			'ccv.numeric' => 'El teléfono de oficina sólo puede contener números.',
 			'name_on_card.required' => 'El nombre en tarjeta es requerido.',
 			'name_on_card.min' => 'El nombre se requiere de una longitud mayor.',
 			'expiration_date.required' => 'La fecha de Expiración es requerida.',

@@ -89,9 +89,9 @@ class AffiliationCharge extends Controller
 		$this->userAffiliationDao = $userAffiliation;
 		$this->affDao = $affDao;
 
-		PayU::$apiKey = "tq4SDejVi5zKlmlw0L78AM4vLf";  //Ingrese aquí su propio apiKey.
-		PayU::$apiLogin = "W4Cwmrzwp1e87SZ"; //Ingrese aquí su propio apiLogin.
-		PayU::$merchantId = "529182";  //Ingrese aquí su Id de Comercio.
+		PayU::$apiKey = Config::get('payu.apiKey');  //Ingrese aquí su propio apiKey.
+		PayU::$apiLogin = Config::get('payu.apiLogin'); //Ingrese aquí su propio apiLogin.
+		PayU::$merchantId = Config::get('payu.merchantId');  //Ingrese aquí su Id de Comercio.
 		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
 		PayU::$isTest = FALSE; //Dejarlo True cuando sean pruebas.
 
@@ -142,7 +142,9 @@ class AffiliationCharge extends Controller
 			
 			$codeUsed = $codeUsedDao->getCodesUsedByUserId($user->id);
 			
-			$payment = $codeDao->getById($codeUsed->codes_id)->payment;
+// 			print_r( $codeDao->getById($codeUsed->codes_id) );
+			$code = $codeDao->getById($codeUsed->codes_id);
+			$payment = $code['payment_type'];
 			
 			switch($payment){
 				case 1: 
@@ -152,6 +154,7 @@ class AffiliationCharge extends Controller
 				default: $paymentDays = 0; break;
 			}
 
+			
 			$this->prepareTransactionArray->setUserId( $user->id );
 			$this->convertHelper->setCost( $userCurrentAffiliation->amount );
 			$this->convertHelper->setCurrencyOfCost( $userCurrentAffiliation->currency );
@@ -161,10 +164,12 @@ class AffiliationCharge extends Controller
 			$this->prepareTransactionArray->setCurrency( 'MXN' );
 	
 			$parameters = $this->prepareTransactionArray->getParameters();
+/*
 						echo "<pre>";
 			print_r($parameters);
 			echo "</pre>";
 			exit;
+*/
 	
 			if($parameters['value'] == 0){
 				echo "Succes";
@@ -186,9 +191,11 @@ class AffiliationCharge extends Controller
 
 			$response = PayUPayments::doAuthorizationAndCapture($parameters);
 			
+/*
 			
 					print_r($response);
 			exit;
+*/
 			
 			if( empty($response) )
 			{
@@ -205,7 +212,7 @@ class AffiliationCharge extends Controller
 			{
 				$this->chargeUserAffiliation->setTransactionInfo( array(  'users_id' => $user->id,
 																		  'code' => 'Error',
-																		'type' => 'Charge Affiliation',
+																		  'type' => 'Charge Affiliation',
 																		  'description' => $response->error,
 																		  'json_data' => json_encode($response) ));
 				$this->chargeUserAffiliation->saveTransaction();
@@ -285,7 +292,7 @@ class AffiliationCharge extends Controller
 			$inspiraPoints = $this->convertMoneyToPoints->getPoints();
 
 			//Fecha de cargo = fecha de afiliacion(month.week,year) + fecha actual - tries.
-			$charge_at = Carbon::now()->addDays(($paymentDays-$this->userDao->days_overdue));			
+			$charge_at = Carbon::now()->addDays(($paymentDays-$this->userDao->days_overdue));	
 			$this->userDao->days_overdue = 0;
 
 			$this->inspiraPoints->setDate( date('Y-m-d') );

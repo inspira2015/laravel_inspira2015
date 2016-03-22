@@ -32,6 +32,7 @@ use App\Libraries\ExchangeRate\ConvertCurrencyHelper;
 use App\Libraries\CardPayment;
 use App\Model\Entity\UserVacationalFunds;
 use App\Model\Dao\SystemTransactionDao;
+use App\Libraries\GetLastBalance;
 
 
 use App\Libraries\PayU\PayUReports;
@@ -44,6 +45,7 @@ use Lang;
 use Response;
 use GeoIP;
 use URL;
+use Config;
 
 class PaymentController extends Controller {
 
@@ -79,7 +81,7 @@ class PaymentController extends Controller {
 	private $exchange;
 	private $convertHelper;
 	private $userAuth;
-
+	private $lastUserBalance;
 
 	public function __construct( UserTokenRegistration $sysDao,
 								SetBillableDate $billable,
@@ -91,7 +93,8 @@ class PaymentController extends Controller {
 								AddInspiraPoints $inspiraPoints,
 								CodesUsedEntity $codesUsed,
 								CCPayment $ccpayment,
-								ExchangeMXNUSD $exchangeMXNUSD)
+								ExchangeMXNUSD $exchangeMXNUSD,
+								GetLastBalance $lastBalance)
 	{
 		//echo base_path();
 		$this->middleware('auth');
@@ -113,6 +116,7 @@ class PaymentController extends Controller {
 		$this->convertHelper->setRateUSDMXN( $this->exchange->getTodayRate() );
 		$this->convertHelper->setCurrencyShow( $this->userAuth['currency'] );
 		$this->setLanguage();
+		$this->lastUserBalance = $lastBalance;
 
 
 /*
@@ -121,20 +125,20 @@ class PaymentController extends Controller {
 		PayU::$merchantId = "529182";  //Ingrese aquí su Id de Comercio.
 */
 
-		PayU::$apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c";  //Ingrese aquí su propio apiKey.
-		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
-		PayU::$merchantId = "500238";  //Ingrese aquí su Id de Comercio.
+		PayU::$apiKey = Config::get('payu.apiKey');;  //Ingrese aquí su propio apiKey.
+		PayU::$apiLogin = Config::get('payu.apiLogin'); //Ingrese aquí su propio apiLogin.
+		PayU::$merchantId = Config::get('payu.merchantId');  //Ingrese aquí su Id de Comercio.
 		
 		PayU::$language = (Lang::locale() == 'es' ) ? SupportedLanguages::ES : SupportedLanguages::EN; //Seleccione el idioma.
 		PayU::$isTest = FALSE; //Dejarlo True cuando sean pruebas.
 
 		// URL de Pagos
-		Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
-		//Environment::setPaymentsCustomUrl("https://api.payulatam.com/payments-api/4.0/service.cgi");
+// 		Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
+		Environment::setPaymentsCustomUrl("https://api.payulatam.com/payments-api/4.0/service.cgi");
 
 		// URL de Consultas
-		Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
-		//Environment::setReportsCustomUrl("https://api.payulatam.com/reports-api/4.0/service.cgi");
+// 		Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
+		Environment::setReportsCustomUrl("https://api.payulatam.com/reports-api/4.0/service.cgi");
 
 		// URL de Suscripciones para Pagos Recurrentes
 		//Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");
@@ -663,11 +667,14 @@ exit;*/
 		//Validar
 		$paymentMethodCC = new PaymentMethodCC();
 		$validator = $paymentMethodCC->validator( $data, Lang::locale() );
+		$exp_date = explode('/', $data['expiration_date']);
+		
 		
 		$location = GeoIP::getLocation();
 		
 		if ( $validator->passes() ) 
         {
+	        $data['expiration_date'] = $exp_date[1].'/'.$exp_date[0];
 			$cardPayment = new CardPayment();
 			
 /*
@@ -698,6 +705,7 @@ exit;*/
 								'full_name' => $this->userAuth->name. ' '.$this->userAuth->last_name,
 								'id' => $this->userAuth->id,
 								'email' => $this->userAuth->email,
+								'token' => "algo",
 								'city' => $data['city'],
 								'state' => $data['state'],
 								'country' => $data['country'],
@@ -722,21 +730,63 @@ exit;*/
 			if( $cardPayment->checkPaymentData() )
 			{
 				
+			
 				if( $cardPayment->doToken() ){
 					$response = $cardPayment->getToken();
 					$responseArray = (array) $response;
-					
+				
 					if( $cardPayment->getToken()->code == 'SUCCESS' )
 					{
+						//Save to transaction if success
+						//print_r($responseArray);
+						/*ex. Array ( [code] => SUCCESS [transactionResponse] => stdClass Object ( [orderId] => 106219677 [transactionId] => 1036cd41-c04b-4fbb-8c96-0c944d5886ac [state] => PENDING [pendingReason] => PENDING_REVIEW [responseCode] => PENDING_TRANSACTION_REVIEW ) )
+Sucursal*/
+						switch ($response->state) {
+						    case 'APPROVED':
+						        $code = 'Success';
+						        $type = 'Payment Settled';
+								$description = 'The Bonus Credit Card payment has been settled';
+						        break;
+						    case 'DECLINED':
+						    case 'ERROR':
+	 						case 'EXPIRED':
+						    case 'SUBMITTED':
+						        $code = 'Error';
+								$type = 'Cash Payment Error';
+								$description = 'No The Bonus Credit Card has been settled';
+						        break;
+	 						case 'PENDING':
+						        continue;
+						        break;
+	 						
+						}
+					
 						$userVacationFundDao = new UserVacationalFunds();
 						$sysTransactionDao = new SystemTransactionDao();
 						$this->convertHelper->setCost( $data['amount'] );
 						$this->convertHelper->setCurrencyOfCost( $data['currency'] );
 						$formatedAmount = $this->convertHelper->getFomattedAmount();
 							
-						
-
 						$this->sysTransaction->setUser( $this->userAuth );
+						
+/*
+						$paymentInfo =  array( 'users_id' => $this->userAuth->id,
+					      'token' => 12342,
+					      'ccv' => $data['ccv'],
+					      'name_on_card' => $data['name_on_card'],
+					      'birthdate' => $data['birthdate'],
+					      'payment_method' => 'CC',
+					      'address' => $data['address'],
+					      'city' => $data['city'],
+					      'state' => $data['state'],
+					      'zip_code' => $data['zip_code'],
+					      'country' => $data['country']);
+
+						$this->sysTransaction->setUserPaymentInfo( $paymentInfo );
+						$this->sysTransaction->saveData();
+*/
+			
+/*
 						$this->sysTransaction->setTransactionInfo( array('users_id' => $this->userAuth->id,
 																'code' => 'Success',
 																'type' => 'Register CC Payment Transaction',
@@ -746,7 +796,8 @@ exit;*/
 																'currency' => $data['currency'],
 																'payu_transaction_id' => $cardPayment->getTransactionId() ) );
 						$this->sysTransaction->saveData();	
-						//Save to VacationalFund step.
+*/
+						//Save to VacationalFund step if success ccard.
 						$this->sysTransaction = $sysTransactionDao->getLastTransaction($this->userAuth->id);
 						
 						$userVacationlArray = array();
@@ -764,7 +815,7 @@ exit;*/
 		
 						$userVacationFundDao->exchangeArray( $userVacationlArray );
 						$userVacationFundDao->save();
-									
+					
 						return view('useraccount.payment')
 									->with( 'success' , Lang::get('userdata.success.transaction') )
 									->with('user', $this->userAuth );
@@ -782,13 +833,11 @@ exit;*/
 						$this->sysTransaction->saveData();	
 					}
 				}else{
-					return view('payment.card')->withErrors($cardPayment->getErrors())->with('user', $this->userAuth );
+					return $this->htmlResponseContinue( implode(' ',$cardPayment->errors()->all()) );
 				}
 			}
 		}
-		return view('payment.card')->withErrors($validator)->with('user', $this->userAuth )->with( $this->getCCData() );
-		
-
+		return $this->htmlResponseContinue( implode(' ',$validator->errors()->all()) );
 	}
 
 }

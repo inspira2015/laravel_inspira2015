@@ -147,7 +147,7 @@ class UserDao extends UserEntity implements ICrudOperations
  	public function getUserAffiliatonPayment()
  	{
  		$now = Carbon::now();
- 		$minimumDay = Carbon::now()->subDays(5);     
+ 		$minimumDay = Carbon::now()->subDays(5);
  		return User::has('affiliations')->where( 'billable_day', '>=',$minimumDay->day  )->where( 'billable_day', '<=',$now->day )->where('days_overdue', '<=',5)->get();
  	}
 

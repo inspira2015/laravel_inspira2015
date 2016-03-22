@@ -33,7 +33,7 @@ class UserPaymentInfoEntity extends UserPaymentInfoDao
         $this->token       			= (isset($valid_data['token'])) ? trim($valid_data['token']) : null;
         $this->ccv       			= (isset($valid_data['ccv'])) ? trim($valid_data['ccv']) : null;        
         $this->name_on_card       	= (isset($valid_data['name_on_card'])) ? trim($valid_data['name_on_card']) : null;
- 		$this->birthdate       		= $this->checkDate($valid_data);
+ 		$this->birthdate       		= (isset($valid_data['birthdate'])) ? trim($valid_data['birthdate']) : null;
  		$this->payment_method       = (isset($valid_data['payment_method'])) ? trim($valid_data['payment_method']) : null;
         $this->address       		= (isset($valid_data['address'])) ? trim($valid_data['address']) : null;
         $this->address2       		= (isset($valid_data['address2'])) ? trim($valid_data['address2']) : null;

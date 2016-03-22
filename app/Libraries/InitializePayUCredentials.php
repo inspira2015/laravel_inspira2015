@@ -10,7 +10,7 @@ use App\Libraries\PayU\PayUTokens;
 use App\Libraries\PayU\api\PayUCountries;
 use App\Libraries\PayU\PayUPayments;
 use Lang;
-
+use Config;
 /*
 	|--------------------------------------------------------------------------
 	| Final validataion befor user creation
@@ -32,9 +32,9 @@ class InitializePayUCredentials
 		PayU::$apiLogin = "11959c415b33d0c"; //Ingrese aquí su propio apiLogin.
 		PayU::$merchantId = "500238";  //Ingrese aquí su Id de Comercio.
 */
-		PayU::$apiKey = "tq4SDejVi5zKlmlw0L78AM4vLf";  //Ingrese aquí su propio apiKey.
-		PayU::$apiLogin = "W4Cwmrzwp1e87SZ"; //Ingrese aquí su propio apiLogin.
-		PayU::$merchantId = "529182";  //Ingrese aquí su Id de Comercio.
+		PayU::$apiKey = Config::get('payu.apiKey');  //Ingrese aquí su propio apiKey.
+		PayU::$apiLogin = Config::get('payu.apiLogin'); //Ingrese aquí su propio apiLogin.
+		PayU::$merchantId = Config::get('payu.merchantId');  //Ingrese aquí su Id de Comercio.
 		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
 		PayU::$isTest = FALSE; //Dejarlo True cuando sean pruebas.
 

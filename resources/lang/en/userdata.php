@@ -48,6 +48,10 @@ return [
 		"store" => "On Location",
 		"online" => "Online"
 	],
+	"payment-description" => [
+		"store" => "Cash Bonus Payment",
+		"online" => "Online Bonus Payment"
+	],
 	"affect-vacationfund" => "The currency exchange affect your statement and monthly payments",
 	"changes-to" => "Changes to",
 	"current" => "Current",

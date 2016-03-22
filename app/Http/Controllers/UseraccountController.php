@@ -324,8 +324,8 @@ class UseraccountController extends Controller{
 							'currency' => $data['currency']
 						]);
 		$cashPayment->setItem([
-				'reference' => 'Item-test-'.time(),
-				'description' => 'Test description', 
+				'reference' => 'PB-'.time(),
+				'description' => Lang::get('userdata.payment-description.store'), 
 				'method' => $data['payment_on']
 			]);
 	

@@ -8,6 +8,7 @@ use Redirect;
 use Response;
 use Session;
 use Auth;
+use Config;
 use App\Model\Entity\ExchangeRateEntity;
 use App\Libraries\ApiExchangeRate\CurrentExchangeRate;
 use Mail;
@@ -65,9 +66,9 @@ class CashTransaction extends Controller
 		$this->chargeCashOnVacationalFunds = $chargeCash;
 		$this->userDao = $userDao;
 		
-		PayU::$apiKey = "tq4SDejVi5zKlmlw0L78AM4vLf";  //Ingrese aquí su propio apiKey.
-		PayU::$apiLogin = "W4Cwmrzwp1e87SZ"; //Ingrese aquí su propio apiLogin.
-		PayU::$merchantId = "529182";  //Ingrese aquí su Id de Comercio.
+		PayU::$apiKey = Config::get('payu.apiKey');;  //Ingrese aquí su propio apiKey.
+		PayU::$apiLogin = Config::get('payu.apiLogin');; //Ingrese aquí su propio apiLogin.
+		PayU::$merchantId = Config::get('payu.merchantId');;  //Ingrese aquí su Id de Comercio.
 		PayU::$language = SupportedLanguages::ES; //Seleccione el idioma.
 		PayU::$isTest = TRUE; //Dejarlo True cuando sean pruebas.
 
@@ -85,6 +86,7 @@ class CashTransaction extends Controller
 
 		$systemTransaction = $this->systemTransactionDao->getCashTransaction();
 
+		print_r($systemTransaction);
 		foreach( $systemTransaction as $transaction )
 		{
 			print_r($user );

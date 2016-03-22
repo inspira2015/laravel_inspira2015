@@ -48,6 +48,10 @@ return [
 		"store" => "Sucursal",
 		"online" => "En línea"
 	],
+	"payment-description" => [
+		"store" => "Pago de Bono Adicional En Sucursal",
+		"online" => "Pago de Bono Adicional En Línea"
+	],	
 	"affect-vacationfund" => "El cambio de moneda afectará su estado de cuenta y pagos mensuales",
 	"changes-to" => "Cambia a",
 	"current" => "Actual",
