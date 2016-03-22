@@ -59,8 +59,9 @@ class CreateLeisureLoyaltyUser
 		 	"email" => $this->objUser->email,
 			"languageCode"=> strtoupper($this->objUser->language),
 			"mtierId"=> (int)$userAffiliation->affiliation->tier_id,
+			"countryCode" => $this->objUser->country,
 			"memberId"=> $memberId,
-			"memberDays" => $this->membersDays,
+			"memberDays" => $this->membersDays
 		);
 
 		$context = stream_context_create(array(
