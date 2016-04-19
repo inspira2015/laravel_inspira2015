@@ -186,7 +186,10 @@ class LeisureLoyaltyUser
 	//Create or retrive a memberID
 	public function createOrRetriveMemberId()
 	{
-		return $this->checkCreateLeisureUser();
+		$user = $this->checkMemberByEmail();
+		if(!$user)
+			return $this->checkCreateLeisureUser();
+		return $user['memberId'];
 	}
 
 
