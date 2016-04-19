@@ -49,6 +49,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 
 	@include('layouts.__common.footer')
 

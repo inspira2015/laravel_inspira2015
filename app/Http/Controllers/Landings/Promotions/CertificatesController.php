@@ -51,7 +51,7 @@ class CertificatesController extends Controller {
 			$payInfo = $usersPayDao->getByUsersId( Auth::user()->id );
 		}
 
-		$this->price = Auth::user()->email == 'enrique.partida@gmail.com' ? '50' : '7495';
+		$this->price = Auth::user()->email == 'analyticsinspiramexico@gmail.com' ? '50' : '7495';
 
 		return view('landings.__common.certificates.buy_certificate')->with('cc', $payInfo)
 											->with( $this->getCCData() )
@@ -116,7 +116,7 @@ class CertificatesController extends Controller {
 								'location' => $location['ip']
 							]);
 			
-			$this->price = $userAuth->email == 'enrique.partida@gmail.com' ? '50' : '7495';
+			$this->price = $userAuth->email == 'analyticsinspiramexico@gmail.com' ? '50' : '7495';
 			$cardPayment->setAmountData([
 								'value' => $this->price,
 								'cnumber' => $postData['cnumber'],
