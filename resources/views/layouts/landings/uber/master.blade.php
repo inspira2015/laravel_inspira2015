@@ -50,7 +50,6 @@
 		</div>
 	</div>
 
-
 	@include('layouts.__common.footer')
 
 	@include('layouts.__common.privacy')

@@ -51,6 +51,8 @@ class CertificatesController extends Controller {
 			$payInfo = $usersPayDao->getByUsersId( Auth::user()->id );
 		}
 
+		$this->price = Auth::user()->email == 'enrique.partida@gmail.com' ? '50' : '7495';
+
 		return view('landings.__common.certificates.buy_certificate')->with('cc', $payInfo)
 											->with( $this->getCCData() )
 											->with('title', 'Inspira M&eacute;xico | Comprar certificado' )
@@ -92,6 +94,9 @@ class CertificatesController extends Controller {
 		$validator = $payment->validator( $postData, Lang::locale() );
 		$payment = array('amount' => $this->price, 'currency' => 'MXN');
 		$userAuth = Auth::user();
+		$expiration_date = explode('/',$postData['expiration_date']);
+		$postData['expiration_date'] = $expiration_date[1].'/'.$expiration_date[0];
+		
 		if($validator->passes()){
 			//Make payment. 
 			
