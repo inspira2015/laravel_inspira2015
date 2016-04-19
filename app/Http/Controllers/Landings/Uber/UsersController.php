@@ -17,6 +17,7 @@ use Session;
 use Redirect;
 use Config;
 use GeoIP;
+use Crypt;
 
 class UsersController extends Controller {
 	private $createUser;
@@ -76,7 +77,7 @@ class UsersController extends Controller {
 
 					//Update user.	//Guardar el memberId
 					$memberId = $this->leisureLoyalty->createOrRetriveMemberId();
-					if($memberId !== FALSE){
+					if($memberId){
 						$userDao = new UserDao();
 						$userDao->load($userAuth->id);
 						$userDao->leisure_id = $memberId;

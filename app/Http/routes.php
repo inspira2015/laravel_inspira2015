@@ -19,9 +19,8 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 
 });
 
-
 Route::group(array('domain' => Config::get('domain.promotions')), function(){
-// 	Route::get('/', 'Landings\Promotions\PageController@index');
+ 	Route::get('/', 'Landings\Promotions\PageController@index');
 	Route::get('useraccount', 'Landings\Promotions\PageController@index');
 	Route::get('destino/mazatlan', 'Landings\Promotions\PageController@goMazatlan');
 	Route::get('destino/orlando', 'Landings\Promotions\PageController@goOrlando');
@@ -57,7 +56,7 @@ Route::group(array('domain' => Config::get('domain.promotions')), function(){
 Route::group(array('domain' => Config::get('domain.uber') ), function(){
 	
 ///	Config::get('domain.uber')
-// 	Route::get('/', 'Landings\Uber\PageController@index');
+	Route::get('/', 'Landings\Uber\PageController@index');
 	Route::get('useraccount', 'Landings\Uber\PageController@index');
 	Route::get('destino/mazatlan', 'Landings\Uber\PageController@goMazatlan');
 	Route::get('destino/las-vegas', 'Landings\Uber\PageController@goLasVegas');
@@ -111,6 +110,7 @@ Route::group(array('domain' => Config::get('domain.front')), function(){
 	Route::put('api/v1/inspirapoints/concepts/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Monthlyconceptsmovements');
 	Route::put('api/v1/inspirapoints/mbalance/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Monthlybalance');
 	Route::put('api/v1/inspirapoints/balance/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Currentbalance');
+	Route::put('api/v1/reservation', 'ApiForLoyalty\ApiReservationsController@putReservation');
 
 
 

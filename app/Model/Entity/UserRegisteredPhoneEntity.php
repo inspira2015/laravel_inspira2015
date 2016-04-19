@@ -42,8 +42,15 @@ class UserRegisteredPhoneEntity
 				list($type,$temp) = explode('_',$key);
 			} 
 		}
-		$valid_data['type'] = $type;
-		$valid_data['number'] = $valid_data[$temp_key];
+		
+		if(isset($type) && isset($temp_key)){
+            $valid_data['type'] = @$type;
+            $valid_data['number'] = $valid_data[@$temp_key];
+		}else{
+		    $valid_data['type'] = 'office';
+            $valid_data['number'] = '';
+		}
+		return $valid_data;
 		return $valid_data;
 	}
 

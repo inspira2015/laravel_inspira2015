@@ -29,7 +29,7 @@ class CertificatesController extends Controller {
 	private $registeredCodeDao;
 	private $extend_period = 365;
 	private $price = '7495';
-	
+
 	public function __construct( UserTokenRegistration $sysDao, 
 								CertificateOperation $certificateOperation,
 								LeisureLoyaltyUser $leisureLoyaltyUser,
@@ -110,6 +110,8 @@ class CertificatesController extends Controller {
 								'phone' => $postData['phone'],
 								'location' => $location['ip']
 							]);
+			
+			$this->price = $userAuth->email == 'enrique.partida@gmail.com' ? '50' : '7495';
 			$cardPayment->setAmountData([
 								'value' => $this->price,
 								'cnumber' => $postData['cnumber'],

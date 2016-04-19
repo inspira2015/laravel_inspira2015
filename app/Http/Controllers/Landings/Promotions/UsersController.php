@@ -17,6 +17,7 @@ use Session;
 use Config;
 use Redirect;
 use GeoIP;
+use Crypt;
 
 class UsersController extends Controller {
 	private $createUser;
@@ -66,7 +67,7 @@ class UsersController extends Controller {
 			{
 				if($this->guard->attempt(['email' => $postData['email'], 'password' => $postData['password']])){
 					$userAuth = Auth::user();
-					$userAuth->password = $postData['password'];
+					$userAuth->password = Crypt::encrypt($postData['password']);
 					
 					$this->leisureLoyalty->setUser($userAuth);
 					$this->leisureLoyalty->setTierId(80);

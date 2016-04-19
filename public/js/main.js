@@ -77,7 +77,7 @@ $(document).ready(function(){
 				feature._apply_bonus( _radio_bonus );
 				feature._apply_anchor( _anchor );
 				
-				$.ajaxSetup({headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')	}});
+				$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')	}});
 				
 // 				$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 
