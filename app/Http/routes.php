@@ -108,6 +108,7 @@ Route::group(array('domain' => Config::get('domain.api')), function(){
 
 Route::group(array('domain' => Config::get('domain.front')), function(){
 
+	Route::get('login/leisure/{id?}', 'Auth\AuthController@getLoginLeisure');
 	Route::put('api/v1/inspirapoints/addpayment/{leisure_id}', 'ApiForLoyalty\ApiadditionalpaymentsController@Monthlypayment');
 	Route::put('api/v1/inspirapoints/earned/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Pointsearnpermonth');
 	Route::put('api/v1/inspirapoints/spent/{leisure_id}', 'ApiForLoyalty\InspirapointsController@Pointsspendpermonth');

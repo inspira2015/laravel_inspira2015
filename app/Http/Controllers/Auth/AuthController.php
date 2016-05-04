@@ -44,7 +44,7 @@ class AuthController extends Controller implements AuthenticateUserListener {
                                  UserDao $userdao ) {
         $this->auth = $auth;
         $this->session = $session;
-        $this->middleware('both', ['only' => 'getLogin', 'getWpCheckfb']);
+        $this->middleware('both', ['only' => 'getLogin', 'getWpCheckfb', 'getLoginLeisure']);
         $this->checkAccountSetup = $checkUser;
         $this->userDao = $userdao;
 		$this->setLanguage();
@@ -326,6 +326,10 @@ class AuthController extends Controller implements AuthenticateUserListener {
         //Change this later - it works in production.
         return redirect($url.'?error_message='.Lang::get('auth.wrong-credentials').'#openModal2');
        	
+	}
+	
+	public function getLoginLeisure( $id ){
+		return redirect("http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={$id}");
 	}
 
 }
