@@ -32,28 +32,49 @@ class PageController extends Controller {
 	}
 		
 	public function goMazatlan(){
-		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=RoRJln63xXF9SOj');
+		header('Location: '.$this->getSearch('RoRJln63xXF9SOj'));
 		exit;
 	}
 	
 	public function goPuertoVallarta(){
-		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=8K8lqf3X6AGnBNx');
+		header('Location: '.$this->getSearch('8K8lqf3X6AGnBNx'));
 		exit;
 	}
 	
 	public function goOrlando(){
-		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=Y0mTkfbSEAIzqJj');
+		header('Location: '.$this->getSearch('Y0mTkfbSEAIzqJj'));
 		exit;
 	}
 	
 	public function goMalaga(){
-		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=Pe6eaUuRtO8QB0t');
+		header('Location: '.$this->getSearch('Pe6eaUuRtO8QB0t'));
+		exit;
+	}
+	
+	public function goManzanillo(){
+		header('Location: '.$this->getSearch('wWaxDP24eaLp01h'));
+		exit;
+	}
+	
+	public function goLasVegas(){
+		header('Location: '.$this->getSearch('Uzitc91Hy7FJKPQ'));
+		exit;
+	}
+	
+	public function goCostaRica(){
+		header('Location: '.$this->getSearch('SkYvjf2QVKYbq6h'));
 		exit;
 	}
 	
 	public function goDestination(){
-		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346');
+		header('Location: '.$this->getSearch());
 		exit;
+	}
+	
+
+	private function getSearch($search = null){
+		$mid = Input::get('lang') ? 'VIIM00243' : 'VIIM00242';
+		return "http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={$mid}&targetUri=/resortweeks/quickSearch?saved_search={$search}";
 	}
 	
 }

@@ -142,10 +142,7 @@ class UseraccountController extends Controller{
 			return Redirect::to('payment/credit-card');
 		}
 		
-		
-		$userObj = $this->userAuth->toArray();
-		
-		
+			
 		if(empty($this->userAuth->city)){
 			Session::put('complete-profile', 'false');
 		}

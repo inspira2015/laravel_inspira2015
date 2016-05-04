@@ -9,7 +9,6 @@
 	</h3>
 </div>
 <div class="col-xs-12 form-data">
-
 	<div class="row  form-data">
 		<strong>{{ Lang::get('userdata.cell') }}</strong>: {{ $user->phones->cell }}
 	</div>

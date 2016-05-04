@@ -108,23 +108,24 @@ class VacationfundsController extends Controller
 				'redirect' => 'false'
 			), 200);
 		}
+		
 				
 		if(	Session::get('fb-ref') ){
 			$userValidator = new UserRegistrationFacebook();
 			$userValidation = $userValidator->validator( $user , Lang::getLocale() );
-
 			if( ! $userValidation->passes() ){			
 				return $this->htmlResponseContinue( implode(' ',$userValidation->errors()->all()) );
 			}
 				
+		}else {
+			$userValidator = new UserRegistration();	
+			$userValidation = $userValidator->validator( $user , Lang::getLocale() );
+	
+			if( ! $userValidation->passes() ){			
+				return $this->htmlResponseContinue( implode(' ',$userValidation->errors()->all()) );
+			}
 		}
 		
-		$userValidator = new UserRegistration();	
-		$userValidation = $userValidator->validator( $user , Lang::getLocale() );
-
-		if( ! $userValidation->passes() ){			
-			return $this->htmlResponseContinue( implode(' ',$userValidation->errors()->all()) );
-		}
 
 		$fundValidator = new VacationFund();
 		$fundValidation = $fundValidator->validator(Session::get( 'vacationfund' ), Lang::getLocale());

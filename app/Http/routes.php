@@ -28,6 +28,11 @@ Route::group(array('domain' => Config::get('domain.promotions')), function(){
 	Route::get('destino/puerto-vallarta', 'Landings\Promotions\PageController@goPuertoVallarta');
 	Route::get('destino', 'Landings\Promotions\PageController@goDestination');
 	
+	Route::get('destino/manzanillo', 'Landings\Promotions\PageController@goManzanillo');
+	Route::get('destino/las-vegas', 'Landings\Promotions\PageController@goLasVegas');
+	Route::get('destino/costa-rica', 'Landings\Promotions\PageController@goCostaRica');
+
+	
 	Route::post('usar-semana', 'Landings\Promotions\CertificatesController@postUseWeek');
 	Route::get('usar-semana/{email}', 'Landings\Promotions\CertificatesController@getUseWeek');
 	Route::get('comprar-certificado', 'Landings\Promotions\CertificatesController@getBuyCertificate');
