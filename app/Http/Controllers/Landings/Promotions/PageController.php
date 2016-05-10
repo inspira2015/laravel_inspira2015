@@ -73,7 +73,11 @@ class PageController extends Controller {
 	
 
 	private function getSearch($search = null){
-		$mid = Input::get('lang') ? 'VIIM00243' : 'VIIM00242';
+		if(Input::get('u')) {
+			$mid = 'VIIM1346';
+		}else{
+			$mid = Input::get('lang') ? 'VIIM00243' : 'VIIM00242';
+		}
 		return "http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid={$mid}&targetUri=/resortweeks/quickSearch?saved_search={$search}";
 	}
 	

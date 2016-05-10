@@ -140,31 +140,31 @@
 		<div class="col-xs-12 nopadding">
 			<ul>
 				<li>
-					<a href="{{ url('destino/mazatlan') }}" target="_blank">
+					<a href="{{ url('destino/mazatlan?u=demo') }}" target="_blank">
 						{!! HTML::image('images/destinations/mazatlan-2.jpg', 'Mazatl&aacute;n, Mex.') !!}
 						<span>Mazatl&aacute;n, Mex.</span>
 					</a>
 				</li>
 				<li>
-					<a href="{{ url('destino/puerto-vallarta') }}" target="_blank">
+					<a href="{{ url('destino/puerto-vallarta?u=demo') }}" target="_blank">
 						{!! HTML::image('images/destinations/puertovallarta.jpg', 'Puerto Vallarta, Mex.') !!}
 						<span>Puerto Vallarta, Mex.</span>
 					</a>
 				</li>
 				<li>
-					<a href="{{ url('destino/orlando') }}" target="_blank">
+					<a href="{{ url('destino/orlando?u=demo') }}" target="_blank">
 						{!! HTML::image('images/destinations/orlando.jpg', 'Orlando') !!}
 						<span>Orlando, E.U.</span>
 					</a>
 				</li>
 				<li>
-					<a href="{{ url('destino/malaga') }}" target="_blank">
+					<a href="{{ url('destino/malaga?u=demo') }}" target="_blank">
 						{!! HTML::image('images/destinations/malaga.jpg', 'M&aacute;laga, Esp.') !!}
 						<span>M&aacute;laga, Esp.</span>
 					</a>
 				</li>
 				<li class="hidden-xs">
-					<a href="{{ url('destino') }}" target="_blank">
+					<a href="{{ url('destino?u=demo') }}" target="_blank">
 						{!! HTML::image('images/destinations/donde-quieres-ir.jpg', '&iquest; A d&oacute;nde quieres ir ?') !!}
 						<span>&iquest; A d&oacute;nde quieres ir ?</span>
 					</a>
