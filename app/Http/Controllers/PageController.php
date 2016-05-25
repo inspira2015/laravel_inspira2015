@@ -31,7 +31,7 @@ class PageController extends Controller {
 	}
 	
 	public function goPuertoVallarta(){
-		header('Location: '.$this->autoLogin().'&targetUri=/resortweeks/quickSearch?saved_search=8K8lqf3X6AGnBNx');
+		header('Location: '.$this->autoLogin().'&targetUri=/resortweeks/quickSearch?saved_search=ecURqob5nPYBumV');
 		exit;
 	}
 	

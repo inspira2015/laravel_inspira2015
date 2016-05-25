@@ -48,7 +48,7 @@ class PageController extends Controller {
 	}
 	
 	public function goPuertoVallarta(){
-		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=8K8lqf3X6AGnBNx');
+		header('Location: http://inspiramexico.leisureloyalty.com/autologin?data=2014RawlaT&mid=VIIM1346&targetUri=/resortweeks/quickSearch?saved_search=ecURqob5nPYBumV');
 		exit;
 	}
 	

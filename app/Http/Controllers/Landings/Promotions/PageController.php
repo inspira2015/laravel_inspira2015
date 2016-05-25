@@ -37,7 +37,7 @@ class PageController extends Controller {
 	}
 	
 	public function goPuertoVallarta(){
-		header('Location: '.$this->getSearch('8K8lqf3X6AGnBNx'));
+		header('Location: '.$this->getSearch('hmKjadvb3eDSPNA'));
 		exit;
 	}
 	
