@@ -102,9 +102,24 @@ class LeisureLoyaltyUser
 		    )
 		));
 		
-		$response = file_get_contents($url, FALSE, $context);
-		$stdResponse = json_decode($response);
+		try {
+			$response = file_get_contents($url, FALSE, $context);
+					
+		}catch(Exception $e){
+			switch($method){
+				case 'PUT': 
+					$response = $this->sendPutData($url, $postData);
+				break;
+				case 'GET': 
+					$response = $this->sendGetData($url, $postData);
+				break;
+				case 'POST': 
+					$response = $this->sendPostData($url, $postData);
+				break;
+			}
+		}
 
+		$stdResponse = json_decode($response);	
 		$this->leisureLoyaltyResponse = $response;
 		return $stdResponse;
 		
@@ -260,4 +275,50 @@ class LeisureLoyaltyUser
 
 		return FALSE;
 	}
+	
+	protected function sendPostData($url, $post){
+	  $ch = curl_init($url);
+	  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");  
+	  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+	  curl_setopt($ch, CURLOPT_FRESH_CONNECT, TRUE);
+	  curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+	  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	  curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+	  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); 
+	  $result = curl_exec($ch);
+	  curl_close($ch);  // Seems like good practice
+	  return $result;
+	}
+	
+	protected function sendGetData($url){
+	  $ch = curl_init($url);
+	  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");  
+	  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+	  curl_setopt($ch, CURLOPT_FRESH_CONNECT, TRUE);
+	  curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+	  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); 
+	  $result = curl_exec($ch);
+	  curl_close($ch);  // Seems like good practice
+	  return $result;
+	}
+	
+	
+	protected function sendPutData($url, $put){
+	  $ch = curl_init($url);
+	  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");  
+	  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+	  curl_setopt($ch, CURLOPT_FRESH_CONNECT, TRUE);
+	  curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+	  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	  if( isset( $put) ) {
+	  	  curl_setopt($ch, CURLOPT_POSTFIELDS, $put);
+	  }
+	  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); 
+	  $result = curl_exec($ch);
+	  curl_close($ch);  // Seems like good practice
+	  return $result;
+	}
+
+
 }
