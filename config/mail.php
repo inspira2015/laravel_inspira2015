@@ -28,7 +28,7 @@ return [
 	|
 	*/
 
-	'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+	'host' => env('MAIL_HOST'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -41,7 +41,7 @@ return [
 	|
 	*/
 
-	'port' => env('MAIL_PORT', 587),
+	'port' => env('MAIL_PORT'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'soporte@inspiramexico.mx', 'name' => 'Inspira Mexico'],
+	'from' => env('MAIL_FROM'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
 	|
 	*/
 
-	'username' => env('postmaster@inspiramexico.mx'),
+	'username' => env('MAIL_USERNAME'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
 	|
 	*/
 
-	'password' => env('e53cbb9ceed88e735daa4aae09d8c4c6'),
+	'password' => env('MAIL_PASSWORD'),
 
 	/*
 	|--------------------------------------------------------------------------
